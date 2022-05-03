@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -45,9 +45,7 @@ public class CharacterNetwork : NetworkBehaviour
 
     public override void OnStartLocalPlayer ( )
     {
-        Camera.main.transform.SetParent ( transform );
-        Camera.main.transform.localPosition = new Vector3 ( 0 , 2.75f , -1.74f );
-        Camera.main.transform.Rotate(new Vector3 (34.38f,0,0 ));
+      
         GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
 
     }
