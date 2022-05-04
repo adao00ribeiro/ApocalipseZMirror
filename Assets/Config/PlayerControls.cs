@@ -78,7 +78,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""5dcf6ef0-a862-42dc-96f9-adfd4f1dcd67"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -139,6 +139,105 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""name"": ""Drop Weapon"",
                     ""type"": ""Button"",
                     ""id"": ""2376864b-2267-4d9c-abde-c7fc3ac5e5a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lean Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8142ed1-de08-43a0-aafb-c820e3edecf7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lean Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""ffbb7af8-d9a1-4557-a20f-a629265cff86"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha1"",
+                    ""type"": ""Button"",
+                    ""id"": ""1aa627f3-c6f6-476f-9a47-394a90e8dc89"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha2"",
+                    ""type"": ""Button"",
+                    ""id"": ""57c59fcd-6e89-45cc-af6d-04882966c646"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha3"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1abfdb6-692f-4969-a8f2-347cd7a98855"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha4"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c9ececf-d0f3-431a-89b7-0e0ac9afd025"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha5"",
+                    ""type"": ""Button"",
+                    ""id"": ""f585caec-6a1c-4c05-bf15-02d16dbd45eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha6"",
+                    ""type"": ""Button"",
+                    ""id"": ""47d3500f-63f2-410e-839d-8700d11839f5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha7"",
+                    ""type"": ""Button"",
+                    ""id"": ""79f3222b-91fa-4dc6-9ec9-d8125a751204"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha8"",
+                    ""type"": ""Button"",
+                    ""id"": ""3b791def-ecf9-4454-81fc-3c814d98bf14"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alpha9"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ee55dd8-9550-4121-8759-1c21d96cf143"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -440,6 +539,127 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Drop Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""05540a31-20f9-452c-ac99-f7a61b4168aa"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Lean Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf18263f-a4af-4287-8df3-d70173a0808d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Lean Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cfe89ee4-8933-4303-af99-f5189ecfc2bf"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a86b0977-9183-4483-a73f-bac2fdf66313"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a307f428-bff0-4184-91d3-a9bf49e071ce"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce152cac-0331-412f-96ed-73887ca8c532"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6c535845-59a8-48d4-ad28-c4e916b12233"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11ef678e-44bd-485d-8fae-28d3845fd43a"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0be5daaf-5448-49e9-9183-df09c33122ba"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f532f32e-6d61-4e62-84a8-2f4bd2c15e4d"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31fbad71-d900-4821-83ef-7345b8351411"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Alpha9"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1040,6 +1260,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_DropWeapon = m_Player.FindAction("Drop Weapon", throwIfNotFound: true);
+        m_Player_LeanLeft = m_Player.FindAction("Lean Left", throwIfNotFound: true);
+        m_Player_LeanRight = m_Player.FindAction("Lean Right", throwIfNotFound: true);
+        m_Player_Alpha1 = m_Player.FindAction("Alpha1", throwIfNotFound: true);
+        m_Player_Alpha2 = m_Player.FindAction("Alpha2", throwIfNotFound: true);
+        m_Player_Alpha3 = m_Player.FindAction("Alpha3", throwIfNotFound: true);
+        m_Player_Alpha4 = m_Player.FindAction("Alpha4", throwIfNotFound: true);
+        m_Player_Alpha5 = m_Player.FindAction("Alpha5", throwIfNotFound: true);
+        m_Player_Alpha6 = m_Player.FindAction("Alpha6", throwIfNotFound: true);
+        m_Player_Alpha7 = m_Player.FindAction("Alpha7", throwIfNotFound: true);
+        m_Player_Alpha8 = m_Player.FindAction("Alpha8", throwIfNotFound: true);
+        m_Player_Alpha9 = m_Player.FindAction("Alpha9", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1124,6 +1355,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Use;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_DropWeapon;
+    private readonly InputAction m_Player_LeanLeft;
+    private readonly InputAction m_Player_LeanRight;
+    private readonly InputAction m_Player_Alpha1;
+    private readonly InputAction m_Player_Alpha2;
+    private readonly InputAction m_Player_Alpha3;
+    private readonly InputAction m_Player_Alpha4;
+    private readonly InputAction m_Player_Alpha5;
+    private readonly InputAction m_Player_Alpha6;
+    private readonly InputAction m_Player_Alpha7;
+    private readonly InputAction m_Player_Alpha8;
+    private readonly InputAction m_Player_Alpha9;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1141,6 +1383,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @DropWeapon => m_Wrapper.m_Player_DropWeapon;
+        public InputAction @LeanLeft => m_Wrapper.m_Player_LeanLeft;
+        public InputAction @LeanRight => m_Wrapper.m_Player_LeanRight;
+        public InputAction @Alpha1 => m_Wrapper.m_Player_Alpha1;
+        public InputAction @Alpha2 => m_Wrapper.m_Player_Alpha2;
+        public InputAction @Alpha3 => m_Wrapper.m_Player_Alpha3;
+        public InputAction @Alpha4 => m_Wrapper.m_Player_Alpha4;
+        public InputAction @Alpha5 => m_Wrapper.m_Player_Alpha5;
+        public InputAction @Alpha6 => m_Wrapper.m_Player_Alpha6;
+        public InputAction @Alpha7 => m_Wrapper.m_Player_Alpha7;
+        public InputAction @Alpha8 => m_Wrapper.m_Player_Alpha8;
+        public InputAction @Alpha9 => m_Wrapper.m_Player_Alpha9;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1189,6 +1442,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DropWeapon.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropWeapon;
                 @DropWeapon.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropWeapon;
                 @DropWeapon.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDropWeapon;
+                @LeanLeft.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanLeft;
+                @LeanLeft.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanLeft;
+                @LeanLeft.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanLeft;
+                @LeanRight.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanRight;
+                @LeanRight.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanRight;
+                @LeanRight.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLeanRight;
+                @Alpha1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha1;
+                @Alpha1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha1;
+                @Alpha1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha1;
+                @Alpha2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha2;
+                @Alpha2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha2;
+                @Alpha2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha2;
+                @Alpha3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha3;
+                @Alpha3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha3;
+                @Alpha3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha3;
+                @Alpha4.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha4;
+                @Alpha4.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha4;
+                @Alpha4.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha4;
+                @Alpha5.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha5;
+                @Alpha5.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha5;
+                @Alpha5.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha5;
+                @Alpha6.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha6;
+                @Alpha6.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha6;
+                @Alpha6.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha6;
+                @Alpha7.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha7;
+                @Alpha7.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha7;
+                @Alpha7.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha7;
+                @Alpha8.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha8;
+                @Alpha8.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha8;
+                @Alpha8.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha8;
+                @Alpha9.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
+                @Alpha9.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
+                @Alpha9.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1232,6 +1518,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @DropWeapon.started += instance.OnDropWeapon;
                 @DropWeapon.performed += instance.OnDropWeapon;
                 @DropWeapon.canceled += instance.OnDropWeapon;
+                @LeanLeft.started += instance.OnLeanLeft;
+                @LeanLeft.performed += instance.OnLeanLeft;
+                @LeanLeft.canceled += instance.OnLeanLeft;
+                @LeanRight.started += instance.OnLeanRight;
+                @LeanRight.performed += instance.OnLeanRight;
+                @LeanRight.canceled += instance.OnLeanRight;
+                @Alpha1.started += instance.OnAlpha1;
+                @Alpha1.performed += instance.OnAlpha1;
+                @Alpha1.canceled += instance.OnAlpha1;
+                @Alpha2.started += instance.OnAlpha2;
+                @Alpha2.performed += instance.OnAlpha2;
+                @Alpha2.canceled += instance.OnAlpha2;
+                @Alpha3.started += instance.OnAlpha3;
+                @Alpha3.performed += instance.OnAlpha3;
+                @Alpha3.canceled += instance.OnAlpha3;
+                @Alpha4.started += instance.OnAlpha4;
+                @Alpha4.performed += instance.OnAlpha4;
+                @Alpha4.canceled += instance.OnAlpha4;
+                @Alpha5.started += instance.OnAlpha5;
+                @Alpha5.performed += instance.OnAlpha5;
+                @Alpha5.canceled += instance.OnAlpha5;
+                @Alpha6.started += instance.OnAlpha6;
+                @Alpha6.performed += instance.OnAlpha6;
+                @Alpha6.canceled += instance.OnAlpha6;
+                @Alpha7.started += instance.OnAlpha7;
+                @Alpha7.performed += instance.OnAlpha7;
+                @Alpha7.canceled += instance.OnAlpha7;
+                @Alpha8.started += instance.OnAlpha8;
+                @Alpha8.performed += instance.OnAlpha8;
+                @Alpha8.canceled += instance.OnAlpha8;
+                @Alpha9.started += instance.OnAlpha9;
+                @Alpha9.performed += instance.OnAlpha9;
+                @Alpha9.canceled += instance.OnAlpha9;
             }
         }
     }
@@ -1401,6 +1720,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnUse(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
         void OnDropWeapon(InputAction.CallbackContext context);
+        void OnLeanLeft(InputAction.CallbackContext context);
+        void OnLeanRight(InputAction.CallbackContext context);
+        void OnAlpha1(InputAction.CallbackContext context);
+        void OnAlpha2(InputAction.CallbackContext context);
+        void OnAlpha3(InputAction.CallbackContext context);
+        void OnAlpha4(InputAction.CallbackContext context);
+        void OnAlpha5(InputAction.CallbackContext context);
+        void OnAlpha6(InputAction.CallbackContext context);
+        void OnAlpha7(InputAction.CallbackContext context);
+        void OnAlpha8(InputAction.CallbackContext context);
+        void OnAlpha9(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

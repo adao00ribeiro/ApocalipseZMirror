@@ -4,8 +4,7 @@
 
 using UnityEngine;
 
-namespace DarkTreeFPS
-{
+
     public class Sway : MonoBehaviour
     {
         [Tooltip("Sway smooth amount")]
@@ -37,8 +36,10 @@ namespace DarkTreeFPS
 
             //Sway coefficient got from mouse input multyplied on swayAmmount for each axis
             
-                fx = -Input.GetAxis("Mouse X") * xSwayAmount;
-                fy = -Input.GetAxis("Mouse Y") * ySwayAmount;
+	        //   fx = - Input.GetAxis("Mouse X") * xSwayAmount;
+	        //  fy = - Input.GetAxis("Mouse Y") * ySwayAmount;
+	        fx = - InputManager.instance.GetMouseDelta().x * xSwayAmount;
+	        fy = - InputManager.instance.GetMouseDelta().y * ySwayAmount;
             
             
 
@@ -62,4 +63,3 @@ namespace DarkTreeFPS
         }
         
     }
-}

@@ -47,11 +47,24 @@ public class InputManager : MonoBehaviour
     }
 	public bool GetRun()
 	{
-		return playerControls.Player.Run.triggered;
+		
+		if(playerControls.Player.Run.ReadValue<float>()==0)
+			{
+			return false;
+			}
+	
+		return true;
 	}
 	public bool GetCrouch()
 	{
-		return playerControls.Player.Crouch.triggered;
+		
+		if(playerControls.Player.Crouch.ReadValue<float>()==0)
+		{
+			return false;
+		}
+	
+		return true;
+	
 	}
 	public bool GetReload()
 	{
@@ -77,8 +90,55 @@ public class InputManager : MonoBehaviour
 	{
 		return playerControls.Player.DropWeapon.triggered;
 	}
+	public bool GetLeanLeft()
+	{
+		return playerControls.Player.LeanLeft.triggered;
+	}
+	public bool GetLeanRight()
+	{
+		return playerControls.Player.LeanRight.triggered;
+	}
     internal Vector2 GetMouseDelta ( )
     {
        return playerControls.Player.Look.ReadValue<Vector2> ( );
     }
+    
+	#region ALPHAS
+	public bool GetAlpha1()
+	{
+		return playerControls.Player.Alpha1.triggered;
+	}
+	public bool GetAlpha2()
+	{
+		return playerControls.Player.Alpha2.triggered;
+	}
+	public bool GetAlpha3()
+	{
+		return playerControls.Player.Alpha3.triggered;
+	}
+	public bool GetAlpha4()
+	{
+		return playerControls.Player.Alpha4.triggered;
+	}
+	public bool GetAlpha5()
+	{
+		return playerControls.Player.Alpha5.triggered;
+	}
+	public bool GetAlpha6()
+	{
+		return playerControls.Player.Alpha6.triggered;
+	}
+	public bool GetAlpha7()
+	{
+		return playerControls.Player.Alpha7.triggered;
+	}
+	public bool GetAlpha8()
+	{
+		return playerControls.Player.Alpha8.triggered;
+	}
+	public bool GetAlpha9()
+	{
+		return playerControls.Player.Alpha9.triggered;
+	}	
+	#endregion
 }
