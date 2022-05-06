@@ -45,6 +45,10 @@ public class InputManager : MonoBehaviour
     {
         return playerControls.Player.Jump.triggered;
     }
+	public bool GetInventory ( )
+	{
+		return playerControls.Player.Inventory.triggered;
+	}
 	public bool GetRun()
 	{
 		
@@ -69,6 +73,10 @@ public class InputManager : MonoBehaviour
 	public bool GetReload()
 	{
 		return playerControls.Player.Reload.triggered;
+	}
+	public bool GetFire()
+	{
+		return playerControls.Player.Fire.triggered;
 	}
 	public bool GetFireModeSingle()
 	{

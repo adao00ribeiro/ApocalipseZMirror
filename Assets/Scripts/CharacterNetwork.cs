@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Mirror;
-using UnityEngine.InputSystem;
+
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent ( typeof ( NetworkTransform ) )]
-public class CharacterNetwork : NetworkBehaviour
+public class CharacterNetwork : NetworkBehaviour,ICharacterNetwork
 {
 	[Header("Moviment end Jump")]
 	private float Speed = 5f;
@@ -26,15 +26,19 @@ public class CharacterNetwork : NetworkBehaviour
 	
     private Vector3 moveDirection = Vector3.zero;
     private float directionY;
-
+	public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
+	private Vector3 previousPos = new Vector3();
     [SerializeField] private GameObject[] mesh; 
         
     private Transform CameraTransform;
     public Transform pivohead;
+
+	
     //inputs
     
     private InputManager input;
- 
+    internal bool lockCursor;
+
     private void Awake ( )
     {
         
@@ -62,6 +66,12 @@ public class CharacterNetwork : NetworkBehaviour
         GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
 
     }
+	public float GetVelocityMagnitude()
+	{
+		var velocity = ((transform.position - previousPos).magnitude) / Time.deltaTime;
+		previousPos = transform.position;
+		return velocity;
+	}
     // Update is called once per frame
     void Update()
     {
@@ -78,7 +88,9 @@ public class CharacterNetwork : NetworkBehaviour
         moveDirection = CameraTransform.forward * moveDirection.z + CameraTransform.right * moveDirection.x;
        
         transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation().x , 0 );
-        if ( input.GetIsJump() && controller.isGrounded )
+        
+		
+		if ( input.GetIsJump() && controller.isGrounded )
         {
             directionY = jumpSpeed;
         }
@@ -96,8 +108,6 @@ public class CharacterNetwork : NetworkBehaviour
 		{
 			return true;
 		}
-            
-            
 		return false;
 	}
     #region Animation
