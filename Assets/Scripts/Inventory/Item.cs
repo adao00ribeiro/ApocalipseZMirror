@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public enum ItemType {none, weapon, ammo, consumable }
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour,IItem
 {
     [System.Serializable]
     public class OnUseEvent : UnityEvent { }
@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
         this.id = id;
         this.title = title;
         this.description = description;
-        this.icon = icon;
+       // this.icon = icon;
         this.type = itemType;
     }
 

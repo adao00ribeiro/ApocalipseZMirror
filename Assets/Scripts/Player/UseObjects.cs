@@ -55,7 +55,7 @@ using UnityEngine.UI;
                         useText.text = use.GetComponent<Item>().title;
 	                    if (InputManager.instance.GetUse())
                             {
-                                inventory.GiveItem(use.GetComponent<Item>());
+                                inventory.AddItem(use.GetComponent<Item>());
                                 use = null;
                             }
                         

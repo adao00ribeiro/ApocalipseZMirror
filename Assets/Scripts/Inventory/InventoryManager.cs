@@ -1,13 +1,9 @@
-﻿/// DarkTreeDevelopment (2019) DarkTree FPS v1.2
-/// If you have any questions feel free to write me at email --- darktreedevelopment@gmail.com ---
-/// Thanks for purchasing my asset!
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityStandardAssets.ImageEffects;
 
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour,IInventoryMananger
 {
     [System.Serializable]
     public class OnInventoryOpen : UnityEvent { }
@@ -51,7 +47,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void InventoryOpen ( )
+    public void InventoryOpen ( )
     {
         if ( isOpen )
             return;
@@ -66,7 +62,7 @@ public class InventoryManager : MonoBehaviour
 
         }
     }
-    private void InventoryClose ( )
+    public void InventoryClose ( )
     {
         if ( !isOpen )
             return;

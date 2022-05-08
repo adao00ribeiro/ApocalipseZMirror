@@ -64,6 +64,7 @@ public class FpsPlayer : NetworkBehaviour,IFpsPlayer
         AnimatorController.SetFloat ( "Horizontal" , inputManager.GetMoviment ( ).x );
         AnimatorController.SetFloat ( "Vertical" , inputManager.GetMoviment ( ).y );
         AnimatorController.SetBool ( "IsJump" , !Moviment.isGrounded() );
+        AnimatorController.SetBool("IsRun", Moviment.CheckMovement() && inputManager.GetRun());
 
 
         //weaponanimator

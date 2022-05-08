@@ -20,7 +20,7 @@ using UnityEngine.Events;
         public OnAddItem onAddItem;
 
         //Method to add item to inventory
-        public void GiveItem(Item item)
+        public void AddItem(Item item)
         {
             if (CheckFreeSpace() == false)
             {

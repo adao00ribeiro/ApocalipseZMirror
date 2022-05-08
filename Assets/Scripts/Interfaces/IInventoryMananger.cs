@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface IInventoryMananger
 {
+    void InventoryOpen();
 
+    void InventoryClose();
 }

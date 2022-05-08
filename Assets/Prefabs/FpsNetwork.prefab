@@ -143,6 +143,8 @@ GameObject:
   - component: {fileID: 5298346800785778581}
   - component: {fileID: -5810222880455609214}
   - component: {fileID: 2310472694490760683}
+  - component: {fileID: 7433572165634752114}
+  - component: {fileID: 1341184129484273092}
   m_Layer: 0
   m_Name: FpsNetwork
   m_TagString: Player
@@ -383,7 +385,6 @@ MonoBehaviour:
   AnimatorController: {fileID: 0}
   AnimatorWeaponHolderController: {fileID: 0}
   pivohead: {fileID: 5128694765276167891}
-  lockCursor: 0
 --- !u!114 &2310472694490760683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +402,51 @@ MonoBehaviour:
   crouchSpeed: 0.4
   jumpSpeed: 3.5
   CrouchHeight: 0.5
+--- !u!114 &7433572165634752114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7937274241e3e94eab06763a17cb600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons: []
+  UseNonPhysicalReticle: 1
+  haveMeleeWeaponByDefault: 1
+  melleeDefaultWeapon: {fileID: 0}
+  grenade: {fileID: 0}
+  slots: []
+  switchSlotIndex: 0
+  currentWeaponIndex: 0
+  activeSlot: {fileID: 0}
+  scopeImage: {fileID: 0}
+  reticleDynamic: {fileID: 0}
+  reticleStatic: {fileID: 0}
+  weaponHolderAnimator: {fileID: 0}
+  tempGameobject: {fileID: 0}
+--- !u!114 &1341184129484273092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7077e5bb91351d4c962f9e00fd1ae29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 1
+  OnOpen:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClose:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0
@@ -10385,7 +10431,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7138003721380281350}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e25d8a6d6994d7c409cb5f3239fc5032, type: 3}
   m_Name: 
