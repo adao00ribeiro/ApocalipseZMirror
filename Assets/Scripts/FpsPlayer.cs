@@ -8,7 +8,6 @@ using Cinemachine;
 [RequireComponent ( typeof ( NetworkTransform ) )]
 [RequireComponent ( typeof ( Moviment ) )]
 [RequireComponent ( typeof ( WeaponManager ) )]
-[RequireComponent ( typeof ( InventoryManager ) )]
 public class FpsPlayer : NetworkBehaviour,IFpsPlayer
 {
  
@@ -16,10 +15,14 @@ public class FpsPlayer : NetworkBehaviour,IFpsPlayer
     IWeaponManager WeaponManager;
     IInventory Inventory;
     IInventoryMananger InventoryManager;
+    public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
+    public Vector2 smoothing = new Vector2(3, 3);
+    public bool isClimbing = true;
+    private Vector3 previousPos = new Vector3();
     InputManager inputManager;
     [SerializeField]private Animator AnimatorController;
     [SerializeField]private Animator AnimatorWeaponHolderController;
-
+    [SerializeField] private GameObject[] mesh;
     public Transform pivohead;
     private bool PlockCursor;
 
@@ -40,11 +43,22 @@ public class FpsPlayer : NetworkBehaviour,IFpsPlayer
         AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
       
     }
+
+
     public override void OnStartLocalPlayer ( )
     {
-
+        for (int i = 0; i < mesh.Length; i++)
+        {
+            mesh[i].layer = 7;
+        }
         GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
+        SetInventoryManager(GameObject.FindObjectOfType<InventoryManager>());
+        GameObject.FindObjectOfType<InventoryManager>().SetFpsPlayer(this);
 
+    }
+    public void SetInventoryManager(InventoryManager manager)
+    {
+        InventoryManager = manager;
     }
     // Update is called once per frame
     void Update()
@@ -53,7 +67,18 @@ public class FpsPlayer : NetworkBehaviour,IFpsPlayer
         {
             return;
         }
-	    Animation();
+
+        if (lockCursor)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        Animation();
         transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
     }
@@ -74,5 +99,10 @@ public class FpsPlayer : NetworkBehaviour,IFpsPlayer
         AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement( ) && inputManager.GetCrouch ( ) && Moviment.isGrounded() );
 
     }
-
+    public float GetVelocityMagnitude()
+    {
+        var velocity = ((transform.position - previousPos).magnitude) / Time.deltaTime;
+        previousPos = transform.position;
+        return velocity;
+    }
 }

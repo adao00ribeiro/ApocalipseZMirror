@@ -12,11 +12,10 @@ public class InventoryManager : MonoBehaviour,IInventoryMananger
 
     Canvas canvas;
     IFpsPlayer FpsPlayer;
-    Blur blurEffect;
-    InputManager input;
+    public Blur blurEffect;
 
     public static bool showInventory = false;
-    public bool isOpen = true;
+    public bool isOpen = false;
 
     public OnInventoryOpen OnOpen;
     public OnInventoryClose OnClose;
@@ -24,9 +23,6 @@ public class InventoryManager : MonoBehaviour,IInventoryMananger
     private void Start ( )
     {
         canvas = GetComponent<Canvas> ( );
-        FpsPlayer = GameObject.FindObjectOfType<FpsPlayer> ( );
-        blurEffect = Camera.main.GetComponent<Blur> ( );
-        input = FindObjectOfType<InputManager> ( );
         InventoryClose ( );
     }
 
@@ -36,7 +32,10 @@ public class InventoryManager : MonoBehaviour,IInventoryMananger
         {
             showInventory = !showInventory;
         }
-
+        if (FpsPlayer == null)
+        {
+            return;
+        }
         if ( showInventory )
         {
             InventoryOpen ( );
@@ -76,5 +75,12 @@ public class InventoryManager : MonoBehaviour,IInventoryMananger
             isOpen = false;
         }
     }
+    public void SetFpsPlayer(IFpsPlayer player)
+    {
+
+        FpsPlayer = player;
+        blurEffect = Camera.main.GetComponent<Blur>();
+    }
+
 
 }

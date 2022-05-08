@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 public class WeaponManager : MonoBehaviour,IWeaponManager
 {
+
     //A public list which get all aviliable weapons on Start() and operate with them
     public List<Weapon> weapons;
 
@@ -48,6 +49,13 @@ public class WeaponManager : MonoBehaviour,IWeaponManager
 
     private void Start ( )
     {
+        weaponHolderAnimator = transform.Find("Camera & Recoil/WeaponCamera/Weapon holder").GetComponent<Animator>();
+        
+        scopeImage = GameObject.Find("Scope");
+        reticleDynamic = GameObject.Find("DynamicReticle");
+        reticleStatic = GameObject.Find("StaticReticle");
+ 
+      
         for ( int i = 0 ; i < slotsSize ; i++ )
         {
             Slot slot_temp = gameObject.AddComponent<Slot>();

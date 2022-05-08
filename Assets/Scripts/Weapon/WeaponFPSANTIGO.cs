@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Weapon : MonoBehaviour,IWeapon
+public class WeaponFPSANTIGO : MonoBehaviour
 {
 	[Header("Weapon setting")]
 
@@ -41,11 +41,11 @@ public class Weapon : MonoBehaviour,IWeapon
 
 	public GameObject grenadePrefab;
 
-	public enum FireMode { automatic, single }
+	public enum FireMode { automatic, single}
 	[Header("Fire mode")]
 	public FireMode fireMode;
 
-	#region Utility variables
+        #region Utility variables
 
 	//Here is a utility variables which get value from other scripts, set values to other scripts or used for calculations etc. 
 	//I will not comment them because it may look complicated and dirty
@@ -133,24 +133,23 @@ public class Weapon : MonoBehaviour,IWeapon
 
 	public RectTransform dynamicReticle
 	{
-		get
-		{
-			if (PdynamicReticle == null)
-			{
-				PdynamicReticle = GameObject.Find("DynamicReticle").GetComponent<RectTransform>();
+        get
+        {
+            if ( PdynamicReticle  == null) {
+				PdynamicReticle = GameObject.Find ( "DynamicReticle" ).GetComponent<RectTransform> ( );
 			}
 			return PdynamicReticle;
 		}
-	}
+    }
 	[HideInInspector]
 	public GameObject pstaticReticle;
 	public GameObject staticReticle
 	{
 		get
 		{
-			if (pstaticReticle == null)
+			if ( pstaticReticle == null )
 			{
-				pstaticReticle = GameObject.Find("StaticReticle");
+				pstaticReticle = GameObject.Find ( "StaticReticle" );
 			}
 			return pstaticReticle;
 		}
@@ -179,7 +178,7 @@ public class Weapon : MonoBehaviour,IWeapon
 
 	[HideInInspector]
 	public bool isThrowingGrenade = false;
-	#endregion
+        #endregion
 
 	// Get weapon name on Awake() before WeaponManager will disable weapon components. Made for pickup functionality. WeaponManager enables weapon by name and weapon name must be initialized before it turns off
 	private void Awake()
@@ -229,7 +228,7 @@ public class Weapon : MonoBehaviour,IWeapon
 		}
 
 	}
-
+        
 	private void Start()
 	{
 		GetWeaponSettings();
@@ -286,18 +285,18 @@ public class Weapon : MonoBehaviour,IWeapon
 		inventory = FindObjectOfType<Inventory>();
 		input = FindObjectOfType<InputManager>();
 
-		if (weaponManager.UseNonPhysicalReticle)
+		if ( weaponManager.UseNonPhysicalReticle )
 		{
-			if (GameObject.Find("StaticReticle") != null)
-			{
+			if ( GameObject.Find ( "StaticReticle" ) != null )
+            {
 				//staticReticle = GameObject.Find ( "StaticReticle" );
 			}
 		}
-
+			
 		else
 		{
-			if (GameObject.Find("DynamicReticle") != null)
-			{
+			if ( GameObject.Find ( "DynamicReticle" ) != null )
+            {
 				//	dynamicReticle = GameObject.Find ( "DynamicReticle" ).GetComponent<RectTransform> ( );
 			}
 
@@ -318,7 +317,7 @@ public class Weapon : MonoBehaviour,IWeapon
 		{
 			Fire();
 		}
-
+            
 		if (weaponType != WeaponType.Melee && weaponType != WeaponType.Grenade)
 		{
 			//Reloading consists of two stages ReloadBegin and ReloadEnd  
@@ -329,12 +328,12 @@ public class Weapon : MonoBehaviour,IWeapon
 				if (!reloading && !controller.isClimbing)
 					ReloadBegin();
 			}
-
+                
 			if (InputManager.instance.GetAim())
 			{
 				setAim = true;
-				sway.xSwayAmount = sway.xSwayAmount * 0.3f;
-				sway.ySwayAmount = sway.ySwayAmount * 0.3f;
+				sway.xSwayAmount = sway.xSwayAmount*0.3f;
+				sway.ySwayAmount = sway.ySwayAmount*0.3f;
 				if (weaponManager.UseNonPhysicalReticle)
 					staticReticle.SetActive(false);
 				else
@@ -350,7 +349,7 @@ public class Weapon : MonoBehaviour,IWeapon
 				else
 					dynamicReticle.gameObject.SetActive(true);
 			}
-
+                
 
 			SetAim();
 			UpdateAmmoText();
@@ -361,7 +360,7 @@ public class Weapon : MonoBehaviour,IWeapon
 
 		FireModeSwitch();
 	}
-
+        
 	public void FireMobile()
 	{
 		Fire();
@@ -383,7 +382,7 @@ public class Weapon : MonoBehaviour,IWeapon
 					currentAmmo -= 1;
 
 					PlayFX();
-
+                        
 					//Getting random damage from minimum and maximum damage.
 					calculatedDamage = Random.Range(damageMin, damageMax);
 
@@ -418,7 +417,7 @@ public class Weapon : MonoBehaviour,IWeapon
 			}
 
 		}
-		else if (weaponType == WeaponType.Grenade && !isThrowingGrenade)
+		else if(weaponType == WeaponType.Grenade && !isThrowingGrenade)
 		{
 			animator.SetTrigger("Throw");
 			isThrowingGrenade = true;
@@ -563,10 +562,10 @@ public class Weapon : MonoBehaviour,IWeapon
 				if (ammoItems[index].ammo == 0)
 					inventory.RemoveItem(ammoItems[index], true);
 			}
-			catch
-			{
-				//Do nothing. If ammo not enough, construction may drop exception. We catch exception there in this case and do nothing. Because construction works OK
-			}
+				catch
+				{
+					//Do nothing. If ammo not enough, construction may drop exception. We catch exception there in this case and do nothing. Because construction works OK
+				}
 		}
 		/*
 		for(int i = currentAmmo; i < maxAmmo; ++i) //For ammo < max ammo
@@ -609,10 +608,10 @@ public class Weapon : MonoBehaviour,IWeapon
 		{
 			animator.SetBool("Aim", true);
 		}
-
+            
 	}
 
-	#region Decal, projectiles, shot FX, hitFX managers
+        #region Decal, projectiles, shot FX, hitFX managers
 
 	public void HitParticlesFXManager(RaycastHit hit)
 	{
@@ -820,9 +819,9 @@ public class Weapon : MonoBehaviour,IWeapon
 		ricochetSource.PlayOneShot(ricochetSounds[Random.Range(0, ricochetSounds.Length)]);
 	}
 
-	#endregion
+        #endregion
 
-	#region Pool methods
+        #region Pool methods
 
 	public void ShellsPool()
 	{
@@ -843,7 +842,7 @@ public class Weapon : MonoBehaviour,IWeapon
 
 		var projectileSettingObject = Instantiate(projectile);
 		projectileSettingObject.SetActive(false);
-		projectileSettingObject.GetComponentInChildren<BalisticProjectile>().weapon = this;
+		//projectileSettingObject.GetComponentInChildren<BalisticProjectile>().weapon = this;
 		projectileSettingObject.GetComponentInChildren<BalisticProjectile>().initialVelocity = bulletInitialVelocity;
 		projectileSettingObject.GetComponentInChildren<BalisticProjectile>().airResistance = airResistanceForce;
 
@@ -857,9 +856,9 @@ public class Weapon : MonoBehaviour,IWeapon
 		}
 	}
 
-	#endregion
+        #endregion
 
-	#region Utility methods
+        #region Utility methods
 
 	public void SetAim()
 	{
@@ -920,14 +919,14 @@ public class Weapon : MonoBehaviour,IWeapon
 			dynamicReticle.transform.position = screenCenter;
 		}
 	}
-
+        
 	private void FireModeSwitch()
 	{
-		if (InputManager.instance.GetFireModeAuto())
+		if(InputManager.instance.GetFireModeAuto())
 		{
 			fireMode = FireMode.automatic;
 		}
-		if (InputManager.instance.GetFireModeSingle())
+		if(InputManager.instance.GetFireModeSingle())
 		{
 			fireMode = FireMode.single;
 		}
@@ -940,7 +939,7 @@ public class Weapon : MonoBehaviour,IWeapon
 
 		char mode = new char();
 
-		if (fireMode == FireMode.single)
+		if(fireMode == FireMode.single)
 		{
 			mode = '1';
 		}
@@ -981,7 +980,7 @@ public class Weapon : MonoBehaviour,IWeapon
 		return items;
 	}
 
-	#endregion
+        #endregion
 
 	private void OnDisable()
 	{

@@ -7,4 +7,6 @@ public interface IInventoryMananger
     void InventoryOpen();
 
     void InventoryClose();
+
+    void SetFpsPlayer(IFpsPlayer player);
 }

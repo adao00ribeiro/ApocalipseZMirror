@@ -4,23 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-    public class WeaponSlotInventory : MonoBehaviour
+public class WeaponSlotInventory : MonoBehaviour
+{
+    public Text weaponName;
+    public Text ammoCount;
+
+    public int slotIndex;
+
+    public Button dropButton;
+
+    private Image image;
+
+    private WeaponManager PweaponManager;
+    public WeaponManager weaponManager
     {
-        public Text weaponName;
-        public Text ammoCount;
-        
-        public int slotIndex;
-
-        public Button dropButton;
-
-        private Image image;
-
-        private WeaponManager weaponManager;
+        get
+        {
+            if (PweaponManager ==null)
+            {
+                PweaponManager = FindObjectOfType<WeaponManager>();
+            }
+            return PweaponManager;
+        }
+    }
 
         void Start()
         {
             image = GetComponent<Image>();
-            weaponManager = FindObjectOfType<WeaponManager>();
+          
         }
         
         void Update()

@@ -92,7 +92,13 @@ public class InputManager : MonoBehaviour
 	}
 	public bool GetAim()
 	{
-		return playerControls.Player.Aim.triggered;
+		if (playerControls.Player.Aim.ReadValue<float>() == 0)
+		{
+			return false;
+		}
+
+		return true;
+		
 	}
 	public bool GetDropWeapon()
 	{

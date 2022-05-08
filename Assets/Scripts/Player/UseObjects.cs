@@ -78,8 +78,6 @@ using UnityEngine.UI;
                     //Clear use object if there is no an object with "Item" tag
                     use = null;
                     useCursor.SetActive(false);
-                    
-
                     useText.text = "";
                 }
             }

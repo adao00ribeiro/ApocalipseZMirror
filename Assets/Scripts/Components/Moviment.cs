@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 [RequireComponent ( typeof ( CharacterController ) )]
-public class Moviment :MonoBehaviour,  IMoviment
+public class Moviment :NetworkBehaviour,  IMoviment
 {
     [Header("Moviment,Jump,croush,sprint")]
     private float Speed = 5f;
@@ -26,6 +27,10 @@ public class Moviment :MonoBehaviour,  IMoviment
     }
     private void Update ( )
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
         Move ( );
         Jump ( );
     }
