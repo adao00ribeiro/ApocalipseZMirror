@@ -1,39 +1,42 @@
 using UnityEngine;
 using Cinemachine;
-public class CinemachinePovExtension : CinemachineExtension
+namespace ApocalipseZ
 {
-   
-     [SerializeField]private float horizontalSpeed = 10f;
-     [SerializeField]private float verticalSpeed = 10f;
-    [SerializeField]private float clampAngle = 80f;
-
-    
-    private Vector3 startingRotation;
-
-    public Vector3 GetStartrotation()
+    public class CinemachinePovExtension : CinemachineExtension
     {
-        return startingRotation;
-    }
- 
-    protected override void PostPipelineStageCallback ( CinemachineVirtualCameraBase vcam , CinemachineCore.Stage stage , ref CameraState state , float deltaTime )
-    {
-        if (vcam.Follow )
+
+        [SerializeField]private float horizontalSpeed = 10f;
+        [SerializeField]private float verticalSpeed = 10f;
+        [SerializeField]private float clampAngle = 80f;
+
+
+        private Vector3 startingRotation;
+
+        public Vector3 GetStartrotation ( )
         {
-            if (stage == CinemachineCore.Stage.Aim)
+            return startingRotation;
+        }
+
+        protected override void PostPipelineStageCallback ( CinemachineVirtualCameraBase vcam , CinemachineCore.Stage stage , ref CameraState state , float deltaTime )
+        {
+            if ( vcam.Follow )
             {
-                if ( startingRotation == null )
+                if ( stage == CinemachineCore.Stage.Aim )
                 {
-                    startingRotation = transform.localRotation.eulerAngles;
+                    if ( startingRotation == null )
+                    {
+                        startingRotation = transform.localRotation.eulerAngles;
+                    }
+                    Vector2 deltaInput = InputManager.instance.GetMouseDelta();
+                    startingRotation.x += deltaInput.x * horizontalSpeed * Time.deltaTime;
+                    startingRotation.y += -deltaInput.y * verticalSpeed * Time.deltaTime;
+                    startingRotation.y = Mathf.Clamp ( startingRotation.y , -clampAngle , clampAngle );
+                    state.RawOrientation = Quaternion.Euler ( startingRotation.y , startingRotation.x , 0 );
+
                 }
-                Vector2 deltaInput = InputManager.instance.GetMouseDelta();
-                startingRotation.x += deltaInput.x * horizontalSpeed * Time.deltaTime;
-                startingRotation.y += -deltaInput.y * verticalSpeed * Time.deltaTime;
-                startingRotation.y = Mathf.Clamp (startingRotation.y , -clampAngle , clampAngle );
-                state.RawOrientation = Quaternion.Euler (startingRotation.y , startingRotation.x , 0 );
-               
             }
         }
+
+
     }
-
-
 }

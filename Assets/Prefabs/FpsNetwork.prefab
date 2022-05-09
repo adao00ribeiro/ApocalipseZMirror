@@ -143,8 +143,8 @@ GameObject:
   - component: {fileID: 5298346800785778581}
   - component: {fileID: -5810222880455609214}
   - component: {fileID: 2310472694490760683}
-  - component: {fileID: 7433572165634752114}
   - component: {fileID: 2296356945898559988}
+  - component: {fileID: 7433572165634752114}
   m_Layer: 0
   m_Name: FpsNetwork
   m_TagString: Player
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121012257842986411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9788b2fbdef071842b7728a2ca0a1a37, type: 3}
   m_Name: 
@@ -381,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  Inventory: {fileID: 0}
   sensitivity: {x: 0.5, y: 0.5}
   smoothing: {x: 3, y: 3}
   isClimbing: 1
@@ -408,32 +409,6 @@ MonoBehaviour:
   crouchSpeed: 0.4
   jumpSpeed: 3.5
   CrouchHeight: 0.5
---- !u!114 &7433572165634752114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121012257842986411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7937274241e3e94eab06763a17cb600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons: []
-  UseNonPhysicalReticle: 0
-  haveMeleeWeaponByDefault: 1
-  melleeDefaultWeapon: {fileID: 5863751948299422708}
-  grenade: {fileID: 962455067825378456}
-  slots: []
-  switchSlotIndex: 0
-  currentWeaponIndex: 0
-  activeSlot: {fileID: 0}
-  scopeImage: {fileID: 0}
-  reticleDynamic: {fileID: 0}
-  reticleStatic: {fileID: 0}
-  weaponHolderAnimator: {fileID: 0}
-  tempGameobject: {fileID: 0}
 --- !u!114 &2296356945898559988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,6 +435,18 @@ MonoBehaviour:
   satietySubstractionRate: 5
   hungerDamage: 1
   playerStats: {fileID: 0}
+--- !u!114 &7433572165634752114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaec8146203adee45b9ec81f9e5c7687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,7 +5967,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3861114035474953729}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d89c7bd4e2dd75e4ea62489516a25c1e, type: 3}
   m_Name: 
@@ -6596,8 +6583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2269511864648385575}
-  - component: {fileID: 5279761921064441616}
-  - component: {fileID: 6843492072697257649}
+  - component: {fileID: 3439561483508501703}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -6620,7 +6606,7 @@ Transform:
   m_Father: {fileID: 121012257842986407}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5279761921064441616
+--- !u!114 &3439561483508501703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6629,30 +6615,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4521926570635159372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Script: {fileID: 11500000, guid: d66f16d49c16216499b160eb7dc96865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 75815b464fcf01a4faf1afdeb599cedf
-  hasSpawned: 0
---- !u!114 &6843492072697257649
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4521926570635159372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f097a6318695a3a4e8ee105c31cd5f5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  characterItems: []
-  inventoryUI: {fileID: 0}
+  maxSlot: 6
   debug: 1
   onAddItem:
     m_PersistentCalls:
@@ -7635,36 +7601,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5129794414530901302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 81c5c535aa1351a40904124247ef6c3f, type: 2}
-  weaponName: SCAR
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!82 &7791050779353848738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10215,7 +10154,7 @@ GameObject:
   - component: {fileID: 6572554726524967647}
   - component: {fileID: 1813739627539288570}
   - component: {fileID: 7570336755859198583}
-  - component: {fileID: 2918942642887406901}
+  - component: {fileID: 5848965281907431914}
   - component: {fileID: 2456212870532269192}
   - component: {fileID: 5068552736017267001}
   - component: {fileID: 6852764512194556374}
@@ -10302,7 +10241,7 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7138003721380281350}
   m_Enabled: 1
---- !u!114 &2918942642887406901
+--- !u!114 &5848965281907431914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10311,10 +10250,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7138003721380281350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e25d8a6d6994d7c409cb5f3239fc5032, type: 3}
+  m_Script: {fileID: 11500000, guid: a244d7f799527f044bb1bed668ac3f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2
+  interact: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 247
 --- !u!114 &2456212870532269192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10342,7 +10285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5694ab5cf7645488dc1cd4b969f882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilReleaseSpeed: 2
 --- !u!114 &6852764512194556374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11225,7 +11167,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7512878692265357606}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 978ead3a3fc75184c8a494d1bda673f6, type: 3}
   m_Name: 
@@ -12480,36 +12422,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8422491080207635263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 4a7d9f39369fdc848b13550333e77a71, type: 2}
-  weaponName: gLOCK
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!82 &3023963040980270632
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13379,36 +13294,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9128918390204611937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 14def5663d53e9b44b343f0b373e6859, type: 2}
-  weaponName: Bat
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!82 &7034102252471180083
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13689,36 +13577,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9155732693662258452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: ca614dd76d86b6f459825dc3760cecb1, type: 2}
-  weaponName: AR15
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!82 &155657855860441007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13906,36 +13767,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9157094525151798437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 6ead786bcc8d9e8428d41b406fb8c11e, type: 2}
-  weaponName: 
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 4959349009827282147}
-  shellTransform: {fileID: 6706583744558573828}
-  bulletTransform: {fileID: 4689292542770359958}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!1 &9191147390043615100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14559,36 +14393,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7251041971253734432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 1ae06c345fd25e34989c561378f6a695, type: 2}
-  weaponName: Kniffe
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!1001 &1378334109669203310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15218,36 +15025,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4591396326979442586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 6ead786bcc8d9e8428d41b406fb8c11e, type: 2}
-  weaponName: M82A1
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!1001 &5260200274810873345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15733,36 +15513,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 489080796974089122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105fef7c1386e084ca35238d4cb360c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 892ca033228b52b43b5323d86865b6dc, type: 2}
-  weaponName: Grenade
-  weaponType: 0
-  ammoItemID: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  grenadePrefab: {fileID: 0}
-  fireMode: 0
-  controller: {fileID: 0}
-  damageMin: 0
-  damageMax: 0
-  rigidbodyHitForce: 0
-  animator: {fileID: 0}
-  reloading: 0
-  canShot: 1
-  setAim: 0
-  calculatedDamage: 0
-  PdynamicReticle: {fileID: 0}
-  pstaticReticle: {fileID: 0}
-  canUpdateCrosshair: 1
-  isThrowingGrenade: 0
 --- !u!4 &489080796974194626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5635810883320887747, guid: b92e404be46ac6a42bed293b6a3a9bba,

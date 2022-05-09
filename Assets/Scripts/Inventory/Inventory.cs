@@ -1,129 +1,131 @@
-﻿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Mirror;
+namespace ApocalipseZ
+{
+    [System.Serializable]
+    public struct SSlotInventory
+    {
 
-    public class Inventory : NetworkBehaviour,IInventory
+        public SItem item ;
+        public int Quantity;
+        public SSlotInventory (string none)
+        {
+            item = new SItem ( none);
+            Quantity = 0;
+        }
+        public bool Compare ( SItem other )
+        {
+            if ( item.Compare(other) )
+            {
+                return true;
+            }
+
+            return false;
+        }
+    
+
+    }
+public class Inventory : MonoBehaviour,IInventory
     {
         [System.Serializable]
         public class OnAddItem : UnityEvent { }
 
-        public List<Item> characterItems = new List<Item>();
-        public UIInventory inventoryUI;
+        [SerializeField]private List<SSlotInventory> Items = new List<SSlotInventory>();
+
+        [SerializeField]private int maxSlot = 6;
 
         public bool debug = true;
 
         public OnAddItem onAddItem;
-
-        //Method to add item to inventory
-        public void AddItem(Item item)
+        // Start is called before the first frame update
+        void Start ( )
         {
-            if (CheckFreeSpace() == false)
+            for ( int i = 0 ; i < maxSlot ; i++ )
             {
-                return;
+                Items.Add ( new SSlotInventory ("NONE"));
             }
+        }
 
-            characterItems.Add(item);
-            inventoryUI.AddNewItem(item);
-            item.gameObject.SetActive(false);
+        // Update is called once per frame
+        void Update ( )
+        {
 
-            if (debug) Debug.Log("Added item: " + item.title);
+        }
+
+        public bool AddItem ( SSlotInventory slot )
+        {
+            int posicao = 0;
+            if ( CheckFreeSpace (ref posicao) == false )
+            {
+                return false;
+            }
+            Items.Insert (posicao, slot );
+            
+            if ( debug ) Debug.Log ( "Added item: " + slot.item.name );
 
             //Events
-            item.onPickupEvent.Invoke();
-            onAddItem.Invoke();
+           // item.onPickupEvent.Invoke ( );
+            onAddItem.Invoke ( );
+            return true;
         }
 
-        //Method return true if inventory found free space
-        public bool CheckFreeSpace()
+        public Item CheckForItem ( SItem item )
         {
-            if (inventoryUI.UIItems.FindLast(i => i.item == null))
+            throw new System.NotImplementedException ( );
+        }
+
+        public bool CheckFreeSpace ( ref int posicao)
+        {
+            bool isfreespace = false;
+
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if (debug)
-                    Debug.Log("Free space found");
-                return true;
-            }
-            if (debug)
-                Debug.Log("No free space found");
-            return false;
-        }
-
-        //Method to check if item reference exist in inventory. Used by remove method to check if we delete item that is really exist
-        public Item CheckForItem(Item item)
-        {
-            return characterItems.Find(x => item.GetHashCode() == x.GetHashCode());
-        }
-
-        //Method to check if we have an item or items that have needed name. Will return true if find first suitable item
-        public bool CheckIfItemExist(string name)
-        {
-            if (characterItems.Find(x => name == x.title))
-                return true;
-            else
-                return false;
-        }
-
-        //Remove item by name. If destroy true inventory will not drop item ahead of player after remove.
-        public void RemoveItem(string name, bool destroy)
-        {
-            var _item = characterItems.Find(x => name == x.title);
-
-            if (_item != null)
-            {
-                if (_item.gameObject != null && !destroy)
+                if (Items[i].Compare(new SItem("NONE")))
                 {
-                    _item.gameObject.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.5f;
-                    _item.gameObject.SetActive(true);
+                    posicao = i;
+                    isfreespace = true;
+                    break;
                 }
-
-                if (debug)
-                    Debug.Log("Remove item: " + _item.title);
-
-                characterItems.Remove(_item);
-                inventoryUI.RemoveItem(_item);
             }
-            else
-            {
-                if (debug)
-                    Debug.Log("No item found");
-            }
+            print ( isfreespace );
+            return isfreespace;
         }
 
-        //Remove item by item reference
-        public void RemoveItem(Item item, bool destroy)
+        public bool CheckIfItemExist ( SItem item )
         {
-            var _item = CheckForItem(item);
+            bool Exist = false;
 
-            if (_item != null)
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if (_item.gameObject != null && !destroy)
+                if ( Items[i].Compare ( item ) )
                 {
-                    _item.gameObject.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 0.5f;
-                    _item.gameObject.SetActive(true);
+                    Exist = true;
+                    break;
                 }
-
-                if (debug)
-                    Debug.Log("Remove item: " + _item.title);
-
-                characterItems.Remove(_item);
-                inventoryUI.RemoveItem(_item);
             }
-            else
-            {
-                if (debug)
-                    Debug.Log("No item found");
-            }
+            return Exist;
         }
 
-        public void UseItem(Item item, bool closeInventory)
+        public void RemoveItem ( SItem item , bool destroy )
         {
-            item.onUseEvent.Invoke();
-
-            // !!! Crutch for grenade object !!!
-            if (item.id != 105)
-                RemoveItem(item, true);
-
-            if (closeInventory)
-                InventoryManager.showInventory = false;
+            for ( int i = 0 ; i < Items.Count ; i++ )
+            {
+                if ( Items[i].Compare( item ))
+                {
+                    Items.RemoveAt ( i );
+                }
+            }
         }
+
+   
+
+        public void UseItem ( SItem item , bool closeInventory )
+        {
+            throw new System.NotImplementedException ( );
+        }
+
+       
     }
+}

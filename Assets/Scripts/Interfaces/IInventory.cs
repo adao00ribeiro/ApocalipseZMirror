@@ -1,14 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ApocalipseZ;
 public interface IInventory
 {
-    void AddItem(Item item);
-    public bool CheckFreeSpace();
-    public Item CheckForItem(Item item);
-    public bool CheckIfItemExist(string name);
-    public void RemoveItem(string name, bool destroy);
-    public void RemoveItem(Item item, bool destroy);
-    public void UseItem(Item item, bool closeInventory);
+    bool AddItem( SSlotInventory item );
+    public bool CheckFreeSpace( ref int posicao );
+    public Item CheckForItem( SItem item );
+    public bool CheckIfItemExist( SItem item );
+    public void RemoveItem( SItem item , bool destroy);
+    public void UseItem( SItem item , bool closeInventory);
 }

@@ -1,11 +1,12 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/ApocalipseZ.inputactions'
+﻿// GENERATED AUTOMATICALLY FROM 'Assets/ApocalipseZ.inputactions'
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-
+namespace ApocalipseZ
+{
 public class @ApocalipseZ : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
@@ -1145,4 +1146,5 @@ public class @ApocalipseZ : IInputActionCollection, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
     }
+}
 }
