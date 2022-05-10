@@ -24,7 +24,10 @@ namespace ApocalipseZ
 
             return false;
         }
-    
+        public void Use ( )
+        {
+            Quantity--;
+        }
 
     }
 public class Inventory : MonoBehaviour,IInventory
