@@ -38,6 +38,8 @@ public class Inventory : MonoBehaviour,IInventory
 
         public bool debug = true;
 
+        public bool isOpen = true;
+
         public OnAddItem onAddItem;
         // Start is called before the first frame update
         void Start ( )
@@ -49,9 +51,12 @@ public class Inventory : MonoBehaviour,IInventory
         }
 
         // Update is called once per frame
-        void Update ( )
+        void UpdateInventory ( )
         {
-
+            if (InputManager.instance.GetInventory())
+            {
+                isOpen = !isOpen;
+            }
         }
 
         public bool AddItem ( SSlotInventory slot )

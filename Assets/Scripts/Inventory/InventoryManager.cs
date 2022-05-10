@@ -1,30 +1,81 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.Events;
+using UnityStandardAssets.ImageEffects;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 namespace ApocalipseZ
 {
-    public class InventoryManager : MonoBehaviour,IInventoryMananger
+    public class InventoryManager : MonoBehaviour,IInventoryManager
     {
+        Canvas canvas;
         IFpsPlayer player;
+       [SerializeField] MotionBlur motionBlur;
+       [SerializeField]Volume volume;
 
-        private Canvas canvas;
+        public static bool showInventory = false;
+        public bool isOpen = true;
 
-        public void InventoryClose ( )
+        private void Start()
         {
-            canvas.enabled = false;
+           
+            canvas = GetComponent<Canvas>();
+            VolumeProfile proflile = volume.sharedProfile;
+            volume.profile.TryGet(out motionBlur);
+           
+            InventoryClose();
         }
 
-        public void InventoryOpen ( )
+        private void Update()
         {
-            canvas.enabled = true;
-        }
+            if (player == null)
+            {
+                return;
+            }
+            if (InputManager.instance.GetInventory() /*&& !PlayerStats.isPlayerDead*/)
+            {
+                showInventory = !showInventory;
+            }
 
-        public void SetFpsPlayer ( IFpsPlayer _player )
+            if (showInventory)
+            {
+                InventoryOpen();
+            }
+            else
+            {
+                InventoryClose();
+            }
+        }
+        public void SetFpsPlayer(IFpsPlayer _player)
         {
             player = _player;
         }
+        public void InventoryOpen()
+        {
+            if (isOpen)
+                return;
+            else
+            {
+                canvas.enabled = true;
+                player.lockCursor = false;
+                 motionBlur.active = true;
+                Time.timeScale = 0;
+                isOpen = true;
 
-      
+            }
+        }
+        public void InventoryClose()
+        {
+            if (!isOpen)
+                return;
+            else
+            {
+                canvas.enabled = false;
+                player.lockCursor = true;
+                motionBlur.active = false;
+                Time.timeScale = 1;
+                isOpen = false;
+            }
+        }
+
     }
 }

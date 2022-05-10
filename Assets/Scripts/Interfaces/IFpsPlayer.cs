@@ -7,4 +7,5 @@ public interface IFpsPlayer
     bool lockCursor { get; set; }
 
     IInventory GetInventory ( );
+  
 }

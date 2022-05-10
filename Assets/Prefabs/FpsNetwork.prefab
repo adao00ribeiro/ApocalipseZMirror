@@ -381,7 +381,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Inventory: {fileID: 0}
   sensitivity: {x: 0.5, y: 0.5}
   smoothing: {x: 3, y: 3}
   isClimbing: 1
@@ -402,8 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94bab5fad56a28419e6f025ba93db37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   Walk: 3
   Run: 5
   crouchSpeed: 0.4
@@ -6618,11 +6615,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66f16d49c16216499b160eb7dc96865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Items: []
   maxSlot: 6
   debug: 1
+  isOpen: 1
   onAddItem:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4547497742327364679
 GameObject:
   m_ObjectHideFlags: 0
@@ -10265,13 +10276,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7138003721380281350}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34382083ad114a07d000fbfb8d76c639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 6
-  blurSpread: 0
+  iterations: 4
+  blurSpread: 0.849
   blurShader: {fileID: 4800000, guid: 57e6deea7c2924e22a5138e2b70bb4dc, type: 3}
 --- !u!114 &5068552736017267001
 MonoBehaviour:
@@ -10309,8 +10320,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0

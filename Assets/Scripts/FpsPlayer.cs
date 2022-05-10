@@ -17,7 +17,7 @@ namespace ApocalipseZ
         IMoviment Moviment;
         IWeaponManager WeaponManager;
         IInventory Inventory;
-      
+        IInventoryManager InventoryManager;
         IInteractObjects InteractObjects;
 
 
@@ -49,12 +49,12 @@ namespace ApocalipseZ
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
             Inventory = transform.Find ( "Inventory" ).GetComponent<Inventory> ( );
-     
+            InventoryManager = GameObject.Find("Canvas Inventory").GetComponent<InventoryManager>();
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             OnLocalPlayerJoined += InteractObjects.SetFpsPlayer; ;
-
+            OnLocalPlayerJoined += InventoryManager.SetFpsPlayer; ;
             OnLocalPlayerJoined?.Invoke ( this );
 
         }
