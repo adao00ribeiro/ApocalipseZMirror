@@ -41,6 +41,13 @@ public class Inventory : MonoBehaviour,IInventory
         public bool isOpen = true;
 
         public OnAddItem onAddItem;
+
+        IFpsPlayer player;
+
+        public void SetFpsPlayer ( IFpsPlayer _player )
+        {
+            player = _player;
+        }
         // Start is called before the first frame update
         void Start ( )
         {
@@ -126,9 +133,35 @@ public class Inventory : MonoBehaviour,IInventory
 
    
 
-        public void UseItem ( SItem item , bool closeInventory )
+        public void UseItem ( SSlotInventory slotitem , bool closeInventory )
         {
-            throw new System.NotImplementedException ( );
+           
+
+
+            switch ( slotitem.item.Type )
+            {
+                case ItemType.none:
+                    //faz nada
+                    break;
+                case ItemType.weapon:
+                    slotitem.Quantity--;
+                    //euipa
+                    break;
+                case ItemType.ammo:
+                    slotitem.Quantity--;
+                    //recarrega
+                    break;
+                case ItemType.consumable:
+                    slotitem.Quantity--;
+                    //CONSUME
+
+                    break;
+            }
+
+            if ( slotitem.Quantity == 0 )
+            {
+                slotitem = new SSlotInventory ( "NONE" );
+            }
         }
 
        

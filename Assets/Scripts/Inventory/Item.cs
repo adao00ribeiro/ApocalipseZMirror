@@ -1,16 +1,18 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace ApocalipseZ
 {
+    public enum ItemType { none, weapon, ammo, consumable }
     [System.Serializable]
     public struct SItem
     {
 
+        [SerializeField]public ItemType Type;
 
         [SerializeField]public string name ;
-
+               
 
         [SerializeField]public bool isStackable;
 
@@ -20,12 +22,9 @@ namespace ApocalipseZ
 
         [SerializeField]public string Description;
 
-
-        [SerializeField]public bool isConsumable ;
-
-
         [SerializeField]public int maxStacksize ;
 
+        [SerializeField]public int Ammo ;
 
         [SerializeField]public float Durability ;
 
@@ -35,27 +34,28 @@ namespace ApocalipseZ
 
         public SItem ( string name)
         {
-          
+            this.Type = ItemType.none;
             this.name = name;
             this.isStackable = true;
             this.Thumbnail = null;
             this.Description = "NONE";
-            this.isConsumable = true;
             this.maxStacksize = 4;
+            this.Ammo = 0;
             this.Durability = 0.0f;
             this.Prefab = null;
         }
 
         internal bool Compare ( SItem sItem )
         {
-       if ( this.name           == sItem .name              &&
-            this.isStackable    == sItem .isStackable       &&
-            this.Thumbnail      == sItem .Thumbnail         &&
-            this.Description    == sItem .Description       &&
-            this.isConsumable   == sItem .isConsumable      &&
-            this.maxStacksize   == sItem .maxStacksize      &&
-            this.Durability     == sItem .Durability        &&
-            this.Prefab         == sItem.Prefab        )
+            if ( this.Type == sItem.Type&&
+                 this.name == sItem.name &&
+                 this.isStackable == sItem.isStackable &&
+                 this.Thumbnail == sItem.Thumbnail &&
+                 this.Description == sItem.Description &&
+                 this.maxStacksize == sItem.maxStacksize &&
+                 this.Ammo == sItem.Ammo &&
+                 this.Durability     == sItem .Durability        &&
+                 this.Prefab         == sItem.Prefab        )
             {
                 return true;
             }
@@ -85,7 +85,7 @@ namespace ApocalipseZ
 
         public string GetTitle ( )
         {
-            return "TITUASDLKALSDK";
+	        return scriptableitem.sitem.name;
         }
 
         public void OnInteract (IFpsPlayer player)

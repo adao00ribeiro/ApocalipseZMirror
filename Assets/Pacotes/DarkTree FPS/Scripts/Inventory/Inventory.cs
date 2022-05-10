@@ -72,7 +72,7 @@ namespace DarkTreeFPS
         public void RemoveItem(string name, bool destroy)
         {
             var _item = characterItems.Find(x => name == x.title);
-
+		
             if (_item != null)
             {
                 if (_item.gameObject != null && !destroy)

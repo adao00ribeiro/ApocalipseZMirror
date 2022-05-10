@@ -16,7 +16,7 @@ namespace DarkTreeFPS
 
         public bool haveMeleeWeaponByDefault = true;
         public Weapon melleeDefaultWeapon;
-        public Weapon grenade;
+	    public Weapon grenade;
 
         public List<Slot> slots;
         [Range(1, 9)]

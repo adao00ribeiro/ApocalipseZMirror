@@ -9,5 +9,5 @@ public interface IInventory
     public Item CheckForItem( SItem item );
     public bool CheckIfItemExist( SItem item );
     public void RemoveItem( SItem item , bool destroy);
-    public void UseItem( SItem item , bool closeInventory);
+    public void UseItem( SSlotInventory item , bool closeInventory);
 }
