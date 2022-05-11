@@ -15,11 +15,13 @@ namespace ApocalipseZ
   
         public event System.Action<FpsPlayer> OnLocalPlayerJoined;
         IMoviment Moviment;
+        IFastItems FastItems;
+        IFastItemsManager FastItemsManager;
         IWeaponManager WeaponManager;
         IInventory Inventory;
         IInventoryManager InventoryManager;
         IInteractObjects InteractObjects;
-
+            
 
         //--------------------------------------------
         public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
@@ -48,6 +50,7 @@ namespace ApocalipseZ
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
+            FastItems = GetComponent<FastItems> ( );
             Inventory = transform.Find ( "Inventory" ).GetComponent<Inventory> ( );
             InventoryManager = GameObject.Find("Canvas Inventory").GetComponent<InventoryManager>();
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
@@ -55,6 +58,7 @@ namespace ApocalipseZ
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             OnLocalPlayerJoined += InteractObjects.SetFpsPlayer; ;
             OnLocalPlayerJoined += InventoryManager.SetFpsPlayer; ;
+            OnLocalPlayerJoined += FastItemsManager.SetFpsPlayer; ;
             OnLocalPlayerJoined?.Invoke ( this );
 
         }
@@ -124,6 +128,15 @@ namespace ApocalipseZ
         public IInventory GetInventory ( )
         {
             return Inventory;
+        }
+        public IFastItems GetFastItems ( )
+        {
+            return FastItems;
+        }
+
+        public IWeaponManager GetWeaponManager ( )
+        {
+            return WeaponManager;
         }
     }
 }

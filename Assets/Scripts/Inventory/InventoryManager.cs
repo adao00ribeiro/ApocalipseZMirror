@@ -9,6 +9,7 @@ namespace ApocalipseZ
     {
         Canvas canvas;
         IFpsPlayer player;
+        UIInventory uiInventory;
        [SerializeField] MotionBlur motionBlur;
        [SerializeField]Volume volume;
 
@@ -17,8 +18,8 @@ namespace ApocalipseZ
 
         private void Start()
         {
-           
-            canvas = GetComponent<Canvas>();
+            uiInventory = transform.Find ("HUD/InventoryPanel" ).GetComponent<UIInventory> ( );
+             canvas = GetComponent<Canvas>();
             VolumeProfile proflile = volume.sharedProfile;
             volume.profile.TryGet(out motionBlur);
            
@@ -48,6 +49,7 @@ namespace ApocalipseZ
         public void SetFpsPlayer(IFpsPlayer _player)
         {
             player = _player;
+            uiInventory.SetInventory ( player .GetInventory());
         }
         public void InventoryOpen()
         {

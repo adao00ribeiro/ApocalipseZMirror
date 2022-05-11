@@ -60,14 +60,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3647059, g: 0.3647059, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: df98ff85ca3c6be469f4067838b0d2d8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 6356327480674569645}
   - component: {fileID: 9186965330310982242}
   - component: {fileID: 8965832939451119499}
+  - component: {fileID: 953581165}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -231,6 +232,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1.17
+--- !u!114 &953581165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3245238344103475868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fbfe7f9cb63c1346811b610ddd6aa66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Image: {fileID: 0}
+  TextQuantidade: {fileID: 0}
+  slot:
+    item:
+      Type: 0
+      name: 
+      isStackable: 0
+      Thumbnail: {fileID: 0}
+      Description: 
+      maxStacksize: 0
+      Ammo: 0
+      Durability: 0
+      Prefab: {fileID: 0}
+    Quantity: 0
 --- !u!1 &5275480285760205075
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +270,7 @@ GameObject:
   - component: {fileID: 5297763161415878412}
   - component: {fileID: 2769872201476157232}
   m_Layer: 0
-  m_Name: Text (Legacy)
+  m_Name: TextQuantidade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,8 +33,7 @@ namespace ApocalipseZ
     }
 public class Inventory : MonoBehaviour,IInventory
     {
-        [System.Serializable]
-        public class OnAddItem : UnityEvent { }
+        public event Action OnInventoryAltered;
 
         [SerializeField]private List<SSlotInventory> Items = new List<SSlotInventory>();
 
@@ -43,17 +43,19 @@ public class Inventory : MonoBehaviour,IInventory
 
         public bool isOpen = true;
 
-        public OnAddItem onAddItem;
 
         IFpsPlayer player;
+
+     
 
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
         }
         // Start is called before the first frame update
-        void Start ( )
+        void Awake ( )
         {
+          
             for ( int i = 0 ; i < maxSlot ; i++ )
             {
                 Items.Add ( new SSlotInventory ("NONE"));
@@ -81,8 +83,8 @@ public class Inventory : MonoBehaviour,IInventory
             if ( debug ) Debug.Log ( "Added item: " + slot.item.name );
 
             //Events
-           // item.onPickupEvent.Invoke ( );
-            onAddItem.Invoke ( );
+            // item.onPickupEvent.Invoke ( );
+            OnInventoryAltered.Invoke ( );
             return true;
         }
 
@@ -130,8 +132,10 @@ public class Inventory : MonoBehaviour,IInventory
                 if ( Items[i].Compare( item ))
                 {
                     Items.RemoveAt ( i );
+                    OnInventoryAltered.Invoke ( );
                 }
             }
+
         }
 
    
@@ -167,6 +171,19 @@ public class Inventory : MonoBehaviour,IInventory
             }
         }
 
-       
+        public int GetMaxSlots ( )
+        {
+            return maxSlot;
+        }
+
+        public void SetMaxSlots ( int maxslot )
+        {
+            maxSlot = maxslot;
+        }
+
+        public SSlotInventory GetSlotInventory ( int index )
+        {
+            return Items[index];
+        }
     }
 }

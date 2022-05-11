@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ApocalipseZ
 {
-    public class FastItems : MonoBehaviour
+    public class FastItems : MonoBehaviour,IFastItems
     {
        
         public List<SSlotInventory> FastSlots = new List<SSlotInventory>();
-        public int switchSlotIndex = 0;
-        public int currentWeaponIndex;
+ 
+      
         public int maxSlots = 3;
 
         IInventory inventory;
@@ -23,19 +23,8 @@ namespace ApocalipseZ
         }
 
         // Update is called once per frame
-        void Update ( )
-        {
-            SlotInput ( );
-        }
-
-        private void SlotInput ( )
-        {
-                 if ( InputManager.instance.GetAlpha3 ( ) ) { switchSlotIndex = 3; SlotChange ( ); }
-            else if ( InputManager.instance.GetAlpha4 ( ) ) { switchSlotIndex = 4; SlotChange ( ); }
-            else if ( InputManager.instance.GetAlpha5 ( ) ) { switchSlotIndex = 5; SlotChange ( ); }
-
-        }
-        private void SlotChange ( )
+      
+        public void SlotChange (int switchSlotIndex )
         {
           
             if ( !FastSlots[switchSlotIndex-3].item.Compare(new SItem("NONE")))
