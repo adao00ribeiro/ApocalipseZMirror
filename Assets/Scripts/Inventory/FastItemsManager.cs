@@ -10,9 +10,9 @@ namespace ApocalipseZ
         IFastItems FastItems;
         UIFastItems uiFastItems;
         // Start is called before the first frame update
-        void Start ( )
+        void Awake ( )
         {
-
+            uiFastItems = transform.Find ( "HUD/Weapons end FastSlots UI" ).GetComponent<UIFastItems> ( );
         }
 
        

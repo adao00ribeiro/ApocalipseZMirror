@@ -50,9 +50,13 @@ namespace ApocalipseZ
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
+
             FastItems = GetComponent<FastItems> ( );
+            FastItemsManager  = GameObject.Find ( "Canvas Inventory" ).GetComponent<FastItemsManager> ( );
+
             Inventory = transform.Find ( "Inventory" ).GetComponent<Inventory> ( );
             InventoryManager = GameObject.Find("Canvas Inventory").GetComponent<InventoryManager>();
+
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );

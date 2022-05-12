@@ -363,7 +363,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20268195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6b275a6c0abad74885a8d92322fde39, type: 3}
   m_Name: 
@@ -3021,6 +3021,7 @@ MonoBehaviour:
       Durability: 0
       Prefab: {fileID: 0}
     Quantity: 0
+  selectedItem: {fileID: 0}
 --- !u!1 &343416668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3624,6 +3625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Medkit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5356098412008546101, guid: 652d167d4fdcc464a8b2ce58548edf5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 652d167d4fdcc464a8b2ce58548edf5f, type: 3}
@@ -10615,6 +10621,7 @@ MonoBehaviour:
       Durability: 0
       Prefab: {fileID: 0}
     Quantity: 0
+  selectedItem: {fileID: 0}
 --- !u!1 &1714916820
 GameObject:
   m_ObjectHideFlags: 0
@@ -11908,11 +11915,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2047966754}
-  - component: {fileID: 2047966759}
   - component: {fileID: 2047966758}
   - component: {fileID: 2047966757}
   - component: {fileID: 2047966756}
-  - component: {fileID: 2047966755}
+  - component: {fileID: 2047966759}
   m_Layer: 0
   m_Name: SelectedItem
   m_TagString: Untagged
@@ -11940,18 +11946,6 @@ RectTransform:
   m_AnchoredPosition: {x: -3000, y: 0}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2047966755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047966753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeeec2932a1bb6447b4d483c62c4407f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2047966756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12011,10 +12005,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2047966753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78fdb57bbc36c964baf5b56d4a4201d4, type: 3}
+  m_Script: {fileID: 11500000, guid: e2c2aee0c76cef64bbe3546084489fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  slot:
+    item:
+      Type: 0
+      name: 
+      isStackable: 0
+      Thumbnail: {fileID: 0}
+      Description: 
+      maxStacksize: 0
+      Ammo: 0
+      Durability: 0
+      Prefab: {fileID: 0}
+    Quantity: 0
 --- !u!1 &2062483229
 GameObject:
   m_ObjectHideFlags: 0
@@ -12331,6 +12336,7 @@ MonoBehaviour:
       Durability: 0
       Prefab: {fileID: 0}
     Quantity: 0
+  selectedItem: {fileID: 0}
 --- !u!1001 &2146299927
 PrefabInstance:
   m_ObjectHideFlags: 0

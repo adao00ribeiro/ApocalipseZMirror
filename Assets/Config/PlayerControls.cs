@@ -242,6 +242,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""07bddd1f-2714-46c9-b16d-067f2ee65b2d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -660,6 +669,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Alpha9"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0a1cdc9-4183-4600-a16a-cda5630175a4"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""MousePosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1271,6 +1291,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Alpha7 = m_Player.FindAction("Alpha7", throwIfNotFound: true);
         m_Player_Alpha8 = m_Player.FindAction("Alpha8", throwIfNotFound: true);
         m_Player_Alpha9 = m_Player.FindAction("Alpha9", throwIfNotFound: true);
+        m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1366,6 +1387,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Alpha7;
     private readonly InputAction m_Player_Alpha8;
     private readonly InputAction m_Player_Alpha9;
+    private readonly InputAction m_Player_MousePosition;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1394,6 +1416,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Alpha7 => m_Wrapper.m_Player_Alpha7;
         public InputAction @Alpha8 => m_Wrapper.m_Player_Alpha8;
         public InputAction @Alpha9 => m_Wrapper.m_Player_Alpha9;
+        public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1475,6 +1498,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Alpha9.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
                 @Alpha9.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
                 @Alpha9.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAlpha9;
+                @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1551,6 +1577,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Alpha9.started += instance.OnAlpha9;
                 @Alpha9.performed += instance.OnAlpha9;
                 @Alpha9.canceled += instance.OnAlpha9;
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
             }
         }
     }
@@ -1731,6 +1760,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAlpha7(InputAction.CallbackContext context);
         void OnAlpha8(InputAction.CallbackContext context);
         void OnAlpha9(InputAction.CallbackContext context);
+        void OnMousePosition(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

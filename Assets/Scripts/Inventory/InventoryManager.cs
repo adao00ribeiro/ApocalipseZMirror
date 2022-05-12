@@ -19,11 +19,11 @@ namespace ApocalipseZ
         private void Start()
         {
             uiInventory = transform.Find ("HUD/InventoryPanel" ).GetComponent<UIInventory> ( );
-             canvas = GetComponent<Canvas>();
+            canvas = GetComponent<Canvas>();
             VolumeProfile proflile = volume.sharedProfile;
             volume.profile.TryGet(out motionBlur);
            
-            InventoryClose();
+            
         }
 
         private void Update()
@@ -50,6 +50,7 @@ namespace ApocalipseZ
         {
             player = _player;
             uiInventory.SetInventory ( player .GetInventory());
+            InventoryClose ( );
         }
         public void InventoryOpen()
         {

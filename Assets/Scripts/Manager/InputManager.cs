@@ -78,7 +78,13 @@ namespace ApocalipseZ
         }
         public bool GetFire ( )
         {
-            return playerControls.Player.Fire.triggered;
+            if ( playerControls.Player.Fire.ReadValue<float> ( ) == 0 )
+            {
+                return false;
+            }
+
+            return true;
+           
         }
         public bool GetFireModeSingle ( )
         {
@@ -117,6 +123,10 @@ namespace ApocalipseZ
         internal Vector2 GetMouseDelta ( )
         {
             return playerControls.Player.Look.ReadValue<Vector2> ( );
+        }
+        internal Vector2 GetMousePosition ( )
+        {
+            return playerControls.Player.MousePosition.ReadValue<Vector2> ( );
         }
 
         #region ALPHAS
