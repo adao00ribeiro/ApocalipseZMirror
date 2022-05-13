@@ -32,7 +32,7 @@ namespace ApocalipseZ
         [SerializeField]public Item Prefab;
 
 
-        public SItem ( string name)
+        public SItem ( string name = "NONE")
         {
             this.Type = ItemType.none;
             this.name = name;

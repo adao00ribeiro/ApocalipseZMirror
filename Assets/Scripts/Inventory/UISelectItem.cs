@@ -16,7 +16,7 @@ namespace ApocalipseZ
         {
             positionInitial = transform.position;
             image = GetComponent<Image> ( );
-           enabled = false;
+            enabled = false;
         }
 
         // Update is called once per frame
@@ -40,7 +40,9 @@ namespace ApocalipseZ
                 image.color = Color.clear;
                 return;
             }
+
             image.sprite = slot.item.Thumbnail;
+            image.preserveAspect = true;
             image.color = Color.white;
         }
       

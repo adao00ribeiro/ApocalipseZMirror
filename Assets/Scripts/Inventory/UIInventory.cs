@@ -21,14 +21,17 @@ namespace ApocalipseZ
         }
         public void UpdateSlots ( )
         {
-            foreach ( var item in UIItems )
+            foreach ( UISlotItem item in UIItems )
             {
+              
                 Destroy ( item.gameObject);
             }
+            UIItems.Clear();
             for ( int i = 0 ; i < inventory.GetMaxSlots ( ) ; i++ )
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
-                instance.UpdateSlot ( inventory.GetSlotInventory ( i ) );
+                instance.SetInventory(inventory);
+                instance.UpdateSlot ( i );
                 UIItems.Add ( instance );
             }
         }

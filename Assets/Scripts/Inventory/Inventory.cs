@@ -78,9 +78,9 @@ public class Inventory : MonoBehaviour,IInventory
             {
                 return false;
             }
-            Items.Insert (posicao, slot );
+            Items[posicao] = slot;
             
-            if ( debug ) Debug.Log ( "Added item: " + slot.item.name );
+            if ( debug ) Debug.Log ( "Added item: " + slot.item.name ); 
 
             //Events
             // item.onPickupEvent.Invoke ( );
