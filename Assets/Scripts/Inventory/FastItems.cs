@@ -8,8 +8,6 @@ namespace ApocalipseZ
     {
        
         public List<SSlotInventory> FastSlots = new List<SSlotInventory>();
- 
-      
         public int maxSlots = 3;
 
         IInventory inventory;
@@ -18,7 +16,7 @@ namespace ApocalipseZ
         {
             for ( int i = 0 ; i < maxSlots ; i++ )
             {
-                FastSlots.Add (new SSlotInventory("NONE"));
+                FastSlots.Add ( new SSlotInventory());
             }
         }
 
@@ -27,7 +25,7 @@ namespace ApocalipseZ
         public void SlotChange (int switchSlotIndex )
         {
           
-            if ( !FastSlots[switchSlotIndex-3].item.Compare(new SItem("NONE")))
+            if ( !FastSlots[switchSlotIndex-3].item.Compare(null))
             {
                 FastSlots[switchSlotIndex-3].Use ( );
             }
@@ -40,7 +38,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            if ( FastSlots[id].Compare (new SItem("NONE")))
+            if ( FastSlots[id].item==null)
             {
                 FastSlots[id] = slot;
             }

@@ -6,7 +6,7 @@ namespace ApocalipseZ
 {
     public enum ItemType { none, weapon, ammo, consumable }
     [System.Serializable]
-    public struct SItem
+    public class SItem
     {
 
         [SerializeField]public ItemType Type;
@@ -32,10 +32,10 @@ namespace ApocalipseZ
         [SerializeField]public Item Prefab;
 
 
-        public SItem ( string name = "NONE")
+        public SItem ()
         {
             this.Type = ItemType.none;
-            this.name = name;
+            this.name = "NONE";
             this.isStackable = true;
             this.Thumbnail = null;
             this.Description = "NONE";

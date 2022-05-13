@@ -6,19 +6,20 @@ using UnityEngine.Events;
 namespace ApocalipseZ
 {
     [System.Serializable]
-    public struct SSlotInventory
+    public class SSlotInventory
     {
-
+       
         public SItem item ;
         public int Quantity;
-        public SSlotInventory (string none)
+        public SSlotInventory ( )
         {
-            item = new SItem ( none);
+          
+            item = null;
             Quantity = 0;
         }
-        public bool Compare ( SItem other )
+        public bool Compare ( SSlotInventory other )
         {
-            if ( item.Compare(other) )
+            if ( this == other )
             {
                 return true;
             }
@@ -58,7 +59,8 @@ public class Inventory : MonoBehaviour,IInventory
           
             for ( int i = 0 ; i < maxSlot ; i++ )
             {
-                Items.Add ( new SSlotInventory ("NONE"));
+                SSlotInventory temp = new SSlotInventory ( );
+                Items.Add ( temp );
             }
         }
 
@@ -78,8 +80,9 @@ public class Inventory : MonoBehaviour,IInventory
             {
                 return false;
             }
-            Items[posicao] = slot;
-            
+           
+            Items[posicao]  = slot;
+           
             if ( debug ) Debug.Log ( "Added item: " + slot.item.name ); 
 
             //Events
@@ -88,29 +91,24 @@ public class Inventory : MonoBehaviour,IInventory
             return true;
         }
 
-        public Item CheckForItem ( SItem item )
-        {
-            throw new System.NotImplementedException ( );
-        }
 
-        public bool CheckFreeSpace ( ref int posicao)
+        public bool CheckFreeSpace (ref int posicao )
         {
             bool isfreespace = false;
 
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if (Items[i].Compare(new SItem("NONE")))
+                if (Items[i].item == null)
                 {
                     posicao = i;
-                    isfreespace = true;
-                    break;
+                isfreespace = true;
+                break;
                 }
             }
-            print ( isfreespace );
             return isfreespace;
         }
 
-        public bool CheckIfItemExist ( SItem item )
+        public bool CheckIfItemExist ( SSlotInventory item )
         {
             bool Exist = false;
 
@@ -125,12 +123,13 @@ public class Inventory : MonoBehaviour,IInventory
             return Exist;
         }
 
-        public void RemoveItem ( SItem item , bool destroy )
+        public void RemoveItem ( SSlotInventory item , bool destroy )
         {
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if ( Items[i].Compare( item ))
+                if ( Items[i].item == item.item)
                 {
+                    Items[i].item = null;
                     Items.RemoveAt ( i );
                     OnInventoryAltered.Invoke ( );
                 }
@@ -142,33 +141,45 @@ public class Inventory : MonoBehaviour,IInventory
 
         public void UseItem ( SSlotInventory slotitem , bool closeInventory )
         {
+            Items.ForEach ((slot)=> {
+
+                if ( slot.Compare( slotitem ) )
+                {
+                    switch ( slot.item.Type )
+                    {
+                        case ItemType.none:
+                            //faz nada
+                            break;
+                        case ItemType.weapon:
+                            print ("WEAPON" );
+                            slot.Quantity--;
+                            //euipa
+                            break;
+                        case ItemType.ammo:
+                            slot.Quantity--;
+                            //recarrega
+                            break;
+                        case ItemType.consumable:
+                            print ( "CONSUMABLE" );
+                            slot.Quantity--;
+                            //CONSUME
+
+                            break;
+                    }
+
+                    if ( slot.Quantity == 0 )
+                    {
+                        slot = new SSlotInventory (  );
+                    }
+                    OnInventoryAltered.Invoke ( );
+                }
+            
+            
+            
+            
+            } );
            
-
-
-            switch ( slotitem.item.Type )
-            {
-                case ItemType.none:
-                    //faz nada
-                    break;
-                case ItemType.weapon:
-                    slotitem.Quantity--;
-                    //euipa
-                    break;
-                case ItemType.ammo:
-                    slotitem.Quantity--;
-                    //recarrega
-                    break;
-                case ItemType.consumable:
-                    slotitem.Quantity--;
-                    //CONSUME
-
-                    break;
-            }
-
-            if ( slotitem.Quantity == 0 )
-            {
-                slotitem = new SSlotInventory ( "NONE" );
-            }
+                
         }
 
         public int GetMaxSlots ( )
@@ -184,6 +195,14 @@ public class Inventory : MonoBehaviour,IInventory
         public SSlotInventory GetSlotInventory ( int index )
         {
             return Items[index];
+        }
+
+        public void MoveItem ( int id , int idmove )
+        {
+            SSlotInventory slottemp = Items[idmove];
+            Items[idmove] = Items[id];
+            Items[id] = slottemp;
+            OnInventoryAltered.Invoke ( );
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ApocalipseZ
         private Transform slotPanel;
 
         IInventory inventory;
-  
+        IFastItems fastItems;
         public void SetInventory ( IInventory _inventory)
         {
             inventory = _inventory;
@@ -19,6 +19,11 @@ namespace ApocalipseZ
             inventory.OnInventoryAltered += UpdateSlots; ;
             UpdateSlots ( );    
         }
+        public void SetFastItems ( IFastItems fastItems)
+        {
+            this.fastItems = fastItems;
+        }
+    
         public void UpdateSlots ( )
         {
             foreach ( UISlotItem item in UIItems )
@@ -31,6 +36,7 @@ namespace ApocalipseZ
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
                 instance.SetInventory(inventory);
+                instance.SetFastItems ( fastItems );
                 instance.UpdateSlot ( i );
                 UIItems.Add ( instance );
             }

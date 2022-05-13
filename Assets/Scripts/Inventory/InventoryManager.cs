@@ -7,9 +7,9 @@ namespace ApocalipseZ
 {
     public class InventoryManager : MonoBehaviour,IInventoryManager
     {
-        Canvas canvas;
-        IFpsPlayer player;
-        UIInventory uiInventory;
+       Canvas canvas;
+       IFpsPlayer player;
+       UIInventory uiInventory;
        [SerializeField] MotionBlur motionBlur;
        [SerializeField]Volume volume;
 
@@ -50,6 +50,7 @@ namespace ApocalipseZ
         {
             player = _player;
             uiInventory.SetInventory ( player .GetInventory());
+            uiInventory.SetFastItems ( player.GetFastItems());
             InventoryClose ( );
         }
         public void InventoryOpen()

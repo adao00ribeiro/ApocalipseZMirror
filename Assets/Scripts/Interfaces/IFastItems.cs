@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-    public interface IFastItems
-    {
+using ApocalipseZ;
+    public interface IFastItems { 
+    void SetFastSlots ( int id , SSlotInventory slot );
     void SlotChange ( int switchSlotIndex );
     }
