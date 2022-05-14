@@ -33,7 +33,7 @@ namespace ApocalipseZ
             TextQuantidade.text = "";
         }
       
-        public void UpdateSlot ( int id)
+        public void UpdateSlotInventory ( int id)
         {
             this.id = id;
             slot = inventory.GetSlotInventory(id) ;
@@ -46,7 +46,22 @@ namespace ApocalipseZ
             Image.color = Color.white;
             TextQuantidade.text = slot.Quantity.ToString();
         }
+        public void UpdateSlotFastItems ( int id )
+        {
+            this.id = id;
+            slot = fastItems .GetSlotFastItems( id );
 
+            if ( slot.item == null )
+            {
+                Image.sprite = null;
+                Image.color = Color.clear;
+                TextQuantidade.text = "";
+                return;
+            }
+            Image.sprite = slot.item.Thumbnail;
+            Image.color = Color.white;
+            TextQuantidade.text = slot.Quantity.ToString ( );
+        }
         internal void SetInventory(IInventory inventory)
         {
             this.inventory = inventory;
@@ -68,6 +83,7 @@ namespace ApocalipseZ
         {
             if ( selectedItem.enabled )
             {
+              
                 enterslotitem = this;
                
             }
@@ -84,8 +100,9 @@ namespace ApocalipseZ
             if ( eventData.button == PointerEventData.InputButton.Left)
             {
                 selectedItem.id = id;
-                selectedItem.enabled = true;
+                selectedItem.AcceptedType = AcceptedType;
                 selectedItem.SetSlot ( slot );
+                selectedItem.enabled = true;
             }
             else if ( eventData.button == PointerEventData.InputButton.Right )
             {
@@ -108,8 +125,21 @@ namespace ApocalipseZ
                             inventory.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
                             break;
                         case SlotType.SLOTFASTITEMS:
-                            fastItems.SetFastSlots ( enterslotitem.GetId ( ) , selectedItem .GetSlot());
-                            inventory.RemoveItem ( selectedItem.GetSlot ( ) ,false);
+                                                    
+                         
+                            if (selectedItem.AcceptedType == SlotType.SLOTFASTITEMS)
+                            {
+                                fastItems.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
+
+                            }else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
+                            {
+                                fastItems.SetFastSlots ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) );
+                                if ( inventory != null )
+                                {
+                                    inventory.RemoveItem ( selectedItem.GetSlot ( ) , false );
+                                }
+                            }
+                                                      
                             break;
                         case SlotType.SLOTWEAPONS:
                             print ( "setar weapons" );

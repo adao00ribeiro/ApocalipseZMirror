@@ -129,9 +129,9 @@ public class Inventory : MonoBehaviour,IInventory
             {
                 if ( Items[i].item == item.item)
                 {
-                    Items[i].item = null;
-                    Items.RemoveAt ( i );
+                    Items[i] = new SSlotInventory ( );
                     OnInventoryAltered.Invoke ( );
+                    break;
                 }
             }
 

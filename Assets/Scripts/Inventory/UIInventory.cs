@@ -37,7 +37,7 @@ namespace ApocalipseZ
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
                 instance.SetInventory(inventory);
                 instance.SetFastItems ( fastItems );
-                instance.UpdateSlot ( i );
+                instance.UpdateSlotInventory ( i );
                 UIItems.Add ( instance );
             }
         }

@@ -6,20 +6,24 @@ namespace ApocalipseZ
 {
     public class FastItems : MonoBehaviour,IFastItems
     {
-       
+        public event Action OnFastItemsAltered;
+
         public List<SSlotInventory> FastSlots = new List<SSlotInventory>();
         public int maxSlots = 3;
 
         IInventory inventory;
         // Start is called before the first frame update
-        void Start ( )
+        void Awake ( )
         {
             for ( int i = 0 ; i < maxSlots ; i++ )
             {
                 FastSlots.Add ( new SSlotInventory());
             }
         }
-
+        public void SetInventory ( IInventory inventory )
+        {
+            this.inventory = inventory;
+        }
         // Update is called once per frame
       
         public void SlotChange (int switchSlotIndex )
@@ -31,14 +35,15 @@ namespace ApocalipseZ
             }
            
         }
-
+        public SSlotInventory GetSlotFastItems ( int id)
+        {
+           
+            return FastSlots[id];
+        }
         public void SetFastSlots ( int id, SSlotInventory slot )
         {
-            if (id> maxSlots)
-            {
-                return;
-            }
-            if ( FastSlots[id].item==null)
+           
+            if ( FastSlots[id].item == null)
             {
                 FastSlots[id] = slot;
             }
@@ -47,6 +52,21 @@ namespace ApocalipseZ
                 inventory.AddItem ( FastSlots[id] );
                 FastSlots[id] = slot;
             }
+            OnFastItemsAltered.Invoke ( );
+        }
+
+        public void RemoveSlot ( SSlotInventory slot )
+        {
+            for ( int i = 0 ; i < FastSlots.Count ; i++ )
+            {
+                if ( FastSlots[i].item == slot.item )
+                {
+                    FastSlots[i] = new SSlotInventory ( );
+                    OnFastItemsAltered.Invoke ( );
+                    break;
+                }
+            }
+
         }
     }
 }

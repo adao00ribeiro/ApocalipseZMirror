@@ -32,7 +32,7 @@ namespace ApocalipseZ
         {
             player = _player;
             FastItems = player.GetFastItems ( );
-
+            FastItems.SetInventory ( player.GetInventory ( ) );
             uiFastItems.SetFastItems ( FastItems );
             uiFastItems.SetWeaponManager ( player.GetWeaponManager());
         }
