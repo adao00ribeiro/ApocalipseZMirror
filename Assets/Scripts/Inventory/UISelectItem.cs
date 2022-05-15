@@ -40,6 +40,7 @@ namespace ApocalipseZ
         {
             if ( _slot.item == null)
             {
+                slot = _slot;
                 image.sprite = null;
                 image.color = Color.clear;
                 return;

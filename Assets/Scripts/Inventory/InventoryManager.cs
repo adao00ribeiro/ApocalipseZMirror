@@ -51,6 +51,7 @@ namespace ApocalipseZ
             player = _player;
             uiInventory.SetInventory ( player .GetInventory());
             uiInventory.SetFastItems ( player.GetFastItems());
+            uiInventory.SetWeaponManager ( player.GetWeaponManager());
             InventoryClose ( );
         }
         public void InventoryOpen()

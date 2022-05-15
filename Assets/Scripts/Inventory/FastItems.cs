@@ -68,5 +68,13 @@ namespace ApocalipseZ
             }
 
         }
+
+        public void MoveItem ( int id , int idmove )
+        {
+            SSlotInventory slottemp = FastSlots[idmove];
+            FastSlots[idmove] = FastSlots[id];
+            FastSlots[id] = slottemp;
+            OnFastItemsAltered.Invoke ( );
+        }
     }
 }

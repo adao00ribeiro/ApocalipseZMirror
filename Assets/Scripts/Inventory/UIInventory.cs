@@ -12,6 +12,7 @@ namespace ApocalipseZ
 
         IInventory inventory;
         IFastItems fastItems;
+        IWeaponManager WeaponManager;
         public void SetInventory ( IInventory _inventory)
         {
             inventory = _inventory;
@@ -23,7 +24,10 @@ namespace ApocalipseZ
         {
             this.fastItems = fastItems;
         }
-    
+        public void SetWeaponManager (IWeaponManager weaponmanager )
+        {
+            WeaponManager = weaponmanager;
+        }
         public void UpdateSlots ( )
         {
             foreach ( UISlotItem item in UIItems )
@@ -37,6 +41,7 @@ namespace ApocalipseZ
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
                 instance.SetInventory(inventory);
                 instance.SetFastItems ( fastItems );
+                instance.SetWeaponManager ( WeaponManager );
                 instance.UpdateSlotInventory ( i );
                 UIItems.Add ( instance );
             }

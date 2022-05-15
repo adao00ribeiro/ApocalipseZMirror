@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 namespace ApocalipseZ
 {
     public class WeaponManager : MonoBehaviour, IWeaponManager
     {
 
         public List<Weapon> ArmsWeapons;
+        public event Action OnWeaponAltered;
 
-        public SSlotInventory primarySlot;
-        public SSlotInventory secondarySlot;
+        public SSlotInventory primarySlot = new SSlotInventory ( );
+        public SSlotInventory secondarySlot = new SSlotInventory ( );
         public Weapon activeSlot;
 
         public bool UseNonPhysicalReticle = true;
@@ -41,6 +42,7 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
+           
             swayTransform = FindObjectOfType<Sway> ( ).GetComponent<Transform> ( );
             scopeImage.SetActive ( false );
             if ( UseNonPhysicalReticle )
@@ -126,6 +128,78 @@ namespace ApocalipseZ
                 }
             }
 
+        }
+
+        
+
+        public bool SetSlot ( int id , SSlotInventory sSlotInventory )
+        {
+          
+            if ( sSlotInventory.item.Type != ItemType.weapon)
+            {
+                return false;
+            }
+            if (id == 0)
+            {
+                primarySlot = sSlotInventory;
+                OnWeaponAltered.Invoke ( );
+                return true;
+            }
+            else if ( id == 1)
+            {
+                secondarySlot = sSlotInventory;
+                OnWeaponAltered.Invoke ( );
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                    
+        }
+
+        public SSlotInventory GetSlot ( int id)
+        {
+            print (id);
+            if (id == 0)
+            {
+                return primarySlot;
+            }else if ( id == 1)
+            {
+                return secondarySlot;
+            }
+            return new SSlotInventory ( );
+        }
+
+        public void RemoveSlot ( SSlotInventory sSlotInventory )
+        {
+            if ( sSlotInventory.item == primarySlot.item)
+            {
+                primarySlot = new SSlotInventory ( );
+            }else if ( sSlotInventory.item == secondarySlot.item )
+            {
+                secondarySlot = new SSlotInventory ( );
+            }
+
+            OnWeaponAltered.Invoke ( );
+        }
+
+        public void MoveItem ( int id , int idmove )
+        {
+            if (id==0)
+            {
+                SSlotInventory slottemp = secondarySlot;
+                secondarySlot = primarySlot;
+                primarySlot = slottemp;
+                OnWeaponAltered.Invoke ( );
+            }else if (id==1)
+            {
+                SSlotInventory slottemp = primarySlot;
+                primarySlot = secondarySlot;
+                secondarySlot = slottemp;
+                OnWeaponAltered.Invoke ( );
+            }
+           
         }
     }
 

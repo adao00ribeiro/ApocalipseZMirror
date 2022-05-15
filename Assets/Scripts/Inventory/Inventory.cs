@@ -19,7 +19,7 @@ namespace ApocalipseZ
         }
         public bool Compare ( SSlotInventory other )
         {
-            if ( this == other )
+            if ( this.item == other.item )
             {
                 return true;
             }

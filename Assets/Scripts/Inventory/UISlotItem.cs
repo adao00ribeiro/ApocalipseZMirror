@@ -37,7 +37,7 @@ namespace ApocalipseZ
         {
             this.id = id;
             slot = inventory.GetSlotInventory(id) ;
-            if ( slot.item == null)
+            if ( slot.Compare ( new SSlotInventory ( ) ) )
             {
                 TextQuantidade.text = "";
                 return;
@@ -51,7 +51,7 @@ namespace ApocalipseZ
             this.id = id;
             slot = fastItems .GetSlotFastItems( id );
 
-            if ( slot.item == null )
+            if ( slot.Compare ( new SSlotInventory ( ) ) )
             {
                 Image.sprite = null;
                 Image.color = Color.clear;
@@ -62,6 +62,24 @@ namespace ApocalipseZ
             Image.color = Color.white;
             TextQuantidade.text = slot.Quantity.ToString ( );
         }
+
+        internal void UpdateSlotWeapons ( int v )
+        {
+            this.id = v;
+            slot = weaponmanager.GetSlot( id );
+            print ( slot.item == null);
+            if ( slot.Compare(new SSlotInventory()) )
+            {
+                Image.sprite = null;
+                Image.color = Color.clear;
+                TextQuantidade.text = "";
+                return;
+            }
+            Image.sprite = slot.item.Thumbnail;
+            Image.color = Color.white;
+            TextQuantidade.text = slot.Quantity.ToString ( );
+        }
+
         internal void SetInventory(IInventory inventory)
         {
             this.inventory = inventory;
@@ -122,7 +140,32 @@ namespace ApocalipseZ
                     {
                         case SlotType.SLOTINVENTORY:
 
-                            inventory.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
+                           
+                            if ( selectedItem.AcceptedType == SlotType.SLOTFASTITEMS )
+                            {
+                                if ( inventory.AddItem ( selectedItem.GetSlot ( ) ) ) {
+                                    if ( fastItems != null )
+                                    {
+                                        fastItems.RemoveSlot ( selectedItem.GetSlot ( ) );
+                                    }
+                                } 
+                            }
+                            else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
+                            {
+                                inventory.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
+                               
+                            }
+                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
+                            {
+                                if ( inventory.AddItem ( selectedItem.GetSlot ( ) ) )
+                                {
+                                   
+                                  weaponmanager.RemoveSlot ( selectedItem.GetSlot ( ) );
+                                   
+                                }
+
+                            }
+
                             break;
                         case SlotType.SLOTFASTITEMS:
                                                     
@@ -139,11 +182,40 @@ namespace ApocalipseZ
                                     inventory.RemoveItem ( selectedItem.GetSlot ( ) , false );
                                 }
                             }
-                                                      
+                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
+                            {
+                                fastItems.SetFastSlots ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) );
+                                weaponmanager.RemoveSlot ( selectedItem.GetSlot ( ) );
+
+                            }
+
                             break;
                         case SlotType.SLOTWEAPONS:
-                            print ( "setar weapons" );
-                            
+
+                            if ( selectedItem.AcceptedType == SlotType.SLOTFASTITEMS )
+                            {
+                               
+                               if ( weaponmanager.SetSlot (enterslotitem.id ,selectedItem.GetSlot ( ) ) ) {
+                                    if ( fastItems != null )
+                                    {
+                                        fastItems.RemoveSlot ( selectedItem.GetSlot ( ) );
+                                    }
+                                } 
+
+                            }
+                            else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
+                            {
+                                if ( weaponmanager.SetSlot ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) ))
+                                {
+                                   
+                                    inventory.RemoveItem ( selectedItem.GetSlot ( ) , false );
+                                }
+                            }
+                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
+                            {
+                                weaponmanager.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
+                            }
+
                             break;
                         default:
                             break;
