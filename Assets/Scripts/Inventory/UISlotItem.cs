@@ -37,47 +37,50 @@ namespace ApocalipseZ
         {
             this.id = id;
             slot = inventory.GetSlotInventory(id) ;
-            if ( slot.Compare ( new SSlotInventory ( ) ) )
+            if ( slot.ItemIsNull())
             {
+                Image.sprite = null;
+                Image.color = Color.clear;
                 TextQuantidade.text = "";
+
                 return;
             }
-            Image.sprite = slot.item.Thumbnail;
+            Image.sprite = slot.GetSItem().Thumbnail;
             Image.color = Color.white;
-            TextQuantidade.text = slot.Quantity.ToString();
+            TextQuantidade.text = slot.GetQuantity ( ).ToString ();
         }
         public void UpdateSlotFastItems ( int id )
         {
             this.id = id;
             slot = fastItems .GetSlotFastItems( id );
 
-            if ( slot.Compare ( new SSlotInventory ( ) ) )
+            if ( slot.ItemIsNull() )
             {
                 Image.sprite = null;
                 Image.color = Color.clear;
                 TextQuantidade.text = "";
                 return;
             }
-            Image.sprite = slot.item.Thumbnail;
+            Image.sprite = slot.GetSItem().Thumbnail;
             Image.color = Color.white;
-            TextQuantidade.text = slot.Quantity.ToString ( );
+            TextQuantidade.text = slot.GetQuantity().ToString ( );
         }
 
         internal void UpdateSlotWeapons ( int v )
         {
             this.id = v;
             slot = weaponmanager.GetSlot( id );
-            print ( slot.item == null);
-            if ( slot.Compare(new SSlotInventory()) )
+          
+            if ( slot.ItemIsNull ( ))
             {
                 Image.sprite = null;
                 Image.color = Color.clear;
                 TextQuantidade.text = "";
                 return;
             }
-            Image.sprite = slot.item.Thumbnail;
+            Image.sprite = slot.GetSItem().Thumbnail;
             Image.color = Color.white;
-            TextQuantidade.text = slot.Quantity.ToString ( );
+            TextQuantidade.text = slot.GetQuantity ( ).ToString ( );
         }
 
         internal void SetInventory(IInventory inventory)
@@ -110,7 +113,7 @@ namespace ApocalipseZ
 
         public void OnPointerDown ( PointerEventData eventData )
         {
-            if ( slot.item == null)
+            if ( slot.ItemIsNull())
             {
                 return;
             }

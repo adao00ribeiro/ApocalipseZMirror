@@ -29,7 +29,7 @@ namespace ApocalipseZ
         public void SlotChange (int switchSlotIndex )
         {
           
-            if ( !FastSlots[switchSlotIndex-3].item.Compare(null))
+            if ( !FastSlots[switchSlotIndex-3].ItemIsNull())
             {
                 FastSlots[switchSlotIndex-3].Use ( );
             }
@@ -43,14 +43,16 @@ namespace ApocalipseZ
         public void SetFastSlots ( int id, SSlotInventory slot )
         {
            
-            if ( FastSlots[id].item == null)
+            if ( FastSlots[id].ItemIsNull())
             {
-                FastSlots[id] = slot;
+                FastSlots[id].SetSItem ( slot.GetSItem ( ) );
+                FastSlots[id].SetQuantity ( slot.GetQuantity ( ) );
             }
             else
             {
                 inventory.AddItem ( FastSlots[id] );
-                FastSlots[id] = slot;
+                FastSlots[id].SetSItem ( slot.GetSItem ( ) );
+                FastSlots[id].SetQuantity ( slot.GetQuantity ( ) );
             }
             OnFastItemsAltered.Invoke ( );
         }
@@ -59,7 +61,7 @@ namespace ApocalipseZ
         {
             for ( int i = 0 ; i < FastSlots.Count ; i++ )
             {
-                if ( FastSlots[i].item == slot.item )
+                if ( FastSlots[i].GetSItem() == slot.GetSItem ( ) )
                 {
                     FastSlots[i] = new SSlotInventory ( );
                     OnFastItemsAltered.Invoke ( );

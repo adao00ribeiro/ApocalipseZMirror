@@ -92,8 +92,8 @@ namespace ApocalipseZ
         {   
             IInventory inventory = player.GetInventory();
             SSlotInventory slot = new SSlotInventory();
-            slot.item = scriptableitem.sitem;
-            slot.Quantity = dropQuantity;
+            slot.SetSItem(scriptableitem.sitem);
+            slot.SetQuantity ( dropQuantity);
          
             if ( inventory.AddItem ( slot) )
             {

@@ -38,7 +38,7 @@ namespace ApocalipseZ
         }
         public void SetSlot ( SSlotInventory _slot )
         {
-            if ( _slot.item == null)
+            if ( _slot.GetSItem ( ) == null)
             {
                 slot = _slot;
                 image.sprite = null;
@@ -46,10 +46,10 @@ namespace ApocalipseZ
                 return;
             }
 
-            slot.item = _slot.item;
-            slot.Quantity = _slot.Quantity;
+            slot.SetSItem(_slot.GetSItem());
+            slot.SetQuantity(_slot.GetQuantity());
 
-            image.sprite = slot.item.Thumbnail;
+            image.sprite = slot.GetSItem().Thumbnail;
             image.preserveAspect = true;
             image.color = Color.white;
         }

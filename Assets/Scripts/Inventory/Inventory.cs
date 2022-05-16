@@ -9,11 +9,10 @@ namespace ApocalipseZ
     public class SSlotInventory
     {
        
-        public SItem item ;
-        public int Quantity;
+        private SItem item ;
+        private int Quantity;
         public SSlotInventory ( )
         {
-          
             item = null;
             Quantity = 0;
         }
@@ -30,7 +29,30 @@ namespace ApocalipseZ
         {
             Quantity--;
         }
-
+        public bool ItemIsNull ( )
+        {
+            if (item == null)
+            {
+                return true;
+            }
+            return false;
+        }
+        public SItem GetSItem ( )
+        {
+            return item;
+        }
+        public int GetQuantity ( )
+        {
+            return Quantity;
+        }
+        public void SetQuantity (int _Quantity )
+        {
+            Quantity = _Quantity;
+        }
+        public void SetSItem ( SItem _item )
+        {
+            item = _item;
+        }
     }
 public class Inventory : MonoBehaviour,IInventory
     {
@@ -81,9 +103,10 @@ public class Inventory : MonoBehaviour,IInventory
                 return false;
             }
            
-            Items[posicao]  = slot;
-           
-            if ( debug ) Debug.Log ( "Added item: " + slot.item.name ); 
+            Items[posicao].SetSItem( slot .GetSItem());
+            Items[posicao].SetQuantity ( slot.GetQuantity ( ) );
+
+            if ( debug ) Debug.Log ( "Added item: " + slot.GetSItem().name ); 
 
             //Events
             // item.onPickupEvent.Invoke ( );
@@ -98,7 +121,7 @@ public class Inventory : MonoBehaviour,IInventory
 
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if (Items[i].item == null)
+                if (Items[i].GetSItem() == null)
                 {
                     posicao = i;
                 isfreespace = true;
@@ -127,9 +150,10 @@ public class Inventory : MonoBehaviour,IInventory
         {
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if ( Items[i].item == item.item)
+                if ( Items[i].GetSItem() == item.GetSItem())
                 {
-                    Items[i] = new SSlotInventory ( );
+                    Items[i].SetSItem ( null );
+                    Items[i].SetQuantity (0);
                     OnInventoryAltered.Invoke ( );
                     break;
                 }
@@ -145,31 +169,32 @@ public class Inventory : MonoBehaviour,IInventory
 
                 if ( slot.Compare( slotitem ) )
                 {
-                    switch ( slot.item.Type )
+                    switch ( slot.GetSItem().Type )
                     {
                         case ItemType.none:
                             //faz nada
                             break;
                         case ItemType.weapon:
                             print ("WEAPON" );
-                            slot.Quantity--;
+                            slot.Use();
                             //euipa
                             break;
                         case ItemType.ammo:
-                            slot.Quantity--;
+                            slot.Use ( );
                             //recarrega
                             break;
                         case ItemType.consumable:
                             print ( "CONSUMABLE" );
-                            slot.Quantity--;
+                            slot.Use ( );
                             //CONSUME
 
                             break;
                     }
 
-                    if ( slot.Quantity == 0 )
+                    if ( slot.GetQuantity() == 0 )
                     {
-                        slot = new SSlotInventory (  );
+                        slot.SetSItem ( null );
+                        slot.SetQuantity ( 0 );
                     }
                     OnInventoryAltered.Invoke ( );
                 }

@@ -94,11 +94,11 @@ namespace ApocalipseZ
         {
             if ( switchSlotIndex == 1 )
             {
-                EquipWeapon ( primarySlot.item );
+                EquipWeapon ( primarySlot.GetSItem() );
             }
             else if ( switchSlotIndex == 2 )
             {
-                EquipWeapon ( secondarySlot.item );
+                EquipWeapon ( secondarySlot.GetSItem() );
             }
 
         }
@@ -135,7 +135,7 @@ namespace ApocalipseZ
         public bool SetSlot ( int id , SSlotInventory sSlotInventory )
         {
           
-            if ( sSlotInventory.item.Type != ItemType.weapon)
+            if ( sSlotInventory.GetSItem().Type != ItemType.weapon)
             {
                 return false;
             }
@@ -173,10 +173,10 @@ namespace ApocalipseZ
 
         public void RemoveSlot ( SSlotInventory sSlotInventory )
         {
-            if ( sSlotInventory.item == primarySlot.item)
+            if ( sSlotInventory.GetSItem() == primarySlot.GetSItem ( ) )
             {
                 primarySlot = new SSlotInventory ( );
-            }else if ( sSlotInventory.item == secondarySlot.item )
+            }else if ( sSlotInventory.GetSItem ( ) == secondarySlot.GetSItem ( ) )
             {
                 secondarySlot = new SSlotInventory ( );
             }
