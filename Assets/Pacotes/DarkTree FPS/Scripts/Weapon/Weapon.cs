@@ -72,6 +72,7 @@ namespace DarkTreeFPS
         //Stats
         [HideInInspector]
         public int damageMin, damageMax;
+
         private float fireRate;
         [HideInInspector]
         public float rigidbodyHitForce;

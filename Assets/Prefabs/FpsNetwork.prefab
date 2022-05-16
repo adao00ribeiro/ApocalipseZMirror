@@ -445,6 +445,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaec8146203adee45b9ec81f9e5c7687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ArmsWeapons: []
+  activeSlot: {fileID: 0}
+  UseNonPhysicalReticle: 1
+  switchSlotIndex: 0
+  currentWeaponIndex: 0
+  scopeImage: {fileID: 0}
+  reticleDynamic: {fileID: 0}
+  reticleStatic: {fileID: 0}
+  weaponHolderAnimator: {fileID: 0}
+  tempGameobject: {fileID: 0}
+  swayTransform: {fileID: 0}
 --- !u!114 &4393839798801360593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,8 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FastSlots: []
-  switchSlotIndex: 0
-  currentWeaponIndex: 0
+  maxSlots: 3
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0
@@ -6635,21 +6645,6 @@ MonoBehaviour:
   maxSlot: 6
   debug: 1
   isOpen: 1
-  onAddItem:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &4547497742327364679
 GameObject:
   m_ObjectHideFlags: 0
@@ -7631,6 +7626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!82 &7791050779353848738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12452,6 +12449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!82 &3023963040980270632
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13324,6 +13323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!82 &7034102252471180083
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13607,6 +13608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: AR15
+  currentAmmo: 0
 --- !u!82 &155657855860441007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13797,6 +13800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!1 &9191147390043615100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14423,6 +14428,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!1001 &1378334109669203310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15055,6 +15062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!1001 &5260200274810873345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15543,6 +15552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  currentAmmo: 0
 --- !u!4 &489080796974194626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5635810883320887747, guid: b92e404be46ac6a42bed293b6a3a9bba,

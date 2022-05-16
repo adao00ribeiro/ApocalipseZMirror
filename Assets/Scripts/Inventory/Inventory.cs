@@ -8,8 +8,7 @@ namespace ApocalipseZ
     [System.Serializable]
     public class SSlotInventory
     {
-       
-        private SItem item ;
+        private SItem item;
         private int Quantity;
         public SSlotInventory ( )
         {
@@ -66,10 +65,7 @@ public class Inventory : MonoBehaviour,IInventory
 
         public bool isOpen = true;
 
-
         IFpsPlayer player;
-
-     
 
         public void SetFpsPlayer ( IFpsPlayer _player )
         {

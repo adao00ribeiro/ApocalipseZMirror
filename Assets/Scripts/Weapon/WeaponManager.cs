@@ -7,7 +7,7 @@ namespace ApocalipseZ
     public class WeaponManager : MonoBehaviour, IWeaponManager
     {
 
-        public List<Weapon> ArmsWeapons;
+        public List<Weapon> ArmsWeapons = new List<Weapon>();
         public event Action OnWeaponAltered;
 
         public SSlotInventory primarySlot = new SSlotInventory ( );
@@ -33,7 +33,7 @@ namespace ApocalipseZ
         //Transform where weapons will dropped on Drop()
         private Transform playerTransform;
 
-        private Transform swayTransform;
+        [SerializeField]private Transform swayTransform;
 
         private IInventory inventory;
 
@@ -42,8 +42,11 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
-           
-            swayTransform = FindObjectOfType<Sway> ( ).GetComponent<Transform> ( );
+            scopeImage = GameObject.Find ( "Canvas Main/Scope" );
+            swayTransform = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder/Sway" ).transform;
+            reticleDynamic = GameObject.Find ( "Canvas Main/Reticles/DynamicReticle" );
+            reticleStatic = GameObject.Find ( "Canvas Main/Reticles/StaticReticle" );
+            weaponHolderAnimator = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator>();
             scopeImage.SetActive ( false );
             if ( UseNonPhysicalReticle )
             {
@@ -71,6 +74,38 @@ namespace ApocalipseZ
         {
             SlotInput ( );
 
+            if (InputManager.instance.GetFire())
+            {
+                if (activeSlot != null )
+                {
+                   activeSlot.Fire ( );
+                }
+                else
+                {
+                    print ( "WEAPON NULL" );
+                }
+                
+            }
+
+            if (InputManager.instance.GetReload())
+            {
+                if ( activeSlot != null )
+                {
+                    activeSlot.ReloadBegin ( );
+                }
+                else
+                {
+                    print ( "WEAPON NULL");
+                }
+            }
+            if (InputManager.instance.GetAim())
+            {
+               
+            }
+            else
+            {
+
+            }
             if ( InputManager.instance.GetDropWeapon ( ) )
             {
                 // DropWeapon();
@@ -114,6 +149,7 @@ namespace ApocalipseZ
             {
                 if ( weapon.weaponName == Item.name )
                 {
+                    print ( Item.name);
                     activeSlot = weapon;
 
                     activeSlot.currentAmmo = Item.Ammo;
