@@ -511,7 +511,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5be9a34e3d3bc945bf6a753424f4209, type: 2}
+  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1573,7 +1573,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5be9a34e3d3bc945bf6a753424f4209, type: 2}
+  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1637,7 +1637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9018794153237675960}
   - component: {fileID: 1415030499550515906}
-  - component: {fileID: -5411921327181191392}
+  - component: {fileID: -3662744380307761620}
   m_Layer: 0
   m_Name: PrefabShotgun
   m_TagString: Untagged
@@ -1652,7 +1652,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5436522767758331307}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1672,7 +1672,7 @@ Animator:
   m_GameObject: {fileID: 5436522767758331307}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8a83753c1142faa4f9588583d8315acc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2586ed2b20c2dd7439c1b7cebea6afa2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1682,7 +1682,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-5411921327181191392
+--- !u!114 &-3662744380307761620
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponSetting: {fileID: 11400000, guid: 2edf2618614b6f947892d88cf9bf42a1, type: 2}
   weaponName: SHOTGUN
-  Type: 0
+  Type: 3
   muzzleFlashTransform: {fileID: 0}
   shellTransform: {fileID: 0}
   bulletTransform: {fileID: 0}
@@ -2496,7 +2496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5be9a34e3d3bc945bf6a753424f4209, type: 2}
+  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
