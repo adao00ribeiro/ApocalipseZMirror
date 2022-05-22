@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
+
 namespace ApocalipseZ
 {
     public enum ItemType { none, weapon, ammo, consumable }
@@ -62,7 +64,9 @@ namespace ApocalipseZ
             return false;
         }
     }
-        public class Item : MonoBehaviour,IInteract
+
+    [RequireComponent ( typeof ( NetworkTransform ) )]
+    public class Item : NetworkBehaviour,IInteract
     {
         [SerializeField]private  ScriptableItem scriptableitem;
 
@@ -88,6 +92,7 @@ namespace ApocalipseZ
 	        return scriptableitem.sitem.name;
         }
 
+        
         public void OnInteract (IFpsPlayer player)
         {   
             IInventory inventory = player.GetInventory();
@@ -97,7 +102,7 @@ namespace ApocalipseZ
          
             if ( inventory.AddItem ( slot) )
             {
-                Destroy ( gameObject);
+                NetworkBehaviour.Destroy ( gameObject);
             }
         }
 
@@ -119,6 +124,12 @@ namespace ApocalipseZ
             {
                 EndFocus ( );
             }
+        }
+
+        [Command ( requiresAuthority = false )]
+        public void CmdSetDoorState ( NetworkConnectionToClient sender = null )
+        {
+            OnInteract ( sender.identity.GetComponent<FpsPlayer>());
         }
     }
 }

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 public interface IInteract
 {
+
+    void CmdSetDoorState ( NetworkConnectionToClient sender = null );
+    
     void OnInteract ( IFpsPlayer player );
 
     void StartFocus ( );

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace ApocalipseZ
 {
+   
     public class InteractObjects : MonoBehaviour, IInteractObjects
     {
         [Tooltip("The distance within which you can pick up item")]
@@ -11,17 +13,13 @@ namespace ApocalipseZ
 
        [SerializeField]private Item interact;
 
-        IFpsPlayer player;
-        private GameObject useCursor;
-        private Text useText;
+        UiFpsPlayer uifpsPlayer;
         private Transform RaycastCollider;
         public LayerMask layer;
         // Start is called before the first frame update
         void Start ( )
         {
-            useCursor = GameObject.Find ( "UseCursor" );
-            useText = useCursor.GetComponentInChildren<Text> ( );
-            useCursor.SetActive ( false );
+            uifpsPlayer = GameObject.FindObjectOfType<UiFpsPlayer> ( );
             RaycastCollider = GameObject.CreatePrimitive (PrimitiveType.Sphere).transform;
             RaycastCollider.name = "COLLIDERINTERACT";
             RaycastCollider.gameObject.tag = "noCollider";
@@ -34,8 +32,9 @@ namespace ApocalipseZ
         }
 
         // Update is called once per frame
-        void Update ( )
+       public void UpdateInteract ( )
         {
+          
             RaycastHit hit;
 
           
@@ -46,14 +45,15 @@ namespace ApocalipseZ
                 if ( interact !=null )
                 {
                     RaycastCollider.position = hit.collider.gameObject.transform.position;
-                    useCursor.SetActive ( true );
-                    useText.text = interact.GetTitle ( );
+                    uifpsPlayer.EnableCursor ( );
+                    uifpsPlayer.SetUseText ( interact.GetTitle ( ) );
+                 
                    
                     if (InputManager.instance.GetUse())
                     {
-                        interact.OnInteract ( player );
-	                    interact = null;
-	                    useText.text = "";
+                        interact.CmdSetDoorState ( );
+                        interact = null;
+                        uifpsPlayer.SetUseText ( "" );
                     }
                     
                 }
@@ -62,14 +62,10 @@ namespace ApocalipseZ
             else
             {
                 RaycastCollider.position = transform.position + transform.forward * distance;
-                useCursor.SetActive ( false );
-                useText.text = "";
+                uifpsPlayer.DisableCursor( );
+                uifpsPlayer.SetUseText ("");
             }
         }
 
-        public void SetFpsPlayer ( IFpsPlayer _player )
-        {
-            player = _player;
-        }
     }
 }

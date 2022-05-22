@@ -28,7 +28,7 @@ namespace ApocalipseZ
         public Vector2 smoothing = new Vector2(3, 3);
         public bool isClimbing = true;
         private Vector3 previousPos = new Vector3();
-        InputManager inputManager;
+
         [SerializeField]private Animator AnimatorController;
         [SerializeField]private Animator AnimatorWeaponHolderController;
         [SerializeField] private GameObject[] mesh;
@@ -41,12 +41,7 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         private void Start ( )
         {
-            if ( !isLocalPlayer )
-            {
-                return;
-            }
-            inputManager = InputManager.instance;
-            
+         
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
@@ -60,12 +55,12 @@ namespace ApocalipseZ
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
-            OnLocalPlayerJoined += InteractObjects.SetFpsPlayer; ;
             OnLocalPlayerJoined += InventoryManager.SetFpsPlayer; ;
             OnLocalPlayerJoined += FastItemsManager.SetFpsPlayer; ;
             OnLocalPlayerJoined?.Invoke ( this );
 
         }
+
 
 
         public override void OnStartLocalPlayer ( )
@@ -102,6 +97,7 @@ namespace ApocalipseZ
             }
             Animation ( );
             Moviment.UpdateMoviment ( );
+            InteractObjects.UpdateInteract ( );
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
@@ -109,17 +105,17 @@ namespace ApocalipseZ
         public void Animation ( )
         {
             //animatorcontroller
-            AnimatorController.SetFloat ( "Horizontal" , inputManager.GetMoviment ( ).x );
-            AnimatorController.SetFloat ( "Vertical" , inputManager.GetMoviment ( ).y );
+            AnimatorController.SetFloat ( "Horizontal" , InputManager.instance.GetMoviment ( ).x );
+            AnimatorController.SetFloat ( "Vertical" , InputManager.instance.GetMoviment ( ).y );
             AnimatorController.SetBool ( "IsJump" , !Moviment.isGrounded ( ) );
-            AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && inputManager.GetRun ( ) );
+            AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.instance.GetRun ( ) );
 
 
             //weaponanimator
 
             AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) );
-            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && inputManager.GetRun ( ) && Moviment.isGrounded ( ) );
-            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && inputManager.GetCrouch ( ) && Moviment.isGrounded ( ) );
+            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.instance.GetRun ( ) && Moviment.isGrounded ( ) );
+            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.instance.GetCrouch ( ) && Moviment.isGrounded ( ) );
 
         }
         public float GetVelocityMagnitude ( )
