@@ -7,6 +7,8 @@ public interface IInventory
     public event System.Action OnInventoryAltered;
     SSlotInventory GetSlotInventory ( int index);
     bool AddItem( SSlotInventory item );
+
+    void Clear ( );
     public bool CheckFreeSpace(ref int posicao);
     public bool CheckIfItemExist( SSlotInventory item );
     public void RemoveItem( SSlotInventory item , bool destroy);
@@ -14,4 +16,5 @@ public interface IInventory
     public int GetMaxSlots ( );
     public void SetMaxSlots ( int maxslot);
     void MoveItem ( int id , int idmove );
+    InventoryTemp GetInventoryTemp ( );
 }

@@ -154,7 +154,7 @@ public class LobbyManager : MonoBehaviour
             Destroy(spawPoint.GetChild(0).gameObject);
         }
 
-        GameObject.FindObjectOfType<ScriptableManager>().InstanciaPersonagem(idPersonagem, spawPoint);
+      //  GameObject.FindObjectOfType<ScriptableManager>().InstanciaPersonagem(idPersonagem, spawPoint);
 
     }
 }

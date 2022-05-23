@@ -9,12 +9,17 @@ namespace ApocalipseZ
     [System.Serializable]
     public class SSlotInventory
     {
-        [SerializeField]private SItem item;
-        [SerializeField]private int Quantity;
+        private SItem item;
+        private int Quantity;
         public SSlotInventory ( )
         {
             item = null;
             Quantity = 0;
+        }
+        public SSlotInventory ( SItem _item , int _Quantity )
+        {
+            item = _item;
+            Quantity = _Quantity;
         }
         public bool Compare ( SSlotInventory other )
         {
@@ -76,7 +81,6 @@ public class Inventory : MonoBehaviour,IInventory
         // Start is called before the first frame update
         void Awake ( )
         {
-          
             for ( int i = 0 ; i < maxSlot ; i++ )
             {
                 SSlotInventory temp = new SSlotInventory ( );
@@ -84,6 +88,15 @@ public class Inventory : MonoBehaviour,IInventory
             }
         }
 
+        public void Clear ( )
+        {
+            Items.Clear ( );
+            for ( int i = 0 ; i < maxSlot ; i++ )
+            {
+                SSlotInventory temp = new SSlotInventory ( );
+                Items.Add ( temp );
+            }
+        }
         // Update is called once per frame
         void UpdateInventory ( )
         {
@@ -227,5 +240,12 @@ public class Inventory : MonoBehaviour,IInventory
             Items[id] = slottemp;
             OnInventoryAltered.Invoke ( );
         }
+
+        public InventoryTemp GetInventoryTemp ( )
+        {
+            return  new InventoryTemp (Items , GetMaxSlots ( ) );
+        }
+
+        
     }
 }

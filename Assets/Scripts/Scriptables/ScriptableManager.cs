@@ -1,21 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ScriptableManager : MonoBehaviour
+namespace ApocalipseZ
 {
-
-    public ScriptableData DataPersonagens;
-
-    // Start is called before the first frame update
-    void Awake()
+    public class ScriptableManager :MonoBehaviour
     {
+        [SerializeField]private  static ScriptableItem[] ItemsWeapons;
 
-        DontDestroyOnLoad(gameObject);
-    }
-    public void InstanciaPersonagem(int id, Transform parent)
-    {
-        PersonalizaPersonagem temp = Instantiate(DataPersonagens.GetGameObject(id), parent).GetComponent<PersonalizaPersonagem>();
-        temp.idprefab = id;
+        private void Start ( )
+        {
+            ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
+        }
+      
+        public static void Print ( )
+        {
+            for ( int i = 0 ; i < ItemsWeapons.Length ; i++ )
+            {
+                Debug.Log ( ItemsWeapons[i].sitem.name);
+            }
+        }
+        public static ScriptableItem GetScriptable ( string guidid )
+        {
+            ScriptableItem temp = null;
+
+            for ( int i = 0 ; i < ItemsWeapons.Length ; i++ )
+            {
+                if ( ItemsWeapons[i].sitem.GuidId.ToString ( ) == guidid )
+                {
+                    temp = ItemsWeapons[i];
+                    break;
+                }
+            }
+
+            return temp;
+        }
+     
     }
 }

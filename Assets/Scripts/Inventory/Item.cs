@@ -6,10 +6,11 @@ using UnityEngine;
 
 namespace ApocalipseZ
 {
-    public enum ItemType { none, weapon, ammo, consumable }
+    public enum ItemType : byte { none, weapon, ammo, consumable }
     [System.Serializable]
     public class SItem
     {
+        [SerializeField] public string GuidId =  System.Guid.NewGuid().ToString ();
 
         [SerializeField]public ItemType Type;
 
@@ -31,7 +32,7 @@ namespace ApocalipseZ
         [SerializeField]public float Durability ;
 
 
-        [SerializeField]public Item Prefab;
+        [SerializeField]public GameObject Prefab;
 
 
         public SItem ()

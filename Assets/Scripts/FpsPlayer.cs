@@ -61,8 +61,6 @@ namespace ApocalipseZ
 
         }
 
-
-
         public override void OnStartLocalPlayer ( )
         {
            
@@ -95,13 +93,46 @@ namespace ApocalipseZ
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
+
+            if (InputManager.instance.GetAlpha3())
+            {
+                CmdGetInventory ( this );
+            }
             Animation ( );
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
+        [Command]
+        void CmdGetInventory ( FpsPlayer item )
+        {
 
+            NetworkIdentity opponentIdentity = item.GetComponent<NetworkIdentity>();
+            TargetGetInventory ( opponentIdentity.connectionToClient , Inventory.GetInventoryTemp()) ;
+
+        }
+        [TargetRpc]
+        public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
+        {
+
+            Inventory.SetMaxSlots ( inventory.maxSlot);
+
+            Inventory.Clear ( );
+
+
+            for ( int i = 0 ; i < inventory.maxSlot ; i++ )
+            {
+                if ( !inventory.slot[i].ItemIsNull())
+                {
+                    Inventory.AddItem ( inventory.slot[i] );
+                }
+                
+               
+            }
+           
+
+        }
         public void Animation ( )
         {
             //animatorcontroller
