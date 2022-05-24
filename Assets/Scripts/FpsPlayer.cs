@@ -12,7 +12,7 @@ namespace ApocalipseZ
     [RequireComponent ( typeof ( WeaponManager ) )]
     public class FpsPlayer : NetworkBehaviour, IFpsPlayer
     {
-  
+        public static NetworkConnectionToClient networkConnectionToClient;
         public event System.Action<FpsPlayer> OnLocalPlayerJoined;
         IMoviment Moviment;
         IFastItems FastItems;
@@ -41,8 +41,12 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         private void Start ( )
         {
-         
-            //
+            if ( isLocalPlayer )
+            {
+                networkConnectionToClient = this.connectionToClient;
+            }
+           
+               //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
 
@@ -71,7 +75,7 @@ namespace ApocalipseZ
             }
             //
             GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
-          
+     
 
         }
         
@@ -105,30 +109,7 @@ namespace ApocalipseZ
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
-        [Command ( requiresAuthority = true )]
-        public void CmdGetInventory ( NetworkConnectionToClient sender = null )
-        {
-
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer>().Inventory.GetInventoryTemp()) ;
-
-        }
-        [TargetRpc]
-        public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
-        {
-            Inventory.SetMaxSlots ( inventory.maxSlot);
-            Inventory.Clear ( );
-            for ( int i = 0 ; i < inventory.maxSlot ; i++ )
-            {
-                if ( !inventory.slot[i].ItemIsNull())
-                {
-                    Inventory.AddItem ( inventory.slot[i] );
-                }
-               
-            }
-           
-
-        }
+      
         public void Animation ( )
         {
             //animatorcontroller
@@ -165,5 +146,110 @@ namespace ApocalipseZ
         {
             return WeaponManager;
         }
+
+
+        #region CMD
+
+        [Command ( requiresAuthority = true )]
+        public void CmdGetInventory ( NetworkConnectionToClient sender = null )
+        {
+
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).Inventory.GetInventoryTemp ( ) );
+
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdMoveSlotInventory ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
+        {
+            print ( "cmd move slot inventory");
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetMoveSlotInventory ( opponentIdentity.connectionToClient , idselecionado , identer );
+
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdAddSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            print ( "cmd add slot inventory" );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+             TargetAddSlotInventory ( opponentIdentity.connectionToClient );
+
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdRemoveSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            print ( "cmd remove slot inventory" );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+           // TargetMoveSlotInventory ( opponentIdentity.connectionToClient , "ola eu sou o " + text );
+
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
+        {
+            throw new System.NotImplementedException ( );
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            throw new System.NotImplementedException ( );
+        }
+        [Command ( requiresAuthority = true )]
+        public void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            throw new System.NotImplementedException ( );
+        }
+        #endregion
+        #region TARGERRPC
+
+        [TargetRpc]
+        public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
+        {
+            Inventory.SetMaxSlots ( inventory.maxSlot );
+            Inventory.Clear ( );
+            for ( int i = 0 ; i < inventory.maxSlot ; i++ )
+            {
+                if ( !inventory.slot[i].ItemIsNull ( ) )
+                {
+                    Inventory.AddItem ( inventory.slot[i] );
+                }
+            }
+        }
+        [TargetRpc]
+        public void TargetMoveSlotInventory ( NetworkConnection target ,int idselecionado , int identer)
+        {
+
+            print ( "target move slot inventory" );
+
+        }
+        [TargetRpc]
+        public void TargetAddSlotInventory ( NetworkConnection target)
+        {
+           
+        }
+        [TargetRpc]
+        public void TargetRemoveSlotInventory ( NetworkConnection target )
+        {
+
+        }
+        [TargetRpc]
+        public void TargetMoveSlotFastItems ( NetworkConnection target , string text )
+        {
+
+            print ( text );
+
+        }
+        [TargetRpc]
+        public void TargetAddSlotFastItems ( NetworkConnection target )
+        {
+
+        }
+        [TargetRpc]
+        public void TargetRemoveSlotFastItems ( NetworkConnection target )
+        {
+
+        }
+        #endregion
+
+
+
     }
 }

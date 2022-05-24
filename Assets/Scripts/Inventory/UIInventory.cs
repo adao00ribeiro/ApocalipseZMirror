@@ -10,29 +10,18 @@ namespace ApocalipseZ
         [SerializeField]private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
         IFpsPlayer player;
-        IInventory inventory;
-        IFastItems fastItems;
-        IWeaponManager WeaponManager;
+       
 
         public void SetFpsPlayer ( IFpsPlayer _player)
         {
             player = _player;
+          
+            slotPanel = transform.Find ( "SlotPanel" ).transform;
+            player.GetInventory().OnInventoryAltered += UpdateSlots; ;
+            UpdateSlots ( );
+
         }
-        public void SetInventory ( IInventory _inventory)
-        {
-            inventory = _inventory;
-            slotPanel = transform.Find ( "SlotPanel").transform;
-            inventory.OnInventoryAltered += UpdateSlots; ;
-            UpdateSlots ( );    
-        }
-        public void SetFastItems ( IFastItems fastItems)
-        {
-            this.fastItems = fastItems;
-        }
-        public void SetWeaponManager (IWeaponManager weaponmanager )
-        {
-            WeaponManager = weaponmanager;
-        }
+       
         public void UpdateSlots ( )
         {
           
@@ -42,13 +31,11 @@ namespace ApocalipseZ
                 Destroy ( item.gameObject);
             }
             UIItems.Clear();
-            for ( int i = 0 ; i < inventory.GetMaxSlots ( ) ; i++ )
+            for ( int i = 0 ; i < player.GetInventory().GetMaxSlots ( ) ; i++ )
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
-                instance.SetInventory(inventory);
-                instance.SetFastItems ( fastItems );
-                instance.SetWeaponManager ( WeaponManager );
-                instance.UpdateSlotInventory ( i );
+                instance.SetFpsPlayer (player );
+                instance.UpdateSlot ( i );
                 UIItems.Add ( instance );
             }
         }

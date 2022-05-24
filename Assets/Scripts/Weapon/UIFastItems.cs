@@ -10,59 +10,37 @@ namespace ApocalipseZ
         public UISlotItem Second;
 
         public List<UISlotItem> FastSlot = new List<UISlotItem>();
+        IFpsPlayer player;
 
-        IInventory inventory;
-        IFastItems FastItems;
-        IWeaponManager WeaponManager;
-        public void SetInventory ( IInventory _inventory )
+        public void SetFpsPlayer ( IFpsPlayer _player )
         {
-            inventory = _inventory;
-            Primary.SetInventory ( inventory );
-            Second.SetInventory ( inventory );
+            player = _player;
+            Primary.SetFpsPlayer ( player );
+            Second.SetFpsPlayer ( player );
             FastSlot.ForEach ( ( item ) => {
-                item.SetInventory ( inventory );
+                item.SetFpsPlayer ( player );
             } );
-        }
-
-
-        public void SetFastItems ( IFastItems _fastitems )
-        {
-            FastItems = _fastitems;
-            FastItems.OnFastItemsAltered += UpdateSlotsFastItems; ;
-
-            Primary.SetFastItems ( FastItems );
-            Second.SetFastItems ( FastItems );
-            FastSlot.ForEach ( ( item ) => { 
-            item.SetFastItems ( FastItems );
-            } );
+            player.GetFastItems().OnFastItemsAltered += UpdateSlotsFastItems; ;
+            player.GetWeaponManager().OnWeaponAltered += UpdateSlotsWeapons; ;
 
             UpdateSlotsFastItems ( );
+
+            UpdateSlotsWeapons ( );
         }
+     
         public void UpdateSlotsFastItems ( )
         {
             for ( int i = 0 ; i < FastSlot.Count ; i++ )
             {
-                FastSlot[i].UpdateSlotFastItems ( i ); 
+                FastSlot[i].UpdateSlot ( i ); 
             }
           
         }
 
-        internal void SetWeaponManager ( IWeaponManager weaponManager )
-        {
-            this.WeaponManager = weaponManager;
-            weaponManager.OnWeaponAltered += UpdateSlotsWeapons; ;
-            Primary.SetWeaponManager ( WeaponManager );
-            Second.SetWeaponManager ( WeaponManager );
-            FastSlot.ForEach ( ( item ) => {
-                item.SetWeaponManager ( WeaponManager );
-            } );
-            UpdateSlotsWeapons ( );
-        }
-
         private void UpdateSlotsWeapons ( )
         {
-            Primary.UpdateSlotWeapons ( 0 );
-            Second.UpdateSlotWeapons ( 1 );
+            Primary.UpdateSlot ( 0 );
+            Second.UpdateSlot ( 1 );
         }
     }
 }

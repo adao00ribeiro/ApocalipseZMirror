@@ -3,248 +3,229 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
-
 namespace ApocalipseZ
 {
-    public enum SlotType { SLOTINVENTORY,SLOTFASTITEMS,SLOTWEAPONS}
-    public class UISlotItem : MonoBehaviour,  IPointerClickHandler, IPointerEnterHandler,IPointerDownHandler,IPointerUpHandler,IPointerExitHandler
+
+    public enum SlotType { SLOTINVENTORY, SLOTFASTITEMS, SLOTWEAPONS }
+    public class UISlotItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public int id;
+        [SerializeField]private int Id;
         [SerializeField]private SlotType AcceptedType;
         [SerializeField]private Image Image;
         [SerializeField]private Text TextQuantidade;
         [SerializeField]private SSlotInventory slot;
-        [SerializeField]private UISelectItem selectedItem;
+        [SerializeField]private UISlotItem PrefabUiSlotItem;
 
-        IInventory inventory;
-        IFastItems fastItems;
-        IWeaponManager weaponmanager;
-        public static UISlotItem enterslotitem;
-      
+        public static UISlotItem SlotSelecionado;
+        public static UISlotItem SlotEnter;
+        Transform HUD;
+
+
+        private Vector2 offset;
+        IFpsPlayer player;
         private void Awake ( )
         {
-          
-            selectedItem = GameObject.Find ("SelectedItem").GetComponent<UISelectItem> ( );
-            Image = transform.Find ( "Image").GetComponent<Image> ( );
+            Image = transform.Find ( "Image" ).GetComponent<Image> ( );
             Image.sprite = null;
             Image.color = Color.clear;
             TextQuantidade = transform.Find ( "Image/TextQuantidade" ).GetComponent<Text> ( );
             TextQuantidade.text = "";
         }
-      
-        public void UpdateSlotInventory ( int id)
+        // Start is called before the first frame update
+        private void Start ( )
         {
-            this.id = id;
-            slot = inventory.GetSlotInventory(id) ;
-            if ( slot.ItemIsNull())
-            {
-                Image.sprite = null;
-                Image.color = Color.clear;
-                TextQuantidade.text = "";
+            HUD = GameObject.Find ( "HUD" ).transform;
 
-                return;
-            }
-            Image.sprite = slot.GetSItem().Thumbnail;
-            Image.color = Color.white;
-            TextQuantidade.text = slot.GetQuantity ( ).ToString ();
         }
-        public void UpdateSlotFastItems ( int id )
+        public void UpdateSlot ( int id )
         {
-            this.id = id;
-            slot = fastItems .GetSlotFastItems( id );
-
-            if ( slot.ItemIsNull() )
+            this.Id = id;
+            if ( AcceptedType == SlotType.SLOTINVENTORY)
+            {
+                slot = player.GetInventory ( ).GetSlotInventory ( id );
+            }
+            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
+            {
+                slot = player.GetFastItems ( ).GetSlotFastItems ( id );
+            }
+            else if ( AcceptedType == SlotType.SLOTWEAPONS )
+            {
+                slot = player.GetWeaponManager ( ).GetSlot ( id );
+            }
+           
+            if ( slot.ItemIsNull ( ) )
             {
                 Image.sprite = null;
                 Image.color = Color.clear;
                 TextQuantidade.text = "";
                 return;
             }
-            Image.sprite = slot.GetSItem().Thumbnail;
-            Image.color = Color.white;
-            TextQuantidade.text = slot.GetQuantity().ToString ( );
-        }
-
-        internal void UpdateSlotWeapons ( int v )
-        {
-            this.id = v;
-            slot = weaponmanager.GetSlot( id );
-          
-            if ( slot.ItemIsNull ( ))
-            {
-                Image.sprite = null;
-                Image.color = Color.clear;
-                TextQuantidade.text = "";
-                return;
-            }
-            Image.sprite = slot.GetSItem().Thumbnail;
+            Image.sprite = slot.GetSItem ( ).Thumbnail;
             Image.color = Color.white;
             TextQuantidade.text = slot.GetQuantity ( ).ToString ( );
-        }
 
-        internal void SetInventory(IInventory inventory)
-        {
-            this.inventory = inventory;
         }
-        internal void SetFastItems ( IFastItems fastitems )
+        public bool RemoveSlot ( )
         {
-            this.fastItems = fastitems;
-        }
-        internal void SetWeaponManager ( IWeaponManager weaponManager )
-        {
-            this.weaponmanager = weaponManager;
-        }
-        public void OnPointerClick ( PointerEventData eventData )
-        {
-         
-        }
+            UISlotItemTemp slotui = new UISlotItemTemp(Id,slot);
 
-        public void OnPointerEnter ( PointerEventData eventData )
-        {
-            if ( selectedItem.enabled )
+            if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
-              
-                enterslotitem = this;
-               
+                player.CmdRemoveSlotInventory ( slotui );
+                return true;
+            }
+            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
+            {
+                player.CmdRemoveSlotFastItems ( slotui );
+                return true;
+            }
+            else if ( AcceptedType == SlotType.SLOTWEAPONS )
+            {
+                // player.CmdRemoveSlotFastItems ( "remove slot weapons" );
+                return true;
             }
 
+            return false;
+
+        }
+        public bool AddSlot ( SSlotInventory _slot )
+        {
+
+            UISlotItemTemp slotui = new UISlotItemTemp(Id,_slot);
+
+            if ( AcceptedType == SlotType.SLOTINVENTORY )
+            {
+                player.CmdAddSlotInventory ( slotui );
+                return true;
+            }
+            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
+            {
+                player.CmdAddSlotFastItems ( slotui );
+                return true;
+            }
+            else if ( AcceptedType == SlotType.SLOTWEAPONS )
+            {
+                // player.CmdRemoveSlotFastItems ( "remove slot weapons" );
+                return true;
+            }
+            return true;
         }
 
-        public void OnPointerDown ( PointerEventData eventData )
+        public void OnBeginDrag ( PointerEventData eventData )
         {
-            if ( slot.ItemIsNull())
+            if ( SlotSelecionado )
             {
-                return;
-            }
 
-            if ( eventData.button == PointerEventData.InputButton.Left)
-            {
-                selectedItem.id = id;
-                selectedItem.AcceptedType = AcceptedType;
-                selectedItem.SetSlot ( slot );
-                selectedItem.enabled = true;
+
+                //this.transform.SetParent(this.transform.parent.parent);
+                //this.transform.position = eventData.position - offset;
+                SlotSelecionado.GetComponent<Image> ( ).raycastTarget = false;
             }
-            else if ( eventData.button == PointerEventData.InputButton.Right )
+        }
+
+        public void OnDrag ( PointerEventData eventData )
+        {
+            if ( SlotSelecionado )
             {
-                inventory.UseItem ( slot,false);
+                SlotSelecionado.transform.position = eventData.position - offset;
             }
-          
+        }
+
+        public void OnEndDrag ( PointerEventData eventData )
+        {
+            //this.transform.SetParent(ui.painel[slotId].transform);
+            //this.transform.position = ui.painel[slotId].transform.position;
+            //GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
 
         public void OnPointerUp ( PointerEventData eventData )
         {
-
-            if ( selectedItem.enabled)
+            if ( SlotSelecionado == null || SlotEnter == null )
             {
-                if ( enterslotitem != null )
-                {
-                    switch ( enterslotitem.AcceptedType )
-                    {
-                        case SlotType.SLOTINVENTORY:
-
-                           
-                            if ( selectedItem.AcceptedType == SlotType.SLOTFASTITEMS )
-                            {
-                                if ( inventory.AddItem ( selectedItem.GetSlot ( ) ) ) {
-                                    if ( fastItems != null )
-                                    {
-                                        fastItems.RemoveSlot ( selectedItem.GetSlot ( ) );
-                                    }
-                                } 
-                            }
-                            else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
-                            {
-                                inventory.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
-                               
-                            }
-                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
-                            {
-                                if ( inventory.AddItem ( selectedItem.GetSlot ( ) ) )
-                                {
-                                   
-                                  weaponmanager.RemoveSlot ( selectedItem.GetSlot ( ) );
-                                   
-                                }
-
-                            }
-
-                            break;
-                        case SlotType.SLOTFASTITEMS:
-                                                    
-                         
-                            if (selectedItem.AcceptedType == SlotType.SLOTFASTITEMS)
-                            {
-                                fastItems.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
-
-                            }else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
-                            {
-                                fastItems.SetFastSlots ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) );
-                                if ( inventory != null )
-                                {
-                                    inventory.RemoveItem ( selectedItem.GetSlot ( ) , false );
-                                }
-                            }
-                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
-                            {
-                                fastItems.SetFastSlots ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) );
-                                weaponmanager.RemoveSlot ( selectedItem.GetSlot ( ) );
-
-                            }
-
-                            break;
-                        case SlotType.SLOTWEAPONS:
-
-                            if ( selectedItem.AcceptedType == SlotType.SLOTFASTITEMS )
-                            {
-                               
-                               if ( weaponmanager.SetSlot (enterslotitem.id ,selectedItem.GetSlot ( ) ) ) {
-                                    if ( fastItems != null )
-                                    {
-                                        fastItems.RemoveSlot ( selectedItem.GetSlot ( ) );
-                                    }
-                                } 
-
-                            }
-                            else if ( selectedItem.AcceptedType == SlotType.SLOTINVENTORY )
-                            {
-                                if ( weaponmanager.SetSlot ( enterslotitem.GetId ( ) , selectedItem.GetSlot ( ) ))
-                                {
-                                   
-                                    inventory.RemoveItem ( selectedItem.GetSlot ( ) , false );
-                                }
-                            }
-                            else if ( selectedItem.AcceptedType == SlotType.SLOTWEAPONS )
-                            {
-                                weaponmanager.MoveItem ( selectedItem.id , enterslotitem.GetId ( ) );
-                            }
-
-                            break;
-                        default:
-                            break;
-                    }
-                    
-                }
-               
-                selectedItem.enabled = false;
+                Destroy ( SlotSelecionado.gameObject );
+                return;
             }
+            if ( SlotEnter.AcceptedType == SlotSelecionado.AcceptedType )
+            {
+
+                if ( SlotEnter.AcceptedType == SlotType.SLOTINVENTORY )
+                {
+                    player.CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
+                }
+                else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
+                {
+                    player.CmdMoveSlotFastItems ( SlotSelecionado.Id , SlotEnter.Id );
+                }
+                else if ( SlotEnter.AcceptedType == SlotType.SLOTWEAPONS )
+                {
+                    // player.CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
+                }
+
+            }
+            else
+            {
+
+                if ( SlotEnter.AddSlot ( SlotSelecionado.slot ) )
+                {
+                    print ( "remove outro");
+                    RemoveSlot ( );
+                }
+
+            }
+            Destroy ( SlotSelecionado.gameObject );
+        }
+        public void OnPointerDown ( PointerEventData eventData )
+        {
+            if ( slot.ItemIsNull ( ) )
+            {
+                return;
+            }
+            if ( eventData.button == PointerEventData.InputButton.Right )
+            {
+                // GameObject Slotoptions = PlayerController.CreateUi(controller.Prefab_PainelSlotOptions);
+                // Slotoptions.transform.position = eventData.position;
+            }
+            if ( eventData.button == PointerEventData.InputButton.Left )
+            {
+                SlotSelecionado = Instantiate ( PrefabUiSlotItem , HUD );
+                SlotSelecionado.AcceptedType = AcceptedType;
+                SlotSelecionado.SetFpsPlayer ( player);
+                SlotSelecionado.UpdateSlot ( Id);
+                SlotSelecionado.GetComponent<RectTransform> ( ).sizeDelta = new Vector2 ( 70 , 70 );
+                SlotSelecionado.transform.position = eventData.position;
+            }
+            offset = eventData.position - new Vector2 ( this.transform.position.x , this.transform.position.y );
+        }
+
+        public void OnPointerEnter ( PointerEventData eventData )
+        {
+            SlotEnter = this;
+            SetImagemColor ( Color.red );
+            //     tooltip.Activate(item);
+
         }
 
         public void OnPointerExit ( PointerEventData eventData )
         {
-            enterslotitem = null;
-          
+            SlotEnter = null;
+            //   tooltip.Deactivate();
+        }
+
+
+
+        public void SetFpsPlayer ( IFpsPlayer _player )
+        {
+            player = _player;
         }
 
         public int GetId ( )
         {
-            return id;
+            return Id;
         }
 
         public void SetImagemColor ( Color color )
         {
             Image.color = color;
         }
-
     }
 }

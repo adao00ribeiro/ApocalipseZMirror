@@ -196,7 +196,7 @@ namespace ApocalipseZ
 
         public SSlotInventory GetSlot ( int id)
         {
-            print (id);
+          
             if (id == 0)
             {
                 return primarySlot;

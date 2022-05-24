@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 namespace ApocalipseZ
 {
     public class FastItems : MonoBehaviour,IFastItems
@@ -78,5 +79,8 @@ namespace ApocalipseZ
             FastSlots[id] = slottemp;
             OnFastItemsAltered.Invoke ( );
         }
+
+
+
     }
 }

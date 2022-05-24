@@ -10,7 +10,7 @@ namespace ApocalipseZ
     public class SSlotInventory
     {
         [SerializeField]private SItem item;
-        [SerializeField]private int Quantity;
+        private int Quantity;
         public SSlotInventory ( )
         {
             item = null;
@@ -246,6 +246,7 @@ public class Inventory : MonoBehaviour,IInventory
             return  new InventoryTemp (Items , GetMaxSlots ( ) );
         }
 
-        
+       
+
     }
 }
