@@ -9,8 +9,8 @@ namespace ApocalipseZ
     [System.Serializable]
     public class SSlotInventory
     {
-        private SItem item;
-        private int Quantity;
+        [SerializeField]private SItem item;
+        [SerializeField]private int Quantity;
         public SSlotInventory ( )
         {
             item = null;

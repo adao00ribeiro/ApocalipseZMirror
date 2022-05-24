@@ -93,41 +93,37 @@ namespace ApocalipseZ
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
-
-            if (InputManager.instance.GetAlpha3())
-            {
-                CmdGetInventory ( this );
-            }
+           
+           
             Animation ( );
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
+            if ( InputManager.instance.GetUse ( ) )
+            {
+                CmdGetInventory ( );
+            }
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
-        [Command]
-        void CmdGetInventory ( FpsPlayer item )
+        [Command ( requiresAuthority = true )]
+        public void CmdGetInventory ( NetworkConnectionToClient sender = null )
         {
 
-            NetworkIdentity opponentIdentity = item.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , Inventory.GetInventoryTemp()) ;
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer>().Inventory.GetInventoryTemp()) ;
 
         }
         [TargetRpc]
         public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
         {
-
             Inventory.SetMaxSlots ( inventory.maxSlot);
-
             Inventory.Clear ( );
-
-
             for ( int i = 0 ; i < inventory.maxSlot ; i++ )
             {
                 if ( !inventory.slot[i].ItemIsNull())
                 {
                     Inventory.AddItem ( inventory.slot[i] );
                 }
-                
                
             }
            

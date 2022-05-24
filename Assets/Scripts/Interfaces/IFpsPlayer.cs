@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
+using ApocalipseZ;
 public interface IFpsPlayer 
 {
     bool lockCursor { get; set; }
@@ -9,6 +10,5 @@ public interface IFpsPlayer
     IInventory GetInventory ( );
     IWeaponManager GetWeaponManager ( );
     IFastItems GetFastItems ( );
-
-
+    void CmdGetInventory ( NetworkConnectionToClient sender = null );
 }

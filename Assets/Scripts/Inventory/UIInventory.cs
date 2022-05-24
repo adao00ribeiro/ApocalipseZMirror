@@ -9,10 +9,15 @@ namespace ApocalipseZ
         public UISlotItem PrefabSlot;
         [SerializeField]private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
-
+        IFpsPlayer player;
         IInventory inventory;
         IFastItems fastItems;
         IWeaponManager WeaponManager;
+
+        public void SetFpsPlayer ( IFpsPlayer _player)
+        {
+            player = _player;
+        }
         public void SetInventory ( IInventory _inventory)
         {
             inventory = _inventory;
@@ -30,6 +35,7 @@ namespace ApocalipseZ
         }
         public void UpdateSlots ( )
         {
+          
             foreach ( UISlotItem item in UIItems )
             {
               

@@ -17,4 +17,6 @@ public interface IInventory
     public void SetMaxSlots ( int maxslot);
     void MoveItem ( int id , int idmove );
     InventoryTemp GetInventoryTemp ( );
+
+    
 }

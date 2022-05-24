@@ -131,6 +131,7 @@ namespace ApocalipseZ
         public void CmdSetDoorState ( NetworkConnectionToClient sender = null )
         {
             OnInteract ( sender.identity.GetComponent<FpsPlayer>());
+            
         }
     }
 }
