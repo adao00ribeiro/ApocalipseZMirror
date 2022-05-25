@@ -80,7 +80,20 @@ namespace ApocalipseZ
             OnFastItemsAltered.Invoke ( );
         }
 
+        public InventoryTemp GetFastItemsTemp ( )
+        {
+            InventoryTemp temp = new InventoryTemp(FastSlots,maxSlots);
+            return temp;
+        }
 
-
+        public void Clear ( )
+        {
+            FastSlots.Clear ( );
+            for ( int i = 0 ; i < maxSlots ; i++ )
+            {
+                SSlotInventory temp = new SSlotInventory ( );
+                FastSlots.Add ( temp );
+            }
+        }
     }
 }

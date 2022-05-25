@@ -9,7 +9,7 @@ namespace ApocalipseZ
     [System.Serializable]
     public class SSlotInventory
     {
-        [SerializeField]private SItem item;
+        private SItem item;
         private int Quantity;
         public SSlotInventory ( )
         {
@@ -124,7 +124,24 @@ public class Inventory : MonoBehaviour,IInventory
             OnInventoryAltered.Invoke ( );
             return true;
         }
+        public bool AddItem ( SSlotInventory slot, int index )
+        {
+            if ( slot.ItemIsNull()) 
+            {
+                Items[index].SetSItem ( null);
+                Items[index].SetQuantity ( 0);
+                return false;
+            }
+            Items[index].SetSItem ( slot.GetSItem ( ) );
+            Items[index].SetQuantity ( slot.GetQuantity ( ) );
 
+            if ( debug ) Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
+
+            //Events
+            // item.onPickupEvent.Invoke ( );
+            OnInventoryAltered.Invoke ( );
+            return true;
+        }
 
         public bool CheckFreeSpace (ref int posicao )
         {

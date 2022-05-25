@@ -71,16 +71,19 @@ namespace ApocalipseZ
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
+                print ( "remove inventory" );
                 player.CmdRemoveSlotInventory ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
+                print ( "remove slotfast" );
                 player.CmdRemoveSlotFastItems ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTWEAPONS )
             {
+                print ( "remove weapon" );
                 // player.CmdRemoveSlotFastItems ( "remove slot weapons" );
                 return true;
             }
@@ -100,6 +103,7 @@ namespace ApocalipseZ
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
+                print ( "add slot fastitem");
                 player.CmdAddSlotFastItems ( slotui );
                 return true;
             }
@@ -115,8 +119,6 @@ namespace ApocalipseZ
         {
             if ( SlotSelecionado )
             {
-
-
                 //this.transform.SetParent(this.transform.parent.parent);
                 //this.transform.position = eventData.position - offset;
                 SlotSelecionado.GetComponent<Image> ( ).raycastTarget = false;
@@ -151,9 +153,11 @@ namespace ApocalipseZ
                 if ( SlotEnter.AcceptedType == SlotType.SLOTINVENTORY )
                 {
                     player.CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
+                   
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
                 {
+                    print ( "move fast slots");
                     player.CmdMoveSlotFastItems ( SlotSelecionado.Id , SlotEnter.Id );
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTWEAPONS )
@@ -167,7 +171,7 @@ namespace ApocalipseZ
 
                 if ( SlotEnter.AddSlot ( SlotSelecionado.slot ) )
                 {
-                    print ( "remove outro");
+                  
                     RemoveSlot ( );
                 }
 

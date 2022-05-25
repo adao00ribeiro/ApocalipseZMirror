@@ -13,4 +13,6 @@ public interface IFastItems {
     SSlotInventory GetSlotFastItems ( int id );
     void SetInventory ( IInventory inventory);
     void MoveItem ( int id , int v );
+    InventoryTemp GetFastItemsTemp ( );
+    void Clear ( );
 }

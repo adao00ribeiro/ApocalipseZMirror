@@ -161,41 +161,57 @@ namespace ApocalipseZ
         [Command ( requiresAuthority = true )]
         public void CmdMoveSlotInventory ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
         {
-            print ( "cmd move slot inventory");
+            sender.identity.GetComponent<FpsPlayer> ( ).Inventory.MoveItem ( idselecionado , identer );
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetMoveSlotInventory ( opponentIdentity.connectionToClient , idselecionado , identer );
-
+            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).Inventory.GetInventoryTemp ( ) );
         }
         [Command ( requiresAuthority = true )]
         public void CmdAddSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            print ( "cmd add slot inventory" );
+            Inventory.AddItem ( slot.slot );
+
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-             TargetAddSlotInventory ( opponentIdentity.connectionToClient );
+            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).Inventory.GetInventoryTemp ( ) );
 
         }
         [Command ( requiresAuthority = true )]
         public void CmdRemoveSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            print ( "cmd remove slot inventory" );
+            Inventory.RemoveItem (slot.slot,true);
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-           // TargetMoveSlotInventory ( opponentIdentity.connectionToClient , "ola eu sou o " + text );
+            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).Inventory.GetInventoryTemp ( ) );
+
+        }
+        // fast ITEMS
+        [Command ( requiresAuthority = true )]
+        public void CmdGetFastItems ( NetworkConnectionToClient sender = null )
+        {
+
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
 
         }
         [Command ( requiresAuthority = true )]
         public void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
         {
-            throw new System.NotImplementedException ( );
+            FastItems.MoveItem ( idselecionado,identer);
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
         }
         [Command ( requiresAuthority = true )]
         public void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            throw new System.NotImplementedException ( );
+            FastItems.SetFastSlots ( slot.id , slot.slot);
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
+
         }
         [Command ( requiresAuthority = true )]
         public void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            throw new System.NotImplementedException ( );
+            FastItems.RemoveSlot ( slot.slot );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
         }
         #endregion
         #region TARGERRPC
@@ -207,18 +223,26 @@ namespace ApocalipseZ
             Inventory.Clear ( );
             for ( int i = 0 ; i < inventory.maxSlot ; i++ )
             {
-                if ( !inventory.slot[i].ItemIsNull ( ) )
-                {
-                    Inventory.AddItem ( inventory.slot[i] );
-                }
+                print ( "aki" );
+              Inventory.AddItem ( inventory.slot[i] ,i);
             }
+           
+        }
+        [TargetRpc]
+        public void TargetGetFastItems ( NetworkConnection target , InventoryTemp fastSlots )
+        {
+            FastItems.Clear ( );
+
+            for ( int i = 0 ; i < fastSlots.maxSlot ; i++ )
+            {
+                FastItems.SetFastSlots (  i , fastSlots.slot[i] );
+            }
+
         }
         [TargetRpc]
         public void TargetMoveSlotInventory ( NetworkConnection target ,int idselecionado , int identer)
         {
-
-            print ( "target move slot inventory" );
-
+           
         }
         [TargetRpc]
         public void TargetAddSlotInventory ( NetworkConnection target)
@@ -234,7 +258,7 @@ namespace ApocalipseZ
         public void TargetMoveSlotFastItems ( NetworkConnection target , string text )
         {
 
-            print ( text );
+          
 
         }
         [TargetRpc]
