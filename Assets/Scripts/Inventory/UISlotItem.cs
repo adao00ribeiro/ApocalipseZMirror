@@ -13,7 +13,7 @@ namespace ApocalipseZ
         [SerializeField]private SlotType AcceptedType;
         [SerializeField]private Image Image;
         [SerializeField]private Text TextQuantidade;
-        [SerializeField]private SSlotInventory slot;
+        [SerializeField]private SSlotInventory slot = new SSlotInventory();
         [SerializeField]private UISlotItem PrefabUiSlotItem;
 
         public static UISlotItem SlotSelecionado;
@@ -42,15 +42,15 @@ namespace ApocalipseZ
             this.Id = id;
             if ( AcceptedType == SlotType.SLOTINVENTORY)
             {
-                slot = player.GetInventory ( ).GetSlotInventory ( id );
+                SetSlot(player.GetInventory ( ).GetSlotInventory ( id ));
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
-                slot = player.GetFastItems ( ).GetSlotFastItems ( id );
+                SetSlot ( player.GetFastItems ( ).GetSlotFastItems ( id ));
             }
             else if ( AcceptedType == SlotType.SLOTWEAPONS )
             {
-                slot = player.GetWeaponManager ( ).GetSlot ( id );
+                SetSlot ( player.GetWeaponManager ( ).GetSlot ( id ));
             }
            
             if ( slot.ItemIsNull ( ) )
@@ -215,7 +215,18 @@ namespace ApocalipseZ
             //   tooltip.Deactivate();
         }
 
+        public void SetSlot ( SSlotInventory _slot)
+        {
+            if ( _slot.ItemIsNull())
+            {
+                slot.SetSItem ( null);
+                slot.SetQuantity (0 );
+                return;
+            }
 
+            slot.SetSItem(_slot.GetSItem ( ));
+            slot.SetQuantity ( _slot.GetQuantity ( ));
+        }
 
         public void SetFpsPlayer ( IFpsPlayer _player )
         {

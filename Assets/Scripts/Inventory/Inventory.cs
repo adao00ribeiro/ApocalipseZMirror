@@ -10,7 +10,7 @@ namespace ApocalipseZ
     public class SSlotInventory
     {
         private SItem item;
-        private int Quantity;
+       [SerializeField] private int Quantity;
         public SSlotInventory ( )
         {
             item = null;
@@ -59,12 +59,13 @@ namespace ApocalipseZ
             item = _item;
         }
     }
-public class Inventory : MonoBehaviour,IInventory
+public class Inventory : NetworkBehaviour,IInventory
     {
         public event Action OnInventoryAltered;
 
         [SerializeField]private List<SSlotInventory> Items = new List<SSlotInventory>();
 
+        public string[] nomeitems;
       
         [SerializeField]private int maxSlot = 6;
 
@@ -74,6 +75,7 @@ public class Inventory : MonoBehaviour,IInventory
 
         IFpsPlayer player;
 
+    
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
@@ -85,9 +87,25 @@ public class Inventory : MonoBehaviour,IInventory
             {
                 SSlotInventory temp = new SSlotInventory ( );
                 Items.Add ( temp );
+             
+            }
+            nomeitems = new string[6];
+        }
+        private void Update ( )
+        {
+            for ( int i = 0 ; i < Items.Count ; i++ )
+            {
+                if ( Items[i].ItemIsNull())
+                {
+                    nomeitems[i] = "NONE";
+                }
+                else
+                {
+                    nomeitems[i] = Items[i].GetSItem ( ).name;
+                }
+                
             }
         }
-
         public void Clear ( )
         {
             Items.Clear ( );
@@ -130,6 +148,7 @@ public class Inventory : MonoBehaviour,IInventory
             {
                 Items[index].SetSItem ( null);
                 Items[index].SetQuantity ( 0);
+                OnInventoryAltered.Invoke ( );
                 return false;
             }
             Items[index].SetSItem ( slot.GetSItem ( ) );

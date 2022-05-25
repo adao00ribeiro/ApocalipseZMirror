@@ -53,7 +53,7 @@ namespace ApocalipseZ
             FastItems = GetComponent<FastItems> ( );
             FastItemsManager  = GameObject.Find ( "Canvas Inventory" ).GetComponent<FastItemsManager> ( );
 
-            Inventory = transform.Find ( "Inventory" ).GetComponent<Inventory> ( );
+            Inventory = GetComponent<Inventory> ( );
             InventoryManager = GameObject.Find("Canvas Inventory").GetComponent<InventoryManager>();
 
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
@@ -117,7 +117,7 @@ namespace ApocalipseZ
             AnimatorController.SetFloat ( "Vertical" , InputManager.instance.GetMoviment ( ).y );
             AnimatorController.SetBool ( "IsJump" , !Moviment.isGrounded ( ) );
             AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.instance.GetRun ( ) );
-
+            AnimatorController.SetBool ( "IsCrouch" , InputManager.instance.GetCrouch ( ) );
 
             //weaponanimator
 
@@ -219,11 +219,11 @@ namespace ApocalipseZ
         [TargetRpc]
         public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
         {
+            print ( "get inventory target rpc");
             Inventory.SetMaxSlots ( inventory.maxSlot );
             Inventory.Clear ( );
             for ( int i = 0 ; i < inventory.maxSlot ; i++ )
             {
-                print ( "aki" );
               Inventory.AddItem ( inventory.slot[i] ,i);
             }
            

@@ -15,6 +15,7 @@ namespace ApocalipseZ
         public float crouchSpeed = 0.4f;
         public float jumpSpeed = 3.5f;
         public float CrouchHeight = 0.5f;
+        private Transform mesh;
 
         private CharacterController CharacterController;
         private Vector3 moveDirection = Vector3.zero;
@@ -24,6 +25,7 @@ namespace ApocalipseZ
         Transform CameraTransform ;
         private void Awake ( )
         {
+            mesh = transform.Find ( "Ch35_nonPBR" );
             InputManager = InputManager.instance;
             CharacterController = GetComponent<CharacterController> ( );
             CameraTransform = Camera.main.transform;
@@ -42,6 +44,15 @@ namespace ApocalipseZ
             Speed = InputManager.GetRun ( ) ? Run : Speed;
             Speed = InputManager.GetCrouch ( ) ? crouchSpeed : Speed;
             CharacterController.height = InputManager.GetCrouch ( ) ? CrouchHeight : 1.8f;
+            if ( InputManager.GetCrouch ( ) )
+            {
+                mesh.localPosition = new Vector3 ( 0 , 0.4f, 0 );
+            }
+            else
+            {
+                mesh.localPosition = new Vector3 ( 0 , 0 , 0 );
+            }
+            
             directionY += Physics.gravity.y * Time.deltaTime;
             moveDirection.y = directionY;
             CharacterController.Move ( moveDirection * Speed * Time.deltaTime );

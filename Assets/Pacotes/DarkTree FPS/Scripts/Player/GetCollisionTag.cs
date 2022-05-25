@@ -9,15 +9,23 @@ namespace DarkTreeFPS
     public class GetCollisionTag : MonoBehaviour
     {
         public string contactTag;
-
+        public float radius = 0.5f;
+     
         private void Update()
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(transform.position, -transform.up, out hit, 1.5f))
+            if(Physics.Raycast(transform.position  , -transform.up , out hit, radius ) )
             {
                 contactTag = hit.collider.tag;
+                print ( hit.collider.name );
             }
+        }
+
+        private void OnDrawGizmos ( )
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere (transform.position  , radius );
         }
     }
 }

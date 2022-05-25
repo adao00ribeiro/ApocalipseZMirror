@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,7 +283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 12796460}
   m_Layer: 0
-  m_Name: Cenario
+  m_Name: Terreno
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2390,6 +2390,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 12796460}
     m_Modifications:
+    - target: {fileID: 208061219347155275, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 541.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 696085689032807409, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 806038979739526117, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2400,11 +2410,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 12772b9a093977e46aa5d59f8a367891, type: 2}
+    - target: {fileID: 1036486121343478487, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 1650751814778424383, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fe138a91770c7814fa8fe6ca4d591f6b, type: 2}
+    - target: {fileID: 2394602924415151697, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 2443290169274987860, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -2480,11 +2500,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3057662413175342185, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543845121626956840, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 3905468757881090590, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f02534727778b534d8497f57db610c8c, type: 2}
+    - target: {fileID: 4526640414771318040, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 4588557408829924728, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2516,6 +2551,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: a045eee57d99c7c458c63dd116e4f7b6, type: 2}
+    - target: {fileID: 6464742151608947264, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464742151608947264, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6464742151608947264, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_CookingOptions
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6627094269528145999, guid: fd58114b4f505fe4480433b4b2a7a73e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Concrete
+      objectReference: {fileID: 0}
     - target: {fileID: 7034808289143994641, guid: fd58114b4f505fe4480433b4b2a7a73e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2971,17 +3026,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   TextQuantidade: {fileID: 0}
   slot:
-    item:
-      GuidId: b086ce69-fe4e-4290-9468-444cb1832882
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
+    Quantity: 0
   PrefabUiSlotItem: {fileID: 953581165, guid: 5deda34205ca1fe4ca2c7573aeec546c, type: 3}
 --- !u!1 &343416668
 GameObject:
@@ -7015,7 +7060,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: c765d169f547af84d9609452f7c61cd3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7030,7 +7075,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081650269}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!1 &1083579162
 GameObject:
   m_ObjectHideFlags: 0
@@ -7171,7 +7216,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.862745, y: 1}
+    m_SensorSize: {x: 1.7802198, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7650,17 +7695,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   TextQuantidade: {fileID: 0}
   slot:
-    item:
-      GuidId: 61d3fc19-725a-45e0-a364-9008f2aacdef
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
+    Quantity: 0
   PrefabUiSlotItem: {fileID: 953581165, guid: 5deda34205ca1fe4ca2c7573aeec546c, type: 3}
 --- !u!1 &1169028863
 GameObject:
@@ -10802,17 +10837,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   TextQuantidade: {fileID: 0}
   slot:
-    item:
-      GuidId: 138db86a-6b98-4898-97f6-77611be5cc9c
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
+    Quantity: 0
   PrefabUiSlotItem: {fileID: 953581165, guid: 5deda34205ca1fe4ca2c7573aeec546c, type: 3}
 --- !u!4 &1688667314 stripped
 Transform:
@@ -11003,17 +11028,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   TextQuantidade: {fileID: 0}
   slot:
-    item:
-      GuidId: f43445f9-abb1-4a7b-9e23-dc639b3b5de4
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
+    Quantity: 0
   PrefabUiSlotItem: {fileID: 953581165, guid: 5deda34205ca1fe4ca2c7573aeec546c, type: 3}
 --- !u!1 &1714916820
 GameObject:
@@ -12300,7 +12315,7 @@ RectTransform:
   m_GameObject: {fileID: 2009209406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 694540598}
@@ -12312,9 +12327,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -80.009766, y: 148}
+  m_AnchoredPosition: {x: 0, y: 110}
   m_SizeDelta: {x: 160, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &2009209408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12833,17 +12848,7 @@ MonoBehaviour:
   Image: {fileID: 0}
   TextQuantidade: {fileID: 0}
   slot:
-    item:
-      GuidId: ad476875-2d79-4d4d-9c8f-df9fdb40b444
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
+    Quantity: 0
   PrefabUiSlotItem: {fileID: 953581165, guid: 5deda34205ca1fe4ca2c7573aeec546c, type: 3}
 --- !u!1001 &2146299927
 PrefabInstance:
@@ -13818,6 +13823,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1169028864}
     m_Modifications:
+    - target: {fileID: 6849516468177025838, guid: abfebcfa2078c254e92992343bec68c4,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6849516469895451413, guid: abfebcfa2078c254e92992343bec68c4,
         type: 3}
       propertyPath: m_RootOrder
