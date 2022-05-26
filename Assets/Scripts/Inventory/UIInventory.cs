@@ -4,18 +4,30 @@ using UnityEngine;
 
 namespace ApocalipseZ
 {
-    public class UIInventory : MonoBehaviour
+    public class UiInventory : MonoBehaviour
     {
         public UISlotItem PrefabSlot;
         [SerializeField]private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
         IFpsPlayer player;
-       
 
+        private void OnEnable ( )
+        {
+            if ( player ==null)
+            {
+                return;
+            }
+            player.GetInventory ( ).CmdGetInventory ( );
+         
+        }
+        private void OnDisable ( )
+        {
+           
+            
+        }
         public void SetFpsPlayer ( IFpsPlayer _player)
         {
             player = _player;
-          
             slotPanel = transform.Find ( "SlotPanel" ).transform;
             player.GetInventory().OnInventoryAltered += UpdateSlots; ;
             UpdateSlots ( );
@@ -24,13 +36,16 @@ namespace ApocalipseZ
        
         public void UpdateSlots ( )
         {
-          
+            if ( player ==null)
+            {
+                return;
+            }
             foreach ( UISlotItem item in UIItems )
             {
-              
-                Destroy ( item.gameObject);
+
+                Destroy ( item.gameObject );
             }
-            UIItems.Clear();
+            UIItems.Clear ( );
             for ( int i = 0 ; i < player.GetInventory().GetMaxSlots ( ) ; i++ )
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);

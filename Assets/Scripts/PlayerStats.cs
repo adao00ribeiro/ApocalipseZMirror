@@ -18,13 +18,14 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
-            HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
-            HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
+           // HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
+            //HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
         }
 
         // Update is called once per frame
         void Update ( )
         {
+            return;
             HealthSlider.value = health;
             HealthText.text = health.ToString ( );
 

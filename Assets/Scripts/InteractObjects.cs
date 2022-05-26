@@ -13,13 +13,25 @@ namespace ApocalipseZ
 
        [SerializeField]private Item interact;
 
-        UiFpsPlayer uifpsPlayer;
+        UiFpsScopeCursorReticles UiFpsScopeCursorReticles;
         private Transform RaycastCollider;
         public LayerMask layer;
+        private InputManager PInputManager;
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                }
+                return PInputManager;
+            }
+        }
         // Start is called before the first frame update
         void Start ( )
         {
-            uifpsPlayer = GameObject.FindObjectOfType<UiFpsPlayer> ( );
+            UiFpsScopeCursorReticles = GameObject.FindObjectOfType<UiFpsScopeCursorReticles> ( );
             RaycastCollider = GameObject.CreatePrimitive (PrimitiveType.Sphere).transform;
             RaycastCollider.name = "COLLIDERINTERACT";
             RaycastCollider.gameObject.tag = "noCollider";
@@ -45,15 +57,15 @@ namespace ApocalipseZ
                 if ( interact !=null )
                 {
                     RaycastCollider.position = hit.collider.gameObject.transform.position;
-                    uifpsPlayer.EnableCursor ( );
-                    uifpsPlayer.SetUseText ( interact.GetTitle ( ) );
+                    UiFpsScopeCursorReticles.EnableCursor ( );
+                    UiFpsScopeCursorReticles.SetUseText ( interact.GetTitle ( ) );
                  
                    
-                    if (InputManager.instance.GetUse())
+                    if (InputManager.GetUse())
                     {
                         interact.CmdSetDoorState ( );
                         interact = null;
-                        uifpsPlayer.SetUseText ( "" );
+                        UiFpsScopeCursorReticles.SetUseText ( "" );
                     }
                     
                 }
@@ -62,8 +74,8 @@ namespace ApocalipseZ
             else
             {
                 RaycastCollider.position = transform.position + transform.forward * distance;
-                uifpsPlayer.DisableCursor( );
-                uifpsPlayer.SetUseText ("");
+                UiFpsScopeCursorReticles.DisableCursor( );
+                UiFpsScopeCursorReticles.SetUseText ("");
             }
         }
 

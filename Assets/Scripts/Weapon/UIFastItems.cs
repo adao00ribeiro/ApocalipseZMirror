@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ApocalipseZ
 {
-    public class UIFastItems : MonoBehaviour
+    public class UiFastItems : MonoBehaviour
     {
         public UISlotItem Primary;
         public UISlotItem Second;

@@ -5,7 +5,7 @@ namespace ApocalipseZ
 {
     public class ScriptableManager :MonoBehaviour
     {
-        [SerializeField]private  static ScriptableItem[] ItemsWeapons;
+        [SerializeField]private static ScriptableItem[] ItemsWeapons;
 
         private void Start ( )
         {

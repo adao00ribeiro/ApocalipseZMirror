@@ -100,7 +100,7 @@ namespace ApocalipseZ
             SSlotInventory slot = new SSlotInventory();
             slot.SetSItem(scriptableitem.sitem);
             slot.SetQuantity ( dropQuantity);
-         
+           
             if ( inventory.AddItem ( slot) )
             {
                 NetworkBehaviour.Destroy ( gameObject);

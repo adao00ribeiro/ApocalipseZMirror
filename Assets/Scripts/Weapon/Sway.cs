@@ -19,7 +19,18 @@ namespace ApocalipseZ
 
         //Local position of an object on start used for further calculations
         private Vector3 localPos;
-
+        private InputManager PInputManager;
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                }
+                return PInputManager;
+            }
+        }
         void Start ( )
         {
             localPos = transform.localPosition;
@@ -33,8 +44,8 @@ namespace ApocalipseZ
 
             //Sway coefficient got from mouse input multyplied on swayAmmount for each axis
 
-            fx = -InputManager.instance.GetMouseDelta().x * AmountX;
-            fy = -InputManager.instance.GetMouseDelta().y * AmountY;
+            fx = -InputManager.GetMouseDelta().x * AmountX;
+            fy = -InputManager.GetMouseDelta().y * AmountY;
 
 
 

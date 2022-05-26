@@ -9,17 +9,31 @@ namespace ApocalipseZ
     {
        Canvas canvas;
        IFpsPlayer player;
-       UIInventory uiInventory;
+       UiInventory uiInventory;
        [SerializeField] MotionBlur motionBlur;
-       [SerializeField]Volume volume;
+       [SerializeField] Volume volume;
 
         public static bool showInventory = false;
         public bool isOpen = true;
-
+        private InputManager PInputManager;
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                }
+                return PInputManager;
+            }
+        }
         private void Start()
         {
-            uiInventory = transform.Find ("HUD/InventoryPanel" ).GetComponent<UIInventory> ( );
+            uiInventory = transform.Find ("HUD/InventoryPanel" ).GetComponent<UiInventory> ( );
             canvas = GetComponent<Canvas>();
+
+            volume = GameObject.Find ( "PostProcessing" ).GetComponent<Volume>();
+
             VolumeProfile proflile = volume.sharedProfile;
             volume.profile.TryGet(out motionBlur);
            
@@ -32,7 +46,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            if (InputManager.instance.GetInventory() /*&& !PlayerStats.isPlayerDead*/)
+            if (InputManager.GetInventory() /*&& !PlayerStats.isPlayerDead*/)
             {
                 showInventory = !showInventory;
             }
@@ -60,7 +74,7 @@ namespace ApocalipseZ
             else
             {
                 canvas.enabled = true;
-                player.lockCursor = false;
+             
                  motionBlur.active = true;
                 Time.timeScale = 0;
                 isOpen = true;
@@ -74,7 +88,7 @@ namespace ApocalipseZ
             else
             {
                 canvas.enabled = false;
-                player.lockCursor = true;
+               
                 motionBlur.active = false;
                 Time.timeScale = 1;
                 isOpen = false;

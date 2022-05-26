@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using ApocalipseZ;
-public static class SlotInventoryReadWrite 
+using System;
+
+public struct SlotInventoryTemp
 {
-        public static void WriteStringTest ( this NetworkWriter writer , SSlotInventory value )
-        {
-        if ( value.ItemIsNull())
-        {
-            writer.WriteString ( "-1" );
-            writer.WriteInt ( 0);
-            return;
-        }
-        writer.WriteString ( value.GetSItem ( ).GuidId );
-        writer.WriteInt ( value.GetQuantity ( ) );
+    public string guidid;
+    public int Quantity;
+    public SlotInventoryTemp ( string _guidid , int _Quantity )
+    {
+        guidid = _guidid;
+        Quantity = _Quantity;
     }
-        public static SSlotInventory ReadStringTest ( this NetworkReader reader )
-        {
-         ScriptableItem scriptableitem = ScriptableManager.GetScriptable ( reader.ReadString());
+    
+}
+public static class SlotInventoryReadWrite
+{
+    public static void WriteStringTest ( this NetworkWriter writer , SlotInventoryTemp value )
+    {
+        writer.WriteString ( value.guidid );
+        writer.WriteInt ( value.Quantity );
+    }
+    public static SlotInventoryTemp ReadStringTest ( this NetworkReader reader )
+    {
 
-        if (scriptableitem )
-        {
-            return new SSlotInventory ( scriptableitem.sitem , reader.ReadInt ( ) );
-        }
-
-        return new SSlotInventory ( null, reader.ReadInt ( ) );
-
+        return new SlotInventoryTemp ( reader.ReadString ( ) , reader.ReadInt ( ) );
 
     }
-    }
+}

@@ -14,15 +14,11 @@ namespace ApocalipseZ
         public SSlotInventory secondarySlot = new SSlotInventory ( );
         public Weapon activeSlot;
 
-        public bool UseNonPhysicalReticle = true;
+       
         public int switchSlotIndex = 0;
         public int currentWeaponIndex;
 
-        [Tooltip("Scope image used for riffle aiming state")]
-        public GameObject scopeImage;
-        [Tooltip("Crosshair image")]
-        public GameObject reticleDynamic;
-        public GameObject reticleStatic;
+        
 
         [Tooltip("Animator that contain pickup animation")]
         public Animator weaponHolderAnimator;
@@ -37,27 +33,29 @@ namespace ApocalipseZ
 
         private IInventory inventory;
 
+        private InputManager PInputManager;
+        public  InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager==null)
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( ) ;
+                }
+                return PInputManager;
+            }
+        }
+
         [HideInInspector]
         //public Weapon currentWeapon;
         // Start is called before the first frame update
         void Start ( )
         {
-            scopeImage = GameObject.Find ( "Canvas Main/Scope" );
+           
             swayTransform = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder/Sway" ).transform;
-            reticleDynamic = GameObject.Find ( "Canvas Main/Reticles/DynamicReticle" );
-            reticleStatic = GameObject.Find ( "Canvas Main/Reticles/StaticReticle" );
+          
             weaponHolderAnimator = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator>();
-            scopeImage.SetActive ( false );
-            if ( UseNonPhysicalReticle )
-            {
-                reticleStatic.SetActive ( true );
-                reticleDynamic.SetActive ( false );
-            }
-            else
-            {
-                reticleStatic.SetActive ( false );
-                reticleDynamic.SetActive ( true );
-            }
+        
             foreach ( Weapon weapon in swayTransform.GetComponentsInChildren<Weapon> ( true ) )
             {
                 ArmsWeapons.Add ( weapon );
@@ -74,7 +72,7 @@ namespace ApocalipseZ
         {
             SlotInput ( );
 
-            if (InputManager.instance.GetFire())
+            if (InputManager.GetFire())
             {
                 if (activeSlot != null )
                 {
@@ -87,7 +85,7 @@ namespace ApocalipseZ
                 
             }
 
-            if (InputManager.instance.GetReload())
+            if (InputManager.GetReload())
             {
                 if ( activeSlot != null )
                 {
@@ -98,7 +96,7 @@ namespace ApocalipseZ
                     print ( "WEAPON NULL");
                 }
             }
-            if (InputManager.instance.GetAim())
+            if (InputManager.GetAim())
             {
                
             }
@@ -106,7 +104,7 @@ namespace ApocalipseZ
             {
 
             }
-            if ( InputManager.instance.GetDropWeapon ( ) )
+            if ( InputManager.GetDropWeapon ( ) )
             {
                 // DropWeapon();
             }
@@ -121,8 +119,8 @@ namespace ApocalipseZ
 
         private void SlotInput ( )
         {
-            if ( InputManager.instance.GetAlpha1 ( ) ) { switchSlotIndex = 1; SlotChange ( ); }
-            else if ( InputManager.instance.GetAlpha2 ( ) ) { switchSlotIndex = 2; SlotChange ( ); }
+            if ( InputManager.GetAlpha1 ( ) ) { switchSlotIndex = 1; SlotChange ( ); }
+            else if ( InputManager.GetAlpha2 ( ) ) { switchSlotIndex = 2; SlotChange ( ); }
 
         }
         private void SlotChange ( )

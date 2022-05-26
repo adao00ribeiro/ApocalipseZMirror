@@ -67,12 +67,15 @@ namespace ApocalipseZ
         }
         public bool RemoveSlot ( )
         {
-            UISlotItemTemp slotui = new UISlotItemTemp(Id,slot);
+
+
+
+            UISlotItemTemp slotui = new UISlotItemTemp(Id,slot.GetSlotTemp());
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
                 print ( "remove inventory" );
-                player.CmdRemoveSlotInventory ( slotui );
+                player.GetInventory().CmdRemoveSlotInventory ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
@@ -94,11 +97,11 @@ namespace ApocalipseZ
         public bool AddSlot ( SSlotInventory _slot )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(Id,_slot);
+            UISlotItemTemp slotui = new UISlotItemTemp(Id,new SlotInventoryTemp(_slot.GetSItem().GuidId,_slot.GetQuantity()));
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
-                player.CmdAddSlotInventory ( slotui );
+                player.GetInventory ( ).CmdAddSlotInventory ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
@@ -144,7 +147,7 @@ namespace ApocalipseZ
         {
             if ( SlotSelecionado == null || SlotEnter == null )
             {
-                Destroy ( SlotSelecionado.gameObject );
+             
                 return;
             }
             if ( SlotEnter.AcceptedType == SlotSelecionado.AcceptedType )
@@ -152,7 +155,7 @@ namespace ApocalipseZ
 
                 if ( SlotEnter.AcceptedType == SlotType.SLOTINVENTORY )
                 {
-                    player.CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
+                    player.GetInventory ( ).CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
                    
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
@@ -204,14 +207,25 @@ namespace ApocalipseZ
         public void OnPointerEnter ( PointerEventData eventData )
         {
             SlotEnter = this;
-            SetImagemColor ( Color.red );
+
+            if ( SlotSelecionado != null &&  SlotSelecionado != SlotEnter )
+            {
+                SlotEnter.SetImagemColor ( Color.red );
+            }
+           
             //     tooltip.Activate(item);
 
         }
 
         public void OnPointerExit ( PointerEventData eventData )
         {
+            if ( slot.ItemIsNull ( ) )
+            {
+                SetImagemColor ( Color.clear );
+            }
             SlotEnter = null;
+           
+           
             //   tooltip.Deactivate();
         }
 

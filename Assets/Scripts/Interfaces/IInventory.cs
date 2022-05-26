@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 using ApocalipseZ;
 public interface IInventory
 {
@@ -18,5 +19,14 @@ public interface IInventory
     void MoveItem ( int id , int idmove );
     InventoryTemp GetInventoryTemp ( );
 
-    
+    //COMMANDOS
+
+    [Command]
+    void CmdGetInventory ( NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdMoveSlotInventory ( int idselecionado , int identer , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdAddSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdRemoveSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null );
 }

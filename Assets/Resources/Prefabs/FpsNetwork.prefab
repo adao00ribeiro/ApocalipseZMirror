@@ -383,6 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  PrefabCanvasFpsPlayer: {fileID: 3120761757571374880, guid: 67c1b9d92dc6f304cb556379feb271d3,
+    type: 3}
   sensitivity: {x: 0.5, y: 0.5}
   smoothing: {x: 3, y: 3}
   isClimbing: 1
@@ -421,6 +423,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArmsWeapons: []
+  primarySlot:
+    Quantity: 0
+  secondarySlot:
+    Quantity: 0
   activeSlot: {fileID: 0}
   UseNonPhysicalReticle: 1
   switchSlotIndex: 0
@@ -474,6 +480,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   health: 100
+  HealthSlider: {fileID: 0}
+  HealthText: {fileID: 0}
 --- !u!114 &507102876023551437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66f16d49c16216499b160eb7dc96865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   Items: []
   nomeitems: []
   maxSlot: 6

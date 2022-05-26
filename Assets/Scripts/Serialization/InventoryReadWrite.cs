@@ -2,32 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using ApocalipseZ;
 
-public struct InventoryTemp
+namespace ApocalipseZ
 {
-    public List<SSlotInventory> slot;
-    public int maxSlot;
-
-    public InventoryTemp ( List<SSlotInventory> _slot , int maxslot )
+    public struct InventoryTemp
     {
-        slot = _slot;
-        maxSlot = maxslot;
+        public List<SlotInventoryTemp> slot;
+        public int maxSlot;
+
+        public InventoryTemp ( List<SlotInventoryTemp> _slot , int maxslot )
+        {
+            slot = _slot;
+            maxSlot = maxslot;
+        }
     }
-}
-public static class InventoryReadWrite
-{
-    public static void WriteInventory( this NetworkWriter writer , InventoryTemp value )
+    public static class InventoryReadWrite
     {
-       
-        writer.WriteList ( value.slot ) ;
-        writer.WriteInt ( value.maxSlot );
+        public static void WriteInventory ( this NetworkWriter writer , InventoryTemp value )
+        {
 
-    }
-    public static InventoryTemp ReadInventory ( this NetworkReader reader )
-    {
-       
-        return new InventoryTemp( reader.ReadList<SSlotInventory> ( ) , reader.ReadInt())  ;
+            writer.WriteList ( value.slot );
+            writer.WriteInt ( value.maxSlot );
 
+        }
+        public static InventoryTemp ReadInventory ( this NetworkReader reader )
+        {
+
+            return new InventoryTemp ( reader.ReadList<SlotInventoryTemp> ( ) , reader.ReadInt ( ) );
+
+        }
     }
 }

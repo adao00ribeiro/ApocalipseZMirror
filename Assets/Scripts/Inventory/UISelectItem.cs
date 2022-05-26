@@ -26,7 +26,7 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
-            transform.position = InputManager.instance.GetMousePosition ( );
+            transform.position = InputManager.GetMousePosition ( );
           
         }
     
@@ -58,7 +58,18 @@ namespace ApocalipseZ
         {
             return slot;
         }
-      
-    
+        private InputManager PInputManager;
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                }
+                return PInputManager;
+            }
+        }
+
     }
 }

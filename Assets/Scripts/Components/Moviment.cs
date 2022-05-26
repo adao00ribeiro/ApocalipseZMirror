@@ -21,12 +21,22 @@ namespace ApocalipseZ
         private Vector3 moveDirection = Vector3.zero;
         private float directionY;
 
-        InputManager InputManager;
+        private InputManager PInputManager;
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                }
+                return PInputManager;
+            }
+        }
         Transform CameraTransform ;
         private void Awake ( )
         {
             mesh = transform.Find ( "Ch35_nonPBR" );
-            InputManager = InputManager.instance;
             CharacterController = GetComponent<CharacterController> ( );
             CameraTransform = Camera.main.transform;
         }

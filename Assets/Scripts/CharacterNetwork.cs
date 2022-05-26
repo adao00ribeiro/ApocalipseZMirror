@@ -40,7 +40,18 @@ namespace ApocalipseZ
 
 		//inputs
 
-		private InputManager input;
+		private InputManager PInputManager;
+		public InputManager InputManager
+		{
+			get
+			{
+				if ( PInputManager == null )
+				{
+					PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+				}
+				return PInputManager;
+			}
+		}
 		internal bool lockCursor;
 
 		private void Awake ( )
@@ -49,7 +60,6 @@ namespace ApocalipseZ
 			controller = GetComponent<CharacterController> ( );
 			AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
 			AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
-			input = InputManager.instance;
 			CameraTransform = Camera.main.transform;
 		}
 		// Start is called before the first frame update
@@ -88,27 +98,27 @@ namespace ApocalipseZ
 			Animation ( );
 
 
-			moveDirection = new Vector3 ( input.GetMoviment ( ).x , 0 , input.GetMoviment ( ).y );
+			moveDirection = new Vector3 ( InputManager.GetMoviment ( ).x , 0 , InputManager.GetMoviment ( ).y );
 			moveDirection = CameraTransform.forward * moveDirection.z + CameraTransform.right * moveDirection.x;
 
 			transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
 
-			if ( input.GetIsJump ( ) && controller.isGrounded )
+			if ( InputManager.GetIsJump ( ) && controller.isGrounded )
 			{
 				directionY = jumpSpeed;
 			}
 			Speed = Walk;
-			Speed = input.GetRun ( ) ? Run : Speed;
-			Speed = input.GetCrouch ( ) ? crouchSpeed : Speed;
-			controller.height = input.GetCrouch ( ) ? CrouchHeight : 1.8f;
+			Speed = InputManager.GetRun ( ) ? Run : Speed;
+			Speed = InputManager.GetCrouch ( ) ? crouchSpeed : Speed;
+			controller.height = InputManager.GetCrouch ( ) ? CrouchHeight : 1.8f;
 			directionY += Physics.gravity.y * Time.deltaTime;
 			moveDirection.y = directionY;
 			controller.Move ( moveDirection * Speed * Time.deltaTime );
 		}
 		bool CheckMovement ( )
 		{
-			if ( InputManager.instance.GetMoviment ( ).x > 0 || InputManager.instance.GetMoviment ( ).x < 0 || InputManager.instance.GetMoviment ( ).y > 0 || InputManager.instance.GetMoviment ( ).y < 0 )
+			if ( InputManager.GetMoviment ( ).x > 0 || InputManager.GetMoviment ( ).x < 0 || InputManager.GetMoviment ( ).y > 0 || InputManager.GetMoviment ( ).y < 0 )
 			{
 				return true;
 			}
@@ -119,16 +129,16 @@ namespace ApocalipseZ
 		public void Animation ( )
 		{
 			//animatorcontroller
-			AnimatorController.SetFloat ( "Horizontal" , input.GetMoviment ( ).x );
-			AnimatorController.SetFloat ( "Vertical" , input.GetMoviment ( ).y );
+			AnimatorController.SetFloat ( "Horizontal" , InputManager.GetMoviment ( ).x );
+			AnimatorController.SetFloat ( "Vertical" , InputManager.GetMoviment ( ).y );
 			AnimatorController.SetBool ( "IsJump" , !controller.isGrounded );
 
 
 			//weaponanimator
 
 			AnimatorWeaponHolderController.SetBool ( "Walk" , CheckMovement ( ) && controller.isGrounded );
-			AnimatorWeaponHolderController.SetBool ( "Run" , CheckMovement ( ) && input.GetRun ( ) && controller.isGrounded );
-			AnimatorWeaponHolderController.SetBool ( "Crouch" , CheckMovement ( ) && input.GetCrouch ( ) && controller.isGrounded );
+			AnimatorWeaponHolderController.SetBool ( "Run" , CheckMovement ( ) && InputManager.GetRun ( ) && controller.isGrounded );
+			AnimatorWeaponHolderController.SetBool ( "Crouch" , CheckMovement ( ) && InputManager.GetCrouch ( ) && controller.isGrounded );
 
 
 
