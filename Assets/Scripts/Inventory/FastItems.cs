@@ -17,18 +17,19 @@ namespace ApocalipseZ
         IInventory inventory;
         public override void OnStartClient ( )
         {
-            Items.Callback += OnInventoryUpdated; ;
-
-            // Process initial SyncList payload
-            for ( int index = 0 ; index < Items.Count ; index++ )
-            {
-                OnInventoryUpdated ( SyncList<SlotInventoryTemp>.Operation.OP_ADD , index , new SlotInventoryTemp ( ) , Items[index] );
-            }
+          // Items.Callback += OnInventoryUpdated; ;
+          //
+          // // Process initial SyncList payload
+          // for ( int index = 0 ; index < Items.Count ; index++ )
+          // {
+          //     OnInventoryUpdated ( SyncList<SlotInventoryTemp>.Operation.OP_ADD , index , new SlotInventoryTemp ( ) , Items[index] );
+          // }
         }
 
 
         public void OnInventoryUpdated ( SyncList<SlotInventoryTemp>.Operation op , int index , SlotInventoryTemp oldItem , SlotInventoryTemp newItem )
         {
+
             nomesItems[index] = newItem.guidid;
             switch ( op )
             {
@@ -83,8 +84,11 @@ namespace ApocalipseZ
         }
         public void SetFastSlots ( int id , SSlotInventory slot )
         {
-
-            Items.Add ( new SlotInventoryTemp ( slot.GetSItem ( ).GuidId , slot.GetQuantity ( ) ) );
+            if ( !slot.ItemIsNull())
+            {
+                Items.Add ( new SlotInventoryTemp ( slot.GetSItem ( ).GuidId , slot.GetQuantity ( ) ) );
+            }
+           
 
 
             if ( FastSlots[id].ItemIsNull ( ) )
@@ -121,7 +125,7 @@ namespace ApocalipseZ
             SSlotInventory slottemp = FastSlots[idmove];
             FastSlots[idmove] = FastSlots[id];
             FastSlots[id] = slottemp;
-            OnFastItemsAltered.Invoke ( );
+            OnFastItemsAltered?.Invoke ( );
         }
 
         public InventoryTemp GetFastItemsTemp ( )
@@ -156,5 +160,74 @@ namespace ApocalipseZ
                 FastSlots.Add ( temp );
             }
         }
+        #region COMMAND
+        // fast ITEMS
+        [Command]
+        public void CmdGetFastItems ( NetworkConnectionToClient sender = null )
+        {
+
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
+
+        }
+        [Command]
+        public void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
+        {
+            MoveItem ( idselecionado , identer );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
+        }
+        [Command]
+        public void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
+            SSlotInventory slotnovo;
+            if ( item )
+            {
+                slotnovo = new SSlotInventory ( item.sitem , slot.slot.Quantity );
+            }
+            else
+            {
+                slotnovo = new SSlotInventory ( null , 0 );
+            }
+
+
+            SetFastSlots ( slot.id , slotnovo );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
+
+        }
+        [Command]
+        public void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        {
+            //    FastItems.RemoveSlot ( slot.slot );
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
+        }
+        #endregion
+        #region TARGERRPC
+
+
+        [TargetRpc]
+        public void TargetGetFastItems ( NetworkConnection target , InventoryTemp fastSlots )
+        {
+            maxSlots = fastSlots.maxSlot;
+            Clear ( );
+            for ( int i = 0 ; i < fastSlots.maxSlot ; i++ )
+            {
+                ScriptableItem item = ScriptableManager.GetScriptable(fastSlots .slot[i].guidid);
+                if ( item == null )
+                {
+                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( ) );
+                }
+                else
+                {
+                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( item.sitem , fastSlots.slot[i].Quantity ) );
+                }
+            }
+            print ( "targer fastites" );
+        }
+
+        #endregion
     }
 }

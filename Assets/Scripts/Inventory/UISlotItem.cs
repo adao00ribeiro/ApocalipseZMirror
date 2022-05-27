@@ -81,7 +81,7 @@ namespace ApocalipseZ
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
                 print ( "remove slotfast" );
-                player.CmdRemoveSlotFastItems ( slotui );
+                player.GetFastItems().CmdRemoveSlotFastItems ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTWEAPONS )
@@ -107,7 +107,7 @@ namespace ApocalipseZ
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
                 print ( "add slot fastitem");
-                player.CmdAddSlotFastItems ( slotui );
+                player.GetFastItems().CmdAddSlotFastItems ( slotui );
                 return true;
             }
             else if ( AcceptedType == SlotType.SLOTWEAPONS )
@@ -161,7 +161,7 @@ namespace ApocalipseZ
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
                 {
                     print ( "move fast slots");
-                    player.CmdMoveSlotFastItems ( SlotSelecionado.Id , SlotEnter.Id );
+                    player.GetFastItems().CmdMoveSlotFastItems ( SlotSelecionado.Id , SlotEnter.Id );
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTWEAPONS )
                 {

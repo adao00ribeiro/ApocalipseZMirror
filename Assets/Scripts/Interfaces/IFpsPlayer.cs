@@ -9,10 +9,4 @@ public interface IFpsPlayer
     IWeaponManager GetWeaponManager ( );
     IFastItems GetFastItems ( );
 
-    //fastitem
-    void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null );
-
-    void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null );
-
-    void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null );
 }

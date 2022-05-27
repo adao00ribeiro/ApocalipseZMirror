@@ -519,6 +519,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useCursor: {fileID: 0}
   useText: {fileID: 0}
+  UseNonPhysicalReticle: 1
+  scopeImage: {fileID: 0}
+  reticleDynamic: {fileID: 0}
+  reticleStatic: {fileID: 0}
 --- !u!1 &3120761756892147124
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,6 +3399,8 @@ MonoBehaviour:
   UiFastItems: {fileID: 0}
   UiFpsScopeCursorReticles: {fileID: 0}
   UiPlayerStats: {fileID: 0}
+  motionBlur: {fileID: 0}
+  volume: {fileID: 0}
 --- !u!1 &3120761757588842657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6561,7 +6567,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3120761758429435506}
-  - component: {fileID: 3120761758429435502}
+  - component: {fileID: 1969139384393397127}
   m_Layer: 0
   m_Name: UiInventory
   m_TagString: Untagged
@@ -6592,7 +6598,7 @@ RectTransform:
   m_AnchoredPosition: {x: 33, y: 0}
   m_SizeDelta: {x: 515.15, y: 552.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3120761758429435502
+--- !u!114 &1969139384393397127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6693,7 +6699,7 @@ GameObject:
   - component: {fileID: 3120761758480651888}
   - component: {fileID: 3120761758480651890}
   - component: {fileID: 3120761758480651891}
-  - component: {fileID: 3120761758480651885}
+  - component: {fileID: 4183379893925976813}
   m_Layer: 0
   m_Name: UiFastItems
   m_TagString: Untagged
@@ -6766,7 +6772,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3120761758480651885
+--- !u!114 &4183379893925976813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

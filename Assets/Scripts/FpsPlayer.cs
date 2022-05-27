@@ -60,6 +60,7 @@ namespace ApocalipseZ
          
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
+
             OnLocalPlayerJoined?.Invoke ( this );
            
         }
@@ -119,96 +120,6 @@ namespace ApocalipseZ
             return WeaponManager;
         }
 
-
-        #region CMD
-
-      
-        // fast ITEMS
-        [Command]
-        public void CmdGetFastItems ( NetworkConnectionToClient sender = null )
-        {
-
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
-
-        }
-        [Command]
-        public void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
-        {
-            FastItems.MoveItem ( idselecionado,identer);
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
-        }
-        [Command]
-        public void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
-        {
-            ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
-            SSlotInventory slotnovo;
-            if ( item )
-            {
-                 slotnovo = new SSlotInventory(item.sitem,slot.slot.Quantity);
-            }
-            else
-            {
-                 slotnovo = new SSlotInventory(null,0);
-            }
-           
-
-            FastItems.SetFastSlots ( slot.id , slotnovo );
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
-
-        }
-        [Command]
-        public void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
-        {
-        //    FastItems.RemoveSlot ( slot.slot );
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FpsPlayer> ( ).FastItems.GetFastItemsTemp ( ) );
-        }
-        #endregion
-        #region TARGERRPC
-
-     
-        [TargetRpc]
-        public void TargetGetFastItems ( NetworkConnection target , InventoryTemp fastSlots )
-        {
-          
-
-        }
-        [TargetRpc]
-        public void TargetMoveSlotInventory ( NetworkConnection target ,int idselecionado , int identer)
-        {
-           
-        }
-        [TargetRpc]
-        public void TargetAddSlotInventory ( NetworkConnection target)
-        {
-           
-        }
-        [TargetRpc]
-        public void TargetRemoveSlotInventory ( NetworkConnection target )
-        {
-
-        }
-        [TargetRpc]
-        public void TargetMoveSlotFastItems ( NetworkConnection target , string text )
-        {
-
-          
-
-        }
-        [TargetRpc]
-        public void TargetAddSlotFastItems ( NetworkConnection target )
-        {
-
-        }
-        [TargetRpc]
-        public void TargetRemoveSlotFastItems ( NetworkConnection target )
-        {
-
-        }
-        #endregion
 
         private InputManager PInputManager;
         public InputManager InputManager

@@ -11,7 +11,14 @@ namespace ApocalipseZ
 
         public List<UISlotItem> FastSlot = new List<UISlotItem>();
         IFpsPlayer player;
-
+        private void OnEnable ( )
+        {
+            if ( player == null )
+            {
+                return;
+            }
+            player.GetFastItems ( ).CmdGetFastItems ( );
+        }
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;

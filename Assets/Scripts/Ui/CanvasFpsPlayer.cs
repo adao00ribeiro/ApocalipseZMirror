@@ -26,6 +26,7 @@ namespace ApocalipseZ {
             UiFastItems = transform.Find ( "HUD/UiFastItems" ).GetComponent<UiFastItems> ( );
             UiFpsScopeCursorReticles = transform.Find ( "HUD/UiFpsScopeCursorReticles" ).GetComponent<UiFpsScopeCursorReticles> ( );
             UiPlayerStats = transform.Find ( "HUD/UiPlayerStats" ).GetComponent<UiPlayerStats> ( );
+
             UiInventory.SetFpsPlayer ( player );
             UiFastItems.SetFpsPlayer ( player );
 

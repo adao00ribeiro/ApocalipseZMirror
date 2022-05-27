@@ -174,7 +174,7 @@ public class Inventory : NetworkBehaviour,IInventory
 
             //Events
             // item.onPickupEvent.Invoke ( );
-            OnInventoryAltered.Invoke ( );
+            OnInventoryAltered?.Invoke ( );
             return true;
         }
 
@@ -217,7 +217,7 @@ public class Inventory : NetworkBehaviour,IInventory
                 {
                     Items[i].SetSItem ( null );
                     Items[i].SetQuantity (0);
-                    OnInventoryAltered.Invoke ( );
+                    OnInventoryAltered?.Invoke ( );
                     break;
                 }
             }
@@ -290,7 +290,7 @@ public class Inventory : NetworkBehaviour,IInventory
             SSlotInventory slottemp = Items[idmove];
             Items[idmove] = Items[id];
             Items[id] = slottemp;
-            OnInventoryAltered.Invoke ( );
+            OnInventoryAltered?.Invoke ( );
         }
 
         public InventoryTemp GetInventoryTemp ( )
@@ -389,6 +389,7 @@ public class Inventory : NetworkBehaviour,IInventory
                     target.identity.GetComponent<FpsPlayer> ( ).GetInventory ( ).AddItem ( new SSlotInventory( item .sitem, inventory .slot[i].Quantity) , i );
                 }
             }
+            print ( "targer inventory");
         }
         #endregion
     }
