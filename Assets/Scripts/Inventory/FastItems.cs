@@ -8,59 +8,22 @@ namespace ApocalipseZ
     public class FastItems : NetworkBehaviour, IFastItems
     {
         public event Action OnFastItemsAltered;
-
-        public SyncList<SlotInventoryTemp> Items = new SyncList<SlotInventoryTemp>();
+       
         public string[] nomesItems = new string[3];
-        public List<SSlotInventory> FastSlots = new List<SSlotInventory>();
+        private SSlotInventory[] FastSlots;
         public int maxSlots = 3;
 
         IInventory inventory;
-        public override void OnStartClient ( )
-        {
-          // Items.Callback += OnInventoryUpdated; ;
-          //
-          // // Process initial SyncList payload
-          // for ( int index = 0 ; index < Items.Count ; index++ )
-          // {
-          //     OnInventoryUpdated ( SyncList<SlotInventoryTemp>.Operation.OP_ADD , index , new SlotInventoryTemp ( ) , Items[index] );
-          // }
-        }
 
-
-        public void OnInventoryUpdated ( SyncList<SlotInventoryTemp>.Operation op , int index , SlotInventoryTemp oldItem , SlotInventoryTemp newItem )
-        {
-
-            nomesItems[index] = newItem.guidid;
-            switch ( op )
-            {
-                case SyncList<SlotInventoryTemp>.Operation.OP_ADD:
-                    Items[index] = newItem;
-                    break;
-                case SyncList<SlotInventoryTemp>.Operation.OP_INSERT:
-                    // index is where it was inserted into the list
-                    // newItem is the new item
-                    break;
-                case SyncList<SlotInventoryTemp>.Operation.OP_REMOVEAT:
-                    // index is where it was removed from the list
-                    // oldItem is the item that was removed
-                    break;
-                case SyncList<SlotInventoryTemp>.Operation.OP_SET:
-                    // index is of the item that was changed
-                    // oldItem is the previous value for the item at the index
-                    // newItem is the new value for the item at the index
-                    break;
-                case SyncList<SlotInventoryTemp>.Operation.OP_CLEAR:
-                    // list got cleared
-                    break;
-            }
-        }
         // Start is called before the first frame update
         void Awake ( )
         {
-            for ( int i = 0 ; i < maxSlots ; i++ )
-            {
-                FastSlots.Add ( new SSlotInventory ( ) );
-            }
+            FastSlots = new SSlotInventory[maxSlots];
+
+            FastSlots[0] = null;
+            FastSlots[1] = null;
+            FastSlots[2] = null;
+
         }
         public void SetInventory ( IInventory inventory )
         {
@@ -84,23 +47,18 @@ namespace ApocalipseZ
         }
         public void SetFastSlots ( int id , SSlotInventory slot )
         {
-            if ( !slot.ItemIsNull())
-            {
-                Items.Add ( new SlotInventoryTemp ( slot.GetSItem ( ).GuidId , slot.GetQuantity ( ) ) );
-            }
-           
 
-
-            if ( FastSlots[id].ItemIsNull ( ) )
+            if ( FastSlots[id]== null )
             {
-                FastSlots[id].SetSItem ( slot.GetSItem ( ) );
-                FastSlots[id].SetQuantity ( slot.GetQuantity ( ) );
+                FastSlots[id] = slot;
+             
             }
             else
             {
                 inventory.AddItem ( FastSlots[id] );
-                FastSlots[id].SetSItem ( slot.GetSItem ( ) );
-                FastSlots[id].SetQuantity ( slot.GetQuantity ( ) );
+
+                FastSlots[id] = slot;
+               
 
             }
             OnFastItemsAltered?.Invoke ( );
@@ -108,7 +66,7 @@ namespace ApocalipseZ
 
         public void RemoveSlot ( SSlotInventory slot )
         {
-            for ( int i = 0 ; i < FastSlots.Count ; i++ )
+            for ( int i = 0 ; i < maxSlots ; i++ )
             {
                 if ( FastSlots[i].GetSItem ( ) == slot.GetSItem ( ) )
                 {
@@ -132,16 +90,16 @@ namespace ApocalipseZ
         {
             List<SlotInventoryTemp> list = new List<SlotInventoryTemp>();
 
-            for ( int i = 0 ; i < FastSlots.Count ; i++ )
+            for ( int i = 0 ; i < maxSlots ; i++ )
             {
                 SlotInventoryTemp novo;
-                if ( FastSlots[i].ItemIsNull ( ) )
+                if ( FastSlots[i] == null )
                 {
-                    novo = new SlotInventoryTemp ( "" , 0 );
+                    novo = new SlotInventoryTemp ( -1,"" , 0 );
                 }
                 else
                 {
-                    novo = new SlotInventoryTemp ( FastSlots[i].GetSItem ( ).GuidId , FastSlots[i].GetQuantity ( ) );
+                    novo = new SlotInventoryTemp ( FastSlots[i].GetSlotIndex(), FastSlots[i].GetSItem ( ).GuidId , FastSlots[i].GetQuantity ( ) );
                 }
 
                 list.Add ( novo );
@@ -153,11 +111,9 @@ namespace ApocalipseZ
 
         public void Clear ( )
         {
-            FastSlots.Clear ( );
             for ( int i = 0 ; i < maxSlots ; i++ )
             {
-                SSlotInventory temp = new SSlotInventory ( );
-                FastSlots.Add ( temp );
+                FastSlots[i] = null;
             }
         }
         #region COMMAND
@@ -165,7 +121,7 @@ namespace ApocalipseZ
         [Command]
         public void CmdGetFastItems ( NetworkConnectionToClient sender = null )
         {
-
+            print ("command getfastitems");
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
 
@@ -173,6 +129,7 @@ namespace ApocalipseZ
         [Command]
         public void CmdMoveSlotFastItems ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
         {
+            print ( "command moveitem fastitems" );
             MoveItem ( idselecionado , identer );
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
@@ -180,19 +137,15 @@ namespace ApocalipseZ
         [Command]
         public void CmdAddSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
+            print ( "command add fastitems" );
             ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
             SSlotInventory slotnovo;
             if ( item )
             {
-                slotnovo = new SSlotInventory ( item.sitem , slot.slot.Quantity );
+               slotnovo = new SSlotInventory ( slot.slot.slotindex,item.sitem , slot.slot.Quantity );
+               SetFastSlots ( slot.id , slotnovo );
             }
-            else
-            {
-                slotnovo = new SSlotInventory ( null , 0 );
-            }
-
-
-            SetFastSlots ( slot.id , slotnovo );
+                     
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
 
@@ -200,7 +153,17 @@ namespace ApocalipseZ
         [Command]
         public void CmdRemoveSlotFastItems ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            //    FastItems.RemoveSlot ( slot.slot );
+            ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
+            SSlotInventory slotnovo;
+            if ( item )
+            {
+               // slotnovo = new SSlotInventory ( item.sitem , slot.slot.Quantity );
+            }
+            else
+            {
+              //  slotnovo = new SSlotInventory ( null , 0 );
+            }
+          //  RemoveSlot ( slotnovo );
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             TargetGetFastItems ( opponentIdentity.connectionToClient , sender.identity.GetComponent<FastItems> ( ).GetFastItemsTemp ( ) );
         }
@@ -211,18 +174,21 @@ namespace ApocalipseZ
         [TargetRpc]
         public void TargetGetFastItems ( NetworkConnection target , InventoryTemp fastSlots )
         {
+
+
             maxSlots = fastSlots.maxSlot;
             Clear ( );
             for ( int i = 0 ; i < fastSlots.maxSlot ; i++ )
             {
+                print ( fastSlots.slot[i].guidid );
                 ScriptableItem item = ScriptableManager.GetScriptable(fastSlots .slot[i].guidid);
                 if ( item == null )
                 {
-                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( ) );
+                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i,null);
                 }
                 else
                 {
-                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( item.sitem , fastSlots.slot[i].Quantity ) );
+                   target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( fastSlots.slot[i].slotindex, item.sitem , fastSlots.slot[i].Quantity ) );
                 }
             }
             print ( "targer fastites" );

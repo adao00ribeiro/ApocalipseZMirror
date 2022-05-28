@@ -42,7 +42,6 @@ namespace ApocalipseZ
             }
             foreach ( UISlotItem item in UIItems )
             {
-
                 Destroy ( item.gameObject );
             }
             UIItems.Clear ( );

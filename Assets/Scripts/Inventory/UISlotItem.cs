@@ -13,7 +13,8 @@ namespace ApocalipseZ
         [SerializeField]private SlotType AcceptedType;
         [SerializeField]private Image Image;
         [SerializeField]private Text TextQuantidade;
-        [SerializeField]private SSlotInventory slot = new SSlotInventory();
+        [SerializeField]private SSlotInventory slot = null; 
+        public string nameItemSlot;
         [SerializeField]private UISlotItem PrefabUiSlotItem;
 
         public static UISlotItem SlotSelecionado;
@@ -26,8 +27,6 @@ namespace ApocalipseZ
         private void Awake ( )
         {
             Image = transform.Find ( "Image" ).GetComponent<Image> ( );
-            Image.sprite = null;
-            Image.color = Color.clear;
             TextQuantidade = transform.Find ( "Image/TextQuantidade" ).GetComponent<Text> ( );
             TextQuantidade.text = "";
         }
@@ -52,23 +51,10 @@ namespace ApocalipseZ
             {
                 SetSlot ( player.GetWeaponManager ( ).GetSlot ( id ));
             }
-           
-            if ( slot.ItemIsNull ( ) )
-            {
-                Image.sprite = null;
-                Image.color = Color.clear;
-                TextQuantidade.text = "";
-                return;
-            }
-            Image.sprite = slot.GetSItem ( ).Thumbnail;
-            Image.color = Color.white;
-            TextQuantidade.text = slot.GetQuantity ( ).ToString ( );
-
+          
         }
         public bool RemoveSlot ( )
         {
-
-
 
             UISlotItemTemp slotui = new UISlotItemTemp(Id,slot.GetSlotTemp());
 
@@ -97,7 +83,7 @@ namespace ApocalipseZ
         public bool AddSlot ( SSlotInventory _slot )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(Id,new SlotInventoryTemp(_slot.GetSItem().GuidId,_slot.GetQuantity()));
+            UISlotItemTemp slotui = new UISlotItemTemp(Id,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
@@ -183,7 +169,7 @@ namespace ApocalipseZ
         }
         public void OnPointerDown ( PointerEventData eventData )
         {
-            if ( slot.ItemIsNull ( ) )
+            if ( slot == null)
             {
                 return;
             }
@@ -197,7 +183,7 @@ namespace ApocalipseZ
                 SlotSelecionado = Instantiate ( PrefabUiSlotItem , HUD );
                 SlotSelecionado.AcceptedType = AcceptedType;
                 SlotSelecionado.SetFpsPlayer ( player);
-                SlotSelecionado.UpdateSlot ( Id);
+                SlotSelecionado.UpdateSlot (Id);
                 SlotSelecionado.GetComponent<RectTransform> ( ).sizeDelta = new Vector2 ( 70 , 70 );
                 SlotSelecionado.transform.position = eventData.position;
             }
@@ -219,7 +205,7 @@ namespace ApocalipseZ
 
         public void OnPointerExit ( PointerEventData eventData )
         {
-            if ( slot.ItemIsNull ( ) )
+            if ( slot == null )
             {
                 SetImagemColor ( Color.clear );
             }
@@ -231,15 +217,22 @@ namespace ApocalipseZ
 
         public void SetSlot ( SSlotInventory _slot)
         {
-            if ( _slot.ItemIsNull())
+
+            slot = _slot;
+
+            
+            if ( slot == null )
             {
-                slot.SetSItem ( null);
-                slot.SetQuantity (0 );
+                Image.sprite = null;
+                Image.color = Color.clear;
+                TextQuantidade.text = "";
+                nameItemSlot = "NONE";
                 return;
             }
-
-            slot.SetSItem(_slot.GetSItem ( ));
-            slot.SetQuantity ( _slot.GetQuantity ( ));
+            Image.sprite = slot.GetSItem ( ).Thumbnail;
+            Image.color = Color.white;
+            TextQuantidade.text = slot.GetQuantity ( ).ToString ( );
+            nameItemSlot = slot.GetSItem ( ).name;
         }
 
         public void SetFpsPlayer ( IFpsPlayer _player )
