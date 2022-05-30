@@ -7,6 +7,7 @@ public interface IInventory
 {
     public event System.Action OnInventoryAltered;
     SSlotInventory GetSlotInventory ( int index);
+    bool AddItem ( int slotIndex , SSlotInventory slot );
     bool AddItem ( SSlotInventory item  );
     void Clear ( );
     public bool CheckFreeSpace(ref int posicao);

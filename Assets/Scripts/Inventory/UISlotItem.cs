@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
+
 namespace ApocalipseZ
 {
 
     public enum SlotType { SLOTINVENTORY, SLOTFASTITEMS, SLOTWEAPONS }
     public class UISlotItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField]private int Id;
+        [SerializeField]private int SlotIndex;
         [SerializeField]private SlotType AcceptedType;
         [SerializeField]private Image Image;
         [SerializeField]private Text TextQuantidade;
@@ -36,27 +38,33 @@ namespace ApocalipseZ
             HUD = GameObject.Find ( "HUD" ).transform;
 
         }
-        public void UpdateSlot ( int id )
+        public void UpdateSlot (  )
         {
-            this.Id = id;
+        
             if ( AcceptedType == SlotType.SLOTINVENTORY)
             {
-                SetSlot(player.GetInventory ( ).GetSlotInventory ( id ));
+                SetSlot(player.GetInventory ( ).GetSlotInventory ( SlotIndex ) );
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
-                SetSlot ( player.GetFastItems ( ).GetSlotFastItems ( id ));
+                SetSlot ( player.GetFastItems ( ).GetFastItems ( SlotIndex ) );
             }
             else if ( AcceptedType == SlotType.SLOTWEAPONS )
             {
-                SetSlot ( player.GetWeaponManager ( ).GetSlot ( id ));
+               // SetSlot ( player.GetWeaponManager ( ).GetSlot ( SlotIndex ) );
             }
           
         }
+
+        internal void SetSlotIndex ( int i )
+        {
+            SlotIndex = i;
+        }
+
         public bool RemoveSlot ( )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(Id,slot.GetSlotTemp());
+            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,slot.GetSlotTemp());
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
@@ -83,7 +91,7 @@ namespace ApocalipseZ
         public bool AddSlot ( SSlotInventory _slot )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(Id,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
+            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
 
             if ( AcceptedType == SlotType.SLOTINVENTORY )
             {
@@ -92,7 +100,6 @@ namespace ApocalipseZ
             }
             else if ( AcceptedType == SlotType.SLOTFASTITEMS )
             {
-                print ( "add slot fastitem");
                 player.GetFastItems().CmdAddSlotFastItems ( slotui );
                 return true;
             }
@@ -141,13 +148,14 @@ namespace ApocalipseZ
 
                 if ( SlotEnter.AcceptedType == SlotType.SLOTINVENTORY )
                 {
-                    player.GetInventory ( ).CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
+
+                    player.GetInventory ( ).CmdMoveSlotInventory ( SlotSelecionado.SlotIndex , SlotEnter.SlotIndex );
                    
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
                 {
                     print ( "move fast slots");
-                    player.GetFastItems().CmdMoveSlotFastItems ( SlotSelecionado.Id , SlotEnter.Id );
+                    player.GetFastItems().CmdMoveSlotFastItems ( SlotSelecionado.SlotIndex , SlotEnter.SlotIndex );
                 }
                 else if ( SlotEnter.AcceptedType == SlotType.SLOTWEAPONS )
                 {
@@ -183,7 +191,7 @@ namespace ApocalipseZ
                 SlotSelecionado = Instantiate ( PrefabUiSlotItem , HUD );
                 SlotSelecionado.AcceptedType = AcceptedType;
                 SlotSelecionado.SetFpsPlayer ( player);
-                SlotSelecionado.UpdateSlot (Id);
+                SlotSelecionado.UpdateSlot ();
                 SlotSelecionado.GetComponent<RectTransform> ( ).sizeDelta = new Vector2 ( 70 , 70 );
                 SlotSelecionado.transform.position = eventData.position;
             }
@@ -219,7 +227,6 @@ namespace ApocalipseZ
         {
 
             slot = _slot;
-
             
             if ( slot == null )
             {
@@ -242,7 +249,7 @@ namespace ApocalipseZ
 
         public int GetId ( )
         {
-            return Id;
+            return SlotIndex;
         }
 
         public void SetImagemColor ( Color color )

@@ -8,9 +8,10 @@ public interface IFastItems {
 
     public event Action OnFastItemsAltered;
     void RemoveSlot ( SSlotInventory slot );
-    void SetFastSlots ( int id , SSlotInventory slot );
+    bool AddItem ( int slotIndex , SSlotInventory slot );
+    bool AddItem ( SSlotInventory slot );
     void SlotChange ( int switchSlotIndex );
-    SSlotInventory GetSlotFastItems ( int id );
+    SSlotInventory GetFastItems ( int id );
     void SetInventory ( IInventory inventory);
     void MoveItem ( int id , int v );
     InventoryTemp GetFastItemsTemp ( );

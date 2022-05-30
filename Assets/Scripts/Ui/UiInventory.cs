@@ -49,7 +49,8 @@ namespace ApocalipseZ
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
                 instance.SetFpsPlayer (player );
-                instance.UpdateSlot ( i );
+                instance.SetSlotIndex ( i );
+                instance.UpdateSlot (  );
                 UIItems.Add ( instance );
             }
         }

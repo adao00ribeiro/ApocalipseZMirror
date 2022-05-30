@@ -39,15 +39,15 @@ namespace ApocalipseZ
         {
             for ( int i = 0 ; i < FastSlot.Count ; i++ )
             {
-                FastSlot[i].UpdateSlot ( i ); 
+                FastSlot[i].UpdateSlot (  ); 
             }
           
         }
 
         private void UpdateSlotsWeapons ( )
         {
-            Primary.UpdateSlot ( 0 );
-            Second.UpdateSlot ( 1 );
+            Primary.UpdateSlot ( );
+            Second.UpdateSlot ( );
         }
     }
 }

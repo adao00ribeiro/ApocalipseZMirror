@@ -7,10 +7,23 @@ using Mirror;
 namespace ApocalipseZ
 {
     [System.Serializable]
+    public struct ListItemsInspector
+    {
+        public int slotindex;
+        public string name;
+
+       public  ListItemsInspector (int _slotindex ,  string _name )
+        {
+            slotindex = _slotindex;
+            name = _name;
+        }
+    }
+
+    [System.Serializable]
     public class SSlotInventory
     {
         private int SlotIndex;
-        [SerializeField]private SItem item;
+        private SItem item;
         private int Quantity;
         public SSlotInventory ( )
         {
@@ -59,7 +72,9 @@ namespace ApocalipseZ
         }
         public void SetSlotIndex ( int _slotIndex )
         {
+            
             SlotIndex = _slotIndex;
+            
         }
         public void SetQuantity (int _Quantity )
         {
@@ -79,15 +94,12 @@ public class Inventory : NetworkBehaviour,IInventory
     {
         public event Action OnInventoryAltered;
 
-        private SSlotInventory[] Items;
+         private List<SSlotInventory> Items;
 
-        public string[] nomeitems;
+        public List< ListItemsInspector>ListInspector = new List<ListItemsInspector>();
 
-        int totalItems = 0;
-        [SerializeField]private int maxSlot = 6;
-
-        public bool isOpen = true;
-
+        private int maxSlot = 6;
+               
         IFpsPlayer player;
         private InputManager PInputManager;
         public InputManager InputManager
@@ -106,70 +118,65 @@ public class Inventory : NetworkBehaviour,IInventory
         // Start is called before the first frame update
         void Awake ( )
         {
-            nomeitems = new string[6];
-            Items = new SSlotInventory[maxSlot];
+            
+            Items = new List<SSlotInventory>();
         }
         private void Update ( )
         {
-            for ( int i = 0 ; i < Items.Length ; i++ )
+            ListInspector.Clear ( );
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                if ( Items[i] == null)
-                {
-                    nomeitems[i] = "NONE";
-                }
-                else
-                {
-                    nomeitems[i] = Items[i].GetSItem ( ).name;
-                }
-                
+                ListInspector.Add ( new ListItemsInspector ( Items[i].GetSlotIndex ( ) , Items[i].GetSItem ( ).name ) );
+
             }
         }
+
         public void Clear ( )
         {
-
-            for ( int i = 0 ; i < maxSlot ; i++ )
-            {
-                Items[i] = null;
-            }
+            Items.Clear ( );
         }
-        // Update is called once per frame
-        void UpdateInventory ( )
+        public bool AddItem (int slotIndex, SSlotInventory slot )
         {
-            if (InputManager.GetInventory())
+            if ( maxSlot == Items.Count )
             {
-                isOpen = !isOpen;
+                print ( "inventario cheio" );
+                return false;
             }
-        }
+            slot.SetSlotIndex ( slotIndex );
 
-       
+            Items.Add ( slot );
+            Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
+            OnInventoryAltered?.Invoke ( );
+            return true;
+        }
         public bool AddItem ( SSlotInventory slot )
         {
-            if ( maxSlot == totalItems )
+            if ( maxSlot == Items.Count )
             {
                 print ( "inventario cheio");
                 return false;
             }
             int posicao = -1;
-            if(CheckFreeSpace ( ref posicao ) )
+            if (CheckFreeSpace( ref posicao ) )
             {
+                print ( "posciasodsaod" + posicao );
                 slot.SetSlotIndex ( posicao );
+              
             }
-            Items[posicao] = slot;
-            totalItems++;
+            Items.Add ( slot );
             Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
-
             OnInventoryAltered?.Invoke ( );
             return true;
         }
 
         public bool CheckFreeSpace (ref int posicao )
         {
-
             bool isfreespace = false;
 
-            for ( int i = 0 ; i < maxSlot; i++ )
+            for ( int i = 0 ; i < maxSlot ; i++ )
             {
-                if (Items[i] == null)
+                SSlotInventory item =  GetSlotInventory (i );
+                if ( item ==null)
                 {
                 posicao = i;
                 isfreespace = true;
@@ -183,7 +190,7 @@ public class Inventory : NetworkBehaviour,IInventory
         {
             bool Exist = false;
 
-            for ( int i = 0 ; i < Items.Length ; i++ )
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
                 if ( Items[i].Compare ( item ) )
                 {
@@ -196,16 +203,14 @@ public class Inventory : NetworkBehaviour,IInventory
 
         public void RemoveItem ( SSlotInventory item , bool destroy )
         {
-          
-            
 
-            for ( int i = 0 ; i < Items.Length ; i++ )
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
                 if ( Items[i].GetSlotIndex() == item.GetSlotIndex())
                 {
                     print ( "removido");
-                    Items[i] = null;
-                    totalItems--;
+                    Items.Remove ( Items[i] );
+                   
                     OnInventoryAltered?.Invoke ( );
                     break;
                 }
@@ -267,27 +272,54 @@ public class Inventory : NetworkBehaviour,IInventory
         public void SetMaxSlots ( int maxslot )
         {
             maxSlot = maxslot;
-
-            SSlotInventory[] novo = new SSlotInventory[maxslot];
-
-            for ( int i = 0 ; i < Items.Length ; i++ )
-            {
-                novo[i] = Items[i];
-            }
-
-            Items = novo;
         }
 
-        public SSlotInventory GetSlotInventory ( int index )
+        public SSlotInventory GetSlotInventory ( int slotindex )
         {
-            return Items[index];
+            SSlotInventory temp = null;
+            for ( int i = 0 ; i < Items.Count ; i++ )
+            {
+                
+                    if ( Items[i].GetSlotIndex ( ) == slotindex )
+                    {
+                        temp = Items[i];
+                    }
+            }
+
+            return temp;
         }
 
         public void MoveItem ( int id , int idmove )
         {
-            SSlotInventory slottemp = Items[idmove];
-            Items[idmove] = Items[id];
-            Items[id] = slottemp;
+            SSlotInventory tempid = GetSlotInventory(id );
+            SSlotInventory tempmove = GetSlotInventory(idmove );
+            if ( tempid !=null && tempmove !=null)
+            {
+                tempid.SetSlotIndex ( idmove );
+                tempmove.SetSlotIndex ( id );
+            }
+            else
+            {
+
+                if ( tempid == null )
+                {
+
+                    tempmove.SetSlotIndex ( id );
+                }
+                else
+                {
+                    Items.ForEach (item => {
+                        if (item.GetSlotIndex() == tempid.GetSlotIndex())
+                        {
+                            print ( "movendo");
+                            item.SetSlotIndex ( idmove );
+                        }
+                    } );
+                  
+                }
+
+            }
+            
             OnInventoryAltered?.Invoke ( );
         }
 
@@ -295,18 +327,10 @@ public class Inventory : NetworkBehaviour,IInventory
         {
             List<SlotInventoryTemp> list = new List<SlotInventoryTemp>();
 
-            for ( int i = 0 ; i < Items.Length ; i++ )
+            for ( int i = 0 ; i < Items.Count ; i++ )
             {
                 SlotInventoryTemp novo;
-                if (Items[i]==null)
-                {
-                     novo = new SlotInventoryTemp(-1,"",0);
-                }
-                else
-                {
                     novo = new SlotInventoryTemp ( Items[i].GetSlotIndex() ,Items[i].GetSItem ( ).GuidId , Items[i].GetQuantity ( ) );
-                }
-
                 list.Add( novo );
             }
 
@@ -325,7 +349,9 @@ public class Inventory : NetworkBehaviour,IInventory
         [Command]
         public void CmdMoveSlotInventory ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
         {
+           
             sender.identity.GetComponent<Inventory> ( ).MoveItem ( idselecionado , identer );
+
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Inventory> ( ).GetInventoryTemp ( ) );
         }
@@ -373,16 +399,17 @@ public class Inventory : NetworkBehaviour,IInventory
         {
             SetMaxSlots ( inventory.maxSlot );
             Clear ( );
-            for ( int i = 0 ; i < inventory.maxSlot ; i++ )
+
+            for ( int i = 0 ; i < inventory.slot.Count ; i++ )
             {
                 ScriptableItem item = ScriptableManager.GetScriptable(inventory .slot[i].guidid);
                 if ( item != null)
                 {
-                    target.identity.GetComponent<FpsPlayer> ( ).GetInventory ( ).AddItem ( new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
+                    target.identity.GetComponent<FpsPlayer> ( ).GetInventory ( ).AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
                 }
    
             }
-            print ( "targer inventory");
+            
         }
         #endregion
     }

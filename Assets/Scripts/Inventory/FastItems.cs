@@ -8,22 +8,27 @@ namespace ApocalipseZ
     public class FastItems : NetworkBehaviour, IFastItems
     {
         public event Action OnFastItemsAltered;
-       
-        public string[] nomesItems = new string[3];
-        private SSlotInventory[] FastSlots;
-        public int maxSlots = 3;
+
+        public List< ListItemsInspector>ListInspector = new List<ListItemsInspector>();
+        private List<SSlotInventory> FastSlots;
+        [SerializeField]private int maxSlots = 3;
 
         IInventory inventory;
 
         // Start is called before the first frame update
         void Awake ( )
         {
-            FastSlots = new SSlotInventory[maxSlots];
+            FastSlots = new List<SSlotInventory>();
 
-            FastSlots[0] = null;
-            FastSlots[1] = null;
-            FastSlots[2] = null;
+        }
+        private void Update ( )
+        {
+            ListInspector.Clear ( );
+            for ( int i = 0 ; i < FastSlots.Count ; i++ )
+            {
+                ListInspector.Add ( new ListItemsInspector ( FastSlots[i].GetSlotIndex ( ) , FastSlots[i].GetSItem ( ).name ) );
 
+            }
         }
         public void SetInventory ( IInventory inventory )
         {
@@ -40,30 +45,74 @@ namespace ApocalipseZ
             }
 
         }
-        public SSlotInventory GetSlotFastItems ( int id )
+        public SSlotInventory GetFastItems ( int slotindex )
         {
+            SSlotInventory temp = null;
+            for ( int i = 0 ; i < FastSlots.Count ; i++ )
+            {
 
-            return FastSlots[id];
+                if ( FastSlots[i].GetSlotIndex ( ) == slotindex )
+                {
+                    temp = FastSlots[i];
+                }
+            }
+
+            return temp;
         }
-        public void SetFastSlots ( int id , SSlotInventory slot )
+        public bool AddItem ( int slotIndex , SSlotInventory slot )
         {
-
-            if ( FastSlots[id]== null )
+            if ( maxSlots == FastSlots.Count )
             {
-                FastSlots[id] = slot;
-             
+                return false;
             }
-            else
+            if (GetFastItems( slotIndex ) !=null)
             {
-                inventory.AddItem ( FastSlots[id] );
-
-                FastSlots[id] = slot;
-               
-
+                inventory.AddItem ( GetFastItems ( slotIndex ) );
             }
+            slot.SetSlotIndex ( slotIndex );
+
+            FastSlots.Add ( slot );
+            Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
             OnFastItemsAltered?.Invoke ( );
+            return true;
+        }
+        public bool AddItem ( SSlotInventory slot )
+        {
+            if ( maxSlots == FastSlots.Count )
+            {
+            
+                return false;
+            }
+            int posicao = -1;
+            if ( CheckFreeSpace ( ref posicao ) )
+            {
+              
+                slot.SetSlotIndex ( posicao );
+
+            }
+            FastSlots.Add ( slot );
+            Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
+            OnFastItemsAltered?.Invoke ( );
+            return true;
         }
 
+        public bool CheckFreeSpace ( ref int posicao )
+        {
+            bool isfreespace = false;
+
+            for ( int i = 0 ; i < maxSlots ; i++ )
+            {
+                SSlotInventory item =  GetFastItems (i );
+                if ( item == null )
+                {
+                    posicao = i;
+                    isfreespace = true;
+                    break;
+                }
+            }
+            return isfreespace;
+        }
+  
         public void RemoveSlot ( SSlotInventory slot )
         {
             for ( int i = 0 ; i < maxSlots ; i++ )
@@ -90,31 +139,20 @@ namespace ApocalipseZ
         {
             List<SlotInventoryTemp> list = new List<SlotInventoryTemp>();
 
-            for ( int i = 0 ; i < maxSlots ; i++ )
+            for ( int i = 0 ; i < FastSlots.Count ; i++ )
             {
                 SlotInventoryTemp novo;
-                if ( FastSlots[i] == null )
-                {
-                    novo = new SlotInventoryTemp ( -1,"" , 0 );
-                }
-                else
-                {
-                    novo = new SlotInventoryTemp ( FastSlots[i].GetSlotIndex(), FastSlots[i].GetSItem ( ).GuidId , FastSlots[i].GetQuantity ( ) );
-                }
-
+                novo = new SlotInventoryTemp ( FastSlots[i].GetSlotIndex ( ) , FastSlots[i].GetSItem ( ).GuidId , FastSlots[i].GetQuantity ( ) );
                 list.Add ( novo );
             }
 
 
-            return new InventoryTemp ( list , maxSlots );
+            return new InventoryTemp ( list , maxSlots);
         }
 
         public void Clear ( )
         {
-            for ( int i = 0 ; i < maxSlots ; i++ )
-            {
-                FastSlots[i] = null;
-            }
+            FastSlots.Clear ( );
         }
         #region COMMAND
         // fast ITEMS
@@ -143,7 +181,7 @@ namespace ApocalipseZ
             if ( item )
             {
                slotnovo = new SSlotInventory ( slot.slot.slotindex,item.sitem , slot.slot.Quantity );
-               SetFastSlots ( slot.id , slotnovo );
+               AddItem ( slot.id , slotnovo );
             }
                      
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
@@ -178,20 +216,15 @@ namespace ApocalipseZ
 
             maxSlots = fastSlots.maxSlot;
             Clear ( );
-            for ( int i = 0 ; i < fastSlots.maxSlot ; i++ )
+            for ( int i = 0 ; i < fastSlots.slot.Count ; i++ )
             {
-                print ( fastSlots.slot[i].guidid );
                 ScriptableItem item = ScriptableManager.GetScriptable(fastSlots .slot[i].guidid);
-                if ( item == null )
+                if ( item != null )
                 {
-                    target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i,null);
+                    target.identity.GetComponent<FpsPlayer> ( ).GetInventory ( ).AddItem ( fastSlots.slot[i].slotindex , new SSlotInventory ( fastSlots.slot[i].slotindex , item.sitem , fastSlots.slot[i].Quantity ) );
                 }
-                else
-                {
-                   target.identity.GetComponent<FpsPlayer> ( ).GetFastItems ( ).SetFastSlots (  i, new SSlotInventory ( fastSlots.slot[i].slotindex, item.sitem , fastSlots.slot[i].Quantity ) );
-                }
+
             }
-            print ( "targer fastites" );
         }
 
         #endregion
