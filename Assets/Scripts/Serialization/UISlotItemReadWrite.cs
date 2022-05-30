@@ -5,12 +5,13 @@ using Mirror;
 using ApocalipseZ;
 public struct UISlotItemTemp
 {
-    public int id;
+    public int slotIndex;
+    public TypeContainer type;
     public SlotInventoryTemp slot;
-
-    public UISlotItemTemp ( int _id , SlotInventoryTemp _slot )
+    public UISlotItemTemp ( int _id , TypeContainer _type , SlotInventoryTemp _slot )
     {
-        id = _id;
+        slotIndex = _id;
+        type = _type;
         slot = _slot;
     }
 }
@@ -18,12 +19,12 @@ public static class UISlotItemReadWrite
 {
     public static void WriteStringTest ( this NetworkWriter writer , UISlotItemTemp value )
     {
-      
-        writer.WriteInt ( value.id );
+        writer.WriteInt ( value.slotIndex );
+        writer.WriteByte ( (byte)value.type );
         writer.Write ( value.slot );
     }
     public static UISlotItemTemp ReadStringTest ( this NetworkReader reader )
     {
-        return new UISlotItemTemp ( reader.ReadInt ( ) , reader.Read<SlotInventoryTemp> ( ) );
+        return new UISlotItemTemp ( reader.ReadInt ( ) ,( TypeContainer ) reader.ReadByte () ,reader.Read<SlotInventoryTemp> ( ) );
     }
 }

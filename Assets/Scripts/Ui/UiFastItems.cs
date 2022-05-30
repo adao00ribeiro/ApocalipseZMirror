@@ -6,9 +6,6 @@ namespace ApocalipseZ
 {
     public class UiFastItems : MonoBehaviour
     {
-        public UISlotItem Primary;
-        public UISlotItem Second;
-
         public List<UISlotItem> FastSlot = new List<UISlotItem>();
         IFpsPlayer player;
         private void OnEnable ( )
@@ -17,22 +14,18 @@ namespace ApocalipseZ
             {
                 return;
             }
-            player.GetFastItems ( ).CmdGetFastItems ( );
+            player.GetFastItems ( ).CmdGetContainer ( );
         }
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
-            Primary.SetFpsPlayer ( player );
-            Second.SetFpsPlayer ( player );
+          
             FastSlot.ForEach ( ( item ) => {
-                item.SetFpsPlayer ( player );
+                item.SetContainer ( player.GetFastItems() );
             } );
-            player.GetFastItems().OnFastItemsAltered += UpdateSlotsFastItems; ;
-            player.GetWeaponManager().OnWeaponAltered += UpdateSlotsWeapons; ;
+            player.GetFastItems().OnInventoryAltered += UpdateSlotsFastItems; ;
 
             UpdateSlotsFastItems ( );
-
-            UpdateSlotsWeapons ( );
         }
      
         public void UpdateSlotsFastItems ( )
@@ -44,10 +37,5 @@ namespace ApocalipseZ
           
         }
 
-        private void UpdateSlotsWeapons ( )
-        {
-            Primary.UpdateSlot ( );
-            Second.UpdateSlot ( );
-        }
     }
 }

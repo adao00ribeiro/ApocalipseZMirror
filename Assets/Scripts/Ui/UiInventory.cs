@@ -10,50 +10,62 @@ namespace ApocalipseZ
         [SerializeField]private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
         IFpsPlayer player;
-
+        private void Awake ( )
+        {
+           
+        }
         private void OnEnable ( )
         {
-            if ( player ==null)
+            if ( player == null )
             {
                 return;
             }
-            player.GetInventory ( ).CmdGetInventory ( );
-         
+            player.GetInventory ( ).CmdGetContainer ( );
+
         }
         private void OnDisable ( )
         {
-           
-            
+
+
         }
-        public void SetFpsPlayer ( IFpsPlayer _player)
+        public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
+          
             slotPanel = transform.Find ( "SlotPanel" ).transform;
-            player.GetInventory().OnInventoryAltered += UpdateSlots; ;
+            AddSlots ( );
+            player.GetInventory ( ).OnInventoryAltered += UpdateSlots; ;
             UpdateSlots ( );
 
         }
-       
+
         public void UpdateSlots ( )
         {
-            if ( player ==null)
+            if ( player == null )
             {
                 return;
             }
+            for ( int i = 0 ; i < UIItems.Count ; i++ )
+            {
+                UIItems[i].UpdateSlot ( );
+            }
+            
+        }
+
+        public void AddSlots ( )
+        {
             foreach ( UISlotItem item in UIItems )
             {
                 Destroy ( item.gameObject );
             }
             UIItems.Clear ( );
-            for ( int i = 0 ; i < player.GetInventory().GetMaxSlots ( ) ; i++ )
+            for ( int i = 0 ; i < player.GetInventory ( ).GetMaxSlots ( ) ; i++ )
             {
                 UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
-                instance.SetFpsPlayer (player );
+                instance.SetContainer ( player.GetInventory());
                 instance.SetSlotIndex ( i );
-                instance.UpdateSlot (  );
                 UIItems.Add ( instance );
             }
         }
-
     }
 }

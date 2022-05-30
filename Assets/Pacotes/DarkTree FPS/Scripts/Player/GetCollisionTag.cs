@@ -18,7 +18,7 @@ namespace DarkTreeFPS
             if(Physics.Raycast(transform.position  , -transform.up , out hit, radius ) )
             {
                 contactTag = hit.collider.tag;
-                print ( hit.collider.name );
+             
             }
         }
 

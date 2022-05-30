@@ -96,7 +96,7 @@ namespace ApocalipseZ
         
         public void OnInteract (IFpsPlayer player)
         {   
-            IInventory inventory = player.GetInventory();
+            IContainer inventory = player.GetInventory();
             SSlotInventory slot = new SSlotInventory();
             slot.SetSItem(scriptableitem.sitem);
             slot.SetQuantity ( dropQuantity);

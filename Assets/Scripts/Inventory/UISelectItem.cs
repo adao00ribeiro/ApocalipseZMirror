@@ -7,7 +7,7 @@ namespace ApocalipseZ
     public class UISelectItem : MonoBehaviour
     {
         public int id;
-        public SlotType AcceptedType;
+        public TypeContainer AcceptedType;
         [SerializeField]SSlotInventory slot;
        
         private Image image;

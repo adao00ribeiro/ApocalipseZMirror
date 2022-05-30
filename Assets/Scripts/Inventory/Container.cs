@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Mirror;
 namespace ApocalipseZ
 {
+    public enum TypeContainer :byte{ INVENTORY,FASTITEMS,WEAPONS}
     [System.Serializable]
     public struct ListItemsInspector
     {
@@ -90,15 +91,15 @@ namespace ApocalipseZ
             return new SlotInventoryTemp ( SlotIndex,item.GuidId, Quantity );
         }
     }
-public class Inventory : NetworkBehaviour,IInventory
+public class Container : NetworkBehaviour,IContainer
     {
         public event Action OnInventoryAltered;
-
-         private List<SSlotInventory> Items;
+        public TypeContainer type;
+        private List<SSlotInventory> Items;
 
         public List< ListItemsInspector>ListInspector = new List<ListItemsInspector>();
 
-        private int maxSlot = 6;
+        [SerializeField]private int maxSlot = 6;
                
         IFpsPlayer player;
         private InputManager PInputManager;
@@ -135,23 +136,28 @@ public class Inventory : NetworkBehaviour,IInventory
         {
             Items.Clear ( );
         }
-        public bool AddItem (int slotIndex, SSlotInventory slot )
+   
+        public bool AddItem ( int slotIndex , SSlotInventory slot  )
         {
             if ( maxSlot == Items.Count )
             {
-                print ( "inventario cheio" );
+                print ( type.ToString ( ) + "cheio" );
                 return false;
             }
             slot.SetSlotIndex ( slotIndex );
-
             Items.Add ( slot );
-            Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
+            Debug.Log ( "Added item: " + slot.GetSItem ( ).name +"  " +type.ToString ( ) );
             OnInventoryAltered?.Invoke ( );
             return true;
         }
         public bool AddItem ( SSlotInventory slot )
         {
-            if ( maxSlot == Items.Count )
+            if (slot ==null)
+            {
+                print ( "ITEM null" );
+                return false;
+            }
+            if ( maxSlot == Items.Count  )
             {
                 print ( "inventario cheio");
                 return false;
@@ -164,7 +170,7 @@ public class Inventory : NetworkBehaviour,IInventory
               
             }
             Items.Add ( slot );
-            Debug.Log ( "Added item: " + slot.GetSItem ( ).name );
+            Debug.Log ( "Added item: " + slot.GetSItem ( ).name + "  " + type.ToString ( ) );
             OnInventoryAltered?.Invoke ( );
             return true;
         }
@@ -175,7 +181,7 @@ public class Inventory : NetworkBehaviour,IInventory
 
             for ( int i = 0 ; i < maxSlot ; i++ )
             {
-                SSlotInventory item =  GetSlotInventory (i );
+                SSlotInventory item =  GetSlotContainer (i );
                 if ( item ==null)
                 {
                 posicao = i;
@@ -186,31 +192,19 @@ public class Inventory : NetworkBehaviour,IInventory
             return isfreespace;
         }
 
-        public bool CheckIfItemExist ( SSlotInventory item )
+        public bool CheckIfItemExist (int slotIndex )
         {
-            bool Exist = false;
-
-            for ( int i = 0 ; i < Items.Count ; i++ )
-            {
-                if ( Items[i].Compare ( item ) )
-                {
-                    Exist = true;
-                    break;
-                }
-            }
-            return Exist;
+            return Items.TrueForAll ( item => item.GetSlotIndex ( ) == slotIndex );
         }
 
-        public void RemoveItem ( SSlotInventory item , bool destroy )
+        public void RemoveItem ( SSlotInventory item  )
         {
 
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
                 if ( Items[i].GetSlotIndex() == item.GetSlotIndex())
                 {
-                    print ( "removido");
                     Items.Remove ( Items[i] );
-                   
                     OnInventoryAltered?.Invoke ( );
                     break;
                 }
@@ -218,7 +212,21 @@ public class Inventory : NetworkBehaviour,IInventory
            
 
         }
+        public void RemoveItem ( int slotIndex )
+        {
 
+            for ( int i = 0 ; i < Items.Count ; i++ )
+            {
+                if ( Items[i].GetSlotIndex ( ) == slotIndex )
+                {
+                    Items.Remove ( Items[i] );
+                    OnInventoryAltered?.Invoke ( );
+                    break;
+                }
+            }
+
+
+        }
         public void UseItem ( SSlotInventory slotitem , bool closeInventory )
         {
             /*
@@ -274,7 +282,7 @@ public class Inventory : NetworkBehaviour,IInventory
             maxSlot = maxslot;
         }
 
-        public SSlotInventory GetSlotInventory ( int slotindex )
+        public SSlotInventory GetSlotContainer ( int slotindex )
         {
             SSlotInventory temp = null;
             for ( int i = 0 ; i < Items.Count ; i++ )
@@ -291,8 +299,8 @@ public class Inventory : NetworkBehaviour,IInventory
 
         public void MoveItem ( int id , int idmove )
         {
-            SSlotInventory tempid = GetSlotInventory(id );
-            SSlotInventory tempmove = GetSlotInventory(idmove );
+            SSlotInventory tempid = GetSlotContainer(id );
+            SSlotInventory tempmove = GetSlotContainer(idmove );
             if ( tempid !=null && tempmove !=null)
             {
                 tempid.SetSlotIndex ( idmove );
@@ -323,7 +331,7 @@ public class Inventory : NetworkBehaviour,IInventory
             OnInventoryAltered?.Invoke ( );
         }
 
-        public InventoryTemp GetInventoryTemp ( )
+        public InventoryTemp GetContainerTemp ( )
         {
             List<SlotInventoryTemp> list = new List<SlotInventoryTemp>();
 
@@ -339,73 +347,67 @@ public class Inventory : NetworkBehaviour,IInventory
         }
         #region COMMAND
         [Command]
-        public void CmdGetInventory ( NetworkConnectionToClient sender = null )
+        public void CmdGetContainer (TypeContainer type , NetworkConnectionToClient sender = null )
         {
-
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Inventory> ( ).GetInventoryTemp ( ) );
-
+            IContainer tempContainer = GetContainerCommandd(sender.identity.GetComponent<FpsPlayer> ( ));
+            
+            TargetGetContainer ( opponentIdentity.connectionToClient , tempContainer.GetContainerTemp ( ) );
         }
         [Command]
-        public void CmdMoveSlotInventory ( int idselecionado , int identer , NetworkConnectionToClient sender = null )
+        public void CmdMoveSlotContainer ( TypeContainer type , int idselecionado , int identer , NetworkConnectionToClient sender = null )
         {
-           
-            sender.identity.GetComponent<Inventory> ( ).MoveItem ( idselecionado , identer );
-
+            sender.identity.GetComponent<Container> ( ).MoveItem ( idselecionado , identer );
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Inventory> ( ).GetInventoryTemp ( ) );
+            TargetGetContainer ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Container> ( ).GetContainerTemp ( ) );
         }
         [Command]
-        public void CmdAddSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        public void CmdAddSlotContainer ( TypeContainer type , UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
+
             ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
             SSlotInventory slotnovo;
+
             if ( item )
             {
-              //  slotnovo = new SSlotInventory ( item.sitem , slot.slot.Quantity );
+               
+               slotnovo = new SSlotInventory ( slot.slotIndex, item.sitem , slot.slot.Quantity );
+                
+               AddItem (slot.slotIndex, slotnovo );
+
             }
-            else
-            {
-             //   slotnovo = new SSlotInventory ( null , 0 );
-            }
-       //     AddItem ( slotnovo );
 
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Inventory> ( ).GetInventoryTemp ( ) );
+            TargetGetContainer ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Container> ( ).GetContainerTemp ( ) );
 
         }
         [Command]
-        public void CmdRemoveSlotInventory ( UISlotItemTemp slot , NetworkConnectionToClient sender = null )
+        public void CmdRemoveSlotContainer ( TypeContainer type ,UISlotItemTemp slot , NetworkConnectionToClient sender = null )
         {
-            ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
-            SSlotInventory slotnovo;
-            if ( item )
-            {
-               slotnovo = new SSlotInventory ( slot.slot.slotindex , item.sitem , slot.slot.Quantity );
-               RemoveItem ( slotnovo , true );
-            }
+            RemoveItem ( slot.slot.slotindex );
 
 
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            TargetGetInventory ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Inventory> ( ).GetInventoryTemp ( ) );
+            TargetGetContainer ( opponentIdentity.connectionToClient , sender.identity.GetComponent<Container> ( ).GetContainerTemp ( ) );
 
         }
+
+      
         #endregion
 
         #region TARGERRPC
 
         [TargetRpc]
-        public void TargetGetInventory ( NetworkConnection target , InventoryTemp inventory )
+        public void TargetGetContainer ( NetworkConnection target , InventoryTemp inventory )
         {
             SetMaxSlots ( inventory.maxSlot );
             Clear ( );
-
             for ( int i = 0 ; i < inventory.slot.Count ; i++ )
             {
                 ScriptableItem item = ScriptableManager.GetScriptable(inventory .slot[i].guidid);
                 if ( item != null)
                 {
-                    target.identity.GetComponent<FpsPlayer> ( ).GetInventory ( ).AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
+                    AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
                 }
    
             }

@@ -17,9 +17,9 @@ namespace ApocalipseZ
         CanvasFpsPlayer CanvasFpsPlayer;
 
         IMoviment Moviment;
-        IFastItems FastItems;
         IWeaponManager WeaponManager;
-        IInventory Inventory;
+        public Container FastItems;
+        public Container Inventory;
         IInteractObjects InteractObjects;
 
         //--------------------------------------------
@@ -35,12 +35,29 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         private void Awake ( )
         {
-        
-               //
+            Container[] cont = GetComponents<Container> ( );
+            print ( cont.Length);
+            //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
-            FastItems = GetComponent<FastItems> ( );
-            Inventory = GetComponent<Inventory> ( );
+        
+
+            for ( int i = 0 ; i < cont.Length ; i++ )
+            {
+                switch ( cont[i].type )
+                {
+                    case TypeContainer.INVENTORY:
+                        Inventory = cont[i];
+                        break;
+                    case TypeContainer.FASTITEMS:
+                        FastItems = cont[i];
+                        break;
+                    case TypeContainer.WEAPONS:
+                        break;
+                    default:
+                        break;
+                }
+            }
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
@@ -60,7 +77,6 @@ namespace ApocalipseZ
          
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
-
             OnLocalPlayerJoined?.Invoke ( this );
            
         }
@@ -106,11 +122,11 @@ namespace ApocalipseZ
             return velocity;
         }
 
-        public IInventory GetInventory ( )
+        public IContainer GetInventory ( )
         {
             return Inventory;
         }
-        public IFastItems GetFastItems ( )
+        public IContainer GetFastItems ( )
         {
             return FastItems;
         }

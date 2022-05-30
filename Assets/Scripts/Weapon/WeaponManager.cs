@@ -31,7 +31,7 @@ namespace ApocalipseZ
 
         [SerializeField]private Transform swayTransform;
 
-        private IInventory inventory;
+        private IContainer inventory;
 
         private InputManager PInputManager;
         public  InputManager InputManager

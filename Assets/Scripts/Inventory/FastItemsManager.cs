@@ -7,7 +7,7 @@ namespace ApocalipseZ
     {
         IFpsPlayer player;
         public int switchSlotIndex = 0;
-        IFastItems FastItems;
+        IContainer FastItems;
         UiFastItems uiFastItems;
         private InputManager PInputManager;
         public InputManager InputManager
@@ -35,18 +35,26 @@ namespace ApocalipseZ
 
         private void SlotInput ( )
         {
-            if ( InputManager.GetAlpha3 ( ) ) {  FastItems.SlotChange (3 ); }
-            else if ( InputManager.GetAlpha4 ( ) ) {  FastItems.SlotChange (4 ); }
-            else if ( InputManager.GetAlpha5 ( ) ) { ; FastItems.SlotChange (5 ); }
+            if ( InputManager.GetAlpha3 ( ) ) {  SlotChange (3 ); }
+            else if ( InputManager.GetAlpha4 ( ) ) {  SlotChange (4 ); }
+            else if ( InputManager.GetAlpha5 ( ) ) { ; SlotChange (5 ); }
 
         }
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
             FastItems = player.GetFastItems ( );
-            FastItems.SetInventory ( player.GetInventory ( ) );
             uiFastItems.SetFpsPlayer ( player);
            
         }
+        public void SlotChange ( int slotindex )
+        {
+           SSlotInventory slot  = FastItems.GetSlotContainer (slotindex );
+            if (  slot ==null)
+            {
+                FastItems.UseItem ( slot ,true);
+            }
+        }
+
     }
 }

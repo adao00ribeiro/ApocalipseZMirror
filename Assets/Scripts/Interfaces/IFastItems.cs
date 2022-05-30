@@ -12,7 +12,7 @@ public interface IFastItems {
     bool AddItem ( SSlotInventory slot );
     void SlotChange ( int switchSlotIndex );
     SSlotInventory GetFastItems ( int id );
-    void SetInventory ( IInventory inventory);
+    void SetInventory ( IContainer inventory);
     void MoveItem ( int id , int v );
     InventoryTemp GetFastItemsTemp ( );
     void Clear ( );

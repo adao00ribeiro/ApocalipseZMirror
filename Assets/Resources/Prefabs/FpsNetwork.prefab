@@ -144,10 +144,10 @@ GameObject:
   - component: {fileID: -5810222880455609214}
   - component: {fileID: 2310472694490760683}
   - component: {fileID: 7433572165634752114}
-  - component: {fileID: 4393839798801360593}
   - component: {fileID: 1495956897387797281}
   - component: {fileID: 7180609406773086949}
   - component: {fileID: 507102876023551437}
+  - component: {fileID: 3862991412696875211}
   m_Layer: 0
   m_Name: FpsNetwork
   m_TagString: Player
@@ -423,34 +423,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArmsWeapons: []
-  primarySlot:
-    Quantity: 0
-  secondarySlot:
-    Quantity: 0
   activeSlot: {fileID: 0}
-  UseNonPhysicalReticle: 1
   switchSlotIndex: 0
   currentWeaponIndex: 0
-  scopeImage: {fileID: 0}
-  reticleDynamic: {fileID: 0}
-  reticleStatic: {fileID: 0}
   weaponHolderAnimator: {fileID: 0}
   tempGameobject: {fileID: 0}
   swayTransform: {fileID: 0}
---- !u!114 &4393839798801360593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121012257842986411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6530614640fbfa84cac78c1fa837cbf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FastSlots: []
-  maxSlots: 3
 --- !u!114 &1495956897387797281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,16 +469,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 121012257842986411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66f16d49c16216499b160eb7dc96865, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e3bba751fee03049988220dccee0107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Items: []
-  nomeitems: []
+  type: 0
+  ListInspector: []
   maxSlot: 6
-  debug: 1
-  isOpen: 1
+--- !u!114 &3862991412696875211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3bba751fee03049988220dccee0107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  type: 1
+  ListInspector: []
+  maxSlot: 6
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0

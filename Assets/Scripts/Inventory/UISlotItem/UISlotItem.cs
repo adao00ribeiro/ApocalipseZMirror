@@ -8,14 +8,14 @@ using System;
 namespace ApocalipseZ
 {
 
-    public enum SlotType { SLOTINVENTORY, SLOTFASTITEMS, SLOTWEAPONS }
+   
     public class UISlotItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField]private int SlotIndex;
-        [SerializeField]private SlotType AcceptedType;
+        [SerializeField]private TypeContainer AcceptedType;
         [SerializeField]private Image Image;
         [SerializeField]private Text TextQuantidade;
-        [SerializeField]private SSlotInventory slot = null; 
+        [SerializeField]private SSlotInventory slot = null;
         public string nameItemSlot;
         [SerializeField]private UISlotItem PrefabUiSlotItem;
 
@@ -25,7 +25,7 @@ namespace ApocalipseZ
 
 
         private Vector2 offset;
-        IFpsPlayer player;
+        IContainer Container;
         private void Awake ( )
         {
             Image = transform.Find ( "Image" ).GetComponent<Image> ( );
@@ -38,22 +38,9 @@ namespace ApocalipseZ
             HUD = GameObject.Find ( "HUD" ).transform;
 
         }
-        public void UpdateSlot (  )
+        public void UpdateSlot ( )
         {
-        
-            if ( AcceptedType == SlotType.SLOTINVENTORY)
-            {
-                SetSlot(player.GetInventory ( ).GetSlotInventory ( SlotIndex ) );
-            }
-            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
-            {
-                SetSlot ( player.GetFastItems ( ).GetFastItems ( SlotIndex ) );
-            }
-            else if ( AcceptedType == SlotType.SLOTWEAPONS )
-            {
-               // SetSlot ( player.GetWeaponManager ( ).GetSlot ( SlotIndex ) );
-            }
-          
+            SetSlot ( Container.GetSlotContainer ( SlotIndex ) );
         }
 
         internal void SetSlotIndex ( int i )
@@ -61,54 +48,24 @@ namespace ApocalipseZ
             SlotIndex = i;
         }
 
-        public bool RemoveSlot ( )
+        public void RemoveSlot ( )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,slot.GetSlotTemp());
+            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,slot.GetSlotTemp());
 
-            if ( AcceptedType == SlotType.SLOTINVENTORY )
-            {
-                print ( "remove inventory" );
-                player.GetInventory().CmdRemoveSlotInventory ( slotui );
-                return true;
-            }
-            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
-            {
-                print ( "remove slotfast" );
-                player.GetFastItems().CmdRemoveSlotFastItems ( slotui );
-                return true;
-            }
-            else if ( AcceptedType == SlotType.SLOTWEAPONS )
-            {
-                print ( "remove weapon" );
-                // player.CmdRemoveSlotFastItems ( "remove slot weapons" );
-                return true;
-            }
-
-            return false;
+            Container.CmdRemoveSlotContainer ( slotui );
 
         }
-        public bool AddSlot ( SSlotInventory _slot )
+        public void MoveSlot ( int slotIndexSelecionado, int slotIndexEnter )
+        {
+            Container.CmdMoveSlotContainer ( slotIndexSelecionado , slotIndexEnter );
+        }
+        public void AddSlot ( SSlotInventory _slot )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
+            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
 
-            if ( AcceptedType == SlotType.SLOTINVENTORY )
-            {
-                player.GetInventory ( ).CmdAddSlotInventory ( slotui );
-                return true;
-            }
-            else if ( AcceptedType == SlotType.SLOTFASTITEMS )
-            {
-                player.GetFastItems().CmdAddSlotFastItems ( slotui );
-                return true;
-            }
-            else if ( AcceptedType == SlotType.SLOTWEAPONS )
-            {
-                // player.CmdRemoveSlotFastItems ( "remove slot weapons" );
-                return true;
-            }
-            return true;
+            Container.CmdAddSlotContainer ( slotui );
         }
 
         public void OnBeginDrag ( PointerEventData eventData )
@@ -140,44 +97,23 @@ namespace ApocalipseZ
         {
             if ( SlotSelecionado == null || SlotEnter == null )
             {
-             
+
                 return;
             }
             if ( SlotEnter.AcceptedType == SlotSelecionado.AcceptedType )
             {
-
-                if ( SlotEnter.AcceptedType == SlotType.SLOTINVENTORY )
-                {
-
-                    player.GetInventory ( ).CmdMoveSlotInventory ( SlotSelecionado.SlotIndex , SlotEnter.SlotIndex );
-                   
-                }
-                else if ( SlotEnter.AcceptedType == SlotType.SLOTFASTITEMS )
-                {
-                    print ( "move fast slots");
-                    player.GetFastItems().CmdMoveSlotFastItems ( SlotSelecionado.SlotIndex , SlotEnter.SlotIndex );
-                }
-                else if ( SlotEnter.AcceptedType == SlotType.SLOTWEAPONS )
-                {
-                    // player.CmdMoveSlotInventory ( SlotSelecionado.Id , SlotEnter.Id );
-                }
-
+                MoveSlot (SlotSelecionado.SlotIndex, SlotEnter.SlotIndex);
             }
             else
             {
-
-                if ( SlotEnter.AddSlot ( SlotSelecionado.slot ) )
-                {
-                  
-                    RemoveSlot ( );
-                }
-
+                SlotEnter.AddSlot ( SlotSelecionado.slot );
+                RemoveSlot ( );
             }
             Destroy ( SlotSelecionado.gameObject );
         }
         public void OnPointerDown ( PointerEventData eventData )
         {
-            if ( slot == null)
+            if ( slot == null )
             {
                 return;
             }
@@ -190,8 +126,8 @@ namespace ApocalipseZ
             {
                 SlotSelecionado = Instantiate ( PrefabUiSlotItem , HUD );
                 SlotSelecionado.AcceptedType = AcceptedType;
-                SlotSelecionado.SetFpsPlayer ( player);
-                SlotSelecionado.UpdateSlot ();
+                SlotSelecionado.SetContainer ( Container );
+                SlotSelecionado.UpdateSlot ( );
                 SlotSelecionado.GetComponent<RectTransform> ( ).sizeDelta = new Vector2 ( 70 , 70 );
                 SlotSelecionado.transform.position = eventData.position;
             }
@@ -202,11 +138,11 @@ namespace ApocalipseZ
         {
             SlotEnter = this;
 
-            if ( SlotSelecionado != null &&  SlotSelecionado != SlotEnter )
+            if ( SlotSelecionado != null && SlotSelecionado != SlotEnter )
             {
                 SlotEnter.SetImagemColor ( Color.red );
             }
-           
+
             //     tooltip.Activate(item);
 
         }
@@ -218,16 +154,16 @@ namespace ApocalipseZ
                 SetImagemColor ( Color.clear );
             }
             SlotEnter = null;
-           
-           
+
+
             //   tooltip.Deactivate();
         }
 
-        public void SetSlot ( SSlotInventory _slot)
+        public void SetSlot ( SSlotInventory _slot )
         {
 
             slot = _slot;
-            
+
             if ( slot == null )
             {
                 Image.sprite = null;
@@ -242,9 +178,9 @@ namespace ApocalipseZ
             nameItemSlot = slot.GetSItem ( ).name;
         }
 
-        public void SetFpsPlayer ( IFpsPlayer _player )
+        public void SetContainer ( IContainer container )
         {
-            player = _player;
+            Container = container;
         }
 
         public int GetId ( )
@@ -255,6 +191,12 @@ namespace ApocalipseZ
         public void SetImagemColor ( Color color )
         {
             Image.color = color;
+        }
+   
+
+public UISlotItemTemp GetUISlotItemTemp ( )
+        {
+            return new UISlotItemTemp( SlotIndex ,AcceptedType, new SlotInventoryTemp ( slot.GetSlotIndex() , slot.GetSItem ( ).GuidId , slot.GetQuantity ( ) ));
         }
     }
 }

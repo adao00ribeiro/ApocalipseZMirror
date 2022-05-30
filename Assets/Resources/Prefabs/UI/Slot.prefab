@@ -241,26 +241,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3245238344103475868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 210fe94dd242e0b449db57da5beed753, type: 3}
+  m_Script: {fileID: 11500000, guid: f23c7767686b5cc4fbf16cc15d7d7c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: 0
-  AcceptedType: 0
-  Image: {fileID: 490094488644805347}
-  TextQuantidade: {fileID: 2769872201476157232}
-  slot:
-    item:
-      GuidId: 14fe456a-6273-4b14-8570-8238b6f48040
-      Type: 0
-      name: NONE
-      isStackable: 1
-      Thumbnail: {fileID: 0}
-      Description: NONE
-      maxStacksize: 4
-      Ammo: 0
-      Durability: 0
-      Prefab: {fileID: 0}
-    Quantity: 0
+  type: 0
+  SlotIndex: 0
+  Image: {fileID: 0}
+  TextQuantidade: {fileID: 0}
+  nameItemSlot: 
   PrefabUiSlotItem: {fileID: 953581165}
 --- !u!1 &5275480285760205075
 GameObject:
