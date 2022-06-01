@@ -8,16 +8,16 @@ public static class TargetFpsPlayer
     [TargetRpc]
     public static void TargetGetContainer ( TypeContainer type , NetworkConnection target , InventoryTemp inventory )
     {
-        target.identity.GetComponent<>
+        IContainer container = GetContainerCommandd( type,target.identity.GetComponent<FpsPlayer>());
 
-        SetMaxSlots ( inventory.maxSlot );
-        Clear ( );
+        container.SetMaxSlots ( inventory.maxSlot );
+        container.Clear ( );
         for ( int i = 0 ; i < inventory.slot.Count ; i++ )
         {
             ScriptableItem item = ScriptableManager.GetScriptable(inventory .slot[i].guidid);
             if ( item != null )
             {
-                AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
+                container.AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
             }
 
         }
@@ -35,7 +35,7 @@ public static class TargetFpsPlayer
                 tempContainer =  player.GetFastItems ( );
                 break;
             case TypeContainer.WEAPONS:
-                
+                tempContainer = player.GetWeaponsSlots ( );
                 break;
         }
 

@@ -5,8 +5,9 @@ using Mirror;
 using ApocalipseZ;
 public interface IFpsPlayer 
 {
+    NetworkConnectionToClient GetConnection ( );
     IContainer GetInventory ( );
-    IWeaponManager GetWeaponManager ( );
+    IContainer GetWeaponsSlots ( );
     IContainer GetFastItems ( );
 
 }

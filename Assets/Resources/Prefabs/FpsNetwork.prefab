@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7180609406773086949}
   - component: {fileID: 507102876023551437}
   - component: {fileID: 3862991412696875211}
+  - component: {fileID: 7192712613449860852}
   m_Layer: 0
   m_Name: FpsNetwork
   m_TagString: Player
@@ -385,6 +386,9 @@ MonoBehaviour:
   syncInterval: 0.1
   PrefabCanvasFpsPlayer: {fileID: 3120761757571374880, guid: 67c1b9d92dc6f304cb556379feb271d3,
     type: 3}
+  WeaponsSlots: {fileID: 0}
+  FastItems: {fileID: 0}
+  Inventory: {fileID: 0}
   sensitivity: {x: 0.5, y: 0.5}
   smoothing: {x: 3, y: 3}
   isClimbing: 1
@@ -493,7 +497,24 @@ MonoBehaviour:
   syncInterval: 0.1
   type: 1
   ListInspector: []
-  maxSlot: 6
+  maxSlot: 3
+--- !u!114 &7192712613449860852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3bba751fee03049988220dccee0107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  type: 2
+  ListInspector: []
+  maxSlot: 2
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0

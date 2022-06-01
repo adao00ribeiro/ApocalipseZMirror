@@ -8,12 +8,10 @@ namespace ApocalipseZ
     {
 
         public List<Weapon> ArmsWeapons = new List<Weapon>();
-        public event Action OnWeaponAltered;
-
-        public SSlotInventory primarySlot = new SSlotInventory ( );
-        public SSlotInventory secondarySlot = new SSlotInventory ( );
+       
         public Weapon activeSlot;
 
+        IContainer container;
        
         public int switchSlotIndex = 0;
         public int currentWeaponIndex;
@@ -30,8 +28,7 @@ namespace ApocalipseZ
         private Transform playerTransform;
 
         [SerializeField]private Transform swayTransform;
-
-        private IContainer inventory;
+               
 
         private InputManager PInputManager;
         public  InputManager InputManager
@@ -64,7 +61,7 @@ namespace ApocalipseZ
         public void SetFpsPlayer ( FpsPlayer player )
         {
             playerTransform = player.gameObject.transform;
-            inventory = player.GetInventory ( );
+            container = player.GetWeaponsSlots ( );
 
         }
         // Update is called once per frame
@@ -80,7 +77,7 @@ namespace ApocalipseZ
                 }
                 else
                 {
-                    print ( "WEAPON NULL" );
+                   // print ( "WEAPON NULL" );
                 }
                 
             }
@@ -127,7 +124,7 @@ namespace ApocalipseZ
         {
             if ( switchSlotIndex == 1 )
             {
-                EquipWeapon ( primarySlot.GetSItem() );
+                EquipWeapon ( container.GetSlotContainer ( switchSlotIndex) );
             }
             else if ( switchSlotIndex == 2 )
             {
@@ -135,9 +132,12 @@ namespace ApocalipseZ
             }
 
         }
-        public void EquipWeapon ( SItem Item )
+        public void EquipWeapon ( SSlotInventory slot )
         {
-
+            if (slot==null)
+            {
+                return;
+            }
             if ( activeSlot != null )
             {
                 activeSlot.gameObject.SetActive ( false );
@@ -164,77 +164,7 @@ namespace ApocalipseZ
 
         }
 
-        
-
-        public bool SetSlot ( int id , SSlotInventory sSlotInventory )
-        {
-          
-            if ( sSlotInventory.GetSItem().Type != ItemType.weapon)
-            {
-                return false;
-            }
-            if (id == 0)
-            {
-                primarySlot = sSlotInventory;
-                OnWeaponAltered.Invoke ( );
-                return true;
-            }
-            else if ( id == 1)
-            {
-                secondarySlot = sSlotInventory;
-                OnWeaponAltered.Invoke ( );
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-                    
-        }
-
-        public SSlotInventory GetSlot ( int id)
-        {
-          
-            if (id == 0)
-            {
-                return primarySlot;
-            }else if ( id == 1)
-            {
-                return secondarySlot;
-            }
-            return new SSlotInventory ( );
-        }
-
-        public void RemoveSlot ( SSlotInventory sSlotInventory )
-        {
-            if ( sSlotInventory.GetSItem() == primarySlot.GetSItem ( ) )
-            {
-                primarySlot = new SSlotInventory ( );
-            }else if ( sSlotInventory.GetSItem ( ) == secondarySlot.GetSItem ( ) )
-            {
-                secondarySlot = new SSlotInventory ( );
-            }
-
-            OnWeaponAltered.Invoke ( );
-        }
-
-        public void MoveItem ( int id , int idmove )
-        {
-            if (id==0)
-            {
-                SSlotInventory slottemp = secondarySlot;
-                secondarySlot = primarySlot;
-                primarySlot = slottemp;
-                OnWeaponAltered.Invoke ( );
-            }else if (id==1)
-            {
-                SSlotInventory slottemp = primarySlot;
-                primarySlot = secondarySlot;
-                secondarySlot = slottemp;
-                OnWeaponAltered.Invoke ( );
-            }
-           
-        }
+      
     }
 
 }

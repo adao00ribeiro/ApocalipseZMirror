@@ -14,16 +14,18 @@ namespace ApocalipseZ
             {
                 return;
             }
-            player.GetFastItems ( ).CmdGetContainer ( );
+            CommandsFpsPlayer.CmdGetContainer ( TypeContainer.FASTITEMS , player.GetConnection ( ) );
+            
         }
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
           
             FastSlot.ForEach ( ( item ) => {
+                item.SetFpsPlayer ( player );
                 item.SetContainer ( player.GetFastItems() );
             } );
-            player.GetFastItems().OnInventoryAltered += UpdateSlotsFastItems; ;
+            player.GetFastItems().OnContainerAltered += UpdateSlotsFastItems; ;
 
             UpdateSlotsFastItems ( );
         }

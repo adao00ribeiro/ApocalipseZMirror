@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal;
 namespace ApocalipseZ {
     public class CanvasFpsPlayer : MonoBehaviour
     {
+        [SerializeField]UiPrimaryAndSecondWeapons UiPrimaryAndSecondWeapons;
         [SerializeField]UiInventory UiInventory;
         [SerializeField]UiFastItems UiFastItems;
         [SerializeField]UiFpsScopeCursorReticles UiFpsScopeCursorReticles;
@@ -22,15 +23,21 @@ namespace ApocalipseZ {
         bool IsInventoryOpen = false;
         public void Init ( IFpsPlayer player )
         {
+            UiPrimaryAndSecondWeapons = transform.Find ( "HUD/UiPrimaryAndSecondWeapons" ).GetComponent<UiPrimaryAndSecondWeapons> ( );
             UiInventory = transform.Find ( "HUD/UiInventory" ).GetComponent<UiInventory> ();
             UiFastItems = transform.Find ( "HUD/UiFastItems" ).GetComponent<UiFastItems> ( );
             UiFpsScopeCursorReticles = transform.Find ( "HUD/UiFpsScopeCursorReticles" ).GetComponent<UiFpsScopeCursorReticles> ( );
             UiPlayerStats = transform.Find ( "HUD/UiPlayerStats" ).GetComponent<UiPlayerStats> ( );
+            
+            UiPrimaryAndSecondWeapons.SetFpsPlayer ( player );
             UiInventory.SetFpsPlayer ( player );
             UiFastItems.SetFpsPlayer ( player );
+
+            UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
             UiInventory.gameObject.SetActive ( IsInventoryOpen );
             UiFastItems.gameObject.SetActive ( IsInventoryOpen );
             UiPlayerStats.gameObject.SetActive( IsInventoryOpen );
+
             ActiveMotionBlur ( IsInventoryOpen );
         }
 
@@ -43,6 +50,7 @@ namespace ApocalipseZ {
             if ( InputManager.GetInventory ( ) /*&& !PlayerStats.isPlayerDead*/)
             {
                 IsInventoryOpen = !IsInventoryOpen;
+                UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
                 UiInventory.gameObject.SetActive ( IsInventoryOpen );
                 UiFastItems.gameObject.SetActive ( IsInventoryOpen );
                 ActiveMotionBlur ( IsInventoryOpen );

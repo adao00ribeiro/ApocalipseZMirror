@@ -18,6 +18,7 @@ namespace ApocalipseZ
 
         IMoviment Moviment;
         IWeaponManager WeaponManager;
+        public Container WeaponsSlots;
         public Container FastItems;
         public Container Inventory;
         IInteractObjects InteractObjects;
@@ -36,11 +37,9 @@ namespace ApocalipseZ
         private void Awake ( )
         {
             Container[] cont = GetComponents<Container> ( );
-            print ( cont.Length);
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
-        
 
             for ( int i = 0 ; i < cont.Length ; i++ )
             {
@@ -53,8 +52,7 @@ namespace ApocalipseZ
                         FastItems = cont[i];
                         break;
                     case TypeContainer.WEAPONS:
-                        break;
-                    default:
+                        WeaponsSlots = cont[i];
                         break;
                 }
             }
@@ -130,12 +128,19 @@ namespace ApocalipseZ
         {
             return FastItems;
         }
-
+        public IContainer GetWeaponsSlots ( )
+        {
+            return WeaponsSlots;
+        }
         public IWeaponManager GetWeaponManager ( )
         {
             return WeaponManager;
         }
 
+        public NetworkConnectionToClient GetConnection ( )
+        {
+            return this.connectionToClient;
+        }
 
         private InputManager PInputManager;
         public InputManager InputManager
