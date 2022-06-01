@@ -164,7 +164,7 @@ namespace ApocalipseZ
                         return;
                     }
                 }
-                if ( SlotEnter.slot != null )
+                if ( SlotEnter.slot != null && SlotEnter.AcceptedType != SlotSelecionado.AcceptedType )
                 {
                     SlotEnter.IsLocked = true;
                     SlotEnter.SetImagemColor ( Color.red );

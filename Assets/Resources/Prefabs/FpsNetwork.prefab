@@ -10254,7 +10254,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4293918591
+    m_Bits: 4293918527
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -14080,36 +14080,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08edfde4f7cc7a24cadcae1827c33784, type: 3}
---- !u!1 &5357070930583830622 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5249001025089567256, guid: 08edfde4f7cc7a24cadcae1827c33784,
-    type: 3}
-  m_PrefabInstance: {fileID: 180162951269497414}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4981700109810500202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5357070930583830622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 90a37c3ca3daf014484b7a44daa13ed2, type: 2}
-  weaponName: AK
-  Type: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  fireMode: 0
 --- !u!4 &8936120742279623245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9116248027064502283, guid: 08edfde4f7cc7a24cadcae1827c33784,
@@ -15575,36 +15545,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76003333e0359a045b2c7e9dbf6eb4de, type: 3}
---- !u!1 &6660577444633232438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1967601972646034812, guid: 76003333e0359a045b2c7e9dbf6eb4de,
-    type: 3}
-  m_PrefabInstance: {fileID: 5125461912908953930}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5455471823137337523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6660577444633232438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0594eca92edd14f87572e1d44dbb52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSetting: {fileID: 11400000, guid: 90a37c3ca3daf014484b7a44daa13ed2, type: 2}
-  weaponName: RPG
-  Type: 0
-  muzzleFlashTransform: {fileID: 0}
-  shellTransform: {fileID: 0}
-  bulletTransform: {fileID: 0}
-  useAnimator: 1
-  reloadAnimationDuration: 3
-  autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
-  fireMode: 0
 --- !u!4 &7652818896323425829 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3248514016233541487, guid: 76003333e0359a045b2c7e9dbf6eb4de,

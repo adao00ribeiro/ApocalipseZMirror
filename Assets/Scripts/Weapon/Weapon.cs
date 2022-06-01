@@ -10,6 +10,7 @@ namespace ApocalipseZ
 
         public string weaponName;
         public WeaponType Type;
+        private float scopeSensitivityX, scopeSensitivityY;
 
         [Header("Transforms Objects Spaws")]
         [Tooltip("Transform to instantiate particle system shot fx")]
@@ -39,10 +40,16 @@ namespace ApocalipseZ
         public FireMode fireMode;
 
         private Animator Animator;
+        [SerializeField]private Sway sway;
 
+
+        //prefabs
+
+        public GameObject projectile;
         // Start is called before the first frame update
         void Start ( )
         {
+            sway = transform.GetComponentInParent<Sway> ( );
             if ( GetComponent<Animator> ( ) )
                 Animator = GetComponent<Animator> ( );
         }
@@ -57,6 +64,11 @@ namespace ApocalipseZ
 
         public void Fire ( )
         {
+            var projectileSettingObject = Instantiate(projectile,bulletTransform.position,bulletTransform.rotation);
+           //projectileSettingObject.SetActive ( false );
+           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).weapon = this;
+           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).initialVelocity = bulletInitialVelocity;
+           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).airResistance = airResistanceForce;
             if ( useAnimator )
                 Animator.Play ( "Shot" );
         }
@@ -64,7 +76,7 @@ namespace ApocalipseZ
         {
              if ( useAnimator )
                 {
-                    Animator.SetBool ( "Aim" , false );
+                   Animator.SetBool ( "Aim" , false );
                     Animator.Play ( "Reload" );
                 }
         }
@@ -72,6 +84,25 @@ namespace ApocalipseZ
         void ReloadEnd ( )
         {
 
+        }
+
+        public void Aim ( bool isAim)
+        {
+            if ( useAnimator )
+            {
+               Animator.SetBool( "Aim" , isAim );
+            }
+            if (isAim)
+            {
+                sway.AmountX = sway.AmountX * 0.3f;
+                sway.AmountY = sway.AmountY * 0.3f;
+            }
+            else
+            {
+                sway.AmountX = sway.startX;
+                sway.AmountY = sway.startY;
+            }
+           
         }
     }
 }

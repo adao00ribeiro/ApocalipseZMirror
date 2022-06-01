@@ -311,6 +311,7 @@ namespace DarkTreeFPS
                         setAim = true;
                         sway.xSwayAmount = sway.xSwayAmount*0.3f;
                         sway.ySwayAmount = sway.ySwayAmount*0.3f;
+
                         if (weaponManager.UseNonPhysicalReticle)
                             staticReticle.SetActive(false);
                         else

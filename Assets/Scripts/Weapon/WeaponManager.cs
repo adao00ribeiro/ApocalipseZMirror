@@ -8,15 +8,15 @@ namespace ApocalipseZ
     {
 
         public List<Weapon> ArmsWeapons = new List<Weapon>();
-       
+
         public Weapon activeSlot;
 
         IContainer container;
-       
+
         public int switchSlotIndex = 0;
         public int currentWeaponIndex;
 
-        
+
 
         [Tooltip("Animator that contain pickup animation")]
         public Animator weaponHolderAnimator;
@@ -28,16 +28,16 @@ namespace ApocalipseZ
         private Transform playerTransform;
 
         [SerializeField]private Transform swayTransform;
-               
+
 
         private InputManager PInputManager;
-        public  InputManager InputManager
+        public InputManager InputManager
         {
             get
             {
-                if ( PInputManager==null)
+                if ( PInputManager == null )
                 {
-                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( ) ;
+                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
                 }
                 return PInputManager;
             }
@@ -48,11 +48,11 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
-           
+
             swayTransform = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder/Sway" ).transform;
-          
-            weaponHolderAnimator = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator>();
-        
+
+            weaponHolderAnimator = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
+
             foreach ( Weapon weapon in swayTransform.GetComponentsInChildren<Weapon> ( true ) )
             {
                 ArmsWeapons.Add ( weapon );
@@ -62,45 +62,31 @@ namespace ApocalipseZ
         {
             playerTransform = player.gameObject.transform;
             container = player.GetWeaponsSlots ( );
-            container.OnContainerAltered += SlotChange ( );
+            container.OnContainerAltered += SlotChange;
         }
         // Update is called once per frame
         void Update ( )
         {
             SlotInput ( );
-
-            if (InputManager.GetFire())
+            if ( activeSlot == null )
             {
-                if (activeSlot != null )
-                {
-                   activeSlot.Fire ( );
-                }
-                else
-                {
-                   // print ( "WEAPON NULL" );
-                }
-                
+                return;
+            }
+            if ( InputManager.GetFire ( ) )
+            {
+                activeSlot.Fire ( );
             }
 
-            if (InputManager.GetReload())
-            {
-                if ( activeSlot != null )
-                {
-                    activeSlot.ReloadBegin ( );
-                }
-                else
-                {
-                    print ( "WEAPON NULL");
-                }
-            }
-            if (InputManager.GetAim())
-            {
-               
-            }
-            else
+            if ( InputManager.GetReload ( ) )
             {
 
+                activeSlot.ReloadBegin ( );
+
             }
+           
+            activeSlot.Aim ( InputManager.GetAim ( ) );
+           
+
             if ( InputManager.GetDropWeapon ( ) )
             {
                 // DropWeapon();
@@ -114,46 +100,52 @@ namespace ApocalipseZ
 
         private void SlotInput ( )
         {
-            if ( InputManager.GetAlpha1 ( ) ) 
-            { 
+            if ( InputManager.GetAlpha1 ( ) )
+            {
                 switchSlotIndex = 1;
-                SlotChange ( ); 
+                SlotChange ( );
             }
             else if ( InputManager.GetAlpha2 ( ) )
-            { 
-                switchSlotIndex = 2; 
-                SlotChange ( ); 
+            {
+                switchSlotIndex = 2;
+                SlotChange ( );
             }
 
         }
-        
+
         private void SlotChange ( )
         {
             EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
         }
         public void EquipWeapon ( SSlotInventory slot )
         {
-            if (slot==null)
+
+            if ( slot == null )
             {
+                print ( "altered " + switchSlotIndex );
+                if ( activeSlot )
+                {
+                    activeSlot.gameObject.SetActive ( false );
+                }
                 return;
             }
-            if ( activeSlot != null )
+            if ( activeSlot != null && activeSlot.weaponName != slot.GetSItem ( ).name )
             {
+                weaponHolderAnimator.Play ( "hide" );
                 activeSlot.gameObject.SetActive ( false );
+
             }
 
             foreach ( Weapon weapon in ArmsWeapons )
             {
-                if ( weapon.weaponName == slot.GetSItem().name )
+                if ( weapon.weaponName == slot.GetSItem ( ).name )
                 {
                     print ( slot.GetSItem ( ).name );
                     activeSlot = weapon;
 
-                    activeSlot.currentAmmo = slot.GetSItem().Ammo;
+                    activeSlot.currentAmmo = slot.GetSItem ( ).Ammo;
 
                     activeSlot.gameObject.SetActive ( true );
-
-                    switchSlotIndex = switchSlotIndex + 1;
 
                     weaponHolderAnimator.Play ( "Unhide" );
 
@@ -163,7 +155,7 @@ namespace ApocalipseZ
 
         }
 
-      
+
     }
 
 }

@@ -6,10 +6,12 @@ namespace ApocalipseZ
     public class ScriptableManager :MonoBehaviour
     {
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
+        [SerializeField]private static ScriptableItem[] ItemsConsumable;
 
         private void Start ( )
         {
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
+            ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
         }
       
         public static void Print ( )
