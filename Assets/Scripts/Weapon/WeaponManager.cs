@@ -62,7 +62,7 @@ namespace ApocalipseZ
         {
             playerTransform = player.gameObject.transform;
             container = player.GetWeaponsSlots ( );
-
+            container.OnContainerAltered += SlotChange ( );
         }
         // Update is called once per frame
         void Update ( )
@@ -110,27 +110,26 @@ namespace ApocalipseZ
             // {
             //     DropAllWeapons();
             // }
-
-
         }
 
         private void SlotInput ( )
         {
-            if ( InputManager.GetAlpha1 ( ) ) { switchSlotIndex = 1; SlotChange ( ); }
-            else if ( InputManager.GetAlpha2 ( ) ) { switchSlotIndex = 2; SlotChange ( ); }
+            if ( InputManager.GetAlpha1 ( ) ) 
+            { 
+                switchSlotIndex = 1;
+                SlotChange ( ); 
+            }
+            else if ( InputManager.GetAlpha2 ( ) )
+            { 
+                switchSlotIndex = 2; 
+                SlotChange ( ); 
+            }
 
         }
+        
         private void SlotChange ( )
         {
-            if ( switchSlotIndex == 1 )
-            {
-                EquipWeapon ( container.GetSlotContainer ( switchSlotIndex) );
-            }
-            else if ( switchSlotIndex == 2 )
-            {
-                EquipWeapon ( secondarySlot.GetSItem() );
-            }
-
+            EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
         }
         public void EquipWeapon ( SSlotInventory slot )
         {
@@ -145,12 +144,12 @@ namespace ApocalipseZ
 
             foreach ( Weapon weapon in ArmsWeapons )
             {
-                if ( weapon.weaponName == Item.name )
+                if ( weapon.weaponName == slot.GetSItem().name )
                 {
-                    print ( Item.name);
+                    print ( slot.GetSItem ( ).name );
                     activeSlot = weapon;
 
-                    activeSlot.currentAmmo = Item.Ammo;
+                    activeSlot.currentAmmo = slot.GetSItem().Ammo;
 
                     activeSlot.gameObject.SetActive ( true );
 

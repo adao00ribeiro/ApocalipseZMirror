@@ -72,7 +72,7 @@ namespace ApocalipseZ
             }
             //
             GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
-         
+            WeaponManager.SetFpsPlayer ( this);
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
             OnLocalPlayerJoined?.Invoke ( this );
