@@ -35,7 +35,7 @@ namespace ApocalipseZ
             RaycastCollider = GameObject.CreatePrimitive (PrimitiveType.Sphere).transform;
             RaycastCollider.name = "COLLIDERINTERACT";
             RaycastCollider.gameObject.tag = "noCollider";
-            RaycastCollider.gameObject.layer = 8;
+            RaycastCollider.gameObject.layer = 2;
             RaycastCollider.transform.SetParent ( this.transform);
             RaycastCollider.GetComponent<SphereCollider> ( ).isTrigger = true;
             RaycastCollider.GetComponent<SphereCollider>().radius = 0.1f;

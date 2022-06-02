@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Mirror;
 namespace ApocalipseZ
 {
     public class Weapon : MonoBehaviour,IWeapon
@@ -42,10 +42,16 @@ namespace ApocalipseZ
         private Animator Animator;
         [SerializeField]private Sway sway;
 
-
         //prefabs
 
-        public GameObject projectile;
+        private GameObject PrefabProjectile;
+
+        private void Awake ( )
+        {
+
+            PrefabProjectile =   weaponSetting.projectile;
+            muzzleFlashTransform = transform.Find ( "Muzzle flash transform" );
+        }
         // Start is called before the first frame update
         void Start ( )
         {
@@ -64,11 +70,12 @@ namespace ApocalipseZ
 
         public void Fire ( )
         {
-            var projectileSettingObject = Instantiate(projectile,bulletTransform.position,bulletTransform.rotation);
-           //projectileSettingObject.SetActive ( false );
-           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).weapon = this;
-           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).initialVelocity = bulletInitialVelocity;
-           //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).airResistance = airResistanceForce;
+            var projectileSettingObject = Instantiate(PrefabProjectile,muzzleFlashTransform.position,muzzleFlashTransform.rotation);
+            CommandsFpsPlayer.CmdFire ( );
+            //projectileSettingObject.SetActive ( false );
+            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).weapon = this;
+            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).initialVelocity = bulletInitialVelocity;
+            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).airResistance = airResistanceForce;
             if ( useAnimator )
                 Animator.Play ( "Shot" );
         }

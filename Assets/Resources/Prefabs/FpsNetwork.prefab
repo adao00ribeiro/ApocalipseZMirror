@@ -7645,6 +7645,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!82 &7791050779353848738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12478,6 +12480,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!82 &3023963040980270632
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13362,6 +13366,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!82 &7034102252471180083
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13657,6 +13663,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!82 &155657855860441007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13859,6 +13867,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!1 &9191147390043615100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14023,6 +14033,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5778867710845348419, guid: 08edfde4f7cc7a24cadcae1827c33784,
+        type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 5647565839851539664, guid: b27e84591aebfd14f84539c87fe59cb1,
+        type: 3}
     - target: {fileID: 9116248027064502283, guid: 08edfde4f7cc7a24cadcae1827c33784,
         type: 3}
       propertyPath: m_RootOrder
@@ -14577,6 +14593,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!1001 &1378334109669203310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15306,6 +15324,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!1001 &3748809846682672618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16051,6 +16071,8 @@ MonoBehaviour:
   currentAmmo: 0
   maxAmmo: 30
   fireMode: 0
+  sway: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!4 &489080796974194626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5635810883320887747, guid: b92e404be46ac6a42bed293b6a3a9bba,

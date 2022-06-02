@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using ApocalipseZ;
+using System;
+
 public static class CommandsFpsPlayer
 {
     #region COMMAND
@@ -55,6 +57,13 @@ public static class CommandsFpsPlayer
 
 
         TargetFpsPlayer.TargetGetContainer ( type , opponentIdentity.connectionToClient , tempContainer.GetContainerTemp ( ) );
+    }
+
+    internal static void CmdFire ( NetworkConnectionToClient sender = null )
+    {
+
+        GameObject projectile = Instantiate(projectilePrefab, projectileMount.position, projectileMount.rotation);
+        NetworkServer.Spawn ( projectile );
     }
 
 

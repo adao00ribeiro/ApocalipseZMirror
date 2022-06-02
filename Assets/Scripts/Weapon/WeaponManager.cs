@@ -24,6 +24,7 @@ namespace ApocalipseZ
         [HideInInspector]
         public GameObject tempGameobject;
 
+        IFpsPlayer fpsplayer;
         //Transform where weapons will dropped on Drop()
         private Transform playerTransform;
 
@@ -60,6 +61,7 @@ namespace ApocalipseZ
         }
         public void SetFpsPlayer ( FpsPlayer player )
         {
+            fpsplayer = player;
             playerTransform = player.gameObject.transform;
             container = player.GetWeaponsSlots ( );
             container.OnContainerAltered += SlotChange;
@@ -74,7 +76,8 @@ namespace ApocalipseZ
             }
             if ( InputManager.GetFire ( ) )
             {
-                activeSlot.Fire ( );
+                CommandsFpsPlayer.CmdFire ( fpsplayer.GetConnection());
+                
             }
 
             if ( InputManager.GetReload ( ) )
@@ -83,8 +86,11 @@ namespace ApocalipseZ
                 activeSlot.ReloadBegin ( );
 
             }
-           
-            activeSlot.Aim ( InputManager.GetAim ( ) );
+            if ( activeSlot )
+            {
+                activeSlot.Aim ( InputManager.GetAim ( ) );
+            }
+         
            
 
             if ( InputManager.GetDropWeapon ( ) )
