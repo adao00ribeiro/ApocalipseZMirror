@@ -10,4 +10,7 @@ public interface IFpsPlayer
     IContainer GetWeaponsSlots ( );
     IContainer GetFastItems ( );
 
+
+    [Command]
+    void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );
 }

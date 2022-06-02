@@ -5,11 +5,13 @@ namespace ApocalipseZ
 {
     public class ScriptableManager :MonoBehaviour
     {
+        public static GameObject bullet;
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
         [SerializeField]private static ScriptableItem[] ItemsConsumable;
 
         private void Start ( )
         {
+            bullet = Resources.Load<GameObject> ( "Prefabs/Weapons/Gun bullet" );
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
             ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
         }
@@ -30,6 +32,14 @@ namespace ApocalipseZ
                 if ( ItemsWeapons[i].sitem.GuidId.ToString ( ) == guidid )
                 {
                     temp = ItemsWeapons[i];
+                    break;
+                }
+            }
+             for ( int i = 0 ; i < ItemsConsumable.Length ; i++ )
+            {
+                if ( ItemsConsumable[i].sitem.GuidId.ToString ( ) == guidid )
+                {
+                    temp = ItemsConsumable[i];
                     break;
                 }
             }

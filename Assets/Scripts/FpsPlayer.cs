@@ -4,6 +4,8 @@ using UnityEngine;
 using Mirror;
 using Cinemachine;
 using UnityEngine.Events;
+using System;
+
 namespace ApocalipseZ
 {
     //adicionar e conter components
@@ -12,6 +14,7 @@ namespace ApocalipseZ
     [RequireComponent ( typeof ( WeaponManager ) )]
     public class FpsPlayer : NetworkBehaviour, IFpsPlayer
     {
+        public NetworkConnectionToClient conn;
         public GameObject PrefabCanvasFpsPlayer;
         public event System.Action<FpsPlayer> OnLocalPlayerJoined;
         CanvasFpsPlayer CanvasFpsPlayer;
@@ -36,6 +39,8 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         private void Awake ( )
         {
+            conn =this.connectionToClient;
+
             Container[] cont = GetComponents<Container> ( );
             //
             Moviment = GetComponent<Moviment> ( );
@@ -74,10 +79,19 @@ namespace ApocalipseZ
             GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
+            InteractObjects.Init ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
             OnLocalPlayerJoined?.Invoke ( this );
            
         }
+        [ClientRpc]
+        internal void RpcSpawBullet ( SpawBulletTransform spawbulettransform )
+        {
+            
+            NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ));
+            //print ("posicao:" +  spawbulettransform.Position + "rotacao" + spawbulettransform.Rotation);
+        }
+
         public override void OnStopLocalPlayer ( )
         {
 
@@ -139,7 +153,7 @@ namespace ApocalipseZ
 
         public NetworkConnectionToClient GetConnection ( )
         {
-            return this.connectionToClient;
+            return conn;
         }
 
         private InputManager PInputManager;
@@ -155,5 +169,33 @@ namespace ApocalipseZ
             }
         }
 
+        public  IContainer GetContainer ( TypeContainer type  )
+        {
+            IContainer tempContainer = null;
+            switch ( type )
+            {
+                case TypeContainer.INVENTORY:
+                    tempContainer = GetInventory ( );
+                    break;
+                case TypeContainer.FASTITEMS:
+                    tempContainer = GetFastItems ( );
+                    break;
+                case TypeContainer.WEAPONS:
+                    tempContainer = GetWeaponsSlots ( );
+                    break;
+            }
+
+            return tempContainer;
+        }
+        #region command
+        [Command]
+        public  void CmdSpawBullet ( SpawBulletTransform spawbulettransform , NetworkConnectionToClient sender = null )
+        {
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
+            fpstemp.RpcSpawBullet ( spawbulettransform );
+        }
+
+        #endregion
     }
 }

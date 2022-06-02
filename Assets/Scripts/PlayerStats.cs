@@ -11,6 +11,8 @@ namespace ApocalipseZ
     {
         [SyncVar]
         public int health;
+        public TextMesh playerhealthText;
+
         public static bool isPlayerDead = false;
 
         public Slider HealthSlider;
@@ -25,6 +27,10 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
+            if ( playerhealthText )
+            {
+                playerhealthText.text = health.ToString();
+            }
             return;
             HealthSlider.value = health;
             HealthText.text = health.ToString ( );
@@ -46,15 +52,25 @@ namespace ApocalipseZ
 
         }
 
+        [Command ( requiresAuthority = false )]
+        public void TakeDamage ( )
+        {
+            health--;
+
+            if (health <=0)
+            {
+                health = 100;
+            }
+        }
         private void PlayerDeath ( )
         {
             throw new NotImplementedException ( );
         }
 
-        [ServerCallback]
+        //[ServerCallback]
         private void OnTriggerEnter ( Collider other )
         {
-            health--;
+           
 
         }
     }

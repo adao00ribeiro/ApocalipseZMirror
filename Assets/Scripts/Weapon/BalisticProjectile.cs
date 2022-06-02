@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 namespace ApocalipseZ
 {
-    public class BalisticProjectile : MonoBehaviour
+    public class BalisticProjectile : NetworkBehaviour
     {
         [HideInInspector]
         public float initialVelocity = 360;
@@ -32,14 +32,20 @@ namespace ApocalipseZ
             RaycastHit hit;
             if ( Physics.Linecast ( lastPosition , transform.position , out hit ) )
             {
-                Destroy ( gameObject);
+                PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
+                if (stat)
+                {
+                    print ( stat.gameObject.name);
+                    stat.TakeDamage ( );
+                }
+                NetworkBehaviour.Destroy ( gameObject);
             }
 
             lastPosition = transform.position;
 
             if ( time > livingTime )
             {
-                Destroy ( gameObject );
+                NetworkBehaviour.Destroy ( gameObject );
             }
         }
 

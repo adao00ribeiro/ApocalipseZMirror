@@ -14,7 +14,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            CommandsFpsPlayer.CmdGetContainer ( TypeContainer.FASTITEMS , player.GetConnection ( ) );
+            player.GetFastItems ( ).CmdGetContainer ( TypeContainer.FASTITEMS );
             
         }
         public void SetFpsPlayer ( IFpsPlayer _player )

@@ -42,6 +42,7 @@ namespace ApocalipseZ
         }
         public void UpdateSlot ( )
         {
+
             SetSlot ( Container.GetSlotContainer ( SlotIndex ) );
         }
 
@@ -54,19 +55,19 @@ namespace ApocalipseZ
         {
 
             UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,slot.GetSlotTemp());
-            CommandsFpsPlayer.CmdRemoveSlotContainer ( AcceptedType , slotui , player.GetConnection ( ) );
+            Container.CmdRemoveSlotContainer ( AcceptedType , slotui );
 
         }
         public void MoveSlot ( int slotIndexSelecionado , int slotIndexEnter )
         {
-            CommandsFpsPlayer.CmdMoveSlotContainer ( AcceptedType , slotIndexSelecionado , slotIndexEnter , player.GetConnection ( ) );
+            Container.CmdMoveSlotContainer ( AcceptedType , slotIndexSelecionado , slotIndexEnter  );
         }
         public void AddSlot ( SSlotInventory _slot )
         {
 
             UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
 
-            CommandsFpsPlayer.CmdAddSlotContainer ( AcceptedType , slotui , player.GetConnection ( ) );
+            Container.CmdAddSlotContainer ( AcceptedType , slotui  );
         }
 
         public void OnBeginDrag ( PointerEventData eventData )
@@ -107,7 +108,10 @@ namespace ApocalipseZ
                     else
                     {
                         SlotEnter.AddSlot ( SlotSelecionado.slot );
+
                         RemoveSlot ( );
+                        SetSlot ( null);
+                        UpdateSlot ( );
                     }
                 }
                 Destroy ( SlotSelecionado.gameObject );

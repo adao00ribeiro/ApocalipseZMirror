@@ -12,12 +12,26 @@ public interface IContainer
     void Clear ( );
     public bool CheckFreeSpace(ref int posicao);
     public bool CheckIfItemExist( int slotIndex );
-    public void RemoveItem( SSlotInventory item );
     public void RemoveItem ( int slotIndex );
     public void UseItem( SSlotInventory item , bool closeInventory);
     public int GetMaxSlots ( );
     public void SetMaxSlots ( int maxslot);
     void MoveItem ( int id , int idmove );
     InventoryTemp GetContainerTemp ( );
-   
+    void InvokeOnContainer ( );
+    #region COMMAND
+    [Command]
+    void CmdGetContainer ( TypeContainer type , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdMoveSlotContainer ( TypeContainer type , int idselecionado , int identer , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdAddSlotContainer ( TypeContainer type , UISlotItemTemp slot , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdRemoveSlotContainer ( TypeContainer type , UISlotItemTemp slot , NetworkConnectionToClient sender = null );
+    #endregion
+
+    #region TARGET
+    [TargetRpc]
+    void TargetGetContainer ( NetworkConnection target ,TypeContainer type , InventoryTemp inventory );
+    #endregion
 }

@@ -8,8 +8,8 @@ namespace ApocalipseZ {
         [SerializeField]private UISlotItem UiPrimaryWeapon;
         [SerializeField]private UISlotItem UiSecondWeapon;
 
-        IFpsPlayer player;
-
+         IFpsPlayer player;
+       
         private void Awake ( )
         {
             UiPrimaryWeapon = transform.Find ( "Container/Primary Weapon Slot" ).GetComponent<UISlotItem>();
@@ -21,7 +21,8 @@ namespace ApocalipseZ {
             {
                 return;
             }
-            CommandsFpsPlayer.CmdGetContainer ( TypeContainer.WEAPONS , player.GetConnection ( ) );
+            player.GetWeaponsSlots ( ).CmdGetContainer ( TypeContainer.WEAPONS );
+            
         }
 
         public void UpdateSlots ( )

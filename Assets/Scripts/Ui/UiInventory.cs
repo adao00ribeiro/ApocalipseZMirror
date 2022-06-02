@@ -17,10 +17,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-
-            CommandsFpsPlayer.CmdGetContainer (TypeContainer.INVENTORY , player.GetConnection() );
-           
-
+            player.GetInventory ().CmdGetContainer( TypeContainer.INVENTORY );
         }
        
         public void SetFpsPlayer ( IFpsPlayer _player )

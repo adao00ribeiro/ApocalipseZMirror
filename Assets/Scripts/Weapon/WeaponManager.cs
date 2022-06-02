@@ -76,7 +76,7 @@ namespace ApocalipseZ
             }
             if ( InputManager.GetFire ( ) )
             {
-                CommandsFpsPlayer.CmdFire ( fpsplayer.GetConnection());
+                fpsplayer.CmdSpawBullet (activeSlot.Fire(), fpsplayer.GetConnection());
                 
             }
 
@@ -86,7 +86,7 @@ namespace ApocalipseZ
                 activeSlot.ReloadBegin ( );
 
             }
-            if ( activeSlot )
+            if ( activeSlot  )
             {
                 activeSlot.Aim ( InputManager.GetAim ( ) );
             }

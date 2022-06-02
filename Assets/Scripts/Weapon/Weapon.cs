@@ -68,16 +68,17 @@ namespace ApocalipseZ
             
         }
 
-        public void Fire ( )
+        public SpawBulletTransform  Fire ( )
         {
-            var projectileSettingObject = Instantiate(PrefabProjectile,muzzleFlashTransform.position,muzzleFlashTransform.rotation);
-            CommandsFpsPlayer.CmdFire ( );
+           
             //projectileSettingObject.SetActive ( false );
             //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).weapon = this;
             //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).initialVelocity = bulletInitialVelocity;
             //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).airResistance = airResistanceForce;
             if ( useAnimator )
                 Animator.Play ( "Shot" );
+
+            return new SpawBulletTransform( muzzleFlashTransform.position, muzzleFlashTransform.rotation);
         }
         public void ReloadBegin ( )
         {

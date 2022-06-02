@@ -14,7 +14,6 @@ namespace ApocalipseZ
        [SerializeField]private Item interact;
 
         UiFpsScopeCursorReticles UiFpsScopeCursorReticles;
-        private Transform RaycastCollider;
         public LayerMask layer;
         private InputManager PInputManager;
         public InputManager InputManager
@@ -28,19 +27,12 @@ namespace ApocalipseZ
                 return PInputManager;
             }
         }
+       
         // Start is called before the first frame update
-        void Start ( )
+        public void Init ( )
         {
             UiFpsScopeCursorReticles = GameObject.FindObjectOfType<UiFpsScopeCursorReticles> ( );
-            RaycastCollider = GameObject.CreatePrimitive (PrimitiveType.Sphere).transform;
-            RaycastCollider.name = "COLLIDERINTERACT";
-            RaycastCollider.gameObject.tag = "noCollider";
-            RaycastCollider.gameObject.layer = 2;
-            RaycastCollider.transform.SetParent ( this.transform);
-            RaycastCollider.GetComponent<SphereCollider> ( ).isTrigger = true;
-            RaycastCollider.GetComponent<SphereCollider>().radius = 0.1f;
-            Destroy ( RaycastCollider.GetComponent<MeshFilter>());
-            Destroy ( RaycastCollider.GetComponent<MeshRenderer> ( ) );
+           
         }
 
         // Update is called once per frame
@@ -56,7 +48,7 @@ namespace ApocalipseZ
                 
                 if ( interact !=null )
                 {
-                    RaycastCollider.position = hit.collider.gameObject.transform.position;
+                
                     UiFpsScopeCursorReticles.EnableCursor ( );
                     UiFpsScopeCursorReticles.SetUseText ( interact.GetTitle ( ) );
                  
@@ -73,7 +65,8 @@ namespace ApocalipseZ
             }
             else
             {
-                RaycastCollider.position = transform.position + transform.forward * distance;
+
+               
                 UiFpsScopeCursorReticles.DisableCursor( );
                 UiFpsScopeCursorReticles.SetUseText ("");
             }
