@@ -9,7 +9,7 @@ public interface IFpsPlayer
     IContainer GetInventory ( );
     IContainer GetWeaponsSlots ( );
     IContainer GetFastItems ( );
-
+    PlayerStats GetPlayerStats ( );
 
     [Command]
     void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );

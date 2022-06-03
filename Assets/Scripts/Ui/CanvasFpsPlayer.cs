@@ -32,11 +32,12 @@ namespace ApocalipseZ {
             UiPrimaryAndSecondWeapons.SetFpsPlayer ( player );
             UiInventory.SetFpsPlayer ( player );
             UiFastItems.SetFpsPlayer ( player );
+            UiPlayerStats.SetFpsPlayer ( player );
 
             UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
             UiInventory.gameObject.SetActive ( IsInventoryOpen );
             UiFastItems.gameObject.SetActive ( IsInventoryOpen );
-            UiPlayerStats.gameObject.SetActive( IsInventoryOpen );
+           
 
             ActiveMotionBlur ( IsInventoryOpen );
         }

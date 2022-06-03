@@ -35,8 +35,8 @@ namespace ApocalipseZ
                 PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
                 if (stat)
                 {
-                    print ( stat.gameObject.name);
-                    stat.TakeDamage ( );
+                   
+                    stat.CmdTakeDamage ( );
                 }
                 NetworkBehaviour.Destroy ( gameObject);
             }

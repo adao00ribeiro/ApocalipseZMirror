@@ -9,14 +9,26 @@ namespace ApocalipseZ
 {
     public class PlayerStats : NetworkBehaviour
     {
-        [SyncVar]
+       
+        public event Action OnAlteredStats;
+
+
+
+        [SyncVar(hook = nameof(SetOnAltered))]
         public int health;
+
+
         public TextMesh playerhealthText;
 
-        public static bool isPlayerDead = false;
+        public bool isPlayerDead = false;
 
-        public Slider HealthSlider;
-        public Text HealthText;
+
+        void SetOnAltered ( int oldhealthHook , int newhealthHook )
+        {
+          
+            OnAlteredStats?.Invoke ( );
+        }
+
         // Start is called before the first frame update
         void Start ( )
         {
@@ -31,9 +43,6 @@ namespace ApocalipseZ
             {
                 playerhealthText.text = health.ToString();
             }
-            return;
-            HealthSlider.value = health;
-            HealthText.text = health.ToString ( );
 
             if ( health <= 0 && !isPlayerDead )
             {
@@ -53,8 +62,16 @@ namespace ApocalipseZ
         }
 
         [Command ( requiresAuthority = false )]
+        public void CmdTakeDamage ( NetworkConnectionToClient sender = null)
+        {
+            OnAlteredStats?.Invoke ( );
+            TakeDamage ( );
+        }
+
+
         public void TakeDamage ( )
         {
+            
             health--;
 
             if (health <=0)
@@ -64,7 +81,7 @@ namespace ApocalipseZ
         }
         private void PlayerDeath ( )
         {
-            throw new NotImplementedException ( );
+            isPlayerDead = true;
         }
 
         //[ServerCallback]

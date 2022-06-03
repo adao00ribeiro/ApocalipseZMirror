@@ -5,6 +5,7 @@ using Mirror;
 using Cinemachine;
 using UnityEngine.Events;
 using System;
+using Random = UnityEngine.Random;
 
 namespace ApocalipseZ
 {
@@ -25,7 +26,7 @@ namespace ApocalipseZ
         public Container FastItems;
         public Container Inventory;
         IInteractObjects InteractObjects;
-
+        PlayerStats PlayerStats;
         //--------------------------------------------
         public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
         public Vector2 smoothing = new Vector2(3, 3);
@@ -36,6 +37,9 @@ namespace ApocalipseZ
         [SerializeField]private Animator AnimatorWeaponHolderController;
         [SerializeField] private GameObject[] mesh;
         public Transform pivohead;
+
+        [SyncVar(hook = nameof(PlayerColorChanged))]
+        public Color32 playerColor = Color.white;
         // Start is called before the first frame update
         private void Awake ( )
         {
@@ -64,7 +68,7 @@ namespace ApocalipseZ
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
-           
+            PlayerStats = GetComponent<PlayerStats> ( );
 
         }
         public override void OnStartLocalPlayer ( )
@@ -76,6 +80,9 @@ namespace ApocalipseZ
                 mesh[i].layer = 7;
             }
             //
+
+            playerColor = Random.ColorHSV ( 0f , 1f , 1f , 1f , 0.5f , 1f );
+
             GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
@@ -84,11 +91,24 @@ namespace ApocalipseZ
             OnLocalPlayerJoined?.Invoke ( this );
            
         }
+        void PlayerColorChanged ( Color32 _ , Color32 newPlayerColor )
+        {
+
+            for ( int i = 0 ; i < mesh.Length ; i++ )
+            {
+                Material[] mats =   mesh[i].GetComponent<SkinnedMeshRenderer>().materials;
+
+                for (int j = 0 ; j < mats.Length ; j++ )
+                {
+                    mats[j].color = newPlayerColor;
+                }
+            }
+        }
         [ClientRpc]
         internal void RpcSpawBullet ( SpawBulletTransform spawbulettransform )
         {
-            
-            NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ));
+            Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation );
+           // NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ));
             //print ("posicao:" +  spawbulettransform.Position + "rotacao" + spawbulettransform.Rotation);
         }
 
@@ -150,7 +170,10 @@ namespace ApocalipseZ
         {
             return WeaponManager;
         }
-
+        public PlayerStats GetPlayerStats ( )
+        {
+            return PlayerStats;
+        }
         public NetworkConnectionToClient GetConnection ( )
         {
             return conn;
@@ -193,8 +216,11 @@ namespace ApocalipseZ
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
+            //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
             fpstemp.RpcSpawBullet ( spawbulettransform );
         }
+
+       
 
         #endregion
     }
