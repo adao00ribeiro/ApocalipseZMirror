@@ -80,8 +80,8 @@ namespace ApocalipseZ
                 mesh[i].layer = 7;
             }
             //
-
-            playerColor = Random.ColorHSV ( 0f , 1f , 1f , 1f , 0.5f , 1f );
+            Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            
 
             GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
@@ -89,7 +89,7 @@ namespace ApocalipseZ
             InteractObjects.Init ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
             OnLocalPlayerJoined?.Invoke ( this );
-           
+            CmdSetupPlayer ("player" ,color );
         }
         void PlayerColorChanged ( Color32 _ , Color32 newPlayerColor )
         {
@@ -103,6 +103,11 @@ namespace ApocalipseZ
                     mats[j].color = newPlayerColor;
                 }
             }
+        }
+        [Command]
+        public void CmdSetupPlayer ( string _name , Color _col )
+        {
+            playerColor = _col;
         }
         [ClientRpc]
         internal void RpcSpawBullet ( SpawBulletTransform spawbulettransform )

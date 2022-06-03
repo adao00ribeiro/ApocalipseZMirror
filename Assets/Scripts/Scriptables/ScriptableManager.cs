@@ -9,7 +9,7 @@ namespace ApocalipseZ
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
         [SerializeField]private static ScriptableItem[] ItemsConsumable;
 
-        private void Start ( )
+        private void Awake ( )
         {
             bullet = Resources.Load<GameObject> ( "Prefabs/Weapons/Gun bullet" );
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
@@ -46,6 +46,9 @@ namespace ApocalipseZ
 
             return temp;
         }
-     
+        public static ScriptableItem[] GetItemsWeapons ( )
+        {
+            return ItemsWeapons;
+        }
     }
 }
