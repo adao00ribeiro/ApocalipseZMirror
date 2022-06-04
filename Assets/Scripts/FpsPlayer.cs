@@ -130,6 +130,12 @@ namespace ApocalipseZ
                 return;
             }
             Animation ( );
+            if ( PlayerStats.isPlayerDead )
+            {
+                AnimatorController.Play ( "BlendDeath" );
+                AnimatorWeaponHolderController.Play ( "Unhide" );
+                return;
+            }
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
@@ -144,9 +150,11 @@ namespace ApocalipseZ
             AnimatorController.SetBool ( "IsJump" , !Moviment.isGrounded ( ) );
             AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) );
             AnimatorController.SetBool ( "IsCrouch" , InputManager.GetCrouch ( ) );
-
+            if (!PlayerStats.isPlayerDead )
+            {
+                AnimatorController.SetFloat ( "SelectDeath" , InputManager.GetCrouch ( ) ? 0 : Random.Range ( 1 , 5 ) );
+            }
             //weaponanimator
-
             AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) );
             AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) );
             AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) );

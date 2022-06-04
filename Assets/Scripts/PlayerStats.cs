@@ -9,19 +9,14 @@ namespace ApocalipseZ
 {
     public class PlayerStats : NetworkBehaviour
     {
-       
         public event Action OnAlteredStats;
-
-
 
         [SyncVar(hook = nameof(SetOnAltered))]
         public int health;
 
-
         public TextMesh playerhealthText;
 
         public bool isPlayerDead = false;
-
 
         void SetOnAltered ( int oldhealthHook , int newhealthHook )
         {
@@ -71,13 +66,7 @@ namespace ApocalipseZ
 
         public void TakeDamage ( )
         {
-            
             health--;
-
-            if (health <=0)
-            {
-                health = 100;
-            }
         }
         private void PlayerDeath ( )
         {
