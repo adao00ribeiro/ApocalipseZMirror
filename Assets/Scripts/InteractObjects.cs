@@ -11,7 +11,7 @@ namespace ApocalipseZ
         [Tooltip("The distance within which you can pick up item")]
         public float distance = 1.5f;
 
-       [SerializeField]private Item interact;
+       [SerializeField]private IInteract interact;
 
         UiFpsScopeCursorReticles UiFpsScopeCursorReticles;
         public LayerMask layer;
@@ -44,7 +44,7 @@ namespace ApocalipseZ
           
             if ( Physics.Raycast ( transform.position , transform.forward , out hit , distance, layer ) )
             {
-                 interact =  hit.collider.gameObject.GetComponent<Item> ( );
+                 interact =  hit.collider.gameObject.GetComponent<IInteract> ( );
                 
                 if ( interact !=null )
                 {
@@ -70,6 +70,11 @@ namespace ApocalipseZ
                 UiFpsScopeCursorReticles.DisableCursor( );
                 UiFpsScopeCursorReticles.SetUseText ("");
             }
+        }
+
+        private void OnDrawGizmos ( )
+        {
+            
         }
 
     }

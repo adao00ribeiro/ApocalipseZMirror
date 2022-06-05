@@ -13,6 +13,8 @@ namespace ApocalipseZ {
         [SerializeField]UiPlayerStats UiPlayerStats;
         [SerializeField]MotionBlur motionBlur;
         [SerializeField]Volume volume;
+
+        PlayerStats stats;
         private void Awake ( )
         {
             volume = GameObject.Find ( "PostProcessing" ).GetComponent<Volume> ( );
@@ -37,7 +39,8 @@ namespace ApocalipseZ {
             UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
             UiInventory.gameObject.SetActive ( IsInventoryOpen );
             UiFastItems.gameObject.SetActive ( IsInventoryOpen );
-           
+
+            stats = player.GetPlayerStats ( );
 
             ActiveMotionBlur ( IsInventoryOpen );
         }
@@ -48,7 +51,7 @@ namespace ApocalipseZ {
         // Update is called once per frame
         void Update ( )
         {
-            if ( InputManager.GetInventory ( ) /*&& !PlayerStats.isPlayerDead*/)
+            if ( InputManager.GetInventory ( ) && !stats.isPlayerDead)
             {
                 IsInventoryOpen = !IsInventoryOpen;
                 UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );

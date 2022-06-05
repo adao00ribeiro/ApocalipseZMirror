@@ -397,6 +397,9 @@ MonoBehaviour:
   mesh:
   - {fileID: 3905140200465048437}
   pivohead: {fileID: 5128694765276167891}
+  playerColor:
+    serializedVersion: 2
+    rgba: 4294967295
 --- !u!114 &2310472694490760683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +415,7 @@ MonoBehaviour:
   Walk: 3
   Run: 5
   crouchSpeed: 1
-  jumpSpeed: 3.5
+  jumpSpeed: 2.5
   CrouchHeight: 0.5
 --- !u!114 &7433572165634752114
 MonoBehaviour:
@@ -462,8 +465,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   health: 100
-  HealthSlider: {fileID: 0}
-  HealthText: {fileID: 0}
+  playerhealthText: {fileID: 0}
+  isPlayerDead: 0
 --- !u!114 &507102876023551437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7646,7 +7649,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!82 &7791050779353848738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10297,7 +10299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 2
-  interact: {fileID: 0}
   layer:
     serializedVersion: 2
     m_Bits: 247
@@ -11119,7 +11120,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.319
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -12481,7 +12482,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!82 &3023963040980270632
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13367,7 +13367,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!82 &7034102252471180083
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13664,7 +13663,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!82 &155657855860441007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13868,7 +13866,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!1 &9191147390043615100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14594,7 +14591,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!1001 &1378334109669203310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15325,7 +15321,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!1001 &3748809846682672618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16072,7 +16067,6 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
-  projectile: {fileID: 0}
 --- !u!4 &489080796974194626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5635810883320887747, guid: b92e404be46ac6a42bed293b6a3a9bba,

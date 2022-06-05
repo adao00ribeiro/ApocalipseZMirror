@@ -70,7 +70,10 @@ namespace ApocalipseZ
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             PlayerStats = GetComponent<PlayerStats> ( );
 
+
+
         }
+    
         public override void OnStartLocalPlayer ( )
         {
            
@@ -141,7 +144,10 @@ namespace ApocalipseZ
             transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
-      
+        public void Respaw ( )
+        {
+            AnimatorController.Play ( "Walk" );
+        }
         public void Animation ( )
         {
             //animatorcontroller
@@ -154,12 +160,13 @@ namespace ApocalipseZ
             {
                 AnimatorController.SetFloat ( "SelectDeath" , InputManager.GetCrouch ( ) ? 0 : Random.Range ( 1 , 5 ) );
             }
-            //weaponanimator
-            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) );
-            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) );
-            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) );
+                       
+            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
+            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
+            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
 
         }
+     
         public float GetVelocityMagnitude ( )
         {
             var velocity = ((transform.position - previousPos).magnitude) / Time.deltaTime;

@@ -11,6 +11,7 @@ public interface IFpsPlayer
     IContainer GetFastItems ( );
     PlayerStats GetPlayerStats ( );
 
+    void Respaw ( );
     [Command]
     void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );
 }

@@ -71,8 +71,22 @@ namespace ApocalipseZ
         private void PlayerDeath ( )
         {
             isPlayerDead = true;
-        }
 
+            StartCoroutine ( Respawn ( ) );
+        }
+        private IEnumerator Respawn ( )
+        {
+            yield return new WaitForSeconds ( 5f );
+            FpsPlayer player = GetComponent<FpsPlayer> ( );
+            if ( player)
+            {
+            transform.position = GameObject.Find ( "SpawPoint" ).transform.position;
+            transform.rotation = Quaternion.identity;
+            health = 100;
+            isPlayerDead = false;
+            player.Respaw ( );
+            }
+        }
         //[ServerCallback]
         private void OnTriggerEnter ( Collider other )
         {

@@ -42,11 +42,11 @@ namespace ApocalipseZ
 
         private void Update()
         {
-            if (player == null)
+            if (player == null )
             {
                 return;
             }
-            if (InputManager.GetInventory() /*&& !PlayerStats.isPlayerDead*/)
+            if (InputManager.GetInventory() && !player.GetPlayerStats ( ).isPlayerDead)
             {
                 showInventory = !showInventory;
             }
