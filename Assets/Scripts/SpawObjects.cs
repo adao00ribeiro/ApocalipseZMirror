@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -23,7 +23,7 @@ public class SpawObjects : NetworkBehaviour
         ScriptableItem[] weapons =  ScriptableManager.GetItemsWeapons ( );
         for ( int i = 0 ; i < weapons.Length ; i++ )
         {
-            NetworkClient.RegisterPrefab ( weapons[i].sitem.Prefab, SpawnCoin, UnSpawnCoin );
+            NetworkClient.RegisterPrefab ( weapons[i].sitem.Prefab );
         }
         
       
@@ -34,16 +34,7 @@ public class SpawObjects : NetworkBehaviour
         InvokeRepeating ( "SpawnTrees" , 5 ,5 );
     }
   
-    public GameObject SpawnCoin ( SpawnMessage msg )
-    {
-        print ( "intanciao client");
-        return Instantiate ( treePrefab , msg.position , msg.rotation );
-    }
-
-    public void UnSpawnCoin ( GameObject spawned )
-    {
-        Destroy ( spawned );
-    }
+  
     void SpawnTrees ( )
     {
         if ( MaxWeapons ( ) < 5)
