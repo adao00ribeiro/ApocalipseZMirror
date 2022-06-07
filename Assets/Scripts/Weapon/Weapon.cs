@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 namespace ApocalipseZ
 {
+    [RequireComponent(typeof(AudioSource))]
     public class Weapon : MonoBehaviour,IWeapon
     {
         [SerializeField]private ScriptableWeapon weaponSetting;
@@ -41,14 +42,26 @@ namespace ApocalipseZ
 
         private Animator Animator;
         [SerializeField]private Sway sway;
-
+        [SerializeField]private Recoil  recoilComponent;
+        [SerializeField]private AudioSource audioSource;
+        [SerializeField]private ParticleSystem temp_MuzzleFlashParticlesFX;
         //prefabs
 
         private GameObject PrefabProjectile;
 
+        private float nextFireTime;
+
+        [HideInInspector]
+        public bool reloading = false;
+        [HideInInspector]
+        public bool canShot = true;
+        [HideInInspector]
+        public bool setAim = false;
+        private bool isThrowingGrenade;
+
         private void Awake ( )
         {
-
+            
             PrefabProjectile =   weaponSetting.projectile;
             muzzleFlashTransform = transform.Find ( "Muzzle flash transform" );
         }
@@ -56,8 +69,13 @@ namespace ApocalipseZ
         void Start ( )
         {
             sway = transform.GetComponentInParent<Sway> ( );
+            recoilComponent = GameObject.FindObjectOfType<Recoil> ( );
+            audioSource = GetComponent<AudioSource> ( );
             if ( GetComponent<Animator> ( ) )
                 Animator = GetComponent<Animator> ( );
+
+            if ( weaponSetting.MuzzleFlashParticlesFX )
+                temp_MuzzleFlashParticlesFX = Instantiate ( weaponSetting.MuzzleFlashParticlesFX , muzzleFlashTransform.position , muzzleFlashTransform.rotation , muzzleFlashTransform );
         }
 
 
@@ -68,32 +86,96 @@ namespace ApocalipseZ
             
         }
 
-        public SpawBulletTransform  Fire ( )
+        public void  Fire ( IFpsPlayer player )
         {
-           
-            //projectileSettingObject.SetActive ( false );
-            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).weapon = this;
-            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).initialVelocity = bulletInitialVelocity;
-            //projectileSettingObject.GetComponentInChildren<BalisticProjectile> ( ).airResistance = airResistanceForce;
-            if ( useAnimator )
-                Animator.Play ( "Shot" );
+            if ( Type != WeaponType.Melee && Type != WeaponType.Grenade )
+            {
+                if ( Time.time > nextFireTime && !reloading && canShot /*&& !controller.isClimbing*/ ) //Allow fire statement
+                {
 
-            return new SpawBulletTransform( muzzleFlashTransform.position, muzzleFlashTransform.rotation);
+                    if ( currentAmmo > 0 )
+                    {
+                        currentAmmo -= 1;
+
+                        PlayFX ( );
+                        player.CmdSpawBullet ( new SpawBulletTransform ( muzzleFlashTransform.position , muzzleFlashTransform.rotation ) , player.GetConnection ( ) );
+                        //Getting random damage from minimum and maximum damage.
+                        //calculatedDamage = Random.Range ( damageMin , damageMax );
+
+                        // ProjectilesManager ( );
+
+                        recoilComponent.AddRecoil ( weaponSetting.recoil );
+
+                        //Calculating when next fire call allowed
+                        nextFireTime = Time.time + weaponSetting.fireRate;
+                    }
+                    else
+                    {
+                        if ( !reloading && autoReload )
+                        {
+                            //verificar autoReload 
+                           /// ReloadBegin ( );
+                        }
+                          
+                        else
+                            audioSource.PlayOneShot ( weaponSetting.emptySFX );
+
+                        nextFireTime = Time.time + weaponSetting.fireRate;
+                    }
+
+                }
+               
+
+
+                   
+            }
+            else if ( Type == WeaponType.Melee )
+            {
+                if ( Time.time > nextFireTime ) //Allow fire statement
+                {
+                    audioSource.Stop ( );
+                    audioSource.PlayOneShot ( weaponSetting.shotSFX );
+                    Animator.Play ( "Attack" );
+                    Invoke ( "MeleeHit" , weaponSetting.meleeHitTime );
+                    recoilComponent.AddRecoil ( weaponSetting.recoil );
+                    nextFireTime = Time.time + weaponSetting.meleeAttackRate;
+                }
+
+            }
+            else if ( Type == WeaponType.Grenade && !isThrowingGrenade )
+            {
+                Animator.SetTrigger ( "Throw" );
+                isThrowingGrenade = true;
+            }
         }
         public void ReloadBegin ( )
         {
-             if ( useAnimator )
+           
+            if ( false )
+            {
+                setAim = false;
+                reloading = true;
+                canShot = false;
+
+                if ( useAnimator )
                 {
-                   Animator.SetBool ( "Aim" , false );
+                    Animator.SetBool ( "Aim" , false );
                     Animator.Play ( "Reload" );
                 }
+
+                audioSource.PlayOneShot ( weaponSetting. reloadingSFX );
+
+                Invoke ( "ReloadEnd" , reloadAnimationDuration );
+            }
+            else
+                return;
         }
 
         void ReloadEnd ( )
         {
 
         }
-
+    
         public void Aim ( bool isAim)
         {
             if ( useAnimator )
@@ -112,5 +194,25 @@ namespace ApocalipseZ
             }
            
         }
+
+        public void Throw ( )
+        { 
+        
+        }
+
+        private void PlayFX ( )
+        {
+            if ( useAnimator )
+                Animator.Play ( "Shot" );
+
+            temp_MuzzleFlashParticlesFX.time = 0;
+            temp_MuzzleFlashParticlesFX.Play ( );
+
+            audioSource.Stop ( );
+            audioSource.PlayOneShot ( weaponSetting.shotSFX );
+
+        }
+    
     }
+
 }

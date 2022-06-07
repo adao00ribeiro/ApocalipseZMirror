@@ -5,16 +5,16 @@ namespace ApocalipseZ
 {
     public class Recoil : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start ( )
-        {
+        public float recoilReleaseSpeed = 2f;
 
+        private void Update ( )
+        {
+            transform.localRotation = Quaternion.Slerp ( transform.localRotation , Quaternion.Euler ( Vector3.zero ) , Time.deltaTime * recoilReleaseSpeed );
         }
 
-        // Update is called once per frame
-        void Update ( )
+        public void AddRecoil ( Vector3 recoil )
         {
-
+            transform.localRotation *= Quaternion.Euler ( recoil );
         }
     }
 }

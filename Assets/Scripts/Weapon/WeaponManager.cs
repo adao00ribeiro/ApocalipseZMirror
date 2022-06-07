@@ -76,8 +76,7 @@ namespace ApocalipseZ
             }
             if ( InputManager.GetFire ( ) )
             {
-                fpsplayer.CmdSpawBullet (activeSlot.Fire(), fpsplayer.GetConnection());
-                
+                activeSlot.Fire ( fpsplayer );
             }
 
             if ( InputManager.GetReload ( ) )
