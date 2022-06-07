@@ -17,9 +17,10 @@ public struct ConnectMessage : NetworkMessage
 }
 public class SpawObjects : NetworkBehaviour
 {
-    public GameObject treePrefab;
+   
     private void Awake ( )
     {
+       
         ScriptableItem[] weapons =  ScriptableManager.GetItemsWeapons ( );
         for ( int i = 0 ; i < weapons.Length ; i++ )
         {
@@ -31,21 +32,28 @@ public class SpawObjects : NetworkBehaviour
     [Server]
     private void Start ( )
     {
-        InvokeRepeating ( "SpawnTrees" , 5 ,5 );
-    }
-  
-  
-    void SpawnTrees ( )
-    {
-        if ( MaxWeapons ( ) < 5)
+        Transform ListSpawPointItems = GameObject.Find("ListSpawPointItems").transform;
+
+        foreach ( Transform item in ListSpawPointItems )
         {
-            GameObject treeGo = Instantiate(treePrefab,transform.position , Quaternion.identity);
-            NetworkServer.Spawn ( treeGo );
+            PointItem point = item.gameObject.GetComponent<PointItem> ( );
+
+            Timer.Add ( ( ) => {
+
+                Spawn ( point.GetPrefab ( ) , point.transform.position );
+                Destroy ( point.gameObject);           
+            } , Random.Range(1,20));
         }
-                   
+    }
+    public static void Spawn( GameObject prefab , Vector3 pointSpawn)
+    {
+       
+            GameObject treeGo = Instantiate(prefab,pointSpawn , Quaternion.identity);
+            NetworkServer.Spawn ( treeGo );
+               
     }
 
-    public int MaxWeapons ( )
+    private static int MaxWeapons ( )
     {
 
         int cont = 0;

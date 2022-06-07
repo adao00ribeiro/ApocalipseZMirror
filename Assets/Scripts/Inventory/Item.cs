@@ -100,9 +100,12 @@ namespace ApocalipseZ
             SSlotInventory slot = new SSlotInventory();
             slot.SetSItem(scriptableitem.sitem);
             slot.SetQuantity ( dropQuantity);
-           
+            Vector3 point = transform.position;
             if ( inventory.AddItem ( slot) )
             {
+                Timer.Add ( ( ) => {
+                    SpawObjects.Spawn (scriptableitem.sitem.Prefab , point );
+                } , 4 );
                 NetworkBehaviour.Destroy ( gameObject);
             }
         }

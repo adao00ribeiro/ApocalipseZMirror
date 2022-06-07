@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace ApocalipseZ
@@ -50,5 +50,9 @@ namespace ApocalipseZ
         {
             return ItemsWeapons;
         }
+	    public static ScriptableItem[] GetItemsConsumable ( )
+	    {
+		    return ItemsConsumable;
+	    }
     }
 }
