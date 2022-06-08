@@ -27,6 +27,7 @@ namespace ApocalipseZ
         public Container Inventory;
         IInteractObjects InteractObjects;
         PlayerStats PlayerStats;
+      
         //--------------------------------------------
         public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
         public Vector2 smoothing = new Vector2(3, 3);
@@ -49,7 +50,7 @@ namespace ApocalipseZ
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
-
+          
             for ( int i = 0 ; i < cont.Length ; i++ )
             {
                 switch ( cont[i].type )
@@ -69,7 +70,7 @@ namespace ApocalipseZ
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             PlayerStats = GetComponent<PlayerStats> ( );
-
+            
 
 
         }

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121012257842986411}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9788b2fbdef071842b7728a2ca0a1a37, type: 3}
   m_Name: 
@@ -7649,6 +7649,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!82 &7791050779353848738
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10329,6 +10335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5694ab5cf7645488dc1cd4b969f882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recoilReleaseSpeed: 2
 --- !u!114 &6852764512194556374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12482,6 +12489,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!82 &3023963040980270632
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13367,6 +13380,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!82 &7034102252471180083
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13663,6 +13682,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!82 &155657855860441007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13790,6 +13815,7 @@ GameObject:
   - component: {fileID: 1450311415530463504}
   - component: {fileID: 6665558953422617588}
   - component: {fileID: 7672294915059544125}
+  - component: {fileID: 3776991252251102664}
   m_Layer: 20
   m_Name: M82A1 Arm
   m_TagString: Untagged
@@ -13866,6 +13892,108 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
+--- !u!82 &3776991252251102664
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9157094525151798437}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &9191147390043615100
 GameObject:
   m_ObjectHideFlags: 0
@@ -14591,6 +14719,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!1001 &1378334109669203310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15321,6 +15455,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!1001 &3748809846682672618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16067,6 +16207,12 @@ MonoBehaviour:
   maxAmmo: 30
   fireMode: 0
   sway: {fileID: 0}
+  recoilComponent: {fileID: 0}
+  audioSource: {fileID: 0}
+  temp_MuzzleFlashParticlesFX: {fileID: 0}
+  reloading: 0
+  canShot: 1
+  setAim: 0
 --- !u!4 &489080796974194626 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5635810883320887747, guid: b92e404be46ac6a42bed293b6a3a9bba,

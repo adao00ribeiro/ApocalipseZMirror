@@ -15,16 +15,17 @@ MonoBehaviour:
   Name: SHOTGUN
   Type: 0
   Icon: {fileID: 0}
-  damageMinimum: 0
-  damageMaximum: 0
-  rigidBodyHitForce: 0
-  fireRate: 0
+  damageMinimum: 20
+  damageMaximum: 50
+  rigidBodyHitForce: 0.5
+  fireRate: 0.65
   spread: 0.01
-  recoil: {x: 0, y: 0, z: 0}
-  MuzzleFlashParticlesFX: {fileID: 0}
-  shotSFX: {fileID: 0}
-  reloadingSFX: {fileID: 0}
-  emptySFX: {fileID: 0}
+  recoil: {x: 2, y: 0, z: 0}
+  MuzzleFlashParticlesFX: {fileID: 198738818486580698, guid: a97838465f875dd4fa7b02317e4f73e9,
+    type: 3}
+  shotSFX: {fileID: 8300000, guid: 2993c78b3892efb48bb8a46639e4359f, type: 3}
+  reloadingSFX: {fileID: 8300000, guid: 15da583e75aa5ca4fb83cc4883db784e, type: 3}
+  emptySFX: {fileID: 8300000, guid: 2f79ad7952b593347a5b597889ba9be9, type: 3}
   shell: {fileID: 0}
   shellsPoolSize: 0
   shellEjectingForce: 0

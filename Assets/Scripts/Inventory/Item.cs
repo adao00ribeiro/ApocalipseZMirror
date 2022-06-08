@@ -103,6 +103,8 @@ namespace ApocalipseZ
             Vector3 point = transform.position;
             if ( inventory.AddItem ( slot) )
             {
+                SoundManager.instance.Pickup ( );
+
                 Timer.Add ( ( ) => {
                     SpawObjects.Spawn (scriptableitem.sitem.Prefab , point );
                 } , 4 );
