@@ -178,6 +178,10 @@ namespace ApocalipseZ
     
         public void Aim ( bool isAim)
         {
+            if (Animator == null)
+            {
+                return;
+            }
             if ( useAnimator )
             {
                Animator.SetBool( "Aim" , isAim );

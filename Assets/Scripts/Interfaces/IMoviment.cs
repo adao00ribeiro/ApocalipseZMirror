@@ -8,6 +8,6 @@ public interface IMoviment
     void Jump ( );
     bool CheckMovement ( );
     bool isGrounded ( );
-
+    bool CheckIsRun ( );
     void UpdateMoviment ( );
 }

@@ -20,8 +20,9 @@ namespace ApocalipseZ
         private CharacterController CharacterController;
         private Vector3 moveDirection = Vector3.zero;
         private float directionY;
-
         private InputManager PInputManager;
+        private SoundStep SoundStep;
+
         public InputManager InputManager
         {
             get
@@ -39,12 +40,14 @@ namespace ApocalipseZ
             mesh = transform.Find ( "Ch35_nonPBR" );
             CharacterController = GetComponent<CharacterController> ( );
             CameraTransform = transform.Find ( "Camera & Recoil" );
+            SoundStep = GetComponent<SoundStep> ( );
         }
         public void UpdateMoviment ( )
         {
-            
             Move ( );
             Jump ( );
+            SoundStep.SetIsGround ( isGrounded());
+            SoundStep.SetIsMoviment ( CheckMovement());
         }
         public void Move ( )
         {
@@ -52,6 +55,7 @@ namespace ApocalipseZ
             moveDirection = CameraTransform.forward * moveDirection.z + CameraTransform.right * moveDirection.x;
             Speed = Walk;
             Speed = InputManager.GetRun ( ) ? Run : Speed;
+            SoundStep.SetFatorDelay ( InputManager.GetRun ( )? 0.5f :  1 );
             Speed = InputManager.GetCrouch ( ) ? crouchSpeed : Speed;
             CharacterController.height = InputManager.GetCrouch ( ) ? CrouchHeight : 1.8f;
             if ( InputManager.GetCrouch ( ) )
@@ -87,6 +91,11 @@ namespace ApocalipseZ
         public bool isGrounded ( )
         {
             return CharacterController.isGrounded;
+        }
+
+        public bool CheckIsRun ( )
+        {
+            return InputManager.GetRun ( );
         }
     }
 }

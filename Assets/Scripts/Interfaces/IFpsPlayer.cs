@@ -9,6 +9,8 @@ public interface IFpsPlayer
     IContainer GetInventory ( );
     IContainer GetWeaponsSlots ( );
     IContainer GetFastItems ( );
+
+    IMoviment GetMoviment ( );
     PlayerStats GetPlayerStats ( );
 
     void Respaw ( );

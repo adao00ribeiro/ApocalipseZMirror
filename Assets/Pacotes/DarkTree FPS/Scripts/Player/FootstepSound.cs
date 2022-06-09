@@ -42,6 +42,7 @@ namespace DarkTreeFPS
 
         public void PlayFootstep()
         {
+            return;
             if (!usedByNPC)
             {
                 audioSource.pitch = Random.Range(0.8f, 1f);

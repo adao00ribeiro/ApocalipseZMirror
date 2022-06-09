@@ -72,11 +72,16 @@ namespace ApocalipseZ
 
 
         }
+
+        [Client]
         private void Start ( )
         {
-            if (!isLocalPlayer)
+            if ( isLocalPlayer )
             {
-                Destroy ( FirstPersonCamera.gameObject);
+                FirstPersonCamera.tag = "MainCamera";
+            }
+            else{
+                FirstPersonCamera.GetComponent<Camera> ( ).enabled = false;
             }
         }
         public override void OnStartLocalPlayer ( )
@@ -179,7 +184,10 @@ namespace ApocalipseZ
             previousPos = transform.position;
             return velocity;
         }
-
+        public IMoviment GetMoviment ( )
+        {
+            return Moviment;
+        }
         public IContainer GetInventory ( )
         {
             return Inventory;

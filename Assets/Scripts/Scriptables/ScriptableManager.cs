@@ -8,12 +8,13 @@ namespace ApocalipseZ
         public static GameObject bullet;
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
         [SerializeField]private static ScriptableItem[] ItemsConsumable;
-
+        [SerializeField]private static ScriptableTextureSounds ScriptableTextureSounds;
         private void Awake ( )
         {
             bullet = Resources.Load<GameObject> ( "Prefabs/Weapons/Gun bullet" );
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
             ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
+            ScriptableTextureSounds = Resources.Load<ScriptableTextureSounds> ( "Scriptables/SCP_TextureSound" );
         }
       
         public static void Print ( )
@@ -54,5 +55,9 @@ namespace ApocalipseZ
 	    {
 		    return ItemsConsumable;
 	    }
+        public static ScriptableTextureSounds GetScriptableTextureSounds ( )
+        {
+            return ScriptableTextureSounds;
+        }
     }
 }

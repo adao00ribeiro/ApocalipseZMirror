@@ -74,7 +74,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            if ( InputManager.GetFire ( ) )
+            if ( InputManager.GetFire ( )&&!fpsplayer.GetMoviment ( ).CheckIsRun ( ))
             {
                 activeSlot.Fire ( fpsplayer );
             }
@@ -85,12 +85,16 @@ namespace ApocalipseZ
                 activeSlot.ReloadBegin ( );
 
             }
-            if ( activeSlot  )
+            if ( InputManager.GetAim ( )   &&  !fpsplayer.GetMoviment().CheckIsRun())
             {
-                activeSlot.Aim ( InputManager.GetAim ( ) );
+                activeSlot.Aim ( true);
+                weaponHolderAnimator.SetBool ( "Walk" , false );
+                weaponHolderAnimator.SetBool ( "Run" , false );
             }
-         
-           
+            else
+            {
+                activeSlot.Aim ( false );
+            }
 
             if ( InputManager.GetDropWeapon ( ) )
             {
