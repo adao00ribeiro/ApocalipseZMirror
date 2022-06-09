@@ -17,19 +17,8 @@ public struct ConnectMessage : NetworkMessage
 }
 public class SpawObjects : NetworkBehaviour
 {
-   
-    private void Awake ( )
-    {
-       
-        ScriptableItem[] weapons =  ScriptableManager.GetItemsWeapons ( );
-        for ( int i = 0 ; i < weapons.Length ; i++ )
-        {
-            NetworkClient.RegisterPrefab ( weapons[i].sitem.Prefab );
-        }
-        
-      
-    }
-    [Server]
+  
+  
     private void Start ( )
     {
         Transform ListSpawPointItems = GameObject.Find("ListSpawPointItems").transform;
@@ -38,7 +27,7 @@ public class SpawObjects : NetworkBehaviour
         {
             PointItem point = item.gameObject.GetComponent<PointItem> ( );
 
-            Timer.Add ( ( ) => {
+            Timer.Instance.Add ( ( ) => {
 
                 Spawn ( point.GetPrefab ( ) , point.transform.position );
                 Destroy ( point.gameObject);           

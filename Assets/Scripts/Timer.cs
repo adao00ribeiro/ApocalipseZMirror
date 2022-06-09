@@ -14,33 +14,51 @@ public class Timer : MonoBehaviour
 
     }
 
-    public  static List<TimedEvent> events;
-
-    public delegate void Callback();
-    private void Awake()
+    public   List<TimedEvent> events;
+    private static Timer _instance;
+    public static Timer Instance
     {
-        events = new List<TimedEvent>();
-    }
-    public static void Add(Callback method, float inSeconds)
-    {
-        events.Add(new TimedEvent
+        get
         {
-            Method = method,
+
+            return _instance;
+        }
+    }
+    public delegate void Callback ( );
+    private void Awake ( )
+    {
+        events = new List<TimedEvent> ( );
+
+        if ( _instance != null && _instance != this )
+        {
+            Destroy ( this.gameObject );
+        }
+        else
+        {
+            _instance = this;
+        }
+
+    }
+    public void Add ( Callback method , float inSeconds )
+    {
+        events.Add ( new TimedEvent
+        {
+            Method = method ,
             TimeToExecute = Time.time + inSeconds
 
-        });
+        } );
     }
-    private void Update()
+    private void Update ( )
     {
-        if (events.Count == 0)
+        if ( events.Count == 0 )
             return;
-        for (int i = 0; i < events.Count; i++)
+        for ( int i = 0 ; i < events.Count ; i++ )
         {
             var timedEvent = events[i];
-            if (timedEvent.TimeToExecute <= Time.time)
+            if ( timedEvent.TimeToExecute <= Time.time )
             {
-                timedEvent.Method();
-                events.Remove(timedEvent);
+                timedEvent.Method ( );
+                events.Remove ( timedEvent );
             }
         }
     }

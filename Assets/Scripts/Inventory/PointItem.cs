@@ -18,11 +18,11 @@ namespace ApocalipseZ
             {
                 case ItemType.consumable:
                     items = ScriptableManager.GetItemsConsumable ( );
-                    objeto = items[Random.Range ( 1 , items.Length )].sitem.Prefab;
+                    objeto = items[Random.Range ( 0, items.Length )].sitem.Prefab;
                     break;
                 case ItemType.weapon:
                     items = ScriptableManager.GetItemsWeapons ( );
-                    objeto = items[Random.Range ( 1 , items.Length )].sitem.Prefab;
+                    objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
                     break;
             }
             return objeto;

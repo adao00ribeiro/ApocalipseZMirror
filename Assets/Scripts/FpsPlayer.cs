@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Cinemachine;
+
 using UnityEngine.Events;
 using System;
 using Random = UnityEngine.Random;
@@ -27,10 +27,8 @@ namespace ApocalipseZ
         public Container Inventory;
         IInteractObjects InteractObjects;
         PlayerStats PlayerStats;
-      
+        FirstPersonCamera FirstPersonCamera;
         //--------------------------------------------
-        public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
-        public Vector2 smoothing = new Vector2(3, 3);
         public bool isClimbing = true;
         private Vector3 previousPos = new Vector3();
 
@@ -70,11 +68,17 @@ namespace ApocalipseZ
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             PlayerStats = GetComponent<PlayerStats> ( );
-            
+            FirstPersonCamera = transform.Find ( "Camera & Recoil" ).GetComponent<FirstPersonCamera> ( );
 
 
         }
-    
+        private void Start ( )
+        {
+            if (!isLocalPlayer)
+            {
+                Destroy ( FirstPersonCamera.gameObject);
+            }
+        }
         public override void OnStartLocalPlayer ( )
         {
            
@@ -87,7 +91,7 @@ namespace ApocalipseZ
             Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             
 
-            GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
+           // GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
             InteractObjects.Init ( );
@@ -142,7 +146,8 @@ namespace ApocalipseZ
             }
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
-            transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
+            FirstPersonCamera.UpdateCamera ( );
+          //  transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
         public void Respaw ( )
@@ -199,7 +204,10 @@ namespace ApocalipseZ
         {
             return conn;
         }
-
+        public FirstPersonCamera GetFirstPersonCamera ( )
+        {
+            return FirstPersonCamera;
+        }
         private InputManager PInputManager;
         public InputManager InputManager
         {
@@ -241,7 +249,9 @@ namespace ApocalipseZ
             fpstemp.RpcSpawBullet ( spawbulettransform );
         }
 
-       
+      
+
+
 
         #endregion
     }

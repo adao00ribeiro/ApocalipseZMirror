@@ -105,7 +105,7 @@ namespace ApocalipseZ
             {
                 SoundManager.instance.Pickup ( );
 
-                Timer.Add ( ( ) => {
+                Timer.Instance.Add ( ( ) => {
                     SpawObjects.Spawn (scriptableitem.sitem.Prefab , point );
                 } , 4 );
                 NetworkBehaviour.Destroy ( gameObject);

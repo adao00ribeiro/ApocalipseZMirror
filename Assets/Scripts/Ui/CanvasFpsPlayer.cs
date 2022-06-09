@@ -15,6 +15,7 @@ namespace ApocalipseZ {
         [SerializeField]Volume volume;
 
         PlayerStats stats;
+        FirstPersonCamera FirstPersonCamera;
         private void Awake ( )
         {
             volume = GameObject.Find ( "PostProcessing" ).GetComponent<Volume> ( );
@@ -41,7 +42,7 @@ namespace ApocalipseZ {
             UiFastItems.gameObject.SetActive ( IsInventoryOpen );
 
             stats = player.GetPlayerStats ( );
-
+            FirstPersonCamera = player.GetFirstPersonCamera ( );
             ActiveMotionBlur ( IsInventoryOpen );
         }
 
@@ -63,11 +64,9 @@ namespace ApocalipseZ {
 
         public void ActiveMotionBlur (bool active )
         {
-            //player.lockCursor = false;
-                Cursor.visible = active;
-                Cursor.lockState = active ? CursorLockMode.None : CursorLockMode.Locked;
+            FirstPersonCamera.ActiveCursor ( active );
                 motionBlur.active = active;
-                Time.timeScale = active ? 0 : 1;
+              //  Time.timeScale = active ? 0 : 1;
            
         }
 

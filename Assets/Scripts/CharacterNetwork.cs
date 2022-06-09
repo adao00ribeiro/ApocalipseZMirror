@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 using Mirror;
 
 namespace ApocalipseZ
@@ -77,7 +76,7 @@ namespace ApocalipseZ
 		public override void OnStartLocalPlayer ( )
 		{
 
-			GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
+			//GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
 
 		}
 		public float GetVelocityMagnitude ( )
@@ -101,7 +100,7 @@ namespace ApocalipseZ
 			moveDirection = new Vector3 ( InputManager.GetMoviment ( ).x , 0 , InputManager.GetMoviment ( ).y );
 			moveDirection = CameraTransform.forward * moveDirection.z + CameraTransform.right * moveDirection.x;
 
-			transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
+			//transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
 
 			if ( InputManager.GetIsJump ( ) && controller.isGrounded )

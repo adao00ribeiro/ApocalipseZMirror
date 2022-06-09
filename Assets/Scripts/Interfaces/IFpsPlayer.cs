@@ -14,4 +14,5 @@ public interface IFpsPlayer
     void Respaw ( );
     [Command]
     void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );
+    FirstPersonCamera GetFirstPersonCamera ( );
 }

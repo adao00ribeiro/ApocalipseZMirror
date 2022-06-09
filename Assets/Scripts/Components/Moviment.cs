@@ -38,7 +38,7 @@ namespace ApocalipseZ
         {
             mesh = transform.Find ( "Ch35_nonPBR" );
             CharacterController = GetComponent<CharacterController> ( );
-            CameraTransform = Camera.main.transform;
+            CameraTransform = transform.Find ( "Camera & Recoil" );
         }
         public void UpdateMoviment ( )
         {
