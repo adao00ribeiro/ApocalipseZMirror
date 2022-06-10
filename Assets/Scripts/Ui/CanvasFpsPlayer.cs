@@ -23,7 +23,7 @@ namespace ApocalipseZ {
             volume.profile.TryGet ( out motionBlur );
         }
 
-        bool IsInventoryOpen = false;
+        public static bool IsInventoryOpen = false;
         public void Init ( IFpsPlayer player )
         {
             UiPrimaryAndSecondWeapons = transform.Find ( "HUD/UiPrimaryAndSecondWeapons" ).GetComponent<UiPrimaryAndSecondWeapons> ( );
@@ -69,7 +69,10 @@ namespace ApocalipseZ {
               //  Time.timeScale = active ? 0 : 1;
            
         }
-
+        public UiFpsScopeCursorReticles GetUiFpsScopeCursorReticles ( )
+        {
+            return UiFpsScopeCursorReticles;
+        }
         private InputManager PInputManager;
         public InputManager InputManager
         {

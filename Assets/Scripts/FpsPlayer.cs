@@ -100,7 +100,6 @@ namespace ApocalipseZ
            // GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
-            InteractObjects.Init ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
             OnLocalPlayerJoined?.Invoke ( this );
             CmdSetupPlayer ("player" ,color );
@@ -126,7 +125,7 @@ namespace ApocalipseZ
         [ClientRpc]
         internal void RpcSpawBullet ( SpawBulletTransform spawbulettransform )
         {
-            Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation );
+            Instantiate ( ScriptableManager.Rocket , spawbulettransform.Position , spawbulettransform.Rotation );
            // NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ));
             //print ("posicao:" +  spawbulettransform.Position + "rotacao" + spawbulettransform.Rotation);
         }

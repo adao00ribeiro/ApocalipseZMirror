@@ -6,12 +6,14 @@ namespace ApocalipseZ
     public class ScriptableManager :MonoBehaviour
     {
         public static GameObject bullet;
+        public static GameObject Rocket;
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
         [SerializeField]private static ScriptableItem[] ItemsConsumable;
         [SerializeField]private static ScriptableTextureSounds ScriptableTextureSounds;
         private void Awake ( )
         {
             bullet = Resources.Load<GameObject> ( "Prefabs/Weapons/Gun bullet" );
+            Rocket = Resources.Load<GameObject> ( "Prefabs/Weapons/Rocket" );
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
             ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
             ScriptableTextureSounds = Resources.Load<ScriptableTextureSounds> ( "Scriptables/SCP_TextureSound" );

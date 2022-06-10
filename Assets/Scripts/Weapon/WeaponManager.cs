@@ -6,7 +6,8 @@ namespace ApocalipseZ
 {
     public class WeaponManager : MonoBehaviour, IWeaponManager
     {
-
+        public event Action<Weapon> OnActiveWeapon;
+       
         public List<Weapon> ArmsWeapons = new List<Weapon>();
 
         public Weapon activeSlot;
@@ -44,6 +45,7 @@ namespace ApocalipseZ
             }
         }
 
+       
         [HideInInspector]
         //public Weapon currentWeapon;
         // Start is called before the first frame update
@@ -58,6 +60,7 @@ namespace ApocalipseZ
             {
                 ArmsWeapons.Add ( weapon );
             }
+            OnActiveWeapon?.Invoke ( activeSlot );
         }
         public void SetFpsPlayer ( FpsPlayer player )
         {
@@ -74,15 +77,17 @@ namespace ApocalipseZ
             {
                 return;
             }
-            if ( InputManager.GetFire ( )&&!fpsplayer.GetMoviment ( ).CheckIsRun ( ))
+            if ( InputManager.GetFire ( ) && !fpsplayer.GetMoviment ( ).CheckIsRun ( ) && !CanvasFpsPlayer.IsInventoryOpen)
             {
                 activeSlot.Fire ( fpsplayer );
+                OnActiveWeapon?.Invoke ( activeSlot );
             }
 
             if ( InputManager.GetReload ( ) )
             {
 
                 activeSlot.ReloadBegin ( );
+                OnActiveWeapon?.Invoke ( activeSlot );
 
             }
             if ( InputManager.GetAim ( )   &&  !fpsplayer.GetMoviment().CheckIsRun())
@@ -135,6 +140,8 @@ namespace ApocalipseZ
                 if ( activeSlot )
                 {
                     activeSlot.gameObject.SetActive ( false );
+                    activeSlot = null;
+                    OnActiveWeapon?.Invoke ( activeSlot );
                 }
                 return;
             }
@@ -151,7 +158,7 @@ namespace ApocalipseZ
                 {
                     print ( slot.GetSItem ( ).name );
                     activeSlot = weapon;
-
+                   
                     activeSlot.currentAmmo = slot.GetSItem ( ).Ammo;
 
                     activeSlot.gameObject.SetActive ( true );
@@ -161,10 +168,13 @@ namespace ApocalipseZ
                     break;
                 }
             }
-
+            OnActiveWeapon?.Invoke ( activeSlot );
         }
 
-
+        public Weapon GetActiveWeapon ( )
+        {
+            return activeSlot;
+        }
     }
 
 }

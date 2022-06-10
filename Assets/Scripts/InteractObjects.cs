@@ -13,7 +13,18 @@ namespace ApocalipseZ
 
        [SerializeField]private IInteract interact;
 
-        UiFpsScopeCursorReticles UiFpsScopeCursorReticles;
+        [SerializeField]UiFpsScopeCursorReticles PUiFpsScopeCursorReticles;
+        public UiFpsScopeCursorReticles UiFpsScopeCursorReticles
+        {
+            get
+            {
+                if ( PUiFpsScopeCursorReticles ==null)
+                {
+                    PUiFpsScopeCursorReticles = GameObject.FindObjectOfType<UiFpsScopeCursorReticles> ( );
+                }
+                return PUiFpsScopeCursorReticles;
+            }
+        }
         public LayerMask layer;
         private InputManager PInputManager;
         public InputManager InputManager
@@ -22,18 +33,12 @@ namespace ApocalipseZ
             {
                 if ( PInputManager == null )
                 {
-                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                    PInputManager = InputManager.Instance;
                 }
                 return PInputManager;
             }
         }
        
-        // Start is called before the first frame update
-        public void Init ( )
-        {
-            UiFpsScopeCursorReticles = GameObject.FindObjectOfType<UiFpsScopeCursorReticles> ( );
-           
-        }
 
         // Update is called once per frame
        public void UpdateInteract ( )
@@ -65,8 +70,6 @@ namespace ApocalipseZ
             }
             else
             {
-
-               
                 UiFpsScopeCursorReticles.DisableCursor( );
                 UiFpsScopeCursorReticles.SetUseText ("");
             }

@@ -88,7 +88,6 @@ namespace ApocalipseZ
             else
             {
                 canvas.enabled = false;
-               
                 motionBlur.active = false;
                 Time.timeScale = 1;
                 isOpen = false;

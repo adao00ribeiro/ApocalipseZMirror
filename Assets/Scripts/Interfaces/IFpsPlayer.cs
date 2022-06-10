@@ -17,4 +17,5 @@ public interface IFpsPlayer
     [Command]
     void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );
     FirstPersonCamera GetFirstPersonCamera ( );
+    IWeaponManager GetWeaponManager ( );
 }

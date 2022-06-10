@@ -15,10 +15,10 @@ MonoBehaviour:
   Name: RPG
   Type: 0
   Icon: {fileID: 0}
-  damageMinimum: 0
-  damageMaximum: 0
-  rigidBodyHitForce: 0
-  fireRate: 0
+  damageMinimum: 100
+  damageMaximum: 200
+  rigidBodyHitForce: 0.2
+  fireRate: 2
   spread: 0.01
   recoil: {x: 0, y: 0, z: 0}
   MuzzleFlashParticlesFX: {fileID: 198738818486580698, guid: a97838465f875dd4fa7b02317e4f73e9,
@@ -41,7 +41,7 @@ MonoBehaviour:
   meleeHitFX: {fileID: 0}
   bulletInitialVelocity: 360
   airResistanceForce: 1
-  projectile: {fileID: 5647565839851539664, guid: b27e84591aebfd14f84539c87fe59cb1,
+  projectile: {fileID: 8554822517340472419, guid: 18d39d943d9de23408b9290af827703e,
     type: 3}
   projectilePoolSize: 1
   grenadePrefab: {fileID: 0}

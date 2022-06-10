@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public interface IInteractObjects
+namespace ApocalipseZ
 {
-    void UpdateInteract ( );
-    void Init ( );
+    public interface IInteractObjects
+    {
+        void UpdateInteract ( );
+      
+    }
 }
