@@ -57,7 +57,7 @@ namespace ApocalipseZ
         public bool canShot = true;
         [HideInInspector]
         public bool setAim = false;
-        private bool isThrowingGrenade;
+        public  bool isThrowingGrenade;
 
         private void Awake ( )
         {
@@ -74,7 +74,7 @@ namespace ApocalipseZ
             if ( GetComponent<Animator> ( ) )
                 Animator = GetComponent<Animator> ( );
 
-            if ( weaponSetting.MuzzleFlashParticlesFX )
+            if ( weaponSetting.MuzzleFlashParticlesFX  && Type != WeaponType.Grenade)
                 temp_MuzzleFlashParticlesFX = Instantiate ( weaponSetting.MuzzleFlashParticlesFX , muzzleFlashTransform.position , muzzleFlashTransform.rotation , muzzleFlashTransform );
         }
 
@@ -199,9 +199,14 @@ namespace ApocalipseZ
            
         }
 
-        public void Throw ( )
-        { 
-        
+        public void ThrowGrenade ( )
+        {
+            var obj = Instantiate(weaponSetting.grenadePrefab);
+            obj.transform.position = transform.position + transform.forward * 0.3f;
+           // obj.GetComponent<Rigidbody> ( ).AddForce ( transform.forward * weaponSetting.throwForce );
+            isThrowingGrenade = false;
+           // inventory.RemoveItem ( "Grenade" , true );
+           // weaponManager.UnhideWeaponAfterGrenadeDrop ( );
         }
 
         private void PlayFX ( )

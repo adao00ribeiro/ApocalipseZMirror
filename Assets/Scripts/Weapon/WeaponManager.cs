@@ -17,8 +17,6 @@ namespace ApocalipseZ
         public int switchSlotIndex = 0;
         public int currentWeaponIndex;
 
-
-
         [Tooltip("Animator that contain pickup animation")]
         public Animator weaponHolderAnimator;
 
@@ -82,7 +80,7 @@ namespace ApocalipseZ
                 activeSlot.Fire ( fpsplayer );
                 OnActiveWeapon?.Invoke ( activeSlot );
             }
-
+           
             if ( InputManager.GetReload ( ) )
             {
 

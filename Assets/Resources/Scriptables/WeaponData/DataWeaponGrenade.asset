@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: DataWeaponGrenade
   m_EditorClassIdentifier: 
   Name: GRENADE
-  Type: 0
+  Type: 5
   Icon: {fileID: 0}
-  damageMinimum: 0
-  damageMaximum: 0
+  damageMinimum: 200
+  damageMaximum: 300
   rigidBodyHitForce: 0
-  fireRate: 0
+  fireRate: 3
   spread: 0.01
   recoil: {x: 0, y: 0, z: 0}
   MuzzleFlashParticlesFX: {fileID: 198738818486580698, guid: a97838465f875dd4fa7b02317e4f73e9,
@@ -44,5 +44,6 @@ MonoBehaviour:
   projectile: {fileID: 5647565839851539664, guid: b27e84591aebfd14f84539c87fe59cb1,
     type: 3}
   projectilePoolSize: 1
-  grenadePrefab: {fileID: 0}
+  grenadePrefab: {fileID: 1793213720044310199, guid: 3368e86054c597e4da45bae8507fa301,
+    type: 3}
   throwForce: 1500
