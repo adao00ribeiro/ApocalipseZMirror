@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 using System;
-
+using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
     public class PlayerStats : NetworkBehaviour
@@ -80,11 +80,12 @@ namespace ApocalipseZ
             FpsPlayer player = GetComponent<FpsPlayer> ( );
             if ( player)
             {
-            transform.position = GameObject.Find ( "SpawPoint" ).transform.position;
+            transform.position = GameObject.Find ( "ListSpawPoints" ).transform.GetChild(Random.Range(0, GameObject.Find ( "ListSpawPoints" ).transform.childCount)).position;
             transform.rotation = Quaternion.identity;
             health = 100;
             isPlayerDead = false;
             player.Respaw ( );
+
             }
         }
         //[ServerCallback]

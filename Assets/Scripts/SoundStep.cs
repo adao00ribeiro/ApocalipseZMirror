@@ -12,7 +12,7 @@ namespace ApocalipseZ
         public string NomeGrupo;
         public Texture[] textures;
         public AudioClip[] footStepSounds;
-        public AudioClip clips;
+
     }
     public class SoundStep : NetworkBehaviour
     {
@@ -96,8 +96,6 @@ namespace ApocalipseZ
                 {
                     if ( timeStep == 0 )
                     {
-
-                       
                         PlaySound ( );
                     }
                     timeStep += Time.deltaTime;

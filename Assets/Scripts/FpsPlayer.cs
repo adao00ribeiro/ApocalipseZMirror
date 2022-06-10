@@ -81,6 +81,7 @@ namespace ApocalipseZ
                 FirstPersonCamera.tag = "MainCamera";
             }
             else{
+                FirstPersonCamera.RemoveAudioListener ( );
                 FirstPersonCamera.GetComponent<Camera> ( ).enabled = false;
             }
         }
@@ -145,7 +146,8 @@ namespace ApocalipseZ
             Animation ( );
             if ( PlayerStats.isPlayerDead )
             {
-                AnimatorController.Play ( "BlendDeath" );
+                FirstPersonCamera.UpdateCameraDeath ( );
+                AnimatorController.Play ("BlendDeath" );
                 AnimatorWeaponHolderController.Play ( "Unhide" );
                 return;
             }
@@ -167,6 +169,7 @@ namespace ApocalipseZ
             AnimatorController.SetBool ( "IsJump" , !Moviment.isGrounded ( ) );
             AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) );
             AnimatorController.SetBool ( "IsCrouch" , InputManager.GetCrouch ( ) );
+
             if (!PlayerStats.isPlayerDead )
             {
                 AnimatorController.SetFloat ( "SelectDeath" , InputManager.GetCrouch ( ) ? 0 : Random.Range ( 1 , 5 ) );

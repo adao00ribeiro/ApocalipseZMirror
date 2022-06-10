@@ -38,6 +38,8 @@ namespace ApocalipseZ
             {
                 return;
             }
+            transform.position = characterHead.position;
+
             Quaternion targetOrientation = Quaternion.Euler(targetDirection);
 
             rotationX += InputManager.Instance.GetMouseDelta ( ).x * sensitivity.x;
@@ -49,6 +51,14 @@ namespace ApocalipseZ
             transform.localRotation = Quaternion.Euler ( -rotationY , 0 , 0 );
 
         }
+        internal void UpdateCameraDeath ( )
+        {
+            transform.position = characterHead.position;
+        }
 
+        public void RemoveAudioListener ( )
+        {
+            Destroy ( GetComponent<AudioListener>());
+        }
     }
 }

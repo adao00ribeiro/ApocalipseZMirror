@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class GetTerrainData : MonoBehaviour
 {
-    public TerrainData data;
-    public  int alphamapWidht;
-    public int alphamapHeight;
-    public float [,,] msplatData;
-    public int numTexture;
-    public int numerotEXTURE;
-   public Texture2D texture2d;
+   TerrainData data;
+   int alphamapWidht;
+   int alphamapHeight;
+   float [,,] msplatData;
+   int numTexture;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,21 +33,18 @@ public class GetTerrainData : MonoBehaviour
 
     public Texture GetTexture ( Vector3 PlayerPosition )
     {
-        print ( "terreno ok" );
         int rec = 0;
-        Vector3  playerPos = transform.position;
-        Vector3 terrainCord = ConvertToSplatMapCoordinate(playerPos);
-        float comp = 0 ;
+        Vector3 terrainCord = ConvertToSplatMapCoordinate(PlayerPosition);
+        //float comp = 0 ;
 
         for ( int i = 0 ; i < numTexture ; i++ )
         {
-            if ( comp < msplatData[( int ) terrainCord.z , ( int ) terrainCord.x , i] )
+            if ( 0 < msplatData[( int ) terrainCord.z , ( int ) terrainCord.x , i] )
             {
                 rec = i;
             }
         }
-        numerotEXTURE = rec;
-        texture2d = data.terrainLayers[rec].diffuseTexture;
+       
         return data.terrainLayers[rec].diffuseTexture;
     }
 }
