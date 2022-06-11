@@ -201,9 +201,9 @@ namespace ApocalipseZ
 
         public void ThrowGrenade ( )
         {
-            var obj = Instantiate(weaponSetting.grenadePrefab);
-            obj.transform.position = transform.position + transform.forward * 0.3f;
-           // obj.GetComponent<Rigidbody> ( ).AddForce ( transform.forward * weaponSetting.throwForce );
+            var obj = Instantiate(weaponSetting.grenadePrefab,muzzleFlashTransform.position , Quaternion.identity);
+            //obj.transform.position = transform.position + transform.forward * 0.3f;
+            obj.GetComponent<Rigidbody> ( ).AddForce ( transform.forward * weaponSetting.throwForce );
             isThrowingGrenade = false;
            // inventory.RemoveItem ( "Grenade" , true );
            // weaponManager.UnhideWeaponAfterGrenadeDrop ( );

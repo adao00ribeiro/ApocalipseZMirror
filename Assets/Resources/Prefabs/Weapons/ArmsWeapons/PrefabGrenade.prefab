@@ -342,6 +342,7 @@ Transform:
   m_Children:
   - {fileID: 517252718178016161}
   - {fileID: 7255951383237457677}
+  - {fileID: 6078910531874190588}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -380,7 +381,7 @@ MonoBehaviour:
   weaponSetting: {fileID: 11400000, guid: e270c4e95f8c81c4987db35aef8f6e88, type: 2}
   weaponName: GRENADE
   Type: 5
-  muzzleFlashTransform: {fileID: 0}
+  muzzleFlashTransform: {fileID: 6078910531874190588}
   shellTransform: {fileID: 0}
   bulletTransform: {fileID: 0}
   useAnimator: 1
@@ -396,6 +397,7 @@ MonoBehaviour:
   reloading: 0
   canShot: 1
   setAim: 0
+  isThrowingGrenade: 0
 --- !u!82 &3616022510415606278
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1992,6 +1994,37 @@ Transform:
   - {fileID: 6521689457679961368}
   m_Father: {fileID: 4690160300450286996}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6476205870055349495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6078910531874190588}
+  m_Layer: 6
+  m_Name: Muzzle flash transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6078910531874190588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476205870055349495}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.178, y: 0.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4288460648779288623}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6543792266206932628
 GameObject:
