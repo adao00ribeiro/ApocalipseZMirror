@@ -28,9 +28,8 @@ MonoBehaviour:
   rigidBodyHitForce: 200
   fireRate: 1
   spread: 1
-  recoil: {x: 1, y: 5}
+  recoil: {x: 1, y: 5, z: 0}
   canUseScope: 0
-  timeToActivateScope: 0
   scopeFOV: 50
   scopeSensitivityX: 0
   scopeSensitivityY: 0
@@ -46,4 +45,3 @@ MonoBehaviour:
   projectilePoolSize: 87
   grenadePrefab: {fileID: 0}
   throwForce: 1500
-  shotgunLoadingClip: {fileID: 8300000, guid: d2275ecd4bfd2944296775cd759a4ecf, type: 3}

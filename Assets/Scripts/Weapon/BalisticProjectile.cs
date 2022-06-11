@@ -32,15 +32,15 @@ namespace ApocalipseZ
             RaycastHit hit;
             if ( Physics.Linecast ( lastPosition , transform.position , out hit ) )
             {
+                HitFXManager.Instance.ApplyFX ( hit );
                 PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
                 if (stat)
                 {
-                   
                     stat.CmdTakeDamage ( );
                 }
                 NetworkBehaviour.Destroy ( gameObject);
             }
-
+          
             lastPosition = transform.position;
 
             if ( time > livingTime )
