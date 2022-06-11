@@ -39,7 +39,6 @@ namespace ApocalipseZ
                 PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
                 if ( stat )
                 {
-
                     stat.CmdTakeDamage ( );
                 }
                 Instantiate ( PrefabEffectExplosion , transform.position , Quaternion.identity );

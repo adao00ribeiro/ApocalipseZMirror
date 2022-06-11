@@ -363,7 +363,7 @@ public class Container : NetworkBehaviour,IContainer
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( type);
-            ScriptableItem item = ScriptableManager.GetScriptable(slot.slot.guidid) ;
+            ScriptableItem item = ScriptableManager.Instance.GetScriptable(slot.slot.guidid) ;
             SSlotInventory slotnovo;
             if ( item )
             {
@@ -391,7 +391,7 @@ public class Container : NetworkBehaviour,IContainer
             container.Clear ( );
             for ( int i = 0 ; i < inventory.slot.Count ; i++ )
             {
-                ScriptableItem item = ScriptableManager.GetScriptable(inventory .slot[i].guidid);
+                ScriptableItem item = ScriptableManager.Instance.GetScriptable(inventory .slot[i].guidid);
                 if ( item != null )
                 {
                     container.AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );

@@ -10,13 +10,13 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
-            ScriptableItem[] weapons =  ScriptableManager.GetItemsWeapons ( );
+            ScriptableItem[] weapons =  ScriptableManager.Instance.GetItemsWeapons ( );
             for ( int i = 0 ; i < weapons.Length ; i++ )
             {
                 manager.spawnPrefabs.Add ( weapons[i].sitem.Prefab );
                 print ( "REGISTRADO weapons" );
             }
-            ScriptableItem[] Consumable =  ScriptableManager.GetItemsConsumable ( );
+            ScriptableItem[] Consumable =  ScriptableManager.Instance.GetItemsConsumable ( );
             for ( int i = 0 ; i < Consumable.Length ; i++ )
             {
                 manager.spawnPrefabs.Add ( Consumable[i].sitem.Prefab );

@@ -35,7 +35,7 @@ namespace ApocalipseZ
         {
             source = GetComponent<AudioSource> ( );
             GetCollisionGround = GetComponent<GetCollisionGround> ( );
-            scriptableTextureSounds = ScriptableManager.GetScriptableTextureSounds ( );
+            scriptableTextureSounds = ScriptableManager.Instance.GetScriptableTextureSounds ( );
         }
         public void PlaySound ( )
         {

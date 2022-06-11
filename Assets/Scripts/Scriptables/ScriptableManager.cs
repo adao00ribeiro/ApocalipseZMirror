@@ -3,30 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ApocalipseZ
 {
+    [System.Serializable]
+    public struct BulletsContainer
+    {
+        public string name;
+        public GameObject Prefab;
+ 
+
+        public BulletsContainer ( string name , GameObject gameObject ) : this ( )
+        {
+            this.name = name;
+            this.Prefab = gameObject;
+        }
+    }
     public class ScriptableManager :MonoBehaviour
     {
-        public static GameObject bullet;
-        public static GameObject Rocket;
+        private static ScriptableManager _instance;
+        public static ScriptableManager Instance
+        {
+            get
+            {
+
+                return _instance;
+            }
+        }
+
+        public BulletsContainer[] BulletsContainer;
         [SerializeField]private static ScriptableItem[] ItemsWeapons;
         [SerializeField]private static ScriptableItem[] ItemsConsumable;
         [SerializeField]private static ScriptableTextureSounds ScriptableTextureSounds;
         private void Awake ( )
         {
-            bullet = Resources.Load<GameObject> ( "Prefabs/Weapons/Gun bullet" );
-            Rocket = Resources.Load<GameObject> ( "Prefabs/Weapons/Rocket" );
+            //registrar 
+            GameObject[] bullets =  Resources.LoadAll<GameObject> ( "Prefabs/Weapons/Bullets" );
+            BulletsContainer = new BulletsContainer[bullets.Length];
+            for ( int i = 0 ; i < bullets.Length ; i++ )
+            {
+                BulletsContainer[i] = new BulletsContainer ( bullets[i].name , bullets[i]);
+            }
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
             ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
             ScriptableTextureSounds = Resources.Load<ScriptableTextureSounds> ( "Scriptables/SCP_TextureSound" );
         }
-      
-        public static void Print ( )
+        private void Start ( )
+        {
+            if ( _instance != null && _instance != this )
+            {
+                Destroy ( this.gameObject );
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
+        public  void Print ( )
         {
             for ( int i = 0 ; i < ItemsWeapons.Length ; i++ )
             {
                 Debug.Log ( ItemsWeapons[i].sitem.name);
             }
         }
-        public static ScriptableItem GetScriptable ( string guidid )
+        public  ScriptableItem GetScriptable ( string guidid )
         {
             ScriptableItem temp = null;
 
@@ -49,17 +86,31 @@ namespace ApocalipseZ
 
             return temp;
         }
-        public static ScriptableItem[] GetItemsWeapons ( )
+        public  ScriptableItem[] GetItemsWeapons ( )
         {
             return ItemsWeapons;
         }
-	    public static ScriptableItem[] GetItemsConsumable ( )
+	    public  ScriptableItem[] GetItemsConsumable ( )
 	    {
 		    return ItemsConsumable;
 	    }
-        public static ScriptableTextureSounds GetScriptableTextureSounds ( )
+        public  ScriptableTextureSounds GetScriptableTextureSounds ( )
         {
             return ScriptableTextureSounds;
+        }
+
+        public GameObject GetBullet ( string nameBullet)
+        {
+            GameObject bullettemp = null;
+            foreach ( BulletsContainer item in BulletsContainer )
+            {
+                if ( nameBullet ==item.name)
+                {
+                    bullettemp = item.Prefab;
+                    break;
+                }
+            }
+            return bullettemp;
         }
     }
 }

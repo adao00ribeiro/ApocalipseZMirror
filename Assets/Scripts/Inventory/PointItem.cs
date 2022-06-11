@@ -12,16 +12,16 @@ namespace ApocalipseZ
         {
             GameObject objeto = null;
             ScriptableItem[]items  ;
-            ScriptableManager.GetItemsWeapons ( );
+            ScriptableManager.Instance.GetItemsWeapons ( );
 
             switch ( type )
             {
                 case ItemType.consumable:
-                    items = ScriptableManager.GetItemsConsumable ( );
+                    items = ScriptableManager.Instance.GetItemsConsumable ( );
                     objeto = items[Random.Range ( 0, items.Length )].sitem.Prefab;
                     break;
                 case ItemType.weapon:
-                    items = ScriptableManager.GetItemsWeapons ( );
+                    items = ScriptableManager.Instance.GetItemsWeapons ( );
                     objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
                     break;
             }

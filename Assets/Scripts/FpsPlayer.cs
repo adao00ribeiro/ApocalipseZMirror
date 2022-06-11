@@ -125,7 +125,7 @@ namespace ApocalipseZ
         [ClientRpc]
         internal void RpcSpawBullet ( SpawBulletTransform spawbulettransform )
         {
-            Instantiate ( ScriptableManager.Rocket , spawbulettransform.Position , spawbulettransform.Rotation );
+            Instantiate ( ScriptableManager.Instance.GetBullet( spawbulettransform .NameBullet), spawbulettransform.Position , spawbulettransform.Rotation );
            // NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ));
             //print ("posicao:" +  spawbulettransform.Position + "rotacao" + spawbulettransform.Rotation);
         }
