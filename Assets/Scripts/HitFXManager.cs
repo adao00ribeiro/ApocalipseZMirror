@@ -196,7 +196,7 @@ namespace ApocalipseZ
         {
             RicochetSFX ( );
             HitParticlesFXManager ( hit );
-            if ( !hit.rigidbody )
+            if (!hit.collider.CompareTag( "Flesh" ) )
             {
                 //Set hit position to decal manager
                 DecalManager ( hit , false );
@@ -207,7 +207,7 @@ namespace ApocalipseZ
             if ( hit.collider.CompareTag ( "Concrete" ) )
             {
                 concreteDecal_pool[decalIndex_concrete].SetActive ( true );
-                var decalPostion = hit.point + hit.normal * 0.025f;
+                var decalPostion = hit.point;
                 concreteDecal_pool[decalIndex_concrete].transform.position = decalPostion;
                 concreteDecal_pool[decalIndex_concrete].transform.rotation = Quaternion.FromToRotation ( -Vector3.forward , hit.normal );
                 if ( applyParent )

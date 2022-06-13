@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Mirror;
 namespace ApocalipseZ
 {
-    public class WeaponManager : MonoBehaviour, IWeaponManager
+    public class WeaponManager : NetworkBehaviour, IWeaponManager
     {
         public event Action<Weapon> OnActiveWeapon;
        
@@ -101,7 +102,7 @@ namespace ApocalipseZ
 
             if ( InputManager.GetDropWeapon ( ) )
             {
-                // DropWeapon();
+                 DropWeapon();
             }
 
             // if (Input.GetKeyDown(KeyCode.H))
@@ -109,7 +110,55 @@ namespace ApocalipseZ
             //     DropAllWeapons();
             // }
         }
+        private void DropWeapon ( )
+        {
+            if ( activeSlot != null )
+            {
+                if ( activeSlot.weaponName  == container.GetSlotContainer(0).GetSItem().name )
+                {
+                    CmdDropWeapon ( container.GetSlotContainer ( 0 ).GetSlotTemp());
+                    weaponHolderAnimator.Play ( "Unhide" );
+                }
+            }
+        }
+        /*
+        public void DropAllWeapons ( )
+        {
+            weaponHolderAnimator.SetLayerWeight ( 1 , 0 );
+            weaponHolderAnimator.SetBool ( "HideWeapon" , true );
 
+            foreach ( Slot slot in slots )
+            {
+                if ( !slot.IsFree ( ) )
+                {
+                    if ( slot.storedWeapon.weaponType != WeaponType.Melee && haveMeleeWeaponByDefault )
+                    {
+                        if ( slot.storedWeapon == activeSlot.storedWeapon )
+                        {
+                            DropWeapon ( );
+                        }
+                        else
+                        {
+                            slot.storedWeapon.gameObject.SetActive ( false );
+                            if ( slot.storedDropObject )
+                            {
+                                slot.storedDropObject.SetActive ( true );
+                                slot.storedDropObject.transform.position = playerTransform.transform.position + playerTransform.forward * 0.5f;
+                                slot.storedDropObject = null;
+                                slot.storedWeapon = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if ( haveMeleeWeaponByDefault )
+            {
+                activeSlot = slots[0];
+                activeSlot.storedWeapon.gameObject.SetActive ( true );
+            }
+        }
+        */
         private void SlotInput ( )
         {
             if ( InputManager.GetAlpha1 ( ) )
@@ -172,6 +221,22 @@ namespace ApocalipseZ
         public Weapon GetActiveWeapon ( )
         {
             return activeSlot;
+        }
+
+
+        [Command]
+        public void CmdDropWeapon (SlotInventoryTemp temp , NetworkConnectionToClient sender = null )
+        {
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
+            IContainer container = fpstemp.GetWeaponsSlots();
+            //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
+            GameObject dropItemTemp =    Instantiate ( container.GetSlotContainer ( 0 ).GetSItem ( ).Prefab );
+            dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera().characterHead.position + fpstemp.GetFirstPersonCamera ( ).characterHead.forward * 0.5f;
+            NetworkServer.Spawn ( dropItemTemp );
+            container.RemoveItem ( temp.slotindex );
+            fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient, TypeContainer.WEAPONS, container.GetContainerTemp() );
+
         }
     }
 

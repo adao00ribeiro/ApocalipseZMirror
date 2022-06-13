@@ -75,10 +75,7 @@ namespace ApocalipseZ
             }
         }
 
-        private void OnDrawGizmos ( )
-        {
-            
-        }
+      
 
     }
 }

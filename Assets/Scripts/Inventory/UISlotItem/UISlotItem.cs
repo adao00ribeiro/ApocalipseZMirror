@@ -108,7 +108,6 @@ namespace ApocalipseZ
                     else
                     {
                         SlotEnter.AddSlot ( SlotSelecionado.slot );
-
                         RemoveSlot ( );
                         SetSlot ( null);
                         UpdateSlot ( );

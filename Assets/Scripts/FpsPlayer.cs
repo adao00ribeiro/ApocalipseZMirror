@@ -73,7 +73,7 @@ namespace ApocalipseZ
 
         }
 
-        [Client]
+ 
         private void Start ( )
         {
             if ( isLocalPlayer )
@@ -258,11 +258,6 @@ namespace ApocalipseZ
             //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
             fpstemp.RpcSpawBullet ( spawbulettransform );
         }
-
-      
-
-
-
         #endregion
     }
 }
