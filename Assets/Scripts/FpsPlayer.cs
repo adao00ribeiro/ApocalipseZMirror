@@ -73,7 +73,12 @@ namespace ApocalipseZ
 
         }
 
- 
+        [Command]
+        public void DropAllItems ( )
+        {
+            print ( "dropando itens inventario " );
+        }
+
         private void Start ( )
         {
             if ( isLocalPlayer )

@@ -71,7 +71,7 @@ namespace ApocalipseZ
         private void PlayerDeath ( )
         {
             isPlayerDead = true;
-
+            GetComponent<FpsPlayer> ( ).DropAllItems ( );
             StartCoroutine ( Respawn ( ) );
         }
         private IEnumerator Respawn ( )
