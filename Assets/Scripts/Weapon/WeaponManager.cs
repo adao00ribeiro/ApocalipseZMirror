@@ -8,7 +8,8 @@ namespace ApocalipseZ
     public class WeaponManager : NetworkBehaviour, IWeaponManager
     {
         public event Action<Weapon> OnActiveWeapon;
-       
+        public Transform WeaponThir;
+        public Transform pivoWeaponThir;
         public List<Weapon> ArmsWeapons = new List<Weapon>();
 
         public Weapon activeSlot;
@@ -71,6 +72,7 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
+            WeaponThir.position = pivoWeaponThir.position;
             SlotInput ( );
             if ( activeSlot == null )
             {
