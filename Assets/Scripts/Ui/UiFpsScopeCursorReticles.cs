@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,12 @@ namespace ApocalipseZ
         [Tooltip("Crosshair image")]
         public GameObject reticleDynamic;
         public GameObject reticleStatic;
+        public FirstPersonCamera cam;
+        public Weapon weaponActive;
+        [SerializeField]private float scopeTimer = 0f;
+        private float scopeActivateTimer  =0.5f;
+        private float normalFOV;
+
         // Start is called before the first frame update
         void Start ( )
         {
@@ -25,6 +32,7 @@ namespace ApocalipseZ
             reticleDynamic = transform.Find ( "Reticles/DynamicReticle" ).gameObject;
             reticleStatic = transform.Find ( "Reticles/StaticReticle" ).gameObject;
             scopeImage.SetActive ( false );
+            normalFOV = cam.GetComponent<Camera> ( ).fieldOfView;
             if ( UseNonPhysicalReticle )
             {
                 reticleStatic.SetActive ( true );
@@ -40,7 +48,57 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
+            if ( weaponActive ==null)
+            {
+                return;
+            }
+            scopeActivateTimer -= Time.deltaTime;
 
+            if ( weaponActive.GetScriptableWeapon().canUseScope && weaponActive.setAim )
+            {
+                if ( scopeActivateTimer <= 0 )
+                {
+                    scopeImage.SetActive ( true );
+                    cam.GetComponent<Camera> ( ).fieldOfView = weaponActive.GetScriptableWeapon ( ).scopeFOV;
+                    cam.DisableWeaponCamera ( );
+
+                  //  controller.sensitivity.x = scopeSensitivityX;
+                  // controller.sensitivity.y = scopeSensitivityY;
+                }
+            }
+            else
+            {
+                cam.GetComponent<Camera>().fieldOfView = normalFOV;
+                cam.ActiveWeaponCamera ( );
+                //controller.sensitivity.x = normalSensX;
+                // controller.sensitivity.y = normalSensY;
+                scopeImage.SetActive ( false );
+                scopeActivateTimer = scopeTimer;
+            }
+        }
+
+        internal void SetCamera ( FirstPersonCamera firstPersonCamera )
+        {
+            cam = firstPersonCamera;
+        }
+
+        internal void SetWeaponManager ( IWeaponManager weaponManager )
+        {
+            weaponManager.OnActiveWeapon += SetActiveWeapon; ;
+
+        }
+
+        private void SetActiveWeapon ( Weapon obj )
+        {
+            weaponActive = obj;
+        }
+
+        public void ActiveReticle ( bool UseNonPhysicalReticle )
+        {
+            if ( UseNonPhysicalReticle )
+                reticleStatic.SetActive ( false );
+            else
+                reticleDynamic.gameObject.SetActive ( false );
         }
         public void EnableCursor ( )
         {
@@ -54,5 +112,6 @@ namespace ApocalipseZ
         {
             useText.text = text;
         }
+
     }
 }

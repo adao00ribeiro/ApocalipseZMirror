@@ -55,13 +55,12 @@ namespace ApocalipseZ
         public bool reloading = false;
         [HideInInspector]
         public bool canShot = true;
-        [HideInInspector]
+       
         public bool setAim = false;
         public  bool isThrowingGrenade;
 
         private void Awake ( )
         {
-            
             PrefabProjectile =   weaponSetting.projectile;
             muzzleFlashTransform = transform.Find ( "Muzzle flash transform" );
         }
@@ -83,7 +82,7 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
-            
+          
         }
 
         public void  Fire ( IFpsPlayer player )
@@ -178,6 +177,7 @@ namespace ApocalipseZ
     
         public void Aim ( bool isAim)
         {
+            setAim = isAim;
             if (Animator == null)
             {
                 return;
@@ -195,6 +195,14 @@ namespace ApocalipseZ
             {
                 sway.AmountX = sway.startX;
                 sway.AmountY = sway.startY;
+            }
+            if ( !reloading && useAnimator )
+            {
+                Animator.SetBool ( "Aim" , setAim );
+            }
+            else
+            {
+                setAim = false;
             }
            
         }
@@ -221,7 +229,10 @@ namespace ApocalipseZ
             audioSource.PlayOneShot ( weaponSetting.shotSFX );
 
         }
-    
+        public ScriptableWeapon GetScriptableWeapon ( )
+        {
+            return weaponSetting;
+        }
     }
 
 }

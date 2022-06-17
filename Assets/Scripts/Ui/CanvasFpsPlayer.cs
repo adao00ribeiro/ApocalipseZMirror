@@ -37,6 +37,8 @@ namespace ApocalipseZ {
             UiFastItems.SetFpsPlayer ( player );
             UiPlayerStats.SetFpsPlayer ( player );
 
+            UiFpsScopeCursorReticles.SetWeaponManager ( player.GetWeaponManager ( ) ) ;
+            UiFpsScopeCursorReticles.SetCamera ( player .GetFirstPersonCamera());
             UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
             UiInventory.gameObject.SetActive ( IsInventoryOpen );
             UiFastItems.gameObject.SetActive ( IsInventoryOpen );

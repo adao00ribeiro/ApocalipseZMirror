@@ -185,7 +185,7 @@ namespace ApocalipseZ
 
             if ( slot == null )
             {
-                print ( "altered " + switchSlotIndex );
+              
                 if ( activeSlot )
                 {
                     activeSlot.gameObject.SetActive ( false );
@@ -198,22 +198,17 @@ namespace ApocalipseZ
             {
                 weaponHolderAnimator.Play ( "hide" );
                 activeSlot.gameObject.SetActive ( false );
-
             }
+          
 
             foreach ( Weapon weapon in ArmsWeapons )
             {
                 if ( weapon.weaponName == slot.GetSItem ( ).name )
                 {
-                    print ( slot.GetSItem ( ).name );
                     activeSlot = weapon;
-                   
                     activeSlot.currentAmmo = slot.GetSItem ( ).Ammo;
-
                     activeSlot.gameObject.SetActive ( true );
-
                     weaponHolderAnimator.Play ( "Unhide" );
-
                     break;
                 }
             }
