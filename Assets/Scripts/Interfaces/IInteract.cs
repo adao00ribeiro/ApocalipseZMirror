@@ -5,7 +5,7 @@ using Mirror;
 public interface IInteract
 {
 
-    void CmdSetDoorState ( NetworkConnectionToClient sender = null );
+    void CmdInteract ( NetworkConnectionToClient sender = null );
     
     void OnInteract ( IFpsPlayer player );
 

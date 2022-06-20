@@ -30,7 +30,7 @@ namespace ApocalipseZ
 
 
         [Command ( requiresAuthority = false )]
-        public void CmdSetDoorState ( NetworkConnectionToClient sender = null )
+        public void CmdInteract ( NetworkConnectionToClient sender = null )
         {
             OnInteract ( sender.identity.GetComponent<FpsPlayer> ( ) );
         }

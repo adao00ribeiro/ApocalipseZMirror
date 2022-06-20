@@ -60,7 +60,7 @@ namespace ApocalipseZ
                    
                     if (InputManager.GetUse())
                     {
-                        interact.CmdSetDoorState ( );
+                        interact.CmdInteract ( );
                         interact = null;
                         UiFpsScopeCursorReticles.SetUseText ( "" );
                     }
