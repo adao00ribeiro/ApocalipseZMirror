@@ -32,11 +32,6 @@ namespace ApocalipseZ
         [SerializeField]private Vector3 QuaternionAberto;
         [SerializeField]private Vector3 QuaternionFechado;
 
-
-        private void Start ( )
-        {
-            GetComponent<NetworkTransform> ( ).syncPosition = false;
-        }
         [Server]
         // Update is called once per frame
         void FixedUpdate ( )

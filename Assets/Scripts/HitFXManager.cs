@@ -176,7 +176,7 @@ namespace ApocalipseZ
                 //objMetalHitFX.transform.LookAt ( cam.transform.position );
                 objMetalHitFX.Play ( true );
             }
-            else if ( hit.collider.tag == "Flesh" )
+            else if ( hit.collider.tag == "Flesh"  || hit.collider.tag == "Player" )
             {
                 objBloodHitFX.Stop ( );
                 objBloodHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
