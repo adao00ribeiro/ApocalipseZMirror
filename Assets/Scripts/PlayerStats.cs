@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -30,7 +30,7 @@ namespace ApocalipseZ
            // HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
             //HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
         }
-
+		[Server]
         // Update is called once per frame
         void Update ( )
         {
@@ -53,46 +53,43 @@ namespace ApocalipseZ
             {
                 health = 100;
             }
-
+            if (transform.position.y < -11.1  && !isPlayerDead )
+            {
+                TakeDamage ( 200);
+            }
         }
 
         [Command ( requiresAuthority = false )]
-        public void CmdTakeDamage ( NetworkConnectionToClient sender = null)
+        public void CmdTakeDamage (int damage ,  NetworkConnectionToClient sender = null)
         {
             OnAlteredStats?.Invoke ( );
-            TakeDamage ( );
+            TakeDamage ( damage );
         }
 
 
-        public void TakeDamage ( )
+        public void TakeDamage (int  damage)
         {
-            health--;
+            health -= damage;
         }
         private void PlayerDeath ( )
         {
             isPlayerDead = true;
-            GetComponent<FpsPlayer> ( ).DropAllItems ( );
-            StartCoroutine ( Respawn ( ) );
+	        // GetComponent<FpsPlayer> ( ).DropAllItems ( );
+	        Timer.Instance.Add(()=>
+	        {
+	        	isPlayerDead = false;
+		        FpsPlayer player = GetComponent<FpsPlayer> ( );
+		        if ( player)
+		        {
+			  
+		        transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
+		        transform.rotation = Quaternion.identity;
+			    health = 100;
+			    player.Respaw ( );
+	        	}
+	        },5);
         }
-        private IEnumerator Respawn ( )
-        {
-            yield return new WaitForSeconds ( 5f );
-            FpsPlayer player = GetComponent<FpsPlayer> ( );
-            if ( player)
-            {
-            transform.position = GameObject.Find ( "ListSpawPoints" ).transform.GetChild(Random.Range(0, GameObject.Find ( "ListSpawPoints" ).transform.childCount)).position;
-            transform.rotation = Quaternion.identity;
-            health = 100;
-            isPlayerDead = false;
-            player.Respaw ( );
-
-            }
-        }
-        //[ServerCallback]
-        private void OnTriggerEnter ( Collider other )
-        {
-           
-
-        }
+     
+        
     }
 }

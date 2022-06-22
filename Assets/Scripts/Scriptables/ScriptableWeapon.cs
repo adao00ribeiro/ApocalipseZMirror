@@ -12,10 +12,6 @@ public class ScriptableWeapon : ScriptableObject
 
     [Header("Weapon stats",order = 0)]
 
-    [Tooltip("Maximal and minimal damage ammounts to apply on target")]
-    public int damageMinimum;
-    public int damageMaximum;
-
     [Tooltip("Force that be applyed to rigidbody on raycast hit")]
     public float rigidBodyHitForce;
     [Tooltip("Time in seconds to call next fire. 1 means 1 shot per second, 0.5 means 2 shots per second etc")]

@@ -11,8 +11,7 @@ namespace ApocalipseZ
         public GameObject GetPrefab ( )
         {
             GameObject objeto = null;
-            ScriptableItem[]items  ;
-            ScriptableManager.Instance.GetItemsWeapons ( );
+            ScriptableItem[]items;
 
             switch ( type )
             {

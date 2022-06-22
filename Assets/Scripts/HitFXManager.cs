@@ -142,7 +142,6 @@ namespace ApocalipseZ
         public void RicochetSFX ( )
         {
             ricochetSource.Stop ( );
-            print ( "aki" );
             ricochetSource.PlayOneShot ( ricochetSounds[Random.Range ( 0 , ricochetSounds.Length )] );
         }
         public void HitParticlesFXManager ( RaycastHit hit )

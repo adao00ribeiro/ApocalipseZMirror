@@ -38,6 +38,7 @@ public class SpawObjects : NetworkBehaviour
     {
        
             GameObject treeGo = Instantiate(prefab,pointSpawn , Quaternion.identity);
+             treeGo.GetComponent<Item> ( ).IsServerSpaw = true;
             NetworkServer.Spawn ( treeGo );
                
     }

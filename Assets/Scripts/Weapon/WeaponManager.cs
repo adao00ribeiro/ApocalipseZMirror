@@ -120,7 +120,12 @@ namespace ApocalipseZ
                 {
                     CmdDropWeapon ( container.GetSlotContainer ( 0 ).GetSlotTemp());
                     weaponHolderAnimator.Play ( "Unhide" );
+                }else if ( activeSlot.weaponName == container.GetSlotContainer (1).GetSItem ( ).name )
+                {
+                    CmdDropWeapon ( container.GetSlotContainer ( 1 ).GetSlotTemp ( ) );
+                    weaponHolderAnimator.Play ( "Unhide" );
                 }
+                activeSlot = null;
             }
         }
         /*
@@ -178,14 +183,16 @@ namespace ApocalipseZ
 
         private void SlotChange ( )
         {
-            EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
+           
+                EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
+           
+           
         }
         public void EquipWeapon ( SSlotInventory slot )
         {
 
             if ( slot == null )
             {
-              
                 if ( activeSlot )
                 {
                     activeSlot.gameObject.SetActive ( false );
@@ -194,13 +201,14 @@ namespace ApocalipseZ
                 }
                 return;
             }
-            if ( activeSlot != null && activeSlot.weaponName != slot.GetSItem ( ).name )
+            if ( activeSlot != null && activeSlot.weaponName == slot.GetSItem ( ).name )
             {
-                weaponHolderAnimator.Play ( "hide" );
+                weaponHolderAnimator.Play ( "Hide" );
                 activeSlot.gameObject.SetActive ( false );
+                activeSlot = null;
+                return;
             }
           
-
             foreach ( Weapon weapon in ArmsWeapons )
             {
                 if ( weapon.weaponName == slot.GetSItem ( ).name )
@@ -229,7 +237,7 @@ namespace ApocalipseZ
             IContainer container = fpstemp.GetWeaponsSlots();
             //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
             GameObject dropItemTemp =    Instantiate ( container.GetSlotContainer ( 0 ).GetSItem ( ).Prefab );
-            dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera().characterHead.position + fpstemp.GetFirstPersonCamera ( ).characterHead.forward * 0.5f;
+	        dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera().transform.position + fpstemp.GetFirstPersonCamera ( ).transform.forward * 0.5f;
             NetworkServer.Spawn ( dropItemTemp );
             container.RemoveItem ( temp.slotindex );
             fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient, TypeContainer.WEAPONS, container.GetContainerTemp() );

@@ -1022,8 +1022,8 @@ MonoBehaviour:
   useAnimator: 1
   reloadAnimationDuration: 3
   autoReload: 1
-  currentAmmo: 30
-  maxAmmo: 30
+  currentAmmo: 12
+  maxAmmo: 12
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -1032,6 +1032,7 @@ MonoBehaviour:
   reloading: 0
   canShot: 1
   setAim: 0
+  isThrowingGrenade: 0
 --- !u!82 &6127573536557798506
 AudioSource:
   m_ObjectHideFlags: 0

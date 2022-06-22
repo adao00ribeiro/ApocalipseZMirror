@@ -30,6 +30,7 @@ namespace ApocalipseZ
         bool IsLocked = false;
         private void Awake ( )
         {
+         
             Image = transform.Find ( "Image" ).GetComponent<Image> ( );
             TextQuantidade = transform.Find ( "Image/TextQuantidade" ).GetComponent<Text> ( );
             TextQuantidade.text = "";
@@ -39,6 +40,13 @@ namespace ApocalipseZ
         {
             HUD = GameObject.Find ( "HUD" ).transform;
 
+        }
+        private void OnDisable ( )
+        {
+            if ( SlotSelecionado )
+            {
+                Destroy ( SlotSelecionado.gameObject );
+            }
         }
         public void UpdateSlot ( )
         {
@@ -131,6 +139,8 @@ namespace ApocalipseZ
             }
             if ( eventData.button == PointerEventData.InputButton.Left )
             {
+
+                
                 SlotSelecionado = Instantiate ( PrefabUiSlotItem , HUD );
                 SlotSelecionado.SetSlotIndex ( SlotIndex );
                 SlotSelecionado.AcceptedType = AcceptedType;

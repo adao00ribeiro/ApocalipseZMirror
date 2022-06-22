@@ -72,10 +72,18 @@ namespace ApocalipseZ
         [SerializeField]private  ScriptableItem scriptableitem;
 
         [SerializeField]private int dropQuantity;
-        // Start is called before the first frame update
+
+        public bool IsServerSpaw = false;
+
+
+        [Server]
         void Start ( )
         {
-
+            if (!IsServerSpaw )
+            {
+                NetworkBehaviour.Destroy ( gameObject , 30 );
+            }
+            
         }
         
         // Update is called once per frame
@@ -104,11 +112,14 @@ namespace ApocalipseZ
             if ( inventory.AddItem ( slot) )
             {
                 SoundManager.instance.Pickup ( );
-
-                Timer.Instance.Add ( ( ) => {
-                    SpawObjects.Spawn (scriptableitem.sitem.Prefab , point );
-                } , 4 );
-                NetworkBehaviour.Destroy ( gameObject);
+                if ( IsServerSpaw )
+                {
+                    Timer.Instance.Add ( ( ) => {
+                       
+                        SpawObjects.Spawn ( ScriptableManager.Instance.GetPrefab ( scriptableitem.sitem.Type ) , point );
+                    } , 4 );
+                }
+                NetworkBehaviour.Destroy ( gameObject );
             }
         }
 

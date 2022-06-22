@@ -6,17 +6,16 @@ namespace ApocalipseZ
 {
     public class BalisticProjectile : NetworkBehaviour
     {
-        [HideInInspector]
-        public float initialVelocity = 360;
+      
+        public float initialVelocity = 1000;
         [HideInInspector]
         public float airResistance = 0.1f;
-
         private float time;
-
         private float livingTime = 5f;
-
         Vector3 lastPosition;
-
+        [Tooltip("Maximal and minimal damage ammounts to apply on target")]
+        public int damageMinimum;
+        public int damageMaximum;
         private void OnEnable ( )
         {
             GetComponent<Rigidbody> ( ).AddForce ( transform.forward * initialVelocity );
@@ -37,7 +36,7 @@ namespace ApocalipseZ
                 PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
                 if (stat)
                 {
-                    stat.CmdTakeDamage ( );
+                    stat.CmdTakeDamage (Random.Range(damageMinimum , damageMaximum));
                 }
                 NetworkBehaviour.Destroy ( gameObject);
             }

@@ -64,7 +64,12 @@ namespace ApocalipseZ
                         interact = null;
                         UiFpsScopeCursorReticles.SetUseText ( "" );
                     }
-                    
+
+                }
+                else
+                {
+                    UiFpsScopeCursorReticles.DisableCursor ( );
+                    UiFpsScopeCursorReticles.SetUseText ( "" );
                 }
              
             }

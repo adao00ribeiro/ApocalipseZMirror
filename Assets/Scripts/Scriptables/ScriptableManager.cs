@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
     [System.Serializable]
@@ -111,6 +113,26 @@ namespace ApocalipseZ
                 }
             }
             return bullettemp;
+        }
+
+        internal GameObject GetPrefab ( ItemType type )
+        {
+
+            GameObject objeto = null;
+            ScriptableItem[]items;
+
+            switch ( type )
+            {
+                case ItemType.consumable:
+                    items = ScriptableManager.Instance.GetItemsConsumable ( );
+                    objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
+                    break;
+                case ItemType.weapon:
+                    items = ScriptableManager.Instance.GetItemsWeapons ( );
+                    objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
+                    break;
+            }
+            return objeto;
         }
     }
 }

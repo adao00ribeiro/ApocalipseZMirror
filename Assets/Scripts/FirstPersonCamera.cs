@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ApocalipseZ
 {
@@ -6,9 +6,7 @@ namespace ApocalipseZ
     {
         [Header("Transform")]
         public Transform characterBody;
-        public Transform characterHead;
-
-        public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
+		public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
         public Vector2 smoothing = new Vector2(3, 3);
         private Vector2 clampInDegrees = new Vector2(360, 180);
 
@@ -22,10 +20,7 @@ namespace ApocalipseZ
         [HideInInspector]
         public Vector2 targetDirection;
 
-        private void Start ( )
-        {
-            transform.position = characterHead.position;
-        }
+    
         public void ActiveCursor ( bool active )
         {
             lockCursor = active;
@@ -38,8 +33,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            transform.position = characterHead.position;
-
+          
             Quaternion targetOrientation = Quaternion.Euler(targetDirection);
 
             rotationX += InputManager.Instance.GetMouseDelta ( ).x * sensitivity.x;
@@ -51,11 +45,7 @@ namespace ApocalipseZ
             transform.localRotation = Quaternion.Euler ( -rotationY , 0 , 0 );
 
         }
-        internal void UpdateCameraDeath ( )
-        {
-            transform.position = characterHead.position;
-        }
-
+     
         public void RemoveAudioListener ( )
         {
             Destroy ( GetComponent<AudioListener>());
