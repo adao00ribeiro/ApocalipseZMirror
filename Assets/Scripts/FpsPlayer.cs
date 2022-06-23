@@ -150,7 +150,7 @@ namespace ApocalipseZ
             Animation ( );
             if ( PlayerStats.isPlayerDead )
             {
-            
+                FirstPersonCamera.CameraDeath ( );
                 AnimatorController.Play ("BlendDeath" );
                 AnimatorWeaponHolderController.Play ( "Unhide" );
                 return;
@@ -164,7 +164,8 @@ namespace ApocalipseZ
         public void Respaw ( )
         {
             AnimatorController.Play ( "Walk" );
-          
+            FirstPersonCamera.CameraAlive ( );
+
         }
         public void Animation ( )
         {

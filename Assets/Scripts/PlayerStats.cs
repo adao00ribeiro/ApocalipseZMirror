@@ -13,11 +13,9 @@ namespace ApocalipseZ
 
         [SyncVar(hook = nameof(SetOnAltered))]
         public int health;
-
-        public TextMesh playerhealthText;
-
+                
         public bool isPlayerDead = false;
-
+        
         void SetOnAltered ( int oldhealthHook , int newhealthHook )
         {
           
@@ -30,18 +28,14 @@ namespace ApocalipseZ
            // HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
             //HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
         }
-		[Server]
+		[Client]
         // Update is called once per frame
         void Update ( )
         {
-            if ( playerhealthText )
-            {
-                playerhealthText.text = health.ToString();
-            }
-
+           
             if ( health <= 0 && !isPlayerDead )
             {
-                PlayerDeath ( );
+                CmdPlayerDeath ( );
             }
 
             if ( health < 0 )
@@ -74,22 +68,34 @@ namespace ApocalipseZ
         private void PlayerDeath ( )
         {
             isPlayerDead = true;
-	        // GetComponent<FpsPlayer> ( ).DropAllItems ( );
-	        Timer.Instance.Add(()=>
-	        {
-	        	isPlayerDead = false;
-		        FpsPlayer player = GetComponent<FpsPlayer> ( );
-		        if ( player)
-		        {
-			  
-		        transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
-		        transform.rotation = Quaternion.identity;
-			    health = 100;
-			    player.Respaw ( );
-	        	}
-	        },5);
+            // GetComponent<FpsPlayer> ( ).DropAllItems ( );
+            StartCoroutine ( Respawn ( ) );
         }
-     
-        
+        private IEnumerator Respawn ( )
+        {
+            yield return new WaitForSeconds ( 5f );
+            FpsPlayer player = GetComponent<FpsPlayer> ( );
+            if ( player )
+            {
+                transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
+                transform.rotation = Quaternion.identity;
+                health = 100;
+                isPlayerDead = false;
+                player.Respaw ( );
+            }
+        }
+        [Command ( requiresAuthority = false )]
+        public void CmdPlayerDeath(  NetworkConnectionToClient sender = null )
+        {
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+
+            TargetPlayerDeath ( opponentIdentity.connectionToClient  );
+        }
+        [TargetRpc]
+        public void TargetPlayerDeath ( NetworkConnection target  )
+        {
+            PlayerDeath ( );
+        }
+
     }
 }

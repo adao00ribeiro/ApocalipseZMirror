@@ -19,8 +19,11 @@ namespace ApocalipseZ
         public Camera WeaponCamera;
         [HideInInspector]
         public Vector2 targetDirection;
-
-    
+        Animator animator;
+        private void Start ( )
+        {
+            animator = GetComponent<Animator> ( );
+        }
         public void ActiveCursor ( bool active )
         {
             lockCursor = active;
@@ -58,6 +61,15 @@ namespace ApocalipseZ
         public void DisableWeaponCamera ( )
         {
             WeaponCamera.enabled = false;
+        }
+
+        public void CameraDeath ( )
+        {
+            animator.Play ( "CameraDeath" );
+        }
+        public void CameraAlive ( )
+        {
+            animator.Play ( "CameraAlive" );
         }
     }
 }

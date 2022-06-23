@@ -35,6 +35,8 @@ public class PlayerSpawPoints : MonoBehaviour
 
     internal Vector3 GetPointSpaw ( )
     {
-        return Points[Random.Range ( 0 , Points.Count - 1 )];
+        Vector3 novo =  Points[Random.Range ( 0 , Points.Count - 1 )];
+        print ( novo );
+        return novo;
     }
 }

@@ -78,6 +78,7 @@ namespace ApocalipseZ
             {
                 return;
             }
+           
             if ( InputManager.GetFire ( ) && !fpsplayer.GetMoviment ( ).CheckIsRun ( ) && !CanvasFpsPlayer.IsInventoryOpen)
             {
                 activeSlot.Fire ( fpsplayer );
@@ -183,9 +184,7 @@ namespace ApocalipseZ
 
         private void SlotChange ( )
         {
-           
                 EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
-           
            
         }
         public void EquipWeapon ( SSlotInventory slot )
@@ -201,12 +200,10 @@ namespace ApocalipseZ
                 }
                 return;
             }
-            if ( activeSlot != null && activeSlot.weaponName == slot.GetSItem ( ).name )
+            if ( activeSlot != null && activeSlot.weaponName != slot.GetSItem ( ).name )
             {
                 weaponHolderAnimator.Play ( "Hide" );
                 activeSlot.gameObject.SetActive ( false );
-                activeSlot = null;
-                return;
             }
           
             foreach ( Weapon weapon in ArmsWeapons )

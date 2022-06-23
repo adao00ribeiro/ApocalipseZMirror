@@ -32,20 +32,22 @@ namespace ApocalipseZ
         [SerializeField]private Vector3 QuaternionAberto;
         [SerializeField]private Vector3 QuaternionFechado;
 
-        [Server]
-        // Update is called once per frame
+      
         void FixedUpdate ( )
         {
-            if ( IsOpen )
+            if (isServer)
             {
-                transform.localRotation = Quaternion.RotateTowards ( transform.localRotation , Quaternion.Euler ( QuaternionAberto ) , speed * Time.deltaTime );
+                if ( IsOpen )
+                {
+                    transform.localRotation = Quaternion.RotateTowards ( transform.localRotation , Quaternion.Euler ( QuaternionAberto ) , speed * Time.deltaTime );
+                }
+                else
+                {
+                    transform.localRotation = Quaternion.RotateTowards ( transform.localRotation , Quaternion.Euler ( QuaternionFechado ) , speed * Time.deltaTime );
+                }
             }
-            else
-            {
-                transform.localRotation = Quaternion.RotateTowards ( transform.localRotation , Quaternion.Euler ( QuaternionFechado ) , speed * Time.deltaTime );
-            }
+           
         }
-       
 
         [Command ( requiresAuthority = false )]
         public void CmdInteract ( NetworkConnectionToClient sender = null )

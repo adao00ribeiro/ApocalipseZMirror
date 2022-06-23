@@ -186,7 +186,7 @@ namespace ApocalipseZ
             {
                Animator.SetBool( "Aim" , isAim );
             }
-            if (isAim)
+            if ( setAim )
             {
                 sway.AmountX = sway.AmountX * 0.3f;
                 sway.AmountY = sway.AmountY * 0.3f;
@@ -196,6 +196,8 @@ namespace ApocalipseZ
                 sway.AmountX = sway.startX;
                 sway.AmountY = sway.startY;
             }
+
+
             if ( !reloading && useAnimator )
             {
                 Animator.SetBool ( "Aim" , setAim );
