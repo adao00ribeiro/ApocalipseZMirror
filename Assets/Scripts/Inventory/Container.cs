@@ -12,11 +12,12 @@ namespace ApocalipseZ
     {
         public int slotindex;
         public string name;
-
-       public  ListItemsInspector (int _slotindex ,  string _name )
+        public int Ammo;
+       public  ListItemsInspector (int _slotindex ,  string _name , int _Ammo)
         {
             slotindex = _slotindex;
             name = _name;
+            Ammo = _Ammo;
         }
     }
 
@@ -25,16 +26,19 @@ namespace ApocalipseZ
     {
         private int SlotIndex;
         private SItem item;
+        private int Ammo;
         private int Quantity;
         public SSlotInventory ( )
         {
             item = null;
+            Ammo = 0;
             Quantity = 0;
         }
-        public SSlotInventory ( int slotindex,SItem _item , int _Quantity )
+        public SSlotInventory ( int slotindex,SItem _item , int _Ammo , int _Quantity )
         {
             SlotIndex = slotindex;
             item = _item;
+            Ammo = _Ammo;
             Quantity = _Quantity;
         }
         public bool Compare ( SSlotInventory other )
@@ -88,7 +92,16 @@ namespace ApocalipseZ
 
         public SlotInventoryTemp GetSlotTemp ( )
         {
-            return new SlotInventoryTemp ( SlotIndex,item.GuidId, Quantity );
+            return new SlotInventoryTemp ( SlotIndex,item.GuidId,Ammo, Quantity );
+        }
+
+        internal int GetAmmo ( )
+        {
+            return Ammo;
+        }
+        public void SetAmmo ( int _ammo )
+        {
+            Ammo = _ammo;
         }
     }
 public class Container : NetworkBehaviour,IContainer
@@ -114,7 +127,7 @@ public class Container : NetworkBehaviour,IContainer
                 return PInputManager;
             }
         }
-
+         
            
         // Start is called before the first frame update
         void Awake ( )
@@ -127,11 +140,11 @@ public class Container : NetworkBehaviour,IContainer
             ListInspector.Clear ( );
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
-                ListInspector.Add ( new ListItemsInspector ( Items[i].GetSlotIndex ( ) , Items[i].GetSItem ( ).name ) );
+                ListInspector.Add ( new ListItemsInspector ( Items[i].GetSlotIndex ( ) , Items[i].GetSItem ( ).name , Items[i].GetAmmo()) );
 
             }
         }
-
+       
         public void Clear ( )
         {
             Items.Clear ( );
@@ -329,7 +342,7 @@ public class Container : NetworkBehaviour,IContainer
             for ( int i = 0 ; i < Items.Count ; i++ )
             {
                 SlotInventoryTemp novo;
-                    novo = new SlotInventoryTemp ( Items[i].GetSlotIndex() ,Items[i].GetSItem ( ).GuidId , Items[i].GetQuantity ( ) );
+                    novo = new SlotInventoryTemp ( Items[i].GetSlotIndex() ,Items[i].GetSItem ( ).GuidId , Items[i].GetAmmo ( ) , Items[i].GetQuantity ( ) );
                 list.Add( novo );
             }
             return  new InventoryTemp ( list , GetMaxSlots ( ) );
@@ -338,7 +351,22 @@ public class Container : NetworkBehaviour,IContainer
         public void InvokeOnContainer ( )
         {
             OnContainerAltered?.Invoke ( );
-            Debug.Log ( "Invoke Container " + type.ToString ( ) );
+          
+        }
+
+        public TypeContainer GetTypeContainer ( )
+        {
+            return type;
+        }
+        public void Update ( SlotInventoryTemp slot )
+        {
+            SSlotInventory slottemp =   Items.Find ( x => x.GetSlotIndex() == slot.slotindex);
+
+            if ( slottemp != null )
+            {
+                slottemp.SetAmmo ( slot.Ammo );
+                slottemp.SetQuantity ( slot.Quantity );
+            }
         }
         #region COMMAND
         [Command]
@@ -367,7 +395,7 @@ public class Container : NetworkBehaviour,IContainer
             SSlotInventory slotnovo;
             if ( item )
             {
-                slotnovo = new SSlotInventory ( slot.slotIndex , item.sitem , slot.slot.Quantity );
+                slotnovo = new SSlotInventory ( slot.slotIndex , item.sitem , slot.slot.Ammo, slot.slot.Quantity );
                 container.AddItem ( slot.slotIndex , slotnovo );
             }
             TargetGetContainer (  opponentIdentity.connectionToClient , type , container.GetContainerTemp ( ) );
@@ -379,6 +407,14 @@ public class Container : NetworkBehaviour,IContainer
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( type);
             container.RemoveItem ( slot.slot.slotindex );
+            TargetGetContainer ( opponentIdentity.connectionToClient , type , container.GetContainerTemp ( ) );
+        }
+        [Command]
+        public void CmdUpdateSlot ( TypeContainer type , SlotInventoryTemp slot , NetworkConnectionToClient sender = null )
+        {
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( type);
+            container.Update ( slot );
             TargetGetContainer ( opponentIdentity.connectionToClient , type , container.GetContainerTemp ( ) );
         }
         #endregion
@@ -394,7 +430,7 @@ public class Container : NetworkBehaviour,IContainer
                 ScriptableItem item = ScriptableManager.Instance.GetScriptable(inventory .slot[i].guidid);
                 if ( item != null )
                 {
-                    container.AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Quantity ) );
+                    container.AddItem ( inventory.slot[i].slotindex , new SSlotInventory ( inventory.slot[i].slotindex , item.sitem , inventory.slot[i].Ammo , inventory.slot[i].Quantity ) );
                 }
 
             }

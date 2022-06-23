@@ -31,7 +31,6 @@ namespace ApocalipseZ
 
         [SerializeField]private Transform swayTransform;
 
-
         private InputManager PInputManager;
         public InputManager InputManager
         {
@@ -44,8 +43,8 @@ namespace ApocalipseZ
                 return PInputManager;
             }
         }
+       public  static bool IsChekInventory;
 
-       
         [HideInInspector]
         //public Weapon currentWeapon;
         // Start is called before the first frame update
@@ -69,22 +68,41 @@ namespace ApocalipseZ
             container = player.GetWeaponsSlots ( );
             container.OnContainerAltered += SlotChange;
         }
+        private void OnDestroy ( )
+        {
+            container.OnContainerAltered -= SlotChange;
+        }
         // Update is called once per frame
         void Update ( )
         {
             WeaponThir.position = pivoWeaponThir.position;
             SlotInput ( );
+            if ( IsChekInventory )
+            {
+                OnCanvasDsdsds ( );
+                IsChekInventory = false;
+            }
             if ( activeSlot == null )
             {
+              
                 return;
             }
-           
-            if ( InputManager.GetFire ( ) && !fpsplayer.GetMoviment ( ).CheckIsRun ( ) && !CanvasFpsPlayer.IsInventoryOpen)
+         
+
+            if ( InputManager.GetFire ( ) && !fpsplayer.GetMoviment ( ).CheckIsRun ( ) && !CanvasFpsPlayer.IsInventoryOpen )
             {
                 activeSlot.Fire ( fpsplayer );
+                SSlotInventory slotTemp =  container.GetSlotContainer ( currentWeaponIndex );
+
+                if ( slotTemp != null )
+                {
+                    slotTemp.SetAmmo ( activeSlot.currentAmmo );
+                    container.CmdUpdateSlot ( container.GetTypeContainer ( ) , slotTemp.GetSlotTemp ( ) );
+                }
+
                 OnActiveWeapon?.Invoke ( activeSlot );
             }
-           
+
             if ( InputManager.GetReload ( ) )
             {
 
@@ -92,9 +110,9 @@ namespace ApocalipseZ
                 OnActiveWeapon?.Invoke ( activeSlot );
 
             }
-            if ( InputManager.GetAim ( )   &&  !fpsplayer.GetMoviment().CheckIsRun())
+            if ( InputManager.GetAim ( ) && !fpsplayer.GetMoviment ( ).CheckIsRun ( ) )
             {
-                activeSlot.Aim ( true);
+                activeSlot.Aim ( true );
                 weaponHolderAnimator.SetBool ( "Walk" , false );
                 weaponHolderAnimator.SetBool ( "Run" , false );
             }
@@ -105,9 +123,9 @@ namespace ApocalipseZ
 
             if ( InputManager.GetDropWeapon ( ) )
             {
-                 DropWeapon();
+                DropWeapon ( );
             }
-
+          
             // if (Input.GetKeyDown(KeyCode.H))
             // {
             //     DropAllWeapons();
@@ -117,15 +135,8 @@ namespace ApocalipseZ
         {
             if ( activeSlot != null )
             {
-                if ( activeSlot.weaponName  == container.GetSlotContainer(0).GetSItem().name )
-                {
-                    CmdDropWeapon ( container.GetSlotContainer ( 0 ).GetSlotTemp());
-                    weaponHolderAnimator.Play ( "Unhide" );
-                }else if ( activeSlot.weaponName == container.GetSlotContainer (1).GetSItem ( ).name )
-                {
-                    CmdDropWeapon ( container.GetSlotContainer ( 1 ).GetSlotTemp ( ) );
-                    weaponHolderAnimator.Play ( "Unhide" );
-                }
+                CmdDropWeapon ( container.GetSlotContainer ( switchSlotIndex ).GetSlotTemp ( ) );
+                weaponHolderAnimator.Play ( "Unhide" );
                 activeSlot = null;
             }
         }
@@ -169,51 +180,78 @@ namespace ApocalipseZ
         */
         private void SlotInput ( )
         {
+            if ( CanvasFpsPlayer.IsInventoryOpen )
+            {
+                return;
+            }
             if ( InputManager.GetAlpha1 ( ) )
             {
-                switchSlotIndex = 1;
+                switchSlotIndex = 0;
                 SlotChange ( );
             }
             else if ( InputManager.GetAlpha2 ( ) )
             {
-                switchSlotIndex = 2;
+                switchSlotIndex = 1;
                 SlotChange ( );
             }
 
         }
-
-        private void SlotChange ( )
+        public void OnCanvasDsdsds ( )
         {
-                EquipWeapon ( container.GetSlotContainer ( switchSlotIndex - 1 ) );
-           
-        }
-        public void EquipWeapon ( SSlotInventory slot )
-        {
-
-            if ( slot == null )
+            if ( CanvasFpsPlayer.IsInventoryOpen )
             {
                 if ( activeSlot )
                 {
-                    activeSlot.gameObject.SetActive ( false );
-                    activeSlot = null;
-                    OnActiveWeapon?.Invoke ( activeSlot );
+                    DesEquipWeapon ( );
                 }
                 return;
             }
-            if ( activeSlot != null && activeSlot.weaponName != slot.GetSItem ( ).name )
+            else
             {
-                weaponHolderAnimator.Play ( "Hide" );
-                activeSlot.gameObject.SetActive ( false );
+                
+                SlotChange ( );
+
             }
+        }
+        private void SlotChange ( )
+        {
           
+            SSlotInventory slottemp =   container.GetSlotContainer ( switchSlotIndex );
+
+            if ( slottemp != null  )
+            {
+                if (activeSlot==null)
+                {
+                    print ( "slotonvascas" );
+                    EquipWeapon ( slottemp );
+                 
+                }else  if ( !activeSlot.weaponName.Equals( slottemp.GetSItem ( ).name ) )
+                {
+                    print ( activeSlot.weaponName  + slottemp.GetSItem ( ).name);
+                    activeSlot.gameObject.SetActive ( false);
+                    EquipWeapon ( slottemp );
+                }
+              
+            }
+                     
+        }
+        public void DesEquipWeapon ( )
+        {
+            weaponHolderAnimator.Play ( "Hide" );
+            activeSlot.gameObject.SetActive ( false );
+            activeSlot = null;
+        }
+        public void EquipWeapon ( SSlotInventory slot )
+        {
             foreach ( Weapon weapon in ArmsWeapons )
             {
                 if ( weapon.weaponName == slot.GetSItem ( ).name )
                 {
                     activeSlot = weapon;
-                    activeSlot.currentAmmo = slot.GetSItem ( ).Ammo;
+                    activeSlot.currentAmmo = slot.GetAmmo ( );
                     activeSlot.gameObject.SetActive ( true );
                     weaponHolderAnimator.Play ( "Unhide" );
+                    currentWeaponIndex = switchSlotIndex;
                     break;
                 }
             }
@@ -227,17 +265,18 @@ namespace ApocalipseZ
 
 
         [Command]
-        public void CmdDropWeapon (SlotInventoryTemp temp , NetworkConnectionToClient sender = null )
+        public void CmdDropWeapon ( SlotInventoryTemp temp , NetworkConnectionToClient sender = null )
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
             IContainer container = fpstemp.GetWeaponsSlots();
             //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
-            GameObject dropItemTemp =    Instantiate ( container.GetSlotContainer ( 0 ).GetSItem ( ).Prefab );
-	        dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera().transform.position + fpstemp.GetFirstPersonCamera ( ).transform.forward * 0.5f;
+            GameObject dropItemTemp = Instantiate ( container.GetSlotContainer ( temp.slotindex ).GetSItem ( ).Prefab );
+            dropItemTemp.GetComponent<Item> ( ).SetAmmo ( container.GetSlotContainer ( temp.slotindex ).GetAmmo ( ) );
+            dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera ( ).transform.position + fpstemp.GetFirstPersonCamera ( ).transform.forward * 0.5f;
             NetworkServer.Spawn ( dropItemTemp );
             container.RemoveItem ( temp.slotindex );
-            fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient, TypeContainer.WEAPONS, container.GetContainerTemp() );
+            fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient , TypeContainer.WEAPONS , container.GetContainerTemp ( ) );
 
         }
     }

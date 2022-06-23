@@ -70,12 +70,15 @@ namespace ApocalipseZ
     public class Item : NetworkBehaviour,IInteract
     {
         [SerializeField]private  ScriptableItem scriptableitem;
-
+        private int Ammo;
         [SerializeField]private int dropQuantity;
 
         public bool IsServerSpaw = false;
 
-
+        private void Awake ( )
+        {
+            Ammo = scriptableitem.sitem.Ammo;
+        }
         [Server]
         void Start ( )
         {
@@ -90,6 +93,10 @@ namespace ApocalipseZ
         void Update ( )
         {
 
+        }
+        public void SetAmmo (int _ammo )
+        {
+            Ammo = _ammo;
         }
         public void EndFocus ( )
         {
@@ -107,6 +114,7 @@ namespace ApocalipseZ
             IContainer inventory = player.GetInventory();
             SSlotInventory slot = new SSlotInventory();
             slot.SetSItem(scriptableitem.sitem);
+            slot.SetAmmo ( Ammo );
             slot.SetQuantity ( dropQuantity);
             Vector3 point = transform.position;
             if ( inventory.AddItem ( slot) )

@@ -30,7 +30,10 @@ namespace ApocalipseZ
             UpdateSlots ( );
 
         }
-
+        private void OnDestroy ( )
+        {
+            player.GetInventory ( ).OnContainerAltered -= UpdateSlots; ;
+        }
         public void UpdateSlots ( )
         {
             if ( player == null )

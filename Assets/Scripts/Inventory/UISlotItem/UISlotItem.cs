@@ -73,7 +73,7 @@ namespace ApocalipseZ
         public void AddSlot ( SSlotInventory _slot )
         {
 
-            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetQuantity()));
+            UISlotItemTemp slotui = new UISlotItemTemp(SlotIndex,AcceptedType,new SlotInventoryTemp(_slot.GetSlotIndex(),_slot.GetSItem().GuidId,_slot.GetAmmo(),_slot.GetQuantity()));
 
             Container.CmdAddSlotContainer ( AcceptedType , slotui  );
         }
@@ -118,7 +118,6 @@ namespace ApocalipseZ
                         SlotEnter.AddSlot ( SlotSelecionado.slot );
                         RemoveSlot ( );
                         SetSlot ( null);
-                        UpdateSlot ( );
                     }
                 }
                 Destroy ( SlotSelecionado.gameObject );
@@ -245,7 +244,7 @@ namespace ApocalipseZ
 
         public UISlotItemTemp GetUISlotItemTemp ( )
         {
-            return new UISlotItemTemp ( SlotIndex , AcceptedType , new SlotInventoryTemp ( slot.GetSlotIndex ( ) , slot.GetSItem ( ).GuidId , slot.GetQuantity ( ) ) );
+            return new UISlotItemTemp ( SlotIndex , AcceptedType , new SlotInventoryTemp ( slot.GetSlotIndex ( ) , slot.GetSItem ( ).GuidId , slot.GetAmmo (), slot.GetQuantity ( ) ) );
         }
     }
 }

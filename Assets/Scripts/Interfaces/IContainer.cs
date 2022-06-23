@@ -19,6 +19,8 @@ public interface IContainer
     void MoveItem ( int id , int idmove );
     InventoryTemp GetContainerTemp ( );
     void InvokeOnContainer ( );
+    TypeContainer GetTypeContainer ( );
+    void Update ( SlotInventoryTemp slot );
     #region COMMAND
     [Command]
     void CmdGetContainer ( TypeContainer type , NetworkConnectionToClient sender = null );
@@ -28,10 +30,13 @@ public interface IContainer
     void CmdAddSlotContainer ( TypeContainer type , UISlotItemTemp slot , NetworkConnectionToClient sender = null );
     [Command]
     void CmdRemoveSlotContainer ( TypeContainer type , UISlotItemTemp slot , NetworkConnectionToClient sender = null );
+    [Command]
+    void CmdUpdateSlot ( TypeContainer type , SlotInventoryTemp slot , NetworkConnectionToClient sender = null );
     #endregion
 
     #region TARGET
     [TargetRpc]
     void TargetGetContainer ( NetworkConnection target ,TypeContainer type , InventoryTemp inventory );
+   
     #endregion
 }

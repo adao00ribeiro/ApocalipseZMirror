@@ -29,7 +29,10 @@ namespace ApocalipseZ
 
             UpdateSlotsFastItems ( );
         }
-     
+        private void OnDestroy ( )
+        {
+            player.GetFastItems ( ).OnContainerAltered -= UpdateSlotsFastItems; ;
+        }
         public void UpdateSlotsFastItems ( )
         {
             for ( int i = 0 ; i < FastSlot.Count ; i++ )

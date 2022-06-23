@@ -47,5 +47,10 @@ namespace ApocalipseZ {
             player.GetWeaponsSlots ( ).OnContainerAltered += UpdateSlots; ;
             UpdateSlots ( );
         }
+
+        private void OnDestroy ( )
+        {
+            player.GetWeaponsSlots ( ).OnContainerAltered -= UpdateSlots; ;
+        }
     }
 }

@@ -40,6 +40,11 @@ namespace ApocalipseZ
 
         void Update ( )
         {
+
+            if (CanvasFpsPlayer.IsInventoryOpen)
+            {
+                return;
+            }
             float fx = new float() , fy = new float();
 
             //Sway coefficient got from mouse input multyplied on swayAmmount for each axis

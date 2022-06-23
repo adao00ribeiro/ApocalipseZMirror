@@ -57,6 +57,7 @@ namespace ApocalipseZ {
             if ( InputManager.GetInventory ( ) && !stats.isPlayerDead)
             {
                 IsInventoryOpen = !IsInventoryOpen;
+                WeaponManager.IsChekInventory = true;
                 UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
                 UiInventory.gameObject.SetActive ( IsInventoryOpen );
                 UiFastItems.gameObject.SetActive ( IsInventoryOpen );
