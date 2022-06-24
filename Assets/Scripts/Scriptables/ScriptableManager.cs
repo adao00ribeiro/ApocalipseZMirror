@@ -31,9 +31,10 @@ namespace ApocalipseZ
         }
 
         public BulletsContainer[] BulletsContainer;
-        [SerializeField]private static ScriptableItem[] ItemsWeapons;
-        [SerializeField]private static ScriptableItem[] ItemsConsumable;
-        [SerializeField]private static ScriptableTextureSounds ScriptableTextureSounds;
+       [SerializeField]private  ScriptableItem[] ItemsWeapons;
+       [SerializeField]private  ScriptableItem[] ItemsConsumable;
+       [SerializeField]private  ScriptableTextureSounds ScriptableTextureSounds;
+       [SerializeField]private  ScriptableEnemys DataEnemys;
         private void Awake ( )
         {
             //registrar 
@@ -46,6 +47,7 @@ namespace ApocalipseZ
             ItemsWeapons = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemWeaponData" );
             ItemsConsumable = Resources.LoadAll<ScriptableItem> ( "Scriptables/ItemsConsumableData" );
             ScriptableTextureSounds = Resources.Load<ScriptableTextureSounds> ( "Scriptables/SCP_TextureSound" );
+            DataEnemys = Resources.Load<ScriptableEnemys> ( "Scriptables/Enemys/DataEnemys" );
         }
         private void Start ( )
         {
@@ -100,6 +102,10 @@ namespace ApocalipseZ
         {
             return ScriptableTextureSounds;
         }
+        public ScriptableEnemys GetDataEnemys ( )
+        {
+            return DataEnemys;
+        }
 
         public GameObject GetBullet ( string nameBullet)
         {
@@ -124,15 +130,16 @@ namespace ApocalipseZ
             switch ( type )
             {
                 case ItemType.consumable:
-                    items = ScriptableManager.Instance.GetItemsConsumable ( );
+                    items = GetItemsConsumable ( );
                     objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
                     break;
                 case ItemType.weapon:
-                    items = ScriptableManager.Instance.GetItemsWeapons ( );
+                    items =  GetItemsWeapons ( );
                     objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
                     break;
             }
             return objeto;
         }
+
     }
 }

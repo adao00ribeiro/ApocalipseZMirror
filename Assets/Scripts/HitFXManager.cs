@@ -146,11 +146,11 @@ namespace ApocalipseZ
         }
         public void HitParticlesFXManager ( RaycastHit hit )
         {
-            if ( hit.collider.tag == "Wood" )
+            if ( hit.collider.CompareTag("Wood"))
             {
                 objWoodHitFX.Stop ( );
                 objWoodHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-                objWoodHitFX.transform.LookAt ( hit.point );
+                objWoodHitFX.transform.LookAt ( Camera.main.transform.position );
                 objWoodHitFX.Play ( true );
             }
             else if ( hit.collider.CompareTag( "Concrete" )  )
@@ -158,35 +158,35 @@ namespace ApocalipseZ
             
                 objConcreteHitFX.Stop ( );
                 objConcreteHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-               // objConcreteHitFX.transform.LookAt ( cam.transform.position );
+               objConcreteHitFX.transform.LookAt (Camera.main.transform.position );
                 objConcreteHitFX.Play ( true );
             }
             else if ( hit.collider.tag == "Dirt" )
             {
                 objDirtHitFX.Stop ( );
                 objDirtHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-               // objDirtHitFX.transform.LookAt ( cam.transform.position );
+                objDirtHitFX.transform.LookAt ( Camera.main.transform.position );
                 objDirtHitFX.Play ( true );
             }
             else if ( hit.collider.tag == "Metal" )
             {
                 objMetalHitFX.Stop ( );
                 objMetalHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-                //objMetalHitFX.transform.LookAt ( cam.transform.position );
+                objMetalHitFX.transform.LookAt (Camera.main.transform.position );
                 objMetalHitFX.Play ( true );
             }
             else if ( hit.collider.tag == "Flesh"  || hit.collider.tag == "Player" )
             {
                 objBloodHitFX.Stop ( );
                 objBloodHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-              //  objBloodHitFX.transform.LookAt ( cam.transform.position );
+                objBloodHitFX.transform.LookAt ( Camera.main.transform.position );
                 objBloodHitFX.Play ( true );
             }
             else
             {
                 objConcreteHitFX.Stop ( );
                 objConcreteHitFX.transform.position = new Vector3 ( hit.point.x , hit.point.y , hit.point.z );
-               // objConcreteHitFX.transform.LookAt ( cam.transform.position );
+                objConcreteHitFX.transform.LookAt ( Camera.main.transform.position );
                 objConcreteHitFX.Play ( true );
             }
 
@@ -203,10 +203,12 @@ namespace ApocalipseZ
         }
         public void DecalManager ( RaycastHit hit , bool applyParent )
         {
+
+          
             if ( hit.collider.CompareTag ( "Concrete" ) )
             {
                 concreteDecal_pool[decalIndex_concrete].SetActive ( true );
-                var decalPostion = hit.point;
+                var decalPostion =  hit.point + hit.normal * 0.025f;
                 concreteDecal_pool[decalIndex_concrete].transform.position = decalPostion;
                 concreteDecal_pool[decalIndex_concrete].transform.rotation = Quaternion.FromToRotation ( -Vector3.forward , hit.normal );
                 if ( applyParent )

@@ -28,24 +28,13 @@ namespace ApocalipseZ
            // HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
             //HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
         }
-		[Client]
+	
         // Update is called once per frame
         void Update ( )
         {
-           
-            if ( health <= 0 && !isPlayerDead )
+            if ( !isClient )
             {
-                CmdPlayerDeath ( );
-            }
-
-            if ( health < 0 )
-            {
-                health = 0;
-            }
-
-            if ( health > 100 )
-            {
-                health = 100;
+                return;
             }
             if (transform.position.y < -11.1  && !isPlayerDead )
             {
@@ -56,20 +45,52 @@ namespace ApocalipseZ
         [Command ( requiresAuthority = false )]
         public void CmdTakeDamage (int damage ,  NetworkConnectionToClient sender = null)
         {
-            OnAlteredStats?.Invoke ( );
             TakeDamage ( damage );
+            OnAlteredStats?.Invoke ( );
+           
         }
 
-
+        public void RestoreLife ( int life )
+        {
+            health += life;
+            if ( health > 100 )
+            {
+                health = 100;
+            }
+        }
         public void TakeDamage (int  damage)
         {
             health -= damage;
+            if ( health <= 0 && !isPlayerDead )
+            {
+                if ( GetComponent<FpsPlayer> ( ) )
+                {
+                    CmdPlayerDeath ( );
+                }
+                else
+                {
+                    PlayerDeath ( );
+                }
+               
+            }
+            if ( health < 0 )
+            {
+                health = 0;
+            }
         }
         private void PlayerDeath ( )
         {
             isPlayerDead = true;
-            // GetComponent<FpsPlayer> ( ).DropAllItems ( );
-            StartCoroutine ( Respawn ( ) );
+            if ( GetComponent<FpsPlayer> ( ) )
+            {
+                GetComponent<FpsPlayer> ( ).CmdDropAllItems ( );
+                StartCoroutine ( Respawn ( ) );
+            }
+            else
+            {
+                //zumbi timer respaw
+            }
+            
         }
         private IEnumerator Respawn ( )
         {
@@ -79,8 +100,8 @@ namespace ApocalipseZ
             {
                 transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
                 transform.rotation = Quaternion.identity;
-                health = 100;
-                isPlayerDead = false;
+                RestoreLife ( 200 );
+                 isPlayerDead = false;
                 player.Respaw ( );
             }
         }

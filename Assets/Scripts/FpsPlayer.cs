@@ -69,15 +69,30 @@ namespace ApocalipseZ
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
             PlayerStats = GetComponent<PlayerStats> ( );
             FirstPersonCamera = transform.Find ( "Camera & Recoil" ).GetComponent<FirstPersonCamera> ( );
-
-
         }
 
         [Command]
-        public void DropAllItems ( )
+        public void CmdDropAllItems ( NetworkConnectionToClient sender = null )
         {
-            print ( "dropando itens inventario " );
-        }
+            WeaponManager.DesEquipWeapon ( );
+
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
+            IContainer containerWeapon = fpstemp.GetWeaponsSlots();
+            IContainer containerInventory = fpstemp.GetInventory();
+            IContainer containerFastItems = fpstemp.GetFastItems();
+
+
+            /*
+            //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
+            GameObject dropItemTemp = Instantiate ( container.GetSlotContainer ( temp.slotindex ).GetSItem ( ).Prefab );
+            dropItemTemp.GetComponent<Item> ( ).SetAmmo ( container.GetSlotContainer ( temp.slotindex ).GetAmmo ( ) );
+            dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera ( ).transform.position + fpstemp.GetFirstPersonCamera ( ).transform.forward * 0.5f;
+            NetworkServer.Spawn ( dropItemTemp );
+            container.RemoveItem ( temp.slotindex );
+            fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient , TypeContainer.WEAPONS , container.GetContainerTemp ( ) );
+       */
+            }
 
         private void Start ( )
         {

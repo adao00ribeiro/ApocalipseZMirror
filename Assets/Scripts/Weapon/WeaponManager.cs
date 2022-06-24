@@ -137,7 +137,7 @@ namespace ApocalipseZ
             {
                 CmdDropWeapon ( container.GetSlotContainer ( switchSlotIndex ).GetSlotTemp ( ) );
                 weaponHolderAnimator.Play ( "Unhide" );
-                activeSlot = null;
+                DesEquipWeapon ( );
             }
         }
         /*

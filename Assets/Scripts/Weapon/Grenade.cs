@@ -54,7 +54,7 @@ namespace ApocalipseZ
 
                 if ( collider.GetComponent<PlayerStats> ( ) )
                 {
-                    collider.GetComponent<PlayerStats> ( ).health -= ( int ) damage;
+                    collider.GetComponent<PlayerStats> ( ).CmdTakeDamage ( (int)damage);
                 }
 
 

@@ -21,9 +21,9 @@ public class SpawObjects : NetworkBehaviour
   
     private void Start ( )
     {
-        Transform ListSpawPointItems = GameObject.Find("ListSpawPointItems").transform;
+        
 
-        foreach ( Transform item in ListSpawPointItems )
+        foreach ( Transform item in transform )
         {
             PointItem point = item.gameObject.GetComponent<PointItem> ( );
 
