@@ -70,29 +70,62 @@ namespace ApocalipseZ
             PlayerStats = GetComponent<PlayerStats> ( );
             FirstPersonCamera = transform.Find ( "Camera & Recoil" ).GetComponent<FirstPersonCamera> ( );
         }
+        [Server]
+        public void DroppAllItems ( )
+        {
+            IContainer containerWeapon = GetWeaponsSlots();
+            IContainer containerInventory = GetInventory();
+            IContainer containerFastItems = GetFastItems();
 
+            for ( int i = 0 ; i < containerWeapon.GetMaxSlots ( ) ; i++ )
+            {
+                SSlotInventory slotDropItem =  containerWeapon.GetSlotContainer ( i );
+                if ( slotDropItem != null ) {
+                    GameObject dropItemTemp = Instantiate ( slotDropItem.GetSItem().Prefab );
+                    dropItemTemp.GetComponent<Item> ( ).SetAmmo ( slotDropItem.GetAmmo ( ) );
+                    dropItemTemp.transform.position = GetFirstPersonCamera ( ).transform.position + GetFirstPersonCamera ( ).transform.forward * 0.5f;
+                    NetworkServer.Spawn ( dropItemTemp );
+                    containerWeapon.RemoveItem ( i );
+                }
+            }
+            for ( int i = 0 ; i < containerInventory.GetMaxSlots ( ) ; i++ )
+            {
+                SSlotInventory slotDropItem =  containerWeapon.GetSlotContainer ( i );
+                if ( slotDropItem != null )
+                {
+                    GameObject dropItemTemp = Instantiate ( slotDropItem.GetSItem().Prefab );
+                    dropItemTemp.GetComponent<Item> ( ).SetAmmo ( slotDropItem.GetAmmo ( ) );
+                    dropItemTemp.transform.position = GetFirstPersonCamera ( ).transform.position + GetFirstPersonCamera ( ).transform.forward * 0.5f;
+                    NetworkServer.Spawn ( dropItemTemp );
+                    containerInventory.RemoveItem ( i );
+                }
+            }
+            for ( int i = 0 ; i < containerFastItems.GetMaxSlots ( ) ; i++ )
+            {
+                    SSlotInventory slotDropItem =  containerWeapon.GetSlotContainer ( i );
+                    if ( slotDropItem != null )
+                    {
+                        GameObject dropItemTemp = Instantiate ( slotDropItem.GetSItem().Prefab );
+                        dropItemTemp.GetComponent<Item> ( ).SetAmmo ( slotDropItem.GetAmmo ( ) );
+                        dropItemTemp.transform.position = GetFirstPersonCamera ( ).transform.position + GetFirstPersonCamera ( ).transform.forward * 0.5f;
+                        NetworkServer.Spawn ( dropItemTemp );
+                        containerFastItems.RemoveItem ( i );
+                    }
+            }
+        }
         [Command]
         public void CmdDropAllItems ( NetworkConnectionToClient sender = null )
         {
-            WeaponManager.DesEquipWeapon ( );
 
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             FpsPlayer fpstemp = sender.identity.GetComponent<FpsPlayer> ( );
             IContainer containerWeapon = fpstemp.GetWeaponsSlots();
-            IContainer containerInventory = fpstemp.GetInventory();
-            IContainer containerFastItems = fpstemp.GetFastItems();
-
-
-            /*
-            //NetworkServer.Spawn ( Instantiate ( ScriptableManager.bullet , spawbulettransform.Position , spawbulettransform.Rotation ) );
-            GameObject dropItemTemp = Instantiate ( container.GetSlotContainer ( temp.slotindex ).GetSItem ( ).Prefab );
-            dropItemTemp.GetComponent<Item> ( ).SetAmmo ( container.GetSlotContainer ( temp.slotindex ).GetAmmo ( ) );
-            dropItemTemp.transform.position = fpstemp.GetFirstPersonCamera ( ).transform.position + fpstemp.GetFirstPersonCamera ( ).transform.forward * 0.5f;
-            NetworkServer.Spawn ( dropItemTemp );
-            container.RemoveItem ( temp.slotindex );
-            fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient , TypeContainer.WEAPONS , container.GetContainerTemp ( ) );
-       */
-            }
+           // IContainer containerInventory = fpstemp.GetInventory();
+           // IContainer containerFastItems = fpstemp.GetFastItems();
+            //
+            containerWeapon.TargetGetContainer ( opponentIdentity.connectionToClient , TypeContainer.WEAPONS , containerWeapon.GetContainerTemp ( ) );
+           
+        }
 
         private void Start ( )
         {
@@ -163,7 +196,7 @@ namespace ApocalipseZ
                 return;
             }
             Animation ( );
-            if ( PlayerStats.isPlayerDead )
+            if ( PlayerStats.IsPlayerDead( ) )
             {
                 FirstPersonCamera.CameraDeath ( );
                 AnimatorController.Play ("BlendDeath" );
@@ -191,14 +224,14 @@ namespace ApocalipseZ
             AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) );
             AnimatorController.SetBool ( "IsCrouch" , InputManager.GetCrouch ( ) );
 
-            if (!PlayerStats.isPlayerDead )
+            if (!PlayerStats.IsPlayerDead( ) )
             {
                 AnimatorController.SetFloat ( "SelectDeath" , InputManager.GetCrouch ( ) ? 0 : Random.Range ( 1 , 5 ) );
             }
                        
-            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
-            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
-            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) && !PlayerStats.isPlayerDead );
+            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
+            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
+            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
 
         }
      

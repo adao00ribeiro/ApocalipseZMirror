@@ -13,12 +13,11 @@ namespace ApocalipseZ
 
         [SyncVar(hook = nameof(SetOnAltered))]
         public int health;
-                
-        public bool isPlayerDead = false;
         
+       
+    
         void SetOnAltered ( int oldhealthHook , int newhealthHook )
         {
-          
             OnAlteredStats?.Invoke ( );
         }
 
@@ -32,11 +31,13 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
-            if ( !isClient )
+           
+            if ( IsPlayerDead( ) )
             {
-                return;
+                PlayerDeath ( );
             }
-            if (transform.position.y < -11.1  && !isPlayerDead )
+
+            if (transform.position.y < -11.1  && !IsPlayerDead( ) )
             {
                 TakeDamage ( 200);
             }
@@ -49,10 +50,15 @@ namespace ApocalipseZ
             OnAlteredStats?.Invoke ( );
            
         }
+        public bool IsPlayerDead ( )
+        {
+            return health <= 0;
+        }
 
         public void RestoreLife ( int life )
         {
             health += life;
+            print ( "isRestore life");
             if ( health > 100 )
             {
                 health = 100;
@@ -61,18 +67,7 @@ namespace ApocalipseZ
         public void TakeDamage (int  damage)
         {
             health -= damage;
-            if ( health <= 0 && !isPlayerDead )
-            {
-                if ( GetComponent<FpsPlayer> ( ) )
-                {
-                    CmdPlayerDeath ( );
-                }
-                else
-                {
-                    PlayerDeath ( );
-                }
-               
-            }
+            
             if ( health < 0 )
             {
                 health = 0;
@@ -80,11 +75,15 @@ namespace ApocalipseZ
         }
         private void PlayerDeath ( )
         {
-            isPlayerDead = true;
+         
             if ( GetComponent<FpsPlayer> ( ) )
             {
-                GetComponent<FpsPlayer> ( ).CmdDropAllItems ( );
-                StartCoroutine ( Respawn ( ) );
+              
+                    GetComponent<FpsPlayer> ( ).DroppAllItems ( );
+               
+                //mudar Time
+                    StartCoroutine ( Respawn ( ) );
+             
             }
             else
             {
@@ -96,14 +95,12 @@ namespace ApocalipseZ
         {
             yield return new WaitForSeconds ( 5f );
             FpsPlayer player = GetComponent<FpsPlayer> ( );
-            if ( player )
-            {
+           
                 transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
                 transform.rotation = Quaternion.identity;
                 RestoreLife ( 200 );
-                 isPlayerDead = false;
                 player.Respaw ( );
-            }
+          
         }
         [Command ( requiresAuthority = false )]
         public void CmdPlayerDeath(  NetworkConnectionToClient sender = null )

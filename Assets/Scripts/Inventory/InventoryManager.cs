@@ -46,7 +46,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-            if (InputManager.GetInventory() && !player.GetPlayerStats ( ).isPlayerDead)
+            if (InputManager.GetInventory() && !player.GetPlayerStats ( ).IsPlayerDead( ))
             {
                 showInventory = !showInventory;
             }

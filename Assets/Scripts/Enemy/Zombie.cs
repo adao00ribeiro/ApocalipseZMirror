@@ -28,7 +28,7 @@ namespace ApocalipseZ
         {
             if ( target != Vector3.zero )
                 NavMeshAgent.SetDestination ( target );
-            if ( stats.isPlayerDead )
+            if ( stats.IsPlayerDead( ) )
             {
                 animatorController.SetLayerWeight ( 1 , 0 );
                 animatorController.Play ( "Death" );
