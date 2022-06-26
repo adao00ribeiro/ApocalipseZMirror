@@ -22,7 +22,12 @@ namespace ApocalipseZ
                 manager.spawnPrefabs.Add ( Consumable[i].sitem.Prefab );
                 print ( "REGISTRADO CONSUMABLE" );
             }
-
+            ScriptableEnemys Zombies =  ScriptableManager.Instance.GetDataEnemys ( );
+            for ( int i = 0 ; i < Zombies.Enemys.Length ; i++ )
+            {
+                manager.spawnPrefabs.Add ( Zombies.Enemys[i].Prefab);
+                print ( "REGISTRADO Zombies" );
+            }
             Destroy ( gameObject);
         }
 

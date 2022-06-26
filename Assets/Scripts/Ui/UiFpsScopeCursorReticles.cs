@@ -106,10 +106,18 @@ namespace ApocalipseZ
         }
         public void DisableCursor ( )
         {
+            if ( useCursor ==null)
+            {
+                return;
+            }
             useCursor.SetActive ( false );
         }
         internal void SetUseText ( string text )
         {
+            if ( useText == null )
+            {
+                return;
+            }
             useText.text = text;
         }
 

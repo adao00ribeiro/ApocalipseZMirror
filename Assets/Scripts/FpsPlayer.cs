@@ -73,6 +73,7 @@ namespace ApocalipseZ
         [Server]
         public void DroppAllItems ( )
         {
+            print ( "dropando");
             IContainer containerWeapon = GetWeaponsSlots();
             IContainer containerInventory = GetInventory();
             IContainer containerFastItems = GetFastItems();
@@ -113,6 +114,13 @@ namespace ApocalipseZ
                     }
             }
         }
+        [TargetRpc]
+        public void TargetRespaw ( NetworkConnection target )
+        {
+            StartCoroutine ( Respawn ( ) );
+         
+        }
+
         [Command]
         public void CmdDropAllItems ( NetworkConnectionToClient sender = null )
         {
@@ -209,11 +217,13 @@ namespace ApocalipseZ
           //  transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }
-        public void Respaw ( )
+        private IEnumerator Respawn ( )
         {
+            yield return new WaitForSeconds ( 5f );
             AnimatorController.Play ( "Walk" );
             FirstPersonCamera.CameraAlive ( );
-
+          
+            
         }
         public void Animation ( )
         {

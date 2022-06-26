@@ -1,6 +1,6 @@
 using ApocalipseZ;
 using System;
-
+using Mirror;
 public interface IWeaponManager
 {
 
@@ -9,4 +9,6 @@ public interface IWeaponManager
     void SetFpsPlayer ( FpsPlayer player );
     void DesEquipWeapon ( );
     Weapon GetActiveWeapon ( );
+
+    void TargetDesEquipWeapon ( NetworkConnection target );
 }

@@ -60,6 +60,12 @@ namespace ApocalipseZ
                 _instance = this;
             }
         }
+
+        internal GameObject GetPrefabEnemy ( TypeEnemy zombie)
+        {
+            return DataEnemys.GetPrefab ( zombie );
+        }
+
         public  void Print ( )
         {
             for ( int i = 0 ; i < ItemsWeapons.Length ; i++ )

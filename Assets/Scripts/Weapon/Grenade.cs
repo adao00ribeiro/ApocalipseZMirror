@@ -39,22 +39,12 @@ namespace ApocalipseZ
 
             foreach ( Collider collider in colliders )
             {
-                /*
-                if (collider.GetComponent<NPC>())
-                {
-                    collider.GetComponent<NPC>().GetHit((int)damage);
-                }
 
-                if(collider.GetComponent<ZombieNPC>())
-                {
-                    collider.GetComponent<ZombieNPC>().ApplyHit((int)damage);
-                }*/
+                IStats stats =  collider.GetComponent<IStats> ( );
 
-                
-
-                if ( collider.GetComponent<PlayerStats> ( ) )
+                if ( stats !=null )
                 {
-                    collider.GetComponent<PlayerStats> ( ).CmdTakeDamage ( (int)damage);
+                    stats.CmdTakeDamage ( (int)damage);
                 }
 
 

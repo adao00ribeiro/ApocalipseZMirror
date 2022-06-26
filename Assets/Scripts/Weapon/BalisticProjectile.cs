@@ -33,8 +33,8 @@ namespace ApocalipseZ
             {
                 HitFXManager.Instance.ApplyFX ( hit );
 
-                PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
-                if (stat)
+                IStats stat = hit.collider.GetComponent<IStats>();
+                if (stat !=null)
                 {
                     stat.CmdTakeDamage (Random.Range(damageMinimum , damageMaximum));
                 }

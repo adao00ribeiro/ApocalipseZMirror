@@ -7,48 +7,42 @@ using System;
 using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
-    public class PlayerStats : NetworkBehaviour
+    public class PlayerStats : NetworkBehaviour, IStats
     {
         public event Action OnAlteredStats;
-
-        [SyncVar(hook = nameof(SetOnAltered))]
+        [SyncVar(hook = nameof(SetHealth))]
         public int health;
-        
-       
-    
-        void SetOnAltered ( int oldhealthHook , int newhealthHook )
+        FpsPlayer player;
+        private void SetHealth ( int oldHealth , int newHealth )
         {
+            health = newHealth;
             OnAlteredStats?.Invoke ( );
         }
-
-        // Start is called before the first frame update
-        void Start ( )
+        private void Start ( )
         {
-           // HealthSlider = GameObject.Find ( "Canvas Main/HealthSlider" ).GetComponent<Slider> ( );
-            //HealthText = GameObject.Find ( "Canvas Main/HealthSlider/HealthText" ).GetComponent<Text> ( );
+            player = GetComponent<FpsPlayer> ( );
         }
-	
-        // Update is called once per frame
         void Update ( )
         {
-           
-            if ( IsPlayerDead( ) )
-            {
-                PlayerDeath ( );
-            }
 
-            if (transform.position.y < -11.1  && !IsPlayerDead( ) )
+            if ( !isLocalPlayer )
             {
-                TakeDamage ( 200);
+                return;
+            }
+            if ( IsPlayerDead ( ) )
+            {
+                CmdPlayerDeath ( );
+            }
+            if ( transform.position.y < -11.1 && !IsPlayerDead ( ) )
+            {
+                CmdTakeDamage ( 200 );
             }
         }
 
         [Command ( requiresAuthority = false )]
-        public void CmdTakeDamage (int damage ,  NetworkConnectionToClient sender = null)
+        public void CmdTakeDamage ( int damage , NetworkConnectionToClient sender = null )
         {
             TakeDamage ( damage );
-            OnAlteredStats?.Invoke ( );
-           
         }
         public bool IsPlayerDead ( )
         {
@@ -58,62 +52,44 @@ namespace ApocalipseZ
         public void RestoreLife ( int life )
         {
             health += life;
-            print ( "isRestore life");
+
             if ( health > 100 )
             {
                 health = 100;
             }
+            OnAlteredStats?.Invoke ( );
         }
-        public void TakeDamage (int  damage)
+        public void TakeDamage ( int damage )
         {
             health -= damage;
-            
+
             if ( health < 0 )
             {
                 health = 0;
             }
+            OnAlteredStats?.Invoke ( );
         }
         private void PlayerDeath ( )
         {
-         
-            if ( GetComponent<FpsPlayer> ( ) )
-            {
-              
-                    GetComponent<FpsPlayer> ( ).DroppAllItems ( );
-               
-                //mudar Time
-                    StartCoroutine ( Respawn ( ) );
-             
-            }
-            else
-            {
-                //zumbi timer respaw
-            }
-            
+            player.DroppAllItems ( );
+            StartCoroutine ( Respawn ( ) );
         }
         private IEnumerator Respawn ( )
         {
             yield return new WaitForSeconds ( 5f );
-            FpsPlayer player = GetComponent<FpsPlayer> ( );
-           
-                transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
-                transform.rotation = Quaternion.identity;
-                RestoreLife ( 200 );
-                player.Respaw ( );
-          
+            transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
+            RestoreLife ( 200 );
         }
         [Command ( requiresAuthority = false )]
-        public void CmdPlayerDeath(  NetworkConnectionToClient sender = null )
+        public void CmdPlayerDeath ( NetworkConnectionToClient sender = null )
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            PlayerStats stats =  sender.identity.GetComponent<PlayerStats> ( );
+            stats.PlayerDeath ( );
+            sender.identity.GetComponent<FpsPlayer> ( ).GetWeaponManager ( ).TargetDesEquipWeapon ( opponentIdentity.connectionToClient );
+            sender.identity.GetComponent<FpsPlayer> ( ).TargetRespaw ( opponentIdentity.connectionToClient );
+        }
 
-            TargetPlayerDeath ( opponentIdentity.connectionToClient  );
-        }
-        [TargetRpc]
-        public void TargetPlayerDeath ( NetworkConnection target  )
-        {
-            PlayerDeath ( );
-        }
 
     }
 }

@@ -13,7 +13,6 @@ public interface IFpsPlayer
     IMoviment GetMoviment ( );
     PlayerStats GetPlayerStats ( );
 
-    void Respaw ( );
     [Command]
     void CmdSpawBullet ( SpawBulletTransform spawBulletTransform , NetworkConnectionToClient networkConnectionToClient );
     FirstPersonCamera GetFirstPersonCamera ( );

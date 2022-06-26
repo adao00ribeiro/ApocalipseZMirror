@@ -200,10 +200,9 @@ namespace ApocalipseZ
         {
             if ( CanvasFpsPlayer.IsInventoryOpen )
             {
-                if ( activeSlot )
-                {
+              
                     DesEquipWeapon ( );
-                }
+                
                 return;
             }
             else
@@ -237,9 +236,13 @@ namespace ApocalipseZ
         }
         public void DesEquipWeapon ( )
         {
-            weaponHolderAnimator.Play ( "Hide" );
-            activeSlot.gameObject.SetActive ( false );
-            activeSlot = null;
+            if ( activeSlot )
+            {
+                weaponHolderAnimator.Play ( "Hide" );
+                activeSlot.gameObject.SetActive ( false );
+                activeSlot = null;
+            }
+           
         }
         public void EquipWeapon ( SSlotInventory slot )
         {
@@ -278,6 +281,13 @@ namespace ApocalipseZ
             container.RemoveItem ( temp.slotindex );
             fpstemp.GetContainer ( TypeContainer.WEAPONS ).TargetGetContainer ( opponentIdentity.connectionToClient , TypeContainer.WEAPONS , container.GetContainerTemp ( ) );
 
+        }
+
+        [TargetRpc]
+        public void TargetDesEquipWeapon ( NetworkConnection target)
+        {
+           
+            DesEquipWeapon ( );
         }
     }
 
