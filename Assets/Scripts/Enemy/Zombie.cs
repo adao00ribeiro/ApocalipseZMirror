@@ -20,9 +20,8 @@ namespace ApocalipseZ
         Animator animatorController;
         IStats stats;
         NavMeshAgent NavMeshAgent;
-        public Vector3 positionSpaw;
        
-
+        public Vector3 positionSpaw;
 
         // Start is called before the first frame update
         void Start ( )
@@ -37,6 +36,14 @@ namespace ApocalipseZ
 
         private void Update ( )
         {
+            if ( stats.IsPlayerDead ( ) )
+            {
+                animatorController.SetLayerWeight ( 1 , 0 );
+                animatorController.Play ( "Death" );
+                NavMeshAgent.speed = 0;
+                this.enabled = false;
+            }
+
             if ( Target == null )
             {
                 Collider[] collider  = Physics.OverlapSphere ( transform.position , Laudiness , layer, QueryTriggerInteraction.Collide );
@@ -47,33 +54,39 @@ namespace ApocalipseZ
                 }
             }
 
+
             if ( Target == null )
             {
                 Move ( positionSpaw , false , false );
-                transform.LookAt ( positionSpaw , Vector3.up );
+               
             }
             else
             {
+                float distance = Vector3.Distance(Target.transform.position, transform.position);
+               
                 Move ( Target.transform.position , false , false );
-                transform.LookAt ( Target.transform ,Vector3.up);
-            }
+                transform.LookAt ( Target.transform , Vector3.up);
 
-            if ( stats.IsPlayerDead ( ) )
-            {
-                animatorController.SetLayerWeight ( 1 , 0 );
-                animatorController.Play ( "Death" );
-                NavMeshAgent.speed = 0;
-                this.enabled = false;
+                if ( distance <= NavMeshAgent .stoppingDistance)
+                {
+                    animatorController.SetLayerWeight ( 1,1);
+                    animatorController.Play ( "Attack" );
+                }
             }
+           
+           
             
         }
 
 
         public void Move ( Vector3 move , bool crouch , bool jump )
         {
+            animatorController.SetFloat ( "Vertical" , NavMeshAgent.velocity.magnitude );
+           
             NavMeshAgent.SetDestination ( move );
+           
          
-           animatorController.SetFloat ( "Vertical" , NavMeshAgent.velocity.magnitude );
+          
         }
 
         private void OnDrawGizmos ( )
