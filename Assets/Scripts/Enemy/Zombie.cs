@@ -26,14 +26,19 @@ namespace ApocalipseZ
         // Start is called before the first frame update
         void Start ( )
         {
+           
             animatorController = GetComponent<Animator> ( );
             stats = GetComponent<EnemyStats> ( );
             NavMeshAgent = GetComponent<NavMeshAgent> ( );
+            RandomSpeed ( );
             positionSpaw = transform.position;
             NavMeshAgent.updateRotation = false;
             NavMeshAgent.updatePosition = true;
         }
-
+        public void RandomSpeed ( )
+        {
+            NavMeshAgent.speed = Random.Range ( 1,3.5f);
+        }
         private void Update ( )
         {
             if ( stats.IsPlayerDead ( ) )

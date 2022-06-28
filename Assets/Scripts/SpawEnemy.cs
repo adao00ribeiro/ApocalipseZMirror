@@ -12,7 +12,7 @@ namespace ApocalipseZ
     }
     public class SpawEnemy : NetworkBehaviour
     {
-        public SpawType SpawType;
+       public SpawType SpawType;
        public List<Vector3> LisPointSpaw = new List<Vector3>();
 
         private static SpawEnemy _instance;
