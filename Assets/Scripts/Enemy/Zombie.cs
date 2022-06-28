@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
@@ -12,17 +12,21 @@ namespace ApocalipseZ
     [RequireComponent ( typeof ( NavMeshAgent ) )]
     public class Zombie : NetworkBehaviour
     {
+        public MovimentState MovimentState;
         public float Laudiness;
-        public float MaxDistance;
+	    public float MaxDistance;
+        
+	  
+	     
         public LayerMask layer;
         public GameObject Target;
-
+	    Vector3 TargetPosition;
         Animator animatorController;
         IStats stats;
         NavMeshAgent NavMeshAgent;
        
         public Vector3 positionSpaw;
-
+   
         // Start is called before the first frame update
         void Start ( )
         {
@@ -30,17 +34,66 @@ namespace ApocalipseZ
             animatorController = GetComponent<Animator> ( );
             stats = GetComponent<EnemyStats> ( );
             NavMeshAgent = GetComponent<NavMeshAgent> ( );
-            RandomSpeed ( );
-            positionSpaw = transform.position;
-            NavMeshAgent.updateRotation = false;
-            NavMeshAgent.updatePosition = true;
+	        RandomSpeed ( );
+	        positionSpaw = transform.position;
+	        TargetPosition = positionSpaw;
+	        NavMeshAgent.updateRotation = false;
+	        NavMeshAgent.updatePosition = true;
+
+            InvokeRepeating ( "Behavior" , 10 , 10 );
+
         }
+	    public void MoveRandom()
+	    {
+	    	Vector3 position = Random.insideUnitSphere * 10;
+	    	position += positionSpaw;
+	    	TargetPosition = position;
+	    
+	    }
         public void RandomSpeed ( )
         {
-            NavMeshAgent.speed = Random.Range ( 1,3.5f);
+            if ( MovimentState == MovimentState.RANDOM )
+            {
+                System.Type tipo = typeof ( MovimentState );
+                System.Array values = System.Enum.GetValues(tipo);
+                //Array values = Enum.GetValues(type);
+                MovimentState = ( MovimentState ) values.GetValue ( Random.Range ( 0 , values.Length - 1 ) );
+            }
+
+            if ( MovimentState  == MovimentState.WALK)
+            {
+                NavMeshAgent.speed = 0.5f;
+            }else if ( MovimentState == MovimentState.RUN)
+            {
+                NavMeshAgent.speed = 2.5f;
+            }
+           
+
+        }
+	  
+	    void Patrol(Vector3 randPos)
+	    {
+		
+		    NavMeshHit hit;
+		    NavMesh.SamplePosition(randPos, out hit, Random.Range(2, 8), 1);
+		    Vector3 finalPosition = hit.position;
+            NavMeshAgent.SetDestination(finalPosition);
+		    transform.LookAt( NavMeshAgent.destination,Vector3.up);
+	    }
+	 
+	    
+	    public void Behavior ( )
+        {
+            if ( Target == null )
+            {
+                MoveRandom ( );
+                Patrol ( TargetPosition );
+            }
         }
         private void Update ( )
         {
+            print ( NavMeshAgent.velocity.magnitude);
+            Animation ( );
             if ( stats.IsPlayerDead ( ) )
             {
                 animatorController.SetLayerWeight ( 1 , 0 );
@@ -57,42 +110,40 @@ namespace ApocalipseZ
                 {
                     Target = collider[0].gameObject;
                 }
+	        	
             }
-
-
-            if ( Target == null )
+	        
+            if ( Target != null )
             {
-                Move ( positionSpaw , false , false );
-               
-            }
-            else
-            {
-                float distance = Vector3.Distance(Target.transform.position, transform.position);
-               
-                Move ( Target.transform.position , false , false );
-                transform.LookAt ( Target.transform , Vector3.up);
+                             
+                    float distance = Vector3.Distance(Target.transform.position, transform.position);
 
-                if ( distance <= NavMeshAgent .stoppingDistance)
-                {
-                    animatorController.SetLayerWeight ( 1,1);
-                    animatorController.Play ( "Attack" );
-                }
+                    TargetPosition = Target.transform.position;
+
+                    if ( distance <= NavMeshAgent.stoppingDistance )
+                    {
+                        animatorController.SetLayerWeight ( 1 , 1 );
+                        animatorController.Play ( "Attack" );
+                    }
+
+                LookAt ( );
+                NavMeshAgent.SetDestination ( TargetPosition );
+
             }
-           
-           
-            
+
         }
-
-
-        public void Move ( Vector3 move , bool crouch , bool jump )
+        public void LookAt ( )
+        {
+            Quaternion newRotation = Quaternion.LookRotation(Target.transform.position - transform.position);
+            newRotation.x = 0f;
+            newRotation.z = 0f;
+            transform.rotation = Quaternion.Slerp ( transform.rotation , newRotation , Time.deltaTime * 10 );
+        }
+        public void Animation ( )
         {
             animatorController.SetFloat ( "Vertical" , NavMeshAgent.velocity.magnitude );
-           
-            NavMeshAgent.SetDestination ( move );
-           
-         
-          
         }
+   
 
         private void OnDrawGizmos ( )
         {
