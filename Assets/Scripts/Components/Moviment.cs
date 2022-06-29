@@ -42,8 +42,21 @@ namespace ApocalipseZ
             CameraTransform = transform.Find ( "Camera & Recoil" );
             SoundStep = GetComponent<SoundStep> ( );
         }
+       
+        public void EnableCharacterController ( )
+        {
+            CharacterController.enabled = true;
+        }
+        public void DisableCharacterController ( )
+        {
+            CharacterController.enabled = false;
+        }
         public void UpdateMoviment ( )
         {
+            if (CharacterController.enabled == false)
+            {
+                return;
+            }
             Move ( );
             Jump ( );
             SoundStep.SetIsGround ( isGrounded());

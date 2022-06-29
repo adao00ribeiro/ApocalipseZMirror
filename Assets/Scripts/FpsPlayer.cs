@@ -19,7 +19,7 @@ namespace ApocalipseZ
         public GameObject PrefabCanvasFpsPlayer;
         public event System.Action<FpsPlayer> OnLocalPlayerJoined;
         CanvasFpsPlayer CanvasFpsPlayer;
-
+       
         IMoviment Moviment;
         IWeaponManager WeaponManager;
         public Container WeaponsSlots;
@@ -64,6 +64,7 @@ namespace ApocalipseZ
                         break;
                 }
             }
+          
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
             AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
@@ -118,7 +119,6 @@ namespace ApocalipseZ
         public void TargetRespaw ( NetworkConnection target )
         {
             StartCoroutine ( Respawn ( ) );
-         
         }
 
         [Command]
@@ -193,7 +193,6 @@ namespace ApocalipseZ
 
         public override void OnStopLocalPlayer ( )
         {
-
             Destroy ( CanvasFpsPlayer.gameObject );
         }
         // Update is called once per frame
@@ -206,6 +205,7 @@ namespace ApocalipseZ
             Animation ( );
             if ( PlayerStats.IsPlayerDead( ) )
             {
+                Moviment.DisableCharacterController ( );
                 FirstPersonCamera.CameraDeath ( );
                 AnimatorController.Play ("BlendDeath" );
                 AnimatorWeaponHolderController.Play ( "Unhide" );
@@ -219,11 +219,10 @@ namespace ApocalipseZ
         }
         private IEnumerator Respawn ( )
         {
-            yield return new WaitForSeconds ( 5f );
+            yield return new WaitForSeconds ( 6f );
             AnimatorController.Play ( "Walk" );
             FirstPersonCamera.CameraAlive ( );
-          
-            
+            Moviment.EnableCharacterController ( );
         }
         public void Animation ( )
         {

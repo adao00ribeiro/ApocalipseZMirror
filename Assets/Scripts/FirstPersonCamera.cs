@@ -8,6 +8,7 @@ namespace ApocalipseZ
         public Transform characterBody;
 		public Vector2 sensitivity = new Vector2(0.5f, 0.5f);
         public Vector2 smoothing = new Vector2(3, 3);
+
         private Vector2 clampInDegrees = new Vector2(360, 180);
 
         [SerializeField]private float rotationX = 0;
@@ -20,6 +21,8 @@ namespace ApocalipseZ
         [HideInInspector]
         public Vector2 targetDirection;
         Animator animator;
+
+
         private void Start ( )
         {
             animator = GetComponent<Animator> ( );
@@ -36,7 +39,7 @@ namespace ApocalipseZ
             {
                 return;
             }
-          
+
             Quaternion targetOrientation = Quaternion.Euler(targetDirection);
 
             rotationX += InputManager.Instance.GetMouseDelta ( ).x * sensitivity.x;

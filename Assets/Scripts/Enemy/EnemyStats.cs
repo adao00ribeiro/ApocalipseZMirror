@@ -32,7 +32,7 @@ namespace ApocalipseZ
             if ( health < 0 )
             {
                 health = 0;
-                SpawEnemy.Instance.Spawn ( ScriptableManager.Instance.GetPrefabEnemy ( TypeEnemy.ZOMBIE ) , 1 );
+               
             }
         }
         [Command ( requiresAuthority = false )]

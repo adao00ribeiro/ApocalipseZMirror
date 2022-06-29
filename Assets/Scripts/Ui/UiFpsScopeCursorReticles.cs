@@ -21,6 +21,8 @@ namespace ApocalipseZ
         private float scopeActivateTimer  =0.5f;
         private float normalFOV;
 
+        private float normalSensX;
+        private float normalSensY;
         // Start is called before the first frame update
         void Start ( )
         {
@@ -33,6 +35,8 @@ namespace ApocalipseZ
             reticleStatic = transform.Find ( "Reticles/StaticReticle" ).gameObject;
             scopeImage.SetActive ( false );
             normalFOV = cam.GetComponent<Camera> ( ).fieldOfView;
+            normalSensX = cam.sensitivity.x;
+            normalSensY = cam.sensitivity.y;
             if ( UseNonPhysicalReticle )
             {
                 reticleStatic.SetActive ( true );
@@ -62,16 +66,16 @@ namespace ApocalipseZ
                     cam.GetComponent<Camera> ( ).fieldOfView = weaponActive.GetScriptableWeapon ( ).scopeFOV;
                     cam.DisableWeaponCamera ( );
 
-                  //  controller.sensitivity.x = scopeSensitivityX;
-                  // controller.sensitivity.y = scopeSensitivityY;
+                    cam.sensitivity.x = weaponActive.GetScriptableWeapon().scopeSensitivityX;
+                    cam.sensitivity.y = weaponActive.GetScriptableWeapon ( ).scopeSensitivityY;
                 }
             }
             else
             {
                 cam.GetComponent<Camera>().fieldOfView = normalFOV;
                 cam.ActiveWeaponCamera ( );
-                //controller.sensitivity.x = normalSensX;
-                // controller.sensitivity.y = normalSensY;
+                cam.sensitivity.x = normalSensX;
+                cam.sensitivity.y = normalSensY;
                 scopeImage.SetActive ( false );
                 scopeActivateTimer = scopeTimer;
             }

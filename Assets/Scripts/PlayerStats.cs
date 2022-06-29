@@ -13,9 +13,15 @@ namespace ApocalipseZ
         [SyncVar(hook = nameof(SetHealth))]
         public int health;
         FpsPlayer player;
+
+        public bool Disable;
         private void SetHealth ( int oldHealth , int newHealth )
         {
             health = newHealth;
+            if ( health > 0)
+            {
+                Disable = false;
+            }
             OnAlteredStats?.Invoke ( );
         }
         private void Start ( )
@@ -25,13 +31,16 @@ namespace ApocalipseZ
         void Update ( )
         {
 
-            if ( !isLocalPlayer )
+            if ( !isLocalPlayer || Disable)
             {
                 return;
             }
+
             if ( IsPlayerDead ( ) )
             {
                 CmdPlayerDeath ( );
+                Disable = true;
+
             }
             if ( transform.position.y < -11.1 && !IsPlayerDead ( ) )
             {
@@ -78,6 +87,7 @@ namespace ApocalipseZ
         {
             yield return new WaitForSeconds ( 5f );
             transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
+           
             RestoreLife ( 200 );
         }
         [Command ( requiresAuthority = false )]

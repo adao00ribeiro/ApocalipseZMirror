@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
     public enum MovimentState
@@ -12,12 +14,10 @@ namespace ApocalipseZ
     [RequireComponent ( typeof ( NavMeshAgent ) )]
     public class Zombie : NetworkBehaviour
     {
+        public event Action OnZombieIsDead;
         public MovimentState MovimentState;
         public float Laudiness;
 	    public float MaxDistance;
-        
-	  
-	     
         public LayerMask layer;
         public GameObject Target;
 	    Vector3 TargetPosition;
@@ -69,8 +69,26 @@ namespace ApocalipseZ
            
 
         }
-	  
-	    void Patrol(Vector3 randPos)
+	    public void FightHit ( )
+        {
+            IStats stats = Target.GetComponent<IStats> ( );
+            if ( stats != null)
+            {
+                float distance = Vector3.Distance(Target.transform.position, transform.position);
+                if ( distance <= NavMeshAgent.stoppingDistance )
+                {
+                    stats.TakeDamage ( 23);
+                }
+
+                if (stats.IsPlayerDead())
+                {
+                    Target = null;
+                }
+            }
+
+        }
+
+        void Patrol(Vector3 randPos)
 	    {
 		
 		    NavMeshHit hit;
@@ -95,13 +113,13 @@ namespace ApocalipseZ
             Animation ( );
             if ( stats.IsPlayerDead ( ) )
             {
+                OnZombieIsDead?.Invoke ( );
                 animatorController.SetLayerWeight ( 1 , 0 );
                 animatorController.Play ( "Death" );
                 NavMeshAgent.speed = 0;
                 Timer.Instance.Add (()=> {
 
-                    SpawEnemy.Instance.Spawn (ScriptableManager.Instance.GetPrefabEnemy(TypeEnemy.ZOMBIE) , 1);
-                    Destroy ( gameObject );
+                    NetworkBehaviour.Destroy ( gameObject );
                     
                 },10);
                 CancelInvoke();

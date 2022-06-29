@@ -10,4 +10,7 @@ public interface IMoviment
     bool isGrounded ( );
     bool CheckIsRun ( );
     void UpdateMoviment ( );
+
+    public void EnableCharacterController ( );
+    public void DisableCharacterController ( );
 }
