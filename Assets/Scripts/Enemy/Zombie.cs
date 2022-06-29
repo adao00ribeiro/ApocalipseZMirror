@@ -39,7 +39,6 @@ namespace ApocalipseZ
 	        TargetPosition = positionSpaw;
 	        NavMeshAgent.updateRotation = false;
 	        NavMeshAgent.updatePosition = true;
-
             InvokeRepeating ( "Behavior" , 10 , 10 );
 
         }
@@ -90,16 +89,25 @@ namespace ApocalipseZ
                 Patrol ( TargetPosition );
             }
         }
-        private void Update ( )
+        private void FixedUpdate ( )
         {
-            print ( NavMeshAgent.velocity.magnitude);
+         
             Animation ( );
             if ( stats.IsPlayerDead ( ) )
             {
                 animatorController.SetLayerWeight ( 1 , 0 );
                 animatorController.Play ( "Death" );
                 NavMeshAgent.speed = 0;
+                Timer.Instance.Add (()=> {
+
+                    SpawEnemy.Instance.Spawn (ScriptableManager.Instance.GetPrefabEnemy(TypeEnemy.ZOMBIE) , 1);
+                    Destroy ( gameObject );
+                    
+                },10);
+                CancelInvoke();
+                NavMeshAgent.enabled = false;
                 this.enabled = false;
+
             }
 
             if ( Target == null )
