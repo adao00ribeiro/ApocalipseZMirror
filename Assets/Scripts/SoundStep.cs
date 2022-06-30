@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -38,7 +38,11 @@ namespace ApocalipseZ
             scriptableTextureSounds = ScriptableManager.Instance.GetScriptableTextureSounds ( );
         }
         public void PlaySound ( )
-        {
+	    {
+		    if(GetCollisionGround.CollisionObject == null)
+			    {
+		    	return;
+			    }
             if ( GetCollisionGround.CollisionObject.GetComponent<MeshRenderer>())
             {
                 PlayMeshRenderer ( GetCollisionGround.CollisionObject.GetComponent<MeshRenderer> ( ) );

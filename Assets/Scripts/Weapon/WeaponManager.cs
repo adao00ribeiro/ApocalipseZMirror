@@ -59,7 +59,8 @@ namespace ApocalipseZ
             {
                 ArmsWeapons.Add ( weapon );
             }
-            OnActiveWeapon?.Invoke ( activeSlot );
+	        OnActiveWeapon?.Invoke ( activeSlot );
+            
         }
         public void SetFpsPlayer ( FpsPlayer player )
         {
@@ -240,7 +241,8 @@ namespace ApocalipseZ
             {
                 weaponHolderAnimator.Play ( "Hide" );
                 activeSlot.gameObject.SetActive ( false );
-                activeSlot = null;
+	            activeSlot = null;
+	            OnActiveWeapon?.Invoke ( activeSlot );
             }
            
         }

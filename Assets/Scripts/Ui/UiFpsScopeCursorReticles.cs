@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,6 +54,12 @@ namespace ApocalipseZ
         {
             if ( weaponActive ==null)
             {
+            	cam.GetComponent<Camera>().fieldOfView = normalFOV;
+	            cam.ActiveWeaponCamera ( );
+	            cam.sensitivity.x = normalSensX;
+	            cam.sensitivity.y = normalSensY;
+	            scopeImage.SetActive ( false );
+	            scopeActivateTimer = scopeTimer;
                 return;
             }
             scopeActivateTimer -= Time.deltaTime;
