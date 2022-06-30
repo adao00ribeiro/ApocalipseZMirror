@@ -86,8 +86,7 @@ namespace ApocalipseZ
         private IEnumerator Respawn ( )
         {
             yield return new WaitForSeconds ( 5f );
-            transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
-           
+            
             RestoreLife ( 200 );
         }
         [Command ( requiresAuthority = false )]

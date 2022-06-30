@@ -61,7 +61,7 @@ namespace ApocalipseZ
 
             if ( MovimentState  == MovimentState.WALK)
             {
-                NavMeshAgent.speed = 0.5f;
+                NavMeshAgent.speed = 0.3f;
             }else if ( MovimentState == MovimentState.RUN)
             {
                 NavMeshAgent.speed = 2.5f;
@@ -124,11 +124,12 @@ namespace ApocalipseZ
                 },10);
                 CancelInvoke();
                 NavMeshAgent.enabled = false;
+                Target = null;
                 this.enabled = false;
-
+                return;
             }
 
-            if ( Target == null )
+            if ( Target == null && !stats.IsPlayerDead ( ) )
             {
                 Collider[] collider  = Physics.OverlapSphere ( transform.position , Laudiness , layer, QueryTriggerInteraction.Collide );
 
@@ -167,7 +168,8 @@ namespace ApocalipseZ
         }
         public void Animation ( )
         {
-            animatorController.SetFloat ( "Vertical" , NavMeshAgent.velocity.magnitude );
+         
+            animatorController.SetFloat ( "Vertical" , NavMeshAgent.velocity.magnitude ) ;
         }
    
 

@@ -118,6 +118,7 @@ namespace ApocalipseZ
         [TargetRpc]
         public void TargetRespaw ( NetworkConnection target )
         {
+            transform.position = PlayerSpawPoints.Instance.GetPointSpaw ( );
             StartCoroutine ( Respawn ( ) );
         }
 
