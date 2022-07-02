@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 7192712613449860852}
   - component: {fileID: 3021545437228286260}
   - component: {fileID: 6600050858480120038}
+  - component: {fileID: 1389708773952799080}
   m_Layer: 9
   m_Name: FpsNetwork
   m_TagString: Player
@@ -616,6 +617,7 @@ MonoBehaviour:
   syncMode: 1
   syncInterval: 0.1
   health: 100
+  Disable: 0
 --- !u!114 &507102876023551437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,6 +704,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollisionObject: {fileID: 0}
   radius: 0.5
+--- !u!114 &1389708773952799080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3867d7b0a6ed10744b4e2bc2c50195fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  assignOnStart: 1
+  findSceneCamera: 1
+  Player: {fileID: 121012257842986411}
+  PlayerCamera: {fileID: 6572554726524967647}
 --- !u!1 &176019854730966373
 GameObject:
   m_ObjectHideFlags: 0
