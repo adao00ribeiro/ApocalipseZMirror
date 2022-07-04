@@ -77,6 +77,10 @@ namespace ApocalipseZ
         {
             return playerControls.Player.Reload.triggered;
         }
+	    public bool GetLanterna( )
+	    {
+		    return playerControls.Player.Lanterna.triggered;
+	    }
         public bool GetFire ( )
         {
             if ( playerControls.Player.Fire.ReadValue<float> ( ) == 0 )

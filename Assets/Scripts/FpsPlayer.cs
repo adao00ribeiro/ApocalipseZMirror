@@ -36,7 +36,7 @@ namespace ApocalipseZ
         [SerializeField]private Animator AnimatorWeaponHolderController;
         [SerializeField] private GameObject[] mesh;
         public Transform pivohead;
-
+	    public Light Lanterna;
         [SyncVar(hook = nameof(PlayerColorChanged))]
         public Color32 playerColor = Color.white;
         // Start is called before the first frame update
@@ -214,7 +214,14 @@ namespace ApocalipseZ
             }
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
-            FirstPersonCamera.UpdateCamera ( );
+	        FirstPersonCamera.UpdateCamera ( );
+            
+	        if(InputManager.GetLanterna())
+	        {
+	        	Lanterna.enabled = !Lanterna.enabled;
+	        	
+	        }
+	        	
           //  transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );
 
         }

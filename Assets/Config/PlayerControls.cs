@@ -251,6 +251,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Lanterna"",
+                    ""type"": ""Button"",
+                    ""id"": ""b69ef1b4-c63b-4522-945d-8d7cbbb51a9c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -680,6 +689,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15f0b4ef-6a0f-44a3-bf26-6451bd16a1ba"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Lanterna"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1292,6 +1312,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Alpha8 = m_Player.FindAction("Alpha8", throwIfNotFound: true);
         m_Player_Alpha9 = m_Player.FindAction("Alpha9", throwIfNotFound: true);
         m_Player_MousePosition = m_Player.FindAction("MousePosition", throwIfNotFound: true);
+        m_Player_Lanterna = m_Player.FindAction("Lanterna", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1388,6 +1409,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Alpha8;
     private readonly InputAction m_Player_Alpha9;
     private readonly InputAction m_Player_MousePosition;
+    private readonly InputAction m_Player_Lanterna;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -1417,6 +1439,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Alpha8 => m_Wrapper.m_Player_Alpha8;
         public InputAction @Alpha9 => m_Wrapper.m_Player_Alpha9;
         public InputAction @MousePosition => m_Wrapper.m_Player_MousePosition;
+        public InputAction @Lanterna => m_Wrapper.m_Player_Lanterna;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1501,6 +1524,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePosition.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
                 @MousePosition.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMousePosition;
+                @Lanterna.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanterna;
+                @Lanterna.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanterna;
+                @Lanterna.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanterna;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1580,6 +1606,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @MousePosition.started += instance.OnMousePosition;
                 @MousePosition.performed += instance.OnMousePosition;
                 @MousePosition.canceled += instance.OnMousePosition;
+                @Lanterna.started += instance.OnLanterna;
+                @Lanterna.performed += instance.OnLanterna;
+                @Lanterna.canceled += instance.OnLanterna;
             }
         }
     }
@@ -1761,6 +1790,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAlpha8(InputAction.CallbackContext context);
         void OnAlpha9(InputAction.CallbackContext context);
         void OnMousePosition(InputAction.CallbackContext context);
+        void OnLanterna(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
