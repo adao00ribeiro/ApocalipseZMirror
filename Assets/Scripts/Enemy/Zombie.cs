@@ -21,121 +21,130 @@ namespace ApocalipseZ
 
         float CurrentSpeed;
         public LayerMask layer;
-        public GameObject Target;
         public Vector3 TargetPosition;
         public Vector3 positionSpaw;
 
-        Animator animatorController;
+
         IStats stats;
-        NavMeshAgent NavMeshAgent;
         NavMeshPath path;
-        
+
 
         [Header("INFORMACAO")]
-        float distance;
+
         public float TimerResetPatrol;
+        IEnumerator distUpdateCo = null;
+
+        //outro
+
+        private Animator animator;
+
+        //private AudioSource audioSource;
+
+        public GameObject Target;// test
+        public float Damage = 100.0f;// test
+
+        [SerializeField] private bool isAttacking = false;
+        [SerializeField] private float maxSeeDistance = 20f;
+
+        [SerializeField] private bool isInLateUpdate;
+        [SerializeField] private bool haveToUpdate = true;
+        private NavMeshAgent agent;
+        //private EnemyUnit agent; TODO It doesnt work with astar yet, so I need to fix it for the summative assignment
+        [SerializeField] private AudioClip attackSound;
+        [SerializeField] private AudioClip diengSound;
+
+        [SerializeField] private float normalSpeed = 0.2f;
+        [SerializeField] private float runSpeed = 2.5f;
+        //[SerializeField] private float currentSpeed;
+        [SerializeField] private GameObject noChaseObj;
+        [SerializeField] private Vector3 notChaseTarget;
+        [SerializeField]private float distance;
+
         // Start is called before the first frame update
         void Start ( )
         {
             TimerResetPatrol = 9;
-            path = new NavMeshPath();
-            animatorController = GetComponent<Animator> ( );
+            path = new NavMeshPath ( );
+            animator = GetComponent<Animator> ( );
             stats = GetComponent<EnemyStats> ( );
-            NavMeshAgent = GetComponent<NavMeshAgent> ( );
-            RandomSpeed ( );
+            agent = GetComponent<NavMeshAgent> ( );
             positionSpaw = transform.position;
-
+            RandomMovimentState ( );
+            agent.angularSpeed = 999;
+            agent.speed = CurrentSpeed;
         }
+        [Server]
         private void FixedUpdate ( )
         {
             if ( stats.IsPlayerDead ( ) )
             {
                 OnZombieIsDead?.Invoke ( );
-                animatorController.SetLayerWeight ( 1 , 0 );
-                animatorController.Play ( "Death" );
-                NavMeshAgent.speed = 0;
+                animator.SetLayerWeight ( 1 , 0 );
+                animator.Play ( "Death" );
+                agent.speed = 0;
                 Timer.Instance.Add ( ( ) =>
                 {
 
                     NetworkBehaviour.Destroy ( gameObject );
 
                 } , 10 );
-                CancelInvoke ( );
-                NavMeshAgent.enabled = false;
+                agent.enabled = false;
                 Target = null;
                 this.enabled = false;
                 return;
             }
-            Animation ( );
-            
+            Detection ( );
 
-            if ( Target == null && !stats.IsPlayerDead ( ) )
+            float distanceToPlayer = GetActualDistanceFromTarget();
+            distance = distanceToPlayer;
+            agent.CalculatePath ( TargetPosition , path );
+
+            if ( !isAttacking)
             {
-                Collider[] collider  = Physics.OverlapSphere ( transform.position , Laudiness , layer, QueryTriggerInteraction.Collide );
-
-                if ( collider.Length > 0 )
+                if (  distance > 2 )
                 {
-                    Target = collider[0].gameObject;
+                    agent.speed = CurrentSpeed;
                 }
-                TimerResetPatrol += Time.fixedDeltaTime;
-
-                if (TimerResetPatrol >= 10 )
+                 else
                 {
-                    Patrol ( positionSpaw + PositionRandom());
-                    TimerResetPatrol = 0;
+                    agent.speed = 0;
                 }
-                NavMeshAgent.speed = CurrentSpeed;
-                NavMeshAgent.SetDestination ( TargetPosition );
-            }
-           
-            if ( Target != null  )
-            {
-             
-                distance = GetDistanceFrom( Target.transform.position , transform.position );
-                
-                NavMeshAgent.CalculatePath ( Target.transform.position , path );
-                // Only walk if we can get all the way there
                 if ( path.status == NavMeshPathStatus.PathComplete )
                 {
-                   
-                    if ( distance <= NavMeshAgent.stoppingDistance )
+                    if ( Target != null && distanceToPlayer <= 2.0f )
                     {
-                        // Calculate direction is toward player
-                        Vector3 direction = Target.transform.position - this.transform.position;
-                        float angle = Vector3.Angle(direction, this.transform.forward);
-
-                        if ( angle <= 60f )
-                        {
-                            animatorController.SetLayerWeight ( 1 , 1 );
-                            animatorController.Play ( "Attack" );
-                        }
+                        Attack ( );
                     }
-                    LookAt ( Target.transform.position );
+                   
                 }
-                else
+                if ( Target != null )
                 {
-                    Target = null;
+                    if ( Target.GetComponent<IStats> ( ).IsPlayerDead ( ) )
+                    {
+                        Target = null;
+                    }
                 }
-                NavMeshAgent.speed = CurrentSpeed ;
-                NavMeshAgent.SetDestination ( Target.transform.position );
-                if ( Math.Abs ( NavMeshAgent.velocity.x + NavMeshAgent.velocity.y + NavMeshAgent.velocity.z ) < .05 )
-                {
-                    NavMeshAgent.speed = 0f;
-
-                }
+               
+                MoveToTarget ( );
             }
+           
+            Animation ( );
+        }
+        public void FightHit ( )
+        {
+            float distanceFromTarget = GetActualDistanceFromTarget();
 
+            // Calculate direction is toward player
+            Vector3 direction = Target.transform.position - this.transform.position;
+            float angle = Vector3.Angle(direction, this.transform.forward);
+
+            if (  distanceFromTarget <= 5.0f && angle <= 60f )
+             {
+                Target.GetComponent<IStats> ( ).TakeDamage ( ( int ) Damage );
+            }
+           
         }
-        float GetDistanceFrom ( Vector3 src , Vector3 dist )
-        {
-            return Vector3.Distance ( src , dist );
-        }
-        public Vector3 PositionRandom ( )
-        {
-            return Random.insideUnitSphere * 10;
-        
-        }
-        public void RandomSpeed ( )
+        public void RandomMovimentState ( )
         {
             if ( MovimentState == MovimentState.RANDOM )
             {
@@ -147,7 +156,7 @@ namespace ApocalipseZ
 
             if ( MovimentState == MovimentState.WALK )
             {
-               CurrentSpeed = 0.3f;
+                CurrentSpeed = 0.2f;
             }
             else if ( MovimentState == MovimentState.RUN )
             {
@@ -156,55 +165,95 @@ namespace ApocalipseZ
 
 
         }
-        public void FightHit ( )
+        private void MoveToTarget ( )
         {
-            IStats stats = Target.GetComponent<IStats> ( );
-            if ( stats != null )
-            {
-                float distance = Vector3.Distance(Target.transform.position, transform.position);
-                if ( distance <= NavMeshAgent.stoppingDistance )
-                {
-                    stats.TakeDamage ( 23 );
-                }
-
-                if ( stats.IsPlayerDead ( ) )
-                {
-                    Target = null;
-                }
-            }
-
+            agent.SetDestination ( TargetPosition );
+         
         }
-
-        void Patrol ( Vector3 randPos )
-        {
-            NavMeshHit hit;
-            NavMesh.SamplePosition ( randPos , out hit , Random.Range(5,15) , NavMesh.AllAreas );
-            TargetPosition = hit.position;
-          
-        }
-
-        public void LookAt (Vector3 Target )
-        {
-            Quaternion newRotation = Quaternion.LookRotation(Target - transform.position);
-            newRotation.x = 0f;
-            newRotation.z = 0f;
-            transform.rotation = Quaternion.Slerp ( transform.rotation , newRotation , Time.deltaTime * 10 );
-        }
-
         public void Animation ( )
         {
-            animatorController.SetFloat ( "Vertical" , NavMeshAgent.speed );
+            animator.SetBool ( "Walk" , agent.speed == 0.2f);
+            animator.SetBool ( "Run" , agent.speed == 2.5f);
         }
-        public void SetTarget (GameObject _target )
+        public void Detection ( )
         {
-            Target = _target;
-        }
-        private void OnDrawGizmos ( )
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine ( transform.position , transform.position + transform.forward * MaxDistance );
-            Gizmos.DrawWireSphere ( transform.position + transform.forward * MaxDistance , Laudiness );
-        }
-    }
+            if ( Target == null && !stats.IsPlayerDead ( ) )
+            {
+                Collider[] collider  = Physics.OverlapSphere ( transform.position , Laudiness , layer, QueryTriggerInteraction.Collide );
 
+                if ( collider.Length > 0 )
+                {
+                    Target = collider[0].gameObject;
+                }
+                TimerResetPatrol += Time.fixedDeltaTime;
+
+                if ( TimerResetPatrol >= 10 )
+                {
+                    TargetPosition = positionSpaw + Random.insideUnitSphere * 5;
+                    TargetPosition.y = 0;
+                    TimerResetPatrol = 0;
+                }
+            }
+            else
+            {
+                TargetPosition = Target.transform.position;
+            }
+        }
+        private void Attack ( )
+        {
+            // Calculate actual distance from target
+            float distanceFromTarget = GetActualDistanceFromTarget();
+
+            // Calculate direction is toward player
+            Vector3 direction = Target.transform.position - this.transform.position;
+            float angle = Vector3.Angle(direction, this.transform.forward);
+
+            if ( !isAttacking && distanceFromTarget <= 5.0f && angle <= 60f )
+            {
+                isAttacking = true;
+                agent.speed = 0;
+            
+                animator.SetLayerWeight ( 1 , 1 );
+                //audioSource.PlayOneShot(attackSound);
+                animator.Play ( "Attack" );
+                
+                new WaitForSeconds ( 0.5f );
+                StartCoroutine ( ResetAttacking ( ) );
+            }
+        }
+
+        IEnumerator LateDistanceUpdate ( float duration )
+        {
+            isInLateUpdate = true;
+            agent.destination = Target.transform.position;
+            yield return new WaitForSeconds ( duration );
+            isInLateUpdate = false;
+            distUpdateCo = null;
+            yield break;
+        }
+
+        float GetActualDistanceFromTarget ( )
+        {
+            return GetDistanceFrom ( TargetPosition , this.transform.position );
+        }
+
+        float GetDistanceFrom ( Vector3 src , Vector3 dist )
+        {
+            return Vector3.Distance ( src , dist );
+        }
+
+        IEnumerator ResetAttacking ( )
+        {
+            yield return new WaitForSeconds ( 2.4f );
+
+            isAttacking = false;
+
+            if ( !stats.IsPlayerDead ( ) )
+            {
+                agent.speed = CurrentSpeed;
+            }
+            yield break;
+        }
+     
+    }
 }

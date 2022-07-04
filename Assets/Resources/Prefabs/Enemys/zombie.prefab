@@ -188,13 +188,27 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   MovimentState: 2
-  Laudiness: 3.92
-  MaxDistance: 0
+  Laudiness: 4
+  MaxDistance: 1.18
   layer:
     serializedVersion: 2
     m_Bits: 512
-  Target: {fileID: 0}
+  TargetPosition: {x: 0, y: 0, z: 0}
   positionSpaw: {x: 0, y: 0, z: 0}
+  TimerResetPatrol: 9
+  Target: {fileID: 0}
+  Damage: 50
+  isAttacking: 0
+  maxSeeDistance: 20
+  isInLateUpdate: 0
+  haveToUpdate: 1
+  attackSound: {fileID: 0}
+  diengSound: {fileID: 0}
+  normalSpeed: 0.2
+  runSpeed: 2.5
+  noChaseObj: {fileID: 0}
+  notChaseTarget: {x: 0, y: 0, z: 0}
+  distance: 0
 --- !u!114 &2503183505895134471
 MonoBehaviour:
   m_ObjectHideFlags: 0
