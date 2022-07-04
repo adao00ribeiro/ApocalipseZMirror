@@ -51,9 +51,9 @@ namespace ApocalipseZ
         void Start ( )
         {
 
-            swayTransform = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder/Sway" ).transform;
+            swayTransform = transform.Find ( "Camera & Recoil/Weapon holder/Sway" ).transform;
 
-            weaponHolderAnimator = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
+            weaponHolderAnimator = transform.Find ( "Camera & Recoil/Weapon holder" ).GetComponent<Animator> ( );
 
             foreach ( Weapon weapon in swayTransform.GetComponentsInChildren<Weapon> ( true ) )
             {

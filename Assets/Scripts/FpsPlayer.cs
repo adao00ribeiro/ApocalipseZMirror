@@ -67,7 +67,7 @@ namespace ApocalipseZ
           
             InteractObjects = transform.Find ( "Camera & Recoil" ).GetComponent<InteractObjects> ( );
             AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
-            AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );
+            AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/Weapon holder" ).GetComponent<Animator> ( );
             PlayerStats = GetComponent<PlayerStats> ( );
             FirstPersonCamera = transform.Find ( "Camera & Recoil" ).GetComponent<FirstPersonCamera> ( );
         }

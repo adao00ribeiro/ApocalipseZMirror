@@ -17,7 +17,7 @@ namespace ApocalipseZ
         [SerializeField]private float angleYmax = 90;
 
         bool lockCursor;
-        public Camera WeaponCamera;
+       
         [HideInInspector]
         public Vector2 targetDirection;
         Animator animator;
@@ -55,15 +55,6 @@ namespace ApocalipseZ
         public void RemoveAudioListener ( )
         {
             Destroy ( GetComponent<AudioListener>());
-        }
-
-        public void ActiveWeaponCamera ( )
-        {
-            WeaponCamera.enabled = true;
-        }
-        public void DisableWeaponCamera ( )
-        {
-            WeaponCamera.enabled = false;
         }
 
         public void CameraDeath ( )

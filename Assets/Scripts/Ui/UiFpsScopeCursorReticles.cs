@@ -55,7 +55,6 @@ namespace ApocalipseZ
             if ( weaponActive ==null)
             {
             	cam.GetComponent<Camera>().fieldOfView = normalFOV;
-	            cam.ActiveWeaponCamera ( );
 	            cam.sensitivity.x = normalSensX;
 	            cam.sensitivity.y = normalSensY;
 	            scopeImage.SetActive ( false );
@@ -70,7 +69,7 @@ namespace ApocalipseZ
                 {
                     scopeImage.SetActive ( true );
                     cam.GetComponent<Camera> ( ).fieldOfView = weaponActive.GetScriptableWeapon ( ).scopeFOV;
-                    cam.DisableWeaponCamera ( );
+               
 
                     cam.sensitivity.x = weaponActive.GetScriptableWeapon().scopeSensitivityX;
                     cam.sensitivity.y = weaponActive.GetScriptableWeapon ( ).scopeSensitivityY;
@@ -79,7 +78,7 @@ namespace ApocalipseZ
             else
             {
                 cam.GetComponent<Camera>().fieldOfView = normalFOV;
-                cam.ActiveWeaponCamera ( );
+               
                 cam.sensitivity.x = normalSensX;
                 cam.sensitivity.y = normalSensY;
                 scopeImage.SetActive ( false );
