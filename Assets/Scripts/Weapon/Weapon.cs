@@ -97,6 +97,7 @@ namespace ApocalipseZ
                         currentAmmo -= 1;
 
                         PlayFX ( );
+                        muzzleFlashTransform.LookAt ( Camera.main.transform.position + Camera.main.transform.forward * 3000 );
                         player.CmdSpawBullet ( new SpawBulletTransform ( weaponSetting.projectile.name ,muzzleFlashTransform.position , muzzleFlashTransform.rotation ) , player.GetConnection ( ) );
                         //Getting random damage from minimum and maximum damage.
                         //calculatedDamage = Random.Range ( damageMin , damageMax );

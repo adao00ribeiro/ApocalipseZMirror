@@ -65,5 +65,11 @@ namespace ApocalipseZ
         {
             animator.Play ( "CameraAlive" );
         }
+
+        private void OnDrawGizmos ( )
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine (transform.position , transform.position + transform.forward * 1000 );
+        }
     }
 }

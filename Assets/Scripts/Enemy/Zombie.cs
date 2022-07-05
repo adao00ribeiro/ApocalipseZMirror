@@ -142,7 +142,7 @@ namespace ApocalipseZ
              {
                 Target.GetComponent<IStats> ( ).TakeDamage ( ( int ) Damage );
             }
-           
+          
         }
         public void RandomMovimentState ( )
         {
@@ -189,8 +189,8 @@ namespace ApocalipseZ
 
                 if ( TimerResetPatrol >= 10 )
                 {
-                    TargetPosition = positionSpaw + Random.insideUnitSphere * 5;
-                    TargetPosition.y = 0;
+                    TargetPosition = RandomNavmeshLocation ( 5);
+                    TargetPosition.y = transform.position.y;
                     TimerResetPatrol = 0;
                 }
             }
@@ -198,6 +198,22 @@ namespace ApocalipseZ
             {
                 TargetPosition = Target.transform.position;
             }
+        }
+        public Vector3 RandomNavmeshLocation ( float radius )
+        {
+            Vector3 randomDirection = Random.insideUnitSphere * radius;
+            randomDirection += positionSpaw;
+            NavMeshHit hit;
+            Vector3 finalPosition = Vector3.zero;
+            if ( NavMesh.SamplePosition ( randomDirection , out hit , radius , 1 ) )
+            {
+                finalPosition = hit.position;
+            }
+            else
+            {
+                finalPosition = positionSpaw;
+            }
+            return finalPosition;
         }
         private void Attack ( )
         {
