@@ -176,8 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5834503735446302395}
   - component: {fileID: 5834503735446302392}
-  - component: {fileID: 5834503735446302393}
   - component: {fileID: 5834503735446302394}
+  - component: {fileID: 7111569982277990227}
+  - component: {fileID: 6458970479558398381}
+  - component: {fileID: 7105437621321899965}
   m_Layer: 0
   m_Name: AK
   m_TagString: Untagged
@@ -213,25 +215,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &5834503735446302393
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5834503735446302396}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.07540039, y: 0.23205566, z: 0.89941406}
-  m_Center: {x: 0.0022998042, y: 0.010253906, z: 0.0021972656}
+  m_CollisionDetection: 1
 --- !u!114 &5834503735446302394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,8 +233,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f318b7455b76ec4faf3d71a825cec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   scriptableitem: {fileID: 11400000, guid: ff6987749863ba14f8f4e7b69b192f58, type: 2}
   dropQuantity: 1
+  IsServerSpaw: 0
+--- !u!114 &7111569982277990227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834503735446302396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: b6b322d3cfec0044098358674715e1af
+  hasSpawned: 0
+--- !u!114 &6458970479558398381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834503735446302396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!135 &7105437621321899965
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834503735446302396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0, z: 0.1}
 --- !u!1 &5834503737000979412
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +313,7 @@ GameObject:
   - component: {fileID: 5834503737000979411}
   - component: {fileID: 5834503737000979409}
   - component: {fileID: 5834503737000979410}
+  - component: {fileID: 1454118787}
   m_Layer: 0
   m_Name: Object21256
   m_TagString: Untagged
@@ -329,3 +386,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1454118787
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5834503737000979412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1398889246720975440, guid: 93cfe475be94d0e4dbe3bed132849ada, type: 3}

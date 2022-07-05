@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2502674061504812262}
   - component: {fileID: 2502674061504812261}
-  - component: {fileID: 2502674061504812260}
   - component: {fileID: 2502674061504812187}
+  - component: {fileID: 3462953039836729689}
+  - component: {fileID: 4271956329678904423}
+  - component: {fileID: 7069430086127568321}
   m_Layer: 0
   m_Name: SHOTGUN
   m_TagString: Untagged
@@ -46,25 +48,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &2502674061504812260
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2502674061504812186}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06274414, y: 0.20257568, z: 0.9211426}
-  m_Center: {x: -0.28881836, y: 0.11630249, z: -0.013183594}
+  m_CollisionDetection: 1
 --- !u!114 &2502674061504812187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,8 +66,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f318b7455b76ec4faf3d71a825cec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   scriptableitem: {fileID: 11400000, guid: c2152003321979f48b0648976870a7ad, type: 2}
   dropQuantity: 1
+  IsServerSpaw: 0
+--- !u!114 &3462953039836729689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502674061504812186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 971dd778ebff1d84eb34bdc7e81a11dd
+  hasSpawned: 0
+--- !u!114 &4271956329678904423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502674061504812186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  sendInterval: 0.05
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 0
+  bufferTimeMultiplier: 1
+  bufferSizeLimit: 64
+  catchupThreshold: 4
+  catchupMultiplier: 0.1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!135 &7069430086127568321
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502674061504812186}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: -0.29, y: 0.15, z: 0}
 --- !u!1 &2502674061767178835
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +146,7 @@ GameObject:
   - component: {fileID: 2502674061767178844}
   - component: {fileID: 2502674061767178846}
   - component: {fileID: 2502674061767178845}
+  - component: {fileID: 4474500009571245775}
   m_Layer: 0
   m_Name: Shotgun_final_Cylinder.006
   m_TagString: Untagged
@@ -162,6 +219,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4474500009571245775
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502674061767178835}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3928723526460809292, guid: 8a83753c1142faa4f9588583d8315acc, type: 3}
 --- !u!1 &2502674062316277118
 GameObject:
   m_ObjectHideFlags: 0

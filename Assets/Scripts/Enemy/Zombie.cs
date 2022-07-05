@@ -24,16 +24,11 @@ namespace ApocalipseZ
         public Vector3 TargetPosition;
         public Vector3 positionSpaw;
 
-
         IStats stats;
         NavMeshPath path;
-
-
         [Header("INFORMACAO")]
-
         public float TimerResetPatrol;
         IEnumerator distUpdateCo = null;
-
         //outro
 
         private Animator animator;
@@ -59,10 +54,11 @@ namespace ApocalipseZ
         [SerializeField] private GameObject noChaseObj;
         [SerializeField] private Vector3 notChaseTarget;
         [SerializeField]private float distance;
-
+        [SerializeField]private float DistanceSpaw = 10;
         // Start is called before the first frame update
         void Start ( )
         {
+            DistanceSpaw = 10;
             TimerResetPatrol = 9;
             path = new NavMeshPath ( );
             animator = GetComponent<Animator> ( );
@@ -93,8 +89,13 @@ namespace ApocalipseZ
                 this.enabled = false;
                 return;
             }
-            Detection ( );
+               
 
+            if ( Target != null &&  GetActualDistanceFromSpaw () > DistanceSpaw)
+            {
+                Target = null;
+            }
+            Detection ( );
             float distanceToPlayer = GetActualDistanceFromTarget();
             distance = distanceToPlayer;
             agent.CalculatePath ( TargetPosition , path );
@@ -111,7 +112,7 @@ namespace ApocalipseZ
                 }
                 if ( path.status == NavMeshPathStatus.PathComplete )
                 {
-                    if ( Target != null && distanceToPlayer <= 2.0f )
+                    if ( Target != null && distanceToPlayer <= agent.stoppingDistance )
                     {
                         Attack ( );
                     }
@@ -248,11 +249,14 @@ namespace ApocalipseZ
             yield break;
         }
 
-        float GetActualDistanceFromTarget ( )
+        float GetActualDistanceFromTarget (  )
         {
             return GetDistanceFrom ( TargetPosition , this.transform.position );
         }
-
+        float GetActualDistanceFromSpaw ( )
+        {
+            return GetDistanceFrom ( positionSpaw , this.transform.position );
+        }
         float GetDistanceFrom ( Vector3 src , Vector3 dist )
         {
             return Vector3.Distance ( src , dist );

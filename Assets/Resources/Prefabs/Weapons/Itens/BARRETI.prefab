@@ -176,10 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 221173368710141017}
   - component: {fileID: 221173368710141016}
-  - component: {fileID: 221173368710141019}
   - component: {fileID: 221173368710141018}
   - component: {fileID: 5614309691544788667}
   - component: {fileID: 5652223477841689287}
+  - component: {fileID: 8551147871405540597}
   m_Layer: 0
   m_Name: BARRETI
   m_TagString: Untagged
@@ -215,25 +215,12 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &221173368710141019
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221173368710141021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.06933594, y: 0.23352051, z: 0.829834}
-  m_Center: {x: 0.05883789, y: 0.010681152, z: 0.0040283203}
+  m_CollisionDetection: 1
 --- !u!114 &221173368710141018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +237,7 @@ MonoBehaviour:
   syncInterval: 0.1
   scriptableitem: {fileID: 11400000, guid: 793e1d3109a0ce44195996ee41fe372d, type: 2}
   dropQuantity: 1
+  IsServerSpaw: 0
 --- !u!114 &5614309691544788667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +289,19 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!135 &8551147871405540597
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221173368710141021}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Center: {x: 0.05, y: 0, z: 0.05}
 --- !u!1 &221173369411793608
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ GameObject:
   - component: {fileID: 221173369411793609}
   - component: {fileID: 221173369411793607}
   - component: {fileID: 221173369411793606}
+  - component: {fileID: 4290126123450495273}
   m_Layer: 0
   m_Name: M82A1_
   m_TagString: Untagged
@@ -385,3 +387,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4290126123450495273
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221173369411793608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5581774496011204090, guid: 6134906be4a768e439bb1783747646f6, type: 3}
