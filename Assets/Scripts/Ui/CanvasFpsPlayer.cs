@@ -63,6 +63,15 @@ namespace ApocalipseZ {
                 UiFastItems.gameObject.SetActive ( IsInventoryOpen );
                 ActiveMotionBlur ( IsInventoryOpen );
             }
+            if ( InputManager.GetEsc ( ) )
+            {
+                IsInventoryOpen =false;
+                WeaponManager.IsChekInventory = true;
+                UiPrimaryAndSecondWeapons.gameObject.SetActive ( IsInventoryOpen );
+                UiInventory.gameObject.SetActive ( IsInventoryOpen );
+                UiFastItems.gameObject.SetActive ( IsInventoryOpen );
+                ActiveMotionBlur ( IsInventoryOpen );
+            }
         }
 
         public void ActiveMotionBlur (bool active )

@@ -11,4 +11,6 @@ public interface IStats
   
     [Command ( requiresAuthority = false )]
     public void CmdTakeDamage ( int damage , NetworkConnectionToClient sender = null );
+
+    float GetDamage ( );
 }

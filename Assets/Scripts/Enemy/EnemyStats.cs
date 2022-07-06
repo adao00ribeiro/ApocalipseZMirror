@@ -7,8 +7,8 @@ namespace ApocalipseZ
 {
     public class EnemyStats : NetworkBehaviour, IStats
     {
-        public int Damage;
-        public int health;
+          [SerializeField]private int Damage;
+        [SerializeField]private int health;
 
         public bool IsPlayerDead ( )
         {
@@ -28,7 +28,7 @@ namespace ApocalipseZ
         public void TakeDamage ( int damage )
         {
             health -= damage;
-            print ( "take enemy" );
+            GetComponent<EnemyDetection> ( ).SetIsProvoked (true);
             if ( health < 0 )
             {
                 health = 0;
@@ -39,6 +39,11 @@ namespace ApocalipseZ
         public void CmdTakeDamage ( int damage , NetworkConnectionToClient sender = null )
         {
             TakeDamage ( damage );
+        }
+
+        public float GetDamage ( )
+        {
+            return Damage;
         }
     }
 }

@@ -52,6 +52,10 @@ namespace ApocalipseZ
         {
             return playerControls.Player.Inventory.triggered;
         }
+        public bool GetEsc ( )
+        {
+            return playerControls.Player.Esc.triggered;
+        }
         public bool GetRun ( )
         {
 

@@ -147,6 +147,11 @@ GameObject:
   - component: {fileID: 2503183505322669481}
   - component: {fileID: 377539296397263260}
   - component: {fileID: 6910701550002113638}
+  - component: {fileID: 6329971669662535130}
+  - component: {fileID: 2612520530127906732}
+  - component: {fileID: 114509739304436119}
+  - component: {fileID: 3327457586849887029}
+  - component: {fileID: 5609012387896702326}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Flesh
@@ -187,28 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  MovimentState: 2
-  Laudiness: 4
-  MaxDistance: 1.18
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
-  TargetPosition: {x: 0, y: 0, z: 0}
-  positionSpaw: {x: 0, y: 0, z: 0}
-  TimerResetPatrol: 9
+  Type: 0
   Target: {fileID: 0}
-  Damage: 50
-  isAttacking: 0
-  maxSeeDistance: 20
-  isInLateUpdate: 0
-  haveToUpdate: 1
-  attackSound: {fileID: 0}
-  diengSound: {fileID: 0}
-  normalSpeed: 0.2
-  runSpeed: 2.5
-  noChaseObj: {fileID: 0}
-  notChaseTarget: {x: 0, y: 0, z: 0}
-  distance: 0
+  TargetPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2503183505895134471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  Damage: 0
+  Damage: 23
   health: 100
 --- !u!136 &2503183505322669480
 CapsuleCollider:
@@ -348,6 +334,83 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 0
   animator: {fileID: 2503183505329946817}
+--- !u!114 &6329971669662535130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb148df65a2c6344ba7f500cea209de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpeedWalk: 0.2
+  SpeedRun: 3
+  CurrentSpeed: 0
+--- !u!114 &2612520530127906732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce003b05eb7422b458271b86588f64c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinLaudiness: 5
+  MaxLaudiness: 20
+  Laudiness: 5
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
+  isProvoked: 0
+--- !u!114 &114509739304436119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8060d31409cd3a4bb1c5e3a2c41adb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 3
+  positionSpaw: {x: 0, y: 0, z: 0}
+  TimerResetPatrol: 0
+  DistanceSpaw: 20
+--- !u!114 &3327457586849887029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eead42968b8d99d4bbc2a61a257359b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsAttacking: 0
+  Target: {fileID: 0}
+  stoppingDistance: 0
+--- !u!114 &5609012387896702326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42634f7380f43e043bf7acceb2ede071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2503183505322570401
 GameObject:
   m_ObjectHideFlags: 0

@@ -99,6 +99,9 @@ namespace ApocalipseZ
             sender.identity.GetComponent<FpsPlayer> ( ).TargetRespaw ( opponentIdentity.connectionToClient );
         }
 
-
+        public float GetDamage ( )
+        {
+            throw new NotImplementedException ( );
+        }
     }
 }
