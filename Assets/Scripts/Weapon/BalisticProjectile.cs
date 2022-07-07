@@ -16,6 +16,7 @@ namespace ApocalipseZ
         [Tooltip("Maximal and minimal damage ammounts to apply on target")]
         public int damageMinimum;
         public int damageMaximum;
+       
         private void OnEnable ( )
         {
             GetComponent<Rigidbody> ( ).AddForce ( transform.forward * initialVelocity );
@@ -29,8 +30,12 @@ namespace ApocalipseZ
             time += Time.deltaTime;
 
             RaycastHit hit;
-            if ( Physics.Linecast ( lastPosition , transform.position , out hit ) )
+            if ( Physics.Linecast ( lastPosition , transform.position , out hit  ) )
             {
+               if( hit.collider.CompareTag ( "HUD" ) )
+                {
+                    return;
+                }
                 HitFXManager.Instance.ApplyFX ( hit );
 
                 IStats stat = hit.collider.GetComponent<IStats>();

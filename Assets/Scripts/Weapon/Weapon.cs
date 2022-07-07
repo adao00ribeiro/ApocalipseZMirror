@@ -150,8 +150,11 @@ namespace ApocalipseZ
         }
         public void ReloadBegin ( )
         {
-           
-            if ( false )
+            if ( reloading )
+            {
+                return;
+            }
+            if ( CalculateTotalAmmo ( ) > 0 )
             {
                 setAim = false;
                 reloading = true;
@@ -170,12 +173,73 @@ namespace ApocalipseZ
             else
                 return;
         }
+        public int CalculateTotalAmmo ( )
+        {
+            int totalAmmo = new int();
+            totalAmmo = 30;
+          // foreach ( var item in inventory.characterItems )
+          // {
+          //     if ( item.id == ammoItemID )
+          //     {
+          //         totalAmmo += item.ammo;
+          //     }
+          // }
 
+            return totalAmmo;
+        }
         void ReloadEnd ( )
         {
+            /*
+            var ammoItems = GetAmmoItems();
+
+            var index = 0;
+
+            var neededAmmo = maxAmmo - currentAmmo;
+
+            if ( ammoItems[index].ammo >= neededAmmo )
+            {
+                ammoItems[index].ammo -= neededAmmo;
+                currentAmmo += neededAmmo;
+
+                if ( ammoItems[index].ammo == 0 )
+                    //inventory.RemoveItem ( ammoItems[index] , true );
+            }
+            else if ( ammoItems[index].ammo < neededAmmo )
+            {
+                currentAmmo += ammoItems[index].ammo;
+                neededAmmo -= ammoItems[index].ammo;
+                ammoItems[index].ammo = 0;
+
+                if ( ammoItems[index].ammo == 0 )
+                 //   inventory.RemoveItem ( ammoItems[index] , true );
+
+                ++index;
+
+                try
+                {
+                    ammoItems[index].ammo -= neededAmmo;
+                    currentAmmo += neededAmmo;
+
+                    if ( ammoItems[index].ammo == 0 )
+                        inventory.RemoveItem ( ammoItems[index] , true );
+                }
+                catch
+                {
+                    //Do nothing. If ammo not enough, construction may drop exception. We catch exception there in this case and do nothing. Because construction works OK
+                }
+            }
+            */
+
+            reloading = false;
+            canShot = true;
+
+            if ( setAim && useAnimator )
+            {
+                Animator.SetBool ( "Aim" , true );
+            }
 
         }
-    
+
         public void Aim ( bool isAim)
         {
             setAim = isAim;

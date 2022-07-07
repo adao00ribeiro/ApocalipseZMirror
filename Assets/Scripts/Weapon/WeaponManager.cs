@@ -106,7 +106,6 @@ namespace ApocalipseZ
 
             if ( InputManager.GetReload ( ) )
             {
-
                 activeSlot.ReloadBegin ( );
                 OnActiveWeapon?.Invoke ( activeSlot );
 

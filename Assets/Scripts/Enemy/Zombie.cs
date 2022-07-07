@@ -55,6 +55,8 @@ namespace ApocalipseZ
             if ( stats.IsPlayerDead ( ) )
             {
                 OnZombieIsDead?.Invoke ( );
+                Type = EnemyMovimentType.DIE;
+                EnemyAnimation.Animation ( Type );
                 agent.speed = 0;
                 Timer.Instance.Add ( ( ) =>
                 {
@@ -63,10 +65,12 @@ namespace ApocalipseZ
                 agent.enabled = false;
                 Target = null;
                 this.enabled = false;
+                return;
             }
             if ( Target != null && EnemyPatrol.ItsFarFrinSpawPoint ( ) )
             {
                 Target = null;
+                EnemyPatrol.TimerResetPatrol = 20;
             }
 
             if ( Target == null && !stats.IsPlayerDead ( ) )
