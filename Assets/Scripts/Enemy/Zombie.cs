@@ -8,122 +8,101 @@ using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
     [RequireComponent ( typeof ( NavMeshAgent ) )]
-    [RequireComponent ( typeof ( EnemyMove ) )]
-    [RequireComponent ( typeof ( EnemyDetection ) )]
-    [RequireComponent ( typeof ( EnemyPatrol ) )]
-    [RequireComponent ( typeof ( EnemyAttack ) )]
-    [RequireComponent ( typeof ( EnemyAnimation ) )]
+
     public class Zombie : NetworkBehaviour
     {
         public event Action OnZombieIsDead;
+
         public EnemyMovimentType Type;
-        private EnemyMove Move;
+
+        private Animator animator;
         private NavMeshAgent agent;
         NavMeshPath path;
-        private EnemyDetection EnemyDetection;
-        private EnemyPatrol EnemyPatrol;
-        private IStats stats;
-        private Animator animator;
-        private EnemyAttack EnemyAtack;
-        private EnemyAnimation EnemyAnimation;
+        public LayerMask whatIsGround, whatIsPlayer;
+
+        IStats stats;
+        //components
+        public EnemyPatrol      Patrol;
+        public EnemyDetection   Detection;
+        public EnemyAttack      Attack;
+        public EnemyAnimation   Animation;
+
+        //target
         public Transform Target;
         public Vector3 TargetPosition;
+
+        public AudioClip zombieRoar;
         private void Start ( )
         {
-            Move = GetComponent<EnemyMove> ( );
+            stats = GetComponent<IStats> ( );
+            Patrol = GetComponent<EnemyPatrol> ( );
+            Detection = GetComponent<EnemyDetection> ( );
+            Attack = GetComponent<EnemyAttack> ( );
+            Animation = GetComponent<EnemyAnimation> ( );
             agent = GetComponent<NavMeshAgent> ( );
             path = new NavMeshPath ( );
-            EnemyDetection = GetComponent<EnemyDetection> ( );
-            EnemyPatrol = GetComponent<EnemyPatrol> ( );
-            stats = GetComponent<IStats> ( );
             animator = GetComponent<Animator> ( );
-            EnemyAtack = GetComponent<EnemyAttack> ( );
-            EnemyAtack.SetstoppingDistance ( agent.stoppingDistance );
-            EnemyAnimation = GetComponent<EnemyAnimation> ( );
             agent.angularSpeed = 999;
         }
-        private void FaceTarget ( )
-        {
-           // Vector3 direction = (target.position - transform.position).normalized;
-           // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-           // transform.rotation = Quaternion.Slerp ( transform.rotation , lookRotation , Time.deltaTime * turnSpeed );
-        }
+
         private void FixedUpdate ( )
         {
-            EnemyAnimation.Animation ( Type );
-
-            if ( stats.IsPlayerDead ( ) )
+            if ( stats.IsPlayerDead())
             {
-                OnZombieIsDead?.Invoke ( );
-                Type = EnemyMovimentType.DIE;
-                EnemyAnimation.Animation ( Type );
+                Animation.Animation ( Type = EnemyMovimentType.DIE );
                 agent.speed = 0;
-                Timer.Instance.Add ( ( ) =>
-                {
-                    NetworkBehaviour.Destroy ( gameObject );
-                } , 10 );
-                agent.enabled = false;
-                Target = null;
-                this.enabled = false;
+                Patrol.enabled = false;
+                Detection.enabled = false;
+                Attack.enabled = false;
+               
                 return;
             }
-            if ( Target != null && EnemyPatrol.ItsFarFrinSpawPoint ( ) )
-            {
-                Target = null;
-                EnemyPatrol.TimerResetPatrol = 20;
-            }
 
-            if ( Target == null && !stats.IsPlayerDead ( ) )
-            {
-                TargetPosition = EnemyPatrol.Patrol ( TargetPosition );
-                Target = EnemyDetection.Detection ( );
-                agent.stoppingDistance = 0f;
+            Type = EnemyMovimentType.IDLE;
 
-            }
-            if ( Target != null )
+            if ( Target )
             {
-                TargetPosition = Target.position;
-                agent.stoppingDistance = 1.5f;
-                EnemyAtack.SetTarget ( Target );
-            }
-
-            if ( !EnemyAtack.IsAttacking )
-            {
-
-                if ( Vector3.Distance ( transform.position , TargetPosition ) <= agent.stoppingDistance )
+                float distance = Vector3.Distance(transform.position , Target.position);
+                if ( distance > 30 )
                 {
-                    Type = EnemyMovimentType.IDLE;
-                    if ( Target )
-                    {
-                        EnemyAtack.Attack ( );
-                        agent.speed = 0;
-                        Type = EnemyMovimentType.ATACK;
-                    }
+                    Target = null;
                 }
-                else
-                {
-                    agent.CalculatePath ( TargetPosition , path );
-
-                    if ( path.status == NavMeshPathStatus.PathComplete )
-                    {
-                        Move.SetAgentSpeedRun ( );
-                        Type = Move.CurrentSpeed == Move.SpeedWalk ? EnemyMovimentType.WALK : EnemyMovimentType.RUN;
-                        Move.MoveToTarget ( agent , TargetPosition );
-                    }
-                    else
-                    {
-                        agent.speed = 0;
-                        Type = EnemyMovimentType.IDLE;
-                        Target = null;
-                    }
-
-
-                }
-
-
+               
             }
+            Detection.Detection ( ref Target );
+            if ( !Detection.IsDetection && !Attack.IsAttacking )
+            {
+                Patrol.Patrol ( agent );
+                if ( Patrol.IsWalk )
+                {
+                    Type = EnemyMovimentType.WALK;
+                }
+            }
+            if ( Detection.IsDetection && !Attack.IsAttacking )
+            {
+                Sound.Instance.PlayOneShot (  transform.position , zombieRoar );
+                ChasePlayer ( );
+                Type = EnemyMovimentType.RUN;
+            }
+            Attack.Attack ( ref Target );
+            if ( Attack.IsAttacking && Detection.IsDetection )
+            {
+                Type = EnemyMovimentType.ATACK;
+            }
+            Animation.Animation ( Type );
+        }
+        private void ChasePlayer ( )
+        {
+            agent.stoppingDistance = 1.5f;
+            agent.speed = 3;
+            agent.SetDestination ( Target.position );
+        }
 
-
+        private void FaceTarget ( )
+        {
+            // Vector3 direction = (target.position - transform.position).normalized;
+            // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            // transform.rotation = Quaternion.Slerp ( transform.rotation , lookRotation , Time.deltaTime * turnSpeed );
         }
 
     }

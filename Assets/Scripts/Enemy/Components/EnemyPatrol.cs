@@ -1,51 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemyPatrol : MonoBehaviour
 {
     
     public float Radius;
     public Vector3 positionSpaw;
-    public float TimerResetPatrol;
-
     public float DistanceSpaw;
+    public bool walkPointSet;
+    public Vector3 walkPoint;
+    public float TimerReset;
+    public float CurrentTimerReset;
+
+    public bool IsWalk;
     private void Start ( )
     {
-        positionSpaw = transform.position;
+        Invoke ( "Init" , 1 );
     }
-    public Vector3 Patrol (Vector3 TargetPosition)
+    public void Init ( )
     {
-        TimerResetPatrol += Time.fixedDeltaTime;
-        Vector3 position =TargetPosition;
-        if ( TimerResetPatrol >= 10 )
+        positionSpaw = transform.position;
+        walkPoint = positionSpaw;
+        walkPointSet = false;
+    }
+    public void Patrol ( NavMeshAgent agent)
+    {
+        if ( !walkPointSet )
         {
-            position = RandomNavmeshLocation ( Radius );
-            position.y = transform.position.y;
-            Debug.DrawLine ( position, position + Vector3.up * 2,Color.blue , 10);
-            TimerResetPatrol = 0;
+            SearchWalkPoint ( );
         }
-        return position;
+
+        if ( walkPointSet )
+        {
+            IsWalk = true;
+            agent.stoppingDistance = 0.2f;
+            agent.speed = 0.5f;
+            agent.SetDestination ( walkPoint );
+            
+        }
+        float distanceToWalkPoint = Vector3.Distance (transform.position , walkPoint);
+       
+        if ( distanceToWalkPoint <= agent.stoppingDistance )
+        {
+            CurrentTimerReset += Time.deltaTime;
+
+            if (CurrentTimerReset > TimerReset)
+            {
+                walkPointSet = false;
+                CurrentTimerReset = 0;
+            }
+            IsWalk = false;
+        }
+    }
+    public void SearchWalkPoint ( )
+    {
+        walkPoint = RandomNavmeshLocation ( Radius );
+        walkPoint.y = transform.position.y;
+
+        TimerReset = Random.Range (0,10);
+        Debug.DrawLine ( walkPoint , walkPoint + Vector3.up * 2 , Color.blue , 10 );
+        walkPointSet = true;
     }
     public Vector3 RandomNavmeshLocation ( float radius )
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;
         randomDirection += positionSpaw;
-        UnityEngine.AI.NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
+        NavMeshHit hit;
+        Vector3 finalPosition = walkPoint;
         if ( UnityEngine.AI.NavMesh.SamplePosition ( randomDirection , out hit , radius , 1 ) )
         {
             finalPosition = hit.position;
         }
-        else
-        {
-            finalPosition = positionSpaw;
-        }
+       
         return finalPosition;
     }
     public bool ItsFarFrinSpawPoint ( )
     {
-       
         return Vector3.Distance ( transform.position , positionSpaw ) > DistanceSpaw; 
     }
 }

@@ -33,5 +33,11 @@ public class Sound : MonoBehaviour
         transform.position = position;
         audioSource.PlayOneShot ( clip );
     }
+    public void Play ( Vector3 position , AudioClip clip )
+    {
+        transform.position = position;
+        audioSource.clip = clip;
+        audioSource.Play (  );
+    }
 
 }

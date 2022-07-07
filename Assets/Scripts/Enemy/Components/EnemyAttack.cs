@@ -4,51 +4,39 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
+
     public bool IsAttacking;
-    public Transform Target;
-    public float stoppingDistance;
+    public float timeBetweenAttacks;
+    public float distanceAttack;
+    Transform target;
 
-    public void SetTarget (Transform _target )
+    public void Attack (ref Transform Target )
     {
-        Target = _target;
-    }
-    public void SetstoppingDistance (float Distance )
-    {
-        stoppingDistance = Distance;
-    }
-    public void Attack ( )
-    {
-        if (Target == null  )
+        target = Target;
+        if (Target!= null)
         {
-            return;
+            if ( !IsAttacking && Vector3.Distance ( transform.position , Target.position ) < distanceAttack )
+            {
+                IsAttacking = true;
+                StartCoroutine ( "ResetAtack");
+            }
         }
-        if ( !IsAttacking )
-        {
-            IsAttacking = true;
-        }
-         
-            new WaitForSeconds ( 0.5f );
-            StartCoroutine ( ResetAttacking ( ) );
     }
-    IEnumerator ResetAttacking ( )
-    {
-        yield return new WaitForSeconds ( 2f );
 
+   IEnumerator ResetAtack ( )
+    {
+        yield return new WaitForSecondsRealtime ( timeBetweenAttacks );
         IsAttacking = false;
-      
         yield break;
     }
     public void FightHit ( )
     {
-        if ( Target == null )
+        
+        float distanceFromTarget = Vector3.Distance(transform.position , target.position);
+        if ( distanceFromTarget <= distanceAttack )
         {
-            return;
+            print ( "hit" );
+            target.GetComponent<IStats> ( ).TakeDamage ( ( int ) GetComponent<IStats> ( ).GetDamage ( ) );
         }
-        float distanceFromTarget = Vector3.Distance(transform.position , Target.position);
-        if ( distanceFromTarget <= stoppingDistance )
-        {
-            Target.GetComponent<IStats> ( ).TakeDamage ( ( int ) GetComponent<IStats> ( ).GetDamage ( ) );
-        }
-      
     }
 }

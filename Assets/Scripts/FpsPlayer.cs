@@ -227,7 +227,7 @@ namespace ApocalipseZ
         }
         private IEnumerator Respawn ( )
         {
-            yield return new WaitForSeconds ( 6f );
+            yield return new WaitForSeconds ( 5.1f );
             AnimatorController.Play ( "Walk" );
             FirstPersonCamera.CameraAlive ( );
             Moviment.EnableCharacterController ( );

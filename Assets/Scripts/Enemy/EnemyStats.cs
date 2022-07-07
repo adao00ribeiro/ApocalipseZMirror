@@ -7,9 +7,9 @@ namespace ApocalipseZ
 {
     public class EnemyStats : NetworkBehaviour, IStats
     {
-          [SerializeField]private int Damage;
+        [SerializeField]private int Damage;
         [SerializeField]private int health;
-
+        
         public bool IsPlayerDead ( )
         {
             return health <= 0;

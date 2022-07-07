@@ -15,6 +15,7 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Start ( )
     {
+     
         animator = GetComponent<Animator> ( );
     }
     public void Animation ( EnemyMovimentType type)

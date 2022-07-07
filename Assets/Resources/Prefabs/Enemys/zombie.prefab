@@ -147,7 +147,6 @@ GameObject:
   - component: {fileID: 2503183505322669481}
   - component: {fileID: 377539296397263260}
   - component: {fileID: 6910701550002113638}
-  - component: {fileID: 6329971669662535130}
   - component: {fileID: 2612520530127906732}
   - component: {fileID: 114509739304436119}
   - component: {fileID: 3327457586849887029}
@@ -193,8 +192,19 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Type: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  Patrol: {fileID: 0}
+  Detection: {fileID: 0}
+  Attack: {fileID: 0}
+  Animation: {fileID: 0}
   Target: {fileID: 0}
   TargetPosition: {x: 0, y: 0, z: 0}
+  zombieRoar: {fileID: 8300000, guid: 0c71b4258473c424c9959fdd25a7a214, type: 3}
 --- !u!114 &2503183505895134471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,8 +246,8 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: bd7f114d8867a764aa42b4cbac3709ae, type: 3}
   m_Controller: {fileID: 9100000, guid: 3cb29b20b4a0b6942912eaa981df683e, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
+  m_CullingMode: 2
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -259,7 +269,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1.5
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -334,21 +344,6 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 0
   animator: {fileID: 2503183505329946817}
---- !u!114 &6329971669662535130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2503183505322570377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb148df65a2c6344ba7f500cea209de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpeedWalk: 0.2
-  SpeedRun: 3
-  CurrentSpeed: 0
 --- !u!114 &2612520530127906732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +363,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   isProvoked: 0
+  IsDetection: 0
 --- !u!114 &114509739304436119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,8 +378,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Radius: 3
   positionSpaw: {x: 0, y: 0, z: 0}
-  TimerResetPatrol: 0
   DistanceSpaw: 20
+  walkPointSet: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  TimerReset: 0
+  CurrentTimerReset: 0
+  IsWalk: 0
 --- !u!114 &3327457586849887029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,8 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsAttacking: 0
-  Target: {fileID: 0}
-  stoppingDistance: 0
+  timeBetweenAttacks: 2
+  distanceAttack: 1.5
 --- !u!114 &5609012387896702326
 MonoBehaviour:
   m_ObjectHideFlags: 0

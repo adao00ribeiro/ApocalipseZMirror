@@ -10,27 +10,35 @@ public class EnemyDetection : MonoBehaviour
     private float CurrentLaudines;
     public LayerMask layer;
     public bool isProvoked;
+    public bool IsDetection;
+   
     private void Start ( )
     {
         isProvoked = true;
     }
-    public Transform Detection ( )
+   
+    public void Detection (ref Transform target )
     {
-        Transform target = null;
-        if ( isProvoked )
+        if ( target == null )
         {
-            CurrentLaudines += Time.deltaTime;
-            if ( CurrentLaudines >= Laudiness)
+            IsDetection = false;
+        }
+            if ( isProvoked )
             {
-                isProvoked = false;
+                CurrentLaudines += Time.deltaTime;
+                if ( CurrentLaudines >= Laudiness )
+                {
+                    isProvoked = false;
+                }
             }
-        }
-        Collider[] collider  = Physics.OverlapSphere ( transform.position , CurrentLaudines , layer, QueryTriggerInteraction.Collide );
-        if ( collider.Length > 0 )
-        {
-            target = collider[0].gameObject.transform;
-        }
-        return target;
+            Collider[] collider  = Physics.OverlapSphere ( transform.position , CurrentLaudines , layer, QueryTriggerInteraction.UseGlobal );
+            if ( collider.Length > 0 )
+            {
+                target = collider[0].gameObject.transform;
+                IsDetection = true;
+            }
+        
+       
     }
     public void ResetLaudiness ( )
     {
@@ -46,7 +54,6 @@ public class EnemyDetection : MonoBehaviour
             Laudiness = MaxLaudiness;
         }
     }
-
     private void OnDrawGizmos ( )
     {
         Gizmos.color = Color.red;
