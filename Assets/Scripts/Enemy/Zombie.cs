@@ -18,20 +18,19 @@ namespace ApocalipseZ
         private Animator animator;
         private NavMeshAgent agent;
         NavMeshPath path;
-        public LayerMask whatIsGround, whatIsPlayer;
 
         IStats stats;
         //components
-        public EnemyPatrol      Patrol;
-        public EnemyDetection   Detection;
-        public EnemyAttack      Attack;
-        public EnemyAnimation   Animation;
+         EnemyPatrol      Patrol;
+         EnemyDetection   Detection;
+         EnemyAttack      Attack;
+         EnemyAnimation   Animation;
 
         //target
         public Transform Target;
         public Vector3 TargetPosition;
-
         public AudioClip zombieRoar;
+
         private void Start ( )
         {
             stats = GetComponent<IStats> ( );
@@ -43,18 +42,25 @@ namespace ApocalipseZ
             path = new NavMeshPath ( );
             animator = GetComponent<Animator> ( );
             agent.angularSpeed = 999;
+          
         }
-
+        [Server]
         private void FixedUpdate ( )
         {
             if ( stats.IsPlayerDead())
             {
-                Animation.Animation ( Type = EnemyMovimentType.DIE );
+                OnZombieIsDead?.Invoke ( );
+                Timer.Instance.Add ( ( ) =>
+                {
+                    NetworkBehaviour.Destroy ( gameObject );
+                } , 10 );
+
+                Animation.SetType ( Type = EnemyMovimentType.DIE );
                 agent.speed = 0;
                 Patrol.enabled = false;
                 Detection.enabled = false;
                 Attack.enabled = false;
-               
+                enabled = false;
                 return;
             }
 
@@ -80,7 +86,7 @@ namespace ApocalipseZ
             }
             if ( Detection.IsDetection && !Attack.IsAttacking )
             {
-                Sound.Instance.PlayOneShot (  transform.position , zombieRoar );
+               
                 ChasePlayer ( );
                 Type = EnemyMovimentType.RUN;
             }
@@ -89,7 +95,7 @@ namespace ApocalipseZ
             {
                 Type = EnemyMovimentType.ATACK;
             }
-            Animation.Animation ( Type );
+            Animation.SetType ( Type );
         }
         private void ChasePlayer ( )
         {
@@ -97,7 +103,7 @@ namespace ApocalipseZ
             agent.speed = 3;
             agent.SetDestination ( Target.position );
         }
-
+   
         private void FaceTarget ( )
         {
             // Vector3 direction = (target.position - transform.position).normalized;

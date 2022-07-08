@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 public enum EnemyMovimentType
 {
     IDLE,
@@ -9,16 +10,20 @@ public enum EnemyMovimentType
     ATACK,
     DIE
 }
-public class EnemyAnimation : MonoBehaviour
+public class EnemyAnimation : NetworkBehaviour
 {
     private Animator animator;
-
+    private EnemyMovimentType type;
     private void Start ( )
     {
-     
         animator = GetComponent<Animator> ( );
     }
-    public void Animation ( EnemyMovimentType type)
+    [Server]
+    private void Update ( )
+    {
+        Animation ( );
+    }
+    private void Animation ( )
     {
         if ( type == EnemyMovimentType.DIE )
         {
@@ -33,8 +38,11 @@ public class EnemyAnimation : MonoBehaviour
         }
         animator.SetBool ( "Walk" , type == EnemyMovimentType.WALK);
         animator.SetBool ( "Run" , type == EnemyMovimentType.RUN );
-
         
+    }
+    public void SetType ( EnemyMovimentType _type)
+    {
+        type = _type;
     }
     
 }
