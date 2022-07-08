@@ -49,10 +49,9 @@ namespace ApocalipseZ
         }
         public void SlotChange ( int slotindex )
         {
-           SSlotInventory slot  = FastItems.GetSlotContainer (slotindex );
-            if (  slot ==null)
+            if ( FastItems.CheckIfItemExist(slotindex))
             {
-                FastItems.UseItem ( slot ,true);
+                FastItems.UseItem ( slotindex );
             }
         }
 

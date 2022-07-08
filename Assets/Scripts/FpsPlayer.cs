@@ -204,7 +204,7 @@ namespace ApocalipseZ
                 return;
             }
             Animation ( );
-            if ( PlayerStats.IsPlayerDead( ) )
+            if ( PlayerStats.IsDead( ) )
             {
                 Moviment.DisableCharacterController ( );
                 FirstPersonCamera.CameraDeath ( );
@@ -241,14 +241,14 @@ namespace ApocalipseZ
             AnimatorController.SetBool ( "IsRun" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) );
             AnimatorController.SetBool ( "IsCrouch" , InputManager.GetCrouch ( ) );
 
-            if (!PlayerStats.IsPlayerDead( ) )
+            if (!PlayerStats.IsDead( ) )
             {
                 AnimatorController.SetFloat ( "SelectDeath" , InputManager.GetCrouch ( ) ? 0 : Random.Range ( 1 , 5 ) );
             }
                        
-            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
-            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
-            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsPlayerDead( ) );
+            AnimatorWeaponHolderController.SetBool ( "Walk" , Moviment.CheckMovement ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsDead( ) );
+            AnimatorWeaponHolderController.SetBool ( "Run" , Moviment.CheckMovement ( ) && InputManager.GetRun ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsDead( ) );
+            AnimatorWeaponHolderController.SetBool ( "Crouch" , Moviment.CheckMovement ( ) && InputManager.GetCrouch ( ) && Moviment.isGrounded ( ) && !PlayerStats.IsDead( ) );
 
         }
      

@@ -10,12 +10,12 @@ namespace ApocalipseZ
         [SerializeField]private int Damage;
         [SerializeField]private int health;
         
-        public bool IsPlayerDead ( )
+        public bool IsDead ( )
         {
             return health <= 0;
         }
 
-        public void RestoreLife ( int life )
+        public void AddHealth ( int life )
         {
             health += life;
 
@@ -44,6 +44,16 @@ namespace ApocalipseZ
         public float GetDamage ( )
         {
             return Damage;
+        }
+
+        public void AddSatiety ( int points )
+        {
+            
+        }
+
+        public void AddHydratation ( int points )
+        {
+           
         }
     }
 }

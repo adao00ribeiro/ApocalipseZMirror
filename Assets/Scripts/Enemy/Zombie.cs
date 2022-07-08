@@ -47,7 +47,7 @@ namespace ApocalipseZ
         [Server]
         private void FixedUpdate ( )
         {
-            if ( stats.IsPlayerDead())
+            if ( stats.IsDead())
             {
                 OnZombieIsDead?.Invoke ( );
                 Timer.Instance.Add ( ( ) =>

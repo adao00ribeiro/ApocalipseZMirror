@@ -54,7 +54,7 @@ namespace ApocalipseZ {
         // Update is called once per frame
         void Update ( )
         {
-            if ( InputManager.GetInventory ( ) && !stats.IsPlayerDead( ))
+            if ( InputManager.GetInventory ( ) && !stats.IsDead( ))
             {
                 IsInventoryOpen = !IsInventoryOpen;
                 WeaponManager.IsChekInventory = true;

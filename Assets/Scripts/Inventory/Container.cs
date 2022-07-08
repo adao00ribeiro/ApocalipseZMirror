@@ -225,49 +225,42 @@ public class Container : NetworkBehaviour,IContainer
                 }
             }
         }
-        public void UseItem ( SSlotInventory slotitem , bool closeInventory )
+        public void UseItem ( int slotIndex  )
         {
-            /*
-            Items.ForEach ((slot)=> {
+            SSlotInventory slot = GetSlotContainer(slotIndex);
+            if (slot == null)
+            {
+                return;
+            }
 
-                if ( slot.Compare( slotitem ) )
-                {
-                    switch ( slot.GetSItem().Type )
-                    {
-                        case ItemType.none:
-                            //faz nada
-                            break;
-                        case ItemType.weapon:
-                            print ("WEAPON" );
-                            slot.Use();
-                            //euipa
-                            break;
-                        case ItemType.ammo:
-                            slot.Use ( );
-                            //recarrega
-                            break;
-                        case ItemType.consumable:
-                            print ( "CONSUMABLE" );
-                            slot.Use ( );
-                            //CONSUME
+            switch ( slot.GetSItem ( ).Type )
+            {
+                case ItemType.none:
+                    //faz nada
+                    break;
+                case ItemType.weapon:
+                    slot.Use ( );
+                    //euipa
+                    break;
+                case ItemType.ammo:
+                    slot.Use ( );
+                    //recarrega
+                    break;
+                case ItemType.consumable:
+                    IStats tempStats = GetComponent<IStats>();
+                    tempStats.AddHealth ( slot.GetSItem ( ).addHealth );
+                    tempStats.AddSatiety ( slot.GetSItem ( ).addSatiety );
+                    tempStats.AddHydratation ( slot.GetSItem ( ).addHydratation );
+                    slot.Use ( );
+                    break;
+            }
 
-                            break;
-                    }
+            if ( slot.GetQuantity()<=0)
+            {
+                RemoveItem ( slot.GetSlotIndex());
+            }
 
-                    if ( slot.GetQuantity() == 0 )
-                    {
-                        slot.SetSItem ( null );
-                        slot.SetQuantity ( 0 );
-                    }
-                    OnInventoryAltered.Invoke ( );
-                }
-            
-            
-            
-            
-            } );
-           */
-                
+            OnContainerAltered.Invoke ( );
         }
 
         public int GetMaxSlots ( )
@@ -437,6 +430,6 @@ public class Container : NetworkBehaviour,IContainer
             container.InvokeOnContainer ( );
         }
 
-
+       
     }
 }

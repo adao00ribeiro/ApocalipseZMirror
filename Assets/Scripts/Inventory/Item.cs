@@ -29,6 +29,10 @@ namespace ApocalipseZ
 
         [SerializeField]public int Ammo ;
 
+        [SerializeField] public int addHealth;
+        [SerializeField] public int addSatiety;
+        [SerializeField] public int  addHydratation;
+
         [SerializeField]public float Durability ;
 
 

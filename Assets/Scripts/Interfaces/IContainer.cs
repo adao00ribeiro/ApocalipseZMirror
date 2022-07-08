@@ -13,7 +13,7 @@ public interface IContainer
     public bool CheckFreeSpace(ref int posicao);
     public bool CheckIfItemExist( int slotIndex );
     public void RemoveItem ( int slotIndex );
-    public void UseItem( SSlotInventory item , bool closeInventory);
+    public void UseItem( int slotIndex );
     public int GetMaxSlots ( );
     public void SetMaxSlots ( int maxslot);
     void MoveItem ( int id , int idmove );

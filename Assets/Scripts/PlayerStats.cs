@@ -9,19 +9,47 @@ namespace ApocalipseZ
 {
     public class PlayerStats : NetworkBehaviour, IStats
     {
+
+
         public event Action OnAlteredStats;
-        [SyncVar(hook = nameof(SetHealth))]
+
+        [SyncVar(hook = nameof(OnSetHealth))]
         public int health;
+
+        [SyncVar(hook = nameof(OnSetHydratation))]
+        public int hydratation = 100;
+        public float hydratationSubstractionRate = 3f;
+        public int thirstDamage = 1;
+        private float hydratationTimer;
+
+        [SyncVar(hook = nameof(OnSetSatiety))]
+        public int satiety = 100;
+        public float satietySubstractionRate = 5f;
+        public int hungerDamage = 1;
+        private float satietyTimer;
+
         FpsPlayer player;
 
         public bool Disable;
-        private void SetHealth ( int oldHealth , int newHealth )
+        private void OnSetHealth ( int oldHealth , int newHealth )
         {
             health = newHealth;
-            if ( health > 0)
+            if ( health > 0 )
             {
                 Disable = false;
             }
+            OnAlteredStats?.Invoke ( );
+        }
+        private void OnSetHydratation ( int oldHydratation , int newHydratation )
+        {
+            hydratation = newHydratation;
+            
+            OnAlteredStats?.Invoke ( );
+        }
+        private void OnSetSatiety ( int oldSatiety , int newSatiety )
+        {
+            satiety = newSatiety;
+           
             OnAlteredStats?.Invoke ( );
         }
         private void Start ( )
@@ -30,19 +58,53 @@ namespace ApocalipseZ
         }
         void Update ( )
         {
+            if ( isServer )
+            {
+                if ( Time.time > satietyTimer + satietySubstractionRate )
+                {
+                    if ( satiety <= 0 )
+                    {
+                        satiety = 0;
+                        health -= hungerDamage;
+                    }
 
-            if ( !isLocalPlayer || Disable)
+                    satiety -= 1;
+                    satietyTimer = Time.time;
+
+                }
+
+                if ( Time.time > hydratationTimer + hydratationSubstractionRate )
+                {
+                    if ( hydratation <= 0 )
+                    {
+                        hydratation = 0;
+                        health -= thirstDamage;
+                    }
+                    hydratation -= 1;
+                    hydratationTimer = Time.time;
+                }
+
+                if ( hydratation > 100 )
+                {
+                    hydratation = 100;
+                }
+                if ( satiety > 100 )
+                {
+                    satiety = 100;
+                }
+            }
+            if ( !isLocalPlayer || Disable )
             {
                 return;
             }
 
-            if ( IsPlayerDead ( ) )
+            if ( IsDead ( ) )
             {
                 CmdPlayerDeath ( );
                 Disable = true;
 
             }
-            if ( transform.position.y < -11.1 && !IsPlayerDead ( ) )
+            if ( transform.position.y < -11.1 && !IsDead ( ) )
             {
                 CmdTakeDamage ( 200 );
             }
@@ -53,12 +115,12 @@ namespace ApocalipseZ
         {
             TakeDamage ( damage );
         }
-        public bool IsPlayerDead ( )
+        public bool IsDead ( )
         {
             return health <= 0;
         }
 
-        public void RestoreLife ( int life )
+        public void AddHealth ( int life )
         {
             health += life;
 
@@ -86,8 +148,8 @@ namespace ApocalipseZ
         private IEnumerator Respawn ( )
         {
             yield return new WaitForSeconds ( 5f );
-            
-            RestoreLife ( 200 );
+
+            AddHealth ( 200 );
         }
         [Command ( requiresAuthority = false )]
         public void CmdPlayerDeath ( NetworkConnectionToClient sender = null )
@@ -100,6 +162,16 @@ namespace ApocalipseZ
         }
 
         public float GetDamage ( )
+        {
+            throw new NotImplementedException ( );
+        }
+
+        public void AddSatiety ( int points )
+        {
+            throw new NotImplementedException ( );
+        }
+
+        public void AddHydratation ( int points )
         {
             throw new NotImplementedException ( );
         }

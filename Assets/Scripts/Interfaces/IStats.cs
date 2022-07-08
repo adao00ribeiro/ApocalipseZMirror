@@ -5,8 +5,11 @@ using Mirror;
 
 public interface IStats 
 {
-    public bool IsPlayerDead ( );
-    public void RestoreLife ( int life );
+    public bool IsDead ( );
+    public void AddHealth ( int hp );
+    public void AddSatiety ( int points );
+
+    public void AddHydratation ( int points );
     public void TakeDamage ( int damage );
   
     [Command ( requiresAuthority = false )]
