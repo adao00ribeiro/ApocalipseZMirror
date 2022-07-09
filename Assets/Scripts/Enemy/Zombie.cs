@@ -86,7 +86,6 @@ namespace ApocalipseZ
             }
             if ( Detection.IsDetection && !Attack.IsAttacking )
             {
-               
                 ChasePlayer ( );
                 Type = EnemyMovimentType.RUN;
             }

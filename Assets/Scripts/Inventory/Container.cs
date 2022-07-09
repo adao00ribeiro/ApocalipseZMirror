@@ -160,7 +160,7 @@ public class Container : NetworkBehaviour,IContainer
             }
             slot.SetSlotIndex ( slotIndex );
             Items.Add ( slot );
-            Debug.Log ( "Added item: " + slot.GetSItem ( ).name +"  " +type.ToString ( ) );
+           // Debug.Log ( "Added item: " + slot.GetSItem ( ).name +"  " +type.ToString ( ) );
             OnContainerAltered?.Invoke ( );
             return true;
         }
@@ -185,7 +185,7 @@ public class Container : NetworkBehaviour,IContainer
               
             }
             Items.Add ( slot );
-            Debug.Log ( "Added item: " + slot.GetSItem ( ).name + "  " + type.ToString ( ) );
+           // Debug.Log ( "Added item: " + slot.GetSItem ( ).name + "  " + type.ToString ( ) );
             OnContainerAltered?.Invoke ( );
             return true;
         }
@@ -218,7 +218,7 @@ public class Container : NetworkBehaviour,IContainer
             {
                 if ( Items[i].GetSlotIndex ( ) == slotIndex )
                 {
-                    Debug.Log ( "Removed item: " + Items[i].GetSItem ( ).name + "  " + type.ToString ( ) );
+                   // Debug.Log ( "Removed item: " + Items[i].GetSItem ( ).name + "  " + type.ToString ( ) );
                     Items.Remove ( Items[i] );
                     OnContainerAltered?.Invoke ( );
                     break;
@@ -230,6 +230,7 @@ public class Container : NetworkBehaviour,IContainer
             SSlotInventory slot = GetSlotContainer(slotIndex);
             if (slot == null)
             {
+                print ( "nao tem item");
                 return;
             }
 
@@ -259,7 +260,7 @@ public class Container : NetworkBehaviour,IContainer
             {
                 RemoveItem ( slot.GetSlotIndex());
             }
-
+            print ( "item usado" );
             OnContainerAltered.Invoke ( );
         }
 

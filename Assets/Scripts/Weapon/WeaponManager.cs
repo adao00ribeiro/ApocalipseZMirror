@@ -85,7 +85,6 @@ namespace ApocalipseZ
             }
             if ( activeSlot == null )
             {
-              
                 return;
             }
          

@@ -8,6 +8,17 @@ namespace ApocalipseZ
     {
         public  ItemType type;
 
+        private void Start ( )
+        {
+            if ( type == ItemType.none)
+            {
+                System.Type tipo = typeof ( ItemType );
+                System.Array values = System.Enum.GetValues(tipo);
+                //Array values = Enum.GetValues(type);
+                type = ( ItemType ) values.GetValue ( Random.Range ( 1, values.Length  ) );
+            }
+        }
+
         public GameObject GetPrefab ( )
         {
             GameObject objeto = null;

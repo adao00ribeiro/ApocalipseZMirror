@@ -22,6 +22,7 @@ namespace ApocalipseZ
        
         IMoviment Moviment;
         IWeaponManager WeaponManager;
+        IFastItemsManager FastItemsManager;
         public Container WeaponsSlots;
         public Container FastItems;
         public Container Inventory;
@@ -48,7 +49,7 @@ namespace ApocalipseZ
             //
             Moviment = GetComponent<Moviment> ( );
             WeaponManager = GetComponent<WeaponManager> ( );
-          
+            FastItemsManager = GetComponent<FastItemsManager> ( );
             for ( int i = 0 ; i < cont.Length ; i++ )
             {
                 switch ( cont[i].type )
@@ -158,9 +159,8 @@ namespace ApocalipseZ
             //
             Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             
-
-           // GameObject.FindObjectOfType<CinemachineVirtualCamera> ( ).Follow = pivohead;
             WeaponManager.SetFpsPlayer ( this);
+            FastItemsManager.SetFpsPlayer ( this );
             CanvasFpsPlayer = Instantiate ( PrefabCanvasFpsPlayer ).GetComponent<CanvasFpsPlayer> ( );
             OnLocalPlayerJoined += CanvasFpsPlayer.Init; ;
             OnLocalPlayerJoined?.Invoke ( this );

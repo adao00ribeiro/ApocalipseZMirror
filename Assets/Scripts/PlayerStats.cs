@@ -168,12 +168,12 @@ namespace ApocalipseZ
 
         public void AddSatiety ( int points )
         {
-            throw new NotImplementedException ( );
+            satiety += points;
         }
 
         public void AddHydratation ( int points )
         {
-            throw new NotImplementedException ( );
+            hydratation += points;
         }
     }
 }
