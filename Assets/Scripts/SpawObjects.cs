@@ -17,12 +17,11 @@ public struct ConnectMessage : NetworkMessage
 }
 public class SpawObjects : NetworkBehaviour
 {
-  
+    
   
     private void Start ( )
     {
         
-
         foreach ( Transform item in transform )
         {
             PointItem point = item.gameObject.GetComponent<PointItem> ( );

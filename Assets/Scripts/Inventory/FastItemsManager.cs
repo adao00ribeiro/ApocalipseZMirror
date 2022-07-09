@@ -8,49 +8,54 @@ namespace ApocalipseZ
     {
         IFpsPlayer player;
         public int switchSlotIndex = 0;
-        IContainer FastItems;
 
         private InputManager PInputManager;
-        public InputManager InputManager
-        {
-            get
-            {
-                if ( PInputManager == null )
-                {
-                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
-                }
-                return PInputManager;
-            }
-        }
+       
         // Start is called before the first frame update
 
         void Update ( )
         {
             if ( InputManager.GetAlpha3 ( ) )
             {
-                SlotChange ( 0 );
+                CmdSlotChange ( 0 );
             }
             else if ( InputManager.GetAlpha4 ( ) )
             {
-                SlotChange ( 1);
+                CmdSlotChange ( 1);
             }
             else if ( InputManager.GetAlpha5 ( ) )
             {
-                SlotChange ( 2 );
+                CmdSlotChange ( 2 );
             }
         }
 
+        #region COMMAND
+
+        [Command]
+        public void CmdSlotChange (int slotIndex, NetworkConnectionToClient sender = null )
+        {
+            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
+            IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( TypeContainer.FASTITEMS);
+            container.UseItem ( slotIndex );
+        }
+        #endregion
+
+        #region GET SET
+        public InputManager InputManager
+        {
+            get
+            {
+                if ( PInputManager == null )
+                {
+                    PInputManager = InputManager.Instance;
+                }
+                return PInputManager;
+            }
+        }
         public void SetFpsPlayer ( IFpsPlayer _player )
         {
             player = _player;
-            FastItems = player.GetFastItems ( );
-   
         }
-        public void SlotChange ( int slotindex )
-        {
-
-            FastItems.UseItem ( slotindex );
-        }
-
+        #endregion
     }
 }

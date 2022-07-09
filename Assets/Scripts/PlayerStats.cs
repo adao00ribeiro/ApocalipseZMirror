@@ -148,8 +148,10 @@ namespace ApocalipseZ
         private IEnumerator Respawn ( )
         {
             yield return new WaitForSeconds ( 5f );
-
             AddHealth ( 200 );
+            AddHydratation ( 100);
+            AddSatiety ( 100);
+            yield break;
         }
         [Command ( requiresAuthority = false )]
         public void CmdPlayerDeath ( NetworkConnectionToClient sender = null )

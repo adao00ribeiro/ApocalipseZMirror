@@ -33,15 +33,25 @@ namespace ApocalipseZ
 
         private void Start ( )
         {
-            stats = GetComponent<IStats> ( );
-            Patrol = GetComponent<EnemyPatrol> ( );
-            Detection = GetComponent<EnemyDetection> ( );
-            Attack = GetComponent<EnemyAttack> ( );
-            Animation = GetComponent<EnemyAnimation> ( );
-            agent = GetComponent<NavMeshAgent> ( );
-            path = new NavMeshPath ( );
-            animator = GetComponent<Animator> ( );
-            agent.angularSpeed = 999;
+            if (isServer)
+            {
+                stats = GetComponent<IStats> ( );
+                Patrol = GetComponent<EnemyPatrol> ( );
+                Detection = GetComponent<EnemyDetection> ( );
+                Attack = GetComponent<EnemyAttack> ( );
+                Animation = GetComponent<EnemyAnimation> ( );
+                agent = GetComponent<NavMeshAgent> ( );
+                path = new NavMeshPath ( );
+                animator = GetComponent<Animator> ( );
+                agent.angularSpeed = 999;
+            }
+            else
+            {
+                Destroy ( GetComponent<EnemyPatrol> ( ) );
+                Destroy ( GetComponent<EnemyDetection> ( ) );
+                Destroy ( GetComponent<EnemyAttack> ( ) );
+            }
+            
           
         }
         [Server]
