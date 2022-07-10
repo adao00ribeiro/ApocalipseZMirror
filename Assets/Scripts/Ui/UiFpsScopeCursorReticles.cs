@@ -20,9 +20,9 @@ namespace ApocalipseZ
         [SerializeField]private float scopeTimer = 0f;
         private float scopeActivateTimer  =0.5f;
         private float normalFOV;
-
         private float normalSensX;
         private float normalSensY;
+        public LayerMask layerNoWeapon;
         // Start is called before the first frame update
         void Start ( )
         {
@@ -52,6 +52,7 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
+            print ( 1<<8);
             if ( weaponActive ==null)
             {
             	cam.GetComponent<Camera>().fieldOfView = normalFOV;
@@ -69,10 +70,9 @@ namespace ApocalipseZ
                 {
                     scopeImage.SetActive ( true );
                     cam.GetComponent<Camera> ( ).fieldOfView = weaponActive.GetScriptableWeapon ( ).scopeFOV;
-               
-
                     cam.sensitivity.x = weaponActive.GetScriptableWeapon().scopeSensitivityX;
                     cam.sensitivity.y = weaponActive.GetScriptableWeapon ( ).scopeSensitivityY;
+                    cam.GetComponent<Camera> ( ).cullingMask = layerNoWeapon;
                 }
             }
             else
@@ -83,6 +83,7 @@ namespace ApocalipseZ
                 cam.sensitivity.y = normalSensY;
                 scopeImage.SetActive ( false );
                 scopeActivateTimer = scopeTimer;
+                cam.GetComponent<Camera> ( ).cullingMask = cam.defaultLayer; ;
             }
         }
 

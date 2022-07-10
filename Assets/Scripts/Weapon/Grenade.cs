@@ -33,27 +33,6 @@ namespace ApocalipseZ
 
         void Explosion ( )
         {
-            print ( "Explosion" );
-
-            colliders = Physics.OverlapSphere ( transform.position , damageRadius );
-
-            foreach ( Collider collider in colliders )
-            {
-
-                IStats stats =  collider.GetComponent<IStats> ( );
-
-                if ( stats !=null )
-                {
-                    stats.CmdTakeDamage ( (int)damage);
-                }
-
-
-                if ( collider.GetComponent<Rigidbody> ( ) )
-                {
-                    collider.GetComponent<Rigidbody> ( ).AddExplosionForce ( explosionForce , transform.position , damageRadius );
-                }
-            }
-
             effects_temp.transform.position = transform.position;
             effects_temp.transform.rotation = transform.rotation;
 

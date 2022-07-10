@@ -21,11 +21,12 @@ namespace ApocalipseZ
         [HideInInspector]
         public Vector2 targetDirection;
         Animator animator;
-
+        public LayerMask defaultLayer;
 
         private void Start ( )
         {
             animator = GetComponent<Animator> ( );
+            defaultLayer = GetComponent<Camera> ( ).cullingMask;
         }
         public void ActiveCursor ( bool active )
         {

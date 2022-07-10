@@ -15,6 +15,10 @@ namespace ApocalipseZ
 
         void Update ( )
         {
+            if (!isLocalPlayer)
+            {
+                return;
+            }
             if ( InputManager.GetAlpha3 ( ) )
             {
                 CmdSlotChange ( 0 );
@@ -36,7 +40,11 @@ namespace ApocalipseZ
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
             IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( TypeContainer.FASTITEMS);
-            container.UseItem ( slotIndex );
+            if ( container != null)
+            {
+                container.UseItem ( slotIndex );
+            }
+         
         }
         #endregion
 

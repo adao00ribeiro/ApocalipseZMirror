@@ -49,14 +49,18 @@ namespace ApocalipseZ
             {
                 Destroy ( GetComponent<EnemyPatrol> ( ) );
                 Destroy ( GetComponent<EnemyDetection> ( ) );
-                Destroy ( GetComponent<EnemyAttack> ( ) );
+               
             }
             
           
         }
-        [Server]
+    
         private void FixedUpdate ( )
         {
+            if (!isServer)
+            {
+                return;
+            }
             if ( stats.IsDead())
             {
                 OnZombieIsDead?.Invoke ( );

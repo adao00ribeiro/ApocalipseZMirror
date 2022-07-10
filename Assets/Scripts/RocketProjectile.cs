@@ -9,7 +9,6 @@ namespace ApocalipseZ
     {
         public GameObject PrefabEffectExplosion;
       
-        [HideInInspector]
         public float initialVelocity = 360;
         [HideInInspector]
         public float airResistance = 0.1f;
@@ -26,7 +25,7 @@ namespace ApocalipseZ
 
             lastPosition = transform.position;
         }
-
+      
 
         private void Update ( )
         {
@@ -42,7 +41,8 @@ namespace ApocalipseZ
                     stat.CmdTakeDamage (100 );
                 }
                 Instantiate ( PrefabEffectExplosion , transform.position , Quaternion.identity );
-                NetworkBehaviour.Destroy ( gameObject );
+                NetworkBehaviour.Destroy ( gameObject ,2.5f);
+                enabled = false;
             }
 
             lastPosition = transform.position;

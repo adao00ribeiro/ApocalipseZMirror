@@ -255,13 +255,12 @@ public class Container : NetworkBehaviour,IContainer
                     slot.Use ( );
                     break;
             }
-
             if ( slot.GetQuantity()<=0)
             {
                 RemoveItem ( slot.GetSlotIndex());
             }
-            print ( "item usado" );
-            OnContainerAltered.Invoke ( );
+       
+            OnContainerAltered?.Invoke ( );
         }
 
         public int GetMaxSlots ( )

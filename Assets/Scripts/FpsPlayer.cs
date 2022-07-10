@@ -212,6 +212,7 @@ namespace ApocalipseZ
                 AnimatorWeaponHolderController.Play ( "Unhide" );
                 return;
             }
+
             Moviment.UpdateMoviment ( );
             InteractObjects.UpdateInteract ( );
 	        FirstPersonCamera.UpdateCamera ( );
@@ -219,7 +220,6 @@ namespace ApocalipseZ
 	        if(InputManager.GetLanterna())
 	        {
 	        	Lanterna.enabled = !Lanterna.enabled;
-	        	
 	        }
 	        	
           //  transform.rotation = Quaternion.Euler ( 0 , GameObject.FindObjectOfType<CinemachinePovExtension> ( ).GetStartrotation ( ).x , 0 );

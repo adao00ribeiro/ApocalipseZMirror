@@ -25,17 +25,25 @@ public class EnemyAttack : MonoBehaviour
 
    IEnumerator ResetAtack ( )
     {
+        yield return new WaitForSecondsRealtime ( 1.5f );
+        DamageTarget ( );
         yield return new WaitForSecondsRealtime ( timeBetweenAttacks );
         IsAttacking = false;
         yield break;
     }
     public void FightHit ( )
     {
-        
+       
+    }
+    public void DamageTarget ( )
+    {
+        if ( target == null )
+        {
+            return;
+        }
         float distanceFromTarget = Vector3.Distance(transform.position , target.position);
         if ( distanceFromTarget <= distanceAttack )
         {
-            print ( "hit" );
             target.GetComponent<IStats> ( ).TakeDamage ( ( int ) GetComponent<IStats> ( ).GetDamage ( ) );
         }
     }

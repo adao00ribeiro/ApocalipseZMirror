@@ -13,15 +13,16 @@ public enum EnemyMovimentType
 public class EnemyAnimation : NetworkBehaviour
 {
     private Animator animator;
-    private EnemyMovimentType type;
+    [SyncVar]
+    public EnemyMovimentType type;
     private void Start ( )
     {
         animator = GetComponent<Animator> ( );
     }
-    [Server]
+   
     private void Update ( )
     {
-        Animation ( );
+            Animation ( );
     }
     private void Animation ( )
     {
@@ -38,7 +39,6 @@ public class EnemyAnimation : NetworkBehaviour
         }
         animator.SetBool ( "Walk" , type == EnemyMovimentType.WALK);
         animator.SetBool ( "Run" , type == EnemyMovimentType.RUN );
-        
     }
     public void SetType ( EnemyMovimentType _type)
     {

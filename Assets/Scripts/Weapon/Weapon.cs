@@ -113,10 +113,8 @@ namespace ApocalipseZ
                     {
                         if ( !reloading && autoReload )
                         {
-                            //verificar autoReload 
-                           /// ReloadBegin ( );
+                           ReloadBegin ( );
                         }
-                          
                         else
                             audioSource.PlayOneShot ( weaponSetting.emptySFX );
 
@@ -271,11 +269,11 @@ namespace ApocalipseZ
             {
                 setAim = false;
             }
-           
         }
 
         public void ThrowGrenade ( )
         {
+           
             var obj = Instantiate(weaponSetting.grenadePrefab,muzzleFlashTransform.position , Quaternion.identity);
             //obj.transform.position = transform.position + transform.forward * 0.3f;
             obj.GetComponent<Rigidbody> ( ).AddForce ( transform.forward * weaponSetting.throwForce );
