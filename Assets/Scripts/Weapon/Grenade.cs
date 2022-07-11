@@ -9,12 +9,9 @@ namespace ApocalipseZ
     {
         public float explosionTimer;
         public float explosionForce;
-        public float damageRadius;
-        public float damage;
 
         public GameObject explosionEffects;
 
-        Collider[] colliders;
         GameObject effects_temp;
     
         void OnEnable ( )
@@ -27,7 +24,6 @@ namespace ApocalipseZ
         IEnumerator Timer ( float explosionTimer )
         {
             yield return new WaitForSeconds ( explosionTimer );
-            print ( "Coroutine ended" );
             Explosion ( );
         }
 
@@ -35,9 +31,8 @@ namespace ApocalipseZ
         {
             effects_temp.transform.position = transform.position;
             effects_temp.transform.rotation = transform.rotation;
-
             effects_temp.SetActive ( true );
-
+            effects_temp.GetComponent<Explosion> ( ).EnableExplosion ( );
             Destroy ( gameObject );
         }
     }

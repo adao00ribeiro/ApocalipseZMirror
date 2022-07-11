@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Explosion : MonoBehaviour
+using Mirror;
+public class Explosion : NetworkBehaviour
 {
     
     public float explosionForce;
@@ -13,12 +13,15 @@ public class Explosion : MonoBehaviour
     public AudioSource audioSource;
     private void OnEnable ( )
     {
+        
+    }
+    public void EnableExplosion ( )
+    {
         audioSource = GetComponent<AudioSource> ( );
         audioSource.Play ( );
         transform.LookAt ( Camera.main.transform.position );
         Explosions ( );
     }
-   
     void Explosions ( )
     {
 
@@ -40,6 +43,6 @@ public class Explosion : MonoBehaviour
                 collider.GetComponent<Rigidbody> ( ).AddExplosionForce ( explosionForce , transform.position , damageRadius );
             }
         }
-        Destroy ( gameObject ,1);
+        NetworkBehaviour.Destroy ( gameObject ,1);
     }
 }

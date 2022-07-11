@@ -78,7 +78,10 @@ namespace ApocalipseZ
         [SerializeField]private int dropQuantity;
 
         public bool IsServerSpaw = false;
-
+        private void OnEnable ( )
+        {
+            transform.position += Vector3.up * 2; 
+        }
         private void Awake ( )
         {
             Ammo = scriptableitem.sitem.Ammo;

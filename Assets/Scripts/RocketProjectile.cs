@@ -40,7 +40,9 @@ namespace ApocalipseZ
                 {
                     stat.CmdTakeDamage (100 );
                 }
-                Instantiate ( PrefabEffectExplosion , transform.position , Quaternion.identity );
+                Explosion ex = Instantiate ( PrefabEffectExplosion , transform.position , Quaternion.identity ).GetComponent<Explosion>();
+                ex.EnableExplosion ( );
+                NetworkServer.Spawn ( ex.gameObject );
                 NetworkBehaviour.Destroy ( gameObject ,2.5f);
                 enabled = false;
             }
