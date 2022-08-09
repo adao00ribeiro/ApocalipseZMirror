@@ -55,7 +55,6 @@ namespace ApocalipseZ
 
 		private void Awake ( )
 		{
-
 			controller = GetComponent<CharacterController> ( );
 			AnimatorController = transform.Find ( "Ch35_nonPBR" ).GetComponent<Animator> ( );
 			AnimatorWeaponHolderController = transform.Find ( "Camera & Recoil/WeaponCamera/Weapon holder" ).GetComponent<Animator> ( );

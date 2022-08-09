@@ -52,7 +52,7 @@ namespace ApocalipseZ
         // Update is called once per frame
         void Update ( )
         {
-            print ( 1<<8);
+           
             if ( weaponActive ==null)
             {
             	cam.GetComponent<Camera>().fieldOfView = normalFOV;

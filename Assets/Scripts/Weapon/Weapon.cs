@@ -35,6 +35,8 @@ namespace ApocalipseZ
         public int currentAmmo = 30;
         [Tooltip("Max weapon ammo capacity")]
         public int maxAmmo = 30;
+        public int  currentClip = 120;
+        public int MaxClip = 120;
 
         public enum FireMode { automatic, single }
         [Header("Fire mode")]
@@ -187,46 +189,23 @@ namespace ApocalipseZ
         }
         void ReloadEnd ( )
         {
-            /*
-            var ammoItems = GetAmmoItems();
-
-            var index = 0;
 
             var neededAmmo = maxAmmo - currentAmmo;
 
-            if ( ammoItems[index].ammo >= neededAmmo )
+            if ( currentClip >= neededAmmo )
             {
-                ammoItems[index].ammo -= neededAmmo;
+                currentClip -= neededAmmo;
                 currentAmmo += neededAmmo;
 
-                if ( ammoItems[index].ammo == 0 )
-                    //inventory.RemoveItem ( ammoItems[index] , true );
+
             }
-            else if ( ammoItems[index].ammo < neededAmmo )
+            else if ( currentClip < neededAmmo )
             {
-                currentAmmo += ammoItems[index].ammo;
-                neededAmmo -= ammoItems[index].ammo;
-                ammoItems[index].ammo = 0;
+                currentAmmo += currentClip;
+                neededAmmo -= currentClip;
+                currentClip = 0;
 
-                if ( ammoItems[index].ammo == 0 )
-                 //   inventory.RemoveItem ( ammoItems[index] , true );
-
-                ++index;
-
-                try
-                {
-                    ammoItems[index].ammo -= neededAmmo;
-                    currentAmmo += neededAmmo;
-
-                    if ( ammoItems[index].ammo == 0 )
-                        inventory.RemoveItem ( ammoItems[index] , true );
-                }
-                catch
-                {
-                    //Do nothing. If ammo not enough, construction may drop exception. We catch exception there in this case and do nothing. Because construction works OK
-                }
             }
-            */
 
             reloading = false;
             canShot = true;
