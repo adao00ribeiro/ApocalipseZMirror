@@ -31,38 +31,38 @@ namespace ApocalipseZ
         FpsPlayer player;
 
         public bool Disable;
-        private void OnSetHealth ( int oldHealth , int newHealth )
+        private void OnSetHealth(int oldHealth, int newHealth)
         {
             health = newHealth;
-            if ( health > 0 )
+            if (health > 0)
             {
                 Disable = false;
             }
-            OnAlteredStats?.Invoke ( );
+            OnAlteredStats?.Invoke();
         }
-        private void OnSetHydratation ( int oldHydratation , int newHydratation )
+        private void OnSetHydratation(int oldHydratation, int newHydratation)
         {
             hydratation = newHydratation;
-            
-            OnAlteredStats?.Invoke ( );
+
+            OnAlteredStats?.Invoke();
         }
-        private void OnSetSatiety ( int oldSatiety , int newSatiety )
+        private void OnSetSatiety(int oldSatiety, int newSatiety)
         {
             satiety = newSatiety;
-           
-            OnAlteredStats?.Invoke ( );
+
+            OnAlteredStats?.Invoke();
         }
-        private void Start ( )
+        private void Start()
         {
-            player = GetComponent<FpsPlayer> ( );
+            player = GetComponent<FpsPlayer>();
         }
-        void Update ( )
+        void Update()
         {
-            if ( isServer )
+            if (isServer)
             {
-                if ( Time.time > satietyTimer + satietySubstractionRate )
+                if (Time.time > satietyTimer + satietySubstractionRate)
                 {
-                    if ( satiety <= 0 )
+                    if (satiety <= 0)
                     {
                         satiety = 0;
                         health -= hungerDamage;
@@ -73,9 +73,9 @@ namespace ApocalipseZ
 
                 }
 
-                if ( Time.time > hydratationTimer + hydratationSubstractionRate )
+                if (Time.time > hydratationTimer + hydratationSubstractionRate)
                 {
-                    if ( hydratation <= 0 )
+                    if (hydratation <= 0)
                     {
                         hydratation = 0;
                         health -= thirstDamage;
@@ -84,96 +84,97 @@ namespace ApocalipseZ
                     hydratationTimer = Time.time;
                 }
 
-                if ( hydratation > 100 )
+                if (hydratation > 100)
                 {
                     hydratation = 100;
                 }
-                if ( satiety > 100 )
+                if (satiety > 100)
                 {
                     satiety = 100;
                 }
             }
-            if ( !isLocalPlayer || Disable )
+            if (!isLocalPlayer || Disable)
             {
                 return;
             }
 
-            if ( IsDead ( ) )
+            if (IsDead())
             {
-                CmdPlayerDeath ( );
+                CmdPlayerDeath();
                 Disable = true;
 
             }
-            if ( transform.position.y < -11.1 && !IsDead ( ) )
+            if (transform.position.y < -11.1 && !IsDead())
             {
-                CmdTakeDamage ( 200 );
+                CmdTakeDamage(200);
             }
         }
 
-        [Command ( requiresAuthority = false )]
-        public void CmdTakeDamage ( int damage , NetworkConnectionToClient sender = null )
+        [Command(requiresAuthority = false)]
+        public void CmdTakeDamage(int damage, NetworkConnectionToClient sender = null)
         {
-            TakeDamage ( damage );
+            TakeDamage(damage);
         }
-        public bool IsDead ( )
+        public bool IsDead()
         {
             return health <= 0;
         }
 
-        public void AddHealth ( int life )
+        public void AddHealth(int life)
         {
             health += life;
 
-            if ( health > 100 )
+            if (health > 100)
             {
                 health = 100;
             }
-            OnAlteredStats?.Invoke ( );
+            OnAlteredStats?.Invoke();
         }
-        public void TakeDamage ( int damage )
+        public void TakeDamage(int damage)
         {
             health -= damage;
 
-            if ( health < 0 )
+            if (health < 0)
             {
                 health = 0;
             }
-            OnAlteredStats?.Invoke ( );
+            OnAlteredStats?.Invoke();
         }
-        private void PlayerDeath ( )
+        private void PlayerDeath()
         {
-            player.DroppAllItems ( );
-            StartCoroutine ( Respawn ( ) );
+            player.DroppAllItems();
+            StartCoroutine(Respawn());
         }
-        private IEnumerator Respawn ( )
+        private IEnumerator Respawn()
         {
-            yield return new WaitForSeconds ( 5f );
-            AddHealth ( 200 );
-            AddHydratation ( 100);
-            AddSatiety ( 100);
+            yield return new WaitForSeconds(5f);
+            AddHealth(200);
+            AddHydratation(100);
+            AddSatiety(100);
+            GetComponent<FpsPlayer>().TargetRespaw();
             yield break;
         }
-        [Command ( requiresAuthority = false )]
-        public void CmdPlayerDeath ( NetworkConnectionToClient sender = null )
+        [Command(requiresAuthority = false)]
+        public void CmdPlayerDeath(NetworkConnectionToClient sender = null)
         {
             NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            PlayerStats stats =  sender.identity.GetComponent<PlayerStats> ( );
-            stats.PlayerDeath ( );
-            sender.identity.GetComponent<FpsPlayer> ( ).GetWeaponManager ( ).TargetDesEquipWeapon ( opponentIdentity.connectionToClient );
-            sender.identity.GetComponent<FpsPlayer> ( ).TargetRespaw ( opponentIdentity.connectionToClient );
+            PlayerStats stats = sender.identity.GetComponent<PlayerStats>();
+            stats.PlayerDeath();
+            sender.identity.GetComponent<FpsPlayer>().GetWeaponManager().TargetDesEquipWeapon(opponentIdentity.connectionToClient);
+
         }
 
-        public float GetDamage ( )
+        public float GetDamage()
         {
-            throw new NotImplementedException ( );
+            throw new NotImplementedException();
         }
 
-        public void AddSatiety ( int points )
+        public void AddSatiety(int points)
         {
             satiety += points;
         }
 
-        public void AddHydratation ( int points )
+        public void AddHydratation(int points)
         {
             hydratation += points;
         }
