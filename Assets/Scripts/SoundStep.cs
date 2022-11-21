@@ -47,10 +47,11 @@ namespace ApocalipseZ
             {
                 PlayMeshRenderer ( GetCollisionGround.CollisionObject.GetComponent<MeshRenderer> ( ) );
             }
-            else if ( GetCollisionGround.CollisionObject.GetComponent<Terrain> ( ) )
+            else if ( GetCollisionGround.CollisionObject.GetComponent<Terrain> ( ) != null )
             {
-            
+
                 PlayTerrain ( GetCollisionGround.CollisionObject.GetComponent<Terrain> ( ) );
+                Debug.Log(GetCollisionGround.CollisionObject);
             }   
         }
 
@@ -69,6 +70,7 @@ namespace ApocalipseZ
                     }
                 }
             }
+            Debug.Log("terrain");
 
         }
 

@@ -64,7 +64,7 @@ namespace ApocalipseZ
         }
         public void Move ( )
         {
-            moveDirection = new Vector3 ( InputManager.GetMoviment ( ).x , 0 , InputManager.GetMoviment ( ).y );
+            moveDirection = new Vector3 ( InputManager.GetMoviment ( ).x , 0 , InputManager.GetMoviment ( ).y ).normalized;
             moveDirection = CameraTransform.forward * moveDirection.z + CameraTransform.right * moveDirection.x;
             Speed = Walk;
             Speed = InputManager.GetRun ( ) ? Run : Speed;

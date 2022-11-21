@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace ApocalipseZ
 {
     [RequireComponent ( typeof ( NavMeshAgent ) )]
-
+    [RequireComponent(typeof(EnemyChase))]
     public class Zombie : NetworkBehaviour
     {
         public event Action OnZombieIsDead;
@@ -25,7 +25,10 @@ namespace ApocalipseZ
          EnemyDetection   Detection;
          EnemyAttack      Attack;
          EnemyAnimation   Animation;
+         EnemyChase chase;
 
+
+        public List<MonoBehaviour> listMono = new List<MonoBehaviour>();
         //target
         public Transform Target;
         public Vector3 TargetPosition;
@@ -41,6 +44,11 @@ namespace ApocalipseZ
                 Attack = GetComponent<EnemyAttack> ( );
                 Animation = GetComponent<EnemyAnimation> ( );
                 agent = GetComponent<NavMeshAgent> ( );
+                chase = GetComponent<EnemyChase>();
+                listMono.Add(Patrol);
+                listMono.Add(Detection);
+                listMono.Add(Attack);
+                listMono.Add(chase);
                 path = new NavMeshPath ( );
                 animator = GetComponent<Animator> ( );
                 agent.angularSpeed = 999;
@@ -68,55 +76,56 @@ namespace ApocalipseZ
                 {
                     NetworkBehaviour.Destroy ( gameObject );
                 } , 10 );
-
+                DisablesAllMonos();
                 Animation.SetType ( Type = EnemyMovimentType.DIE );
                 agent.speed = 0;
-                Patrol.enabled = false;
-                Detection.enabled = false;
-                Attack.enabled = false;
                 enabled = false;
                 return;
             }
-
-            Type = EnemyMovimentType.IDLE;
-
-            if ( Target )
+            if (Detection.target)
             {
-                float distance = Vector3.Distance(transform.position , Target.position);
-                if ( distance > 30 )
+                if (Detection.target.GetComponent<IStats>().IsDead())
                 {
-                    Target = null;
-                }
-               
-            }
-            Detection.Detection ( ref Target );
-            if ( !Detection.IsDetection && !Attack.IsAttacking )
-            {
-                Patrol.Patrol ( agent );
-                if ( Patrol.IsWalk )
-                {
-                    Type = EnemyMovimentType.WALK;
+                    DisablesAllMonos();
+                    Patrol.enabled = true;
+                    Detection.enabled = true;
+                    Detection.target = null;
+                    Attack.target = null;
+                    chase.Target = null;
                 }
             }
-            if ( Detection.IsDetection && !Attack.IsAttacking )
+            if (agent.velocity.x == 0 && agent.velocity.z == 0 && !Attack.IsAttacking)
             {
-                ChasePlayer ( );
+                Type = EnemyMovimentType.IDLE;
+            }
+            if (agent.velocity.x != 0 || agent.velocity.z != 0 && !Attack.IsAttacking)
+            {
                 Type = EnemyMovimentType.RUN;
             }
-            Attack.Attack ( ref Target );
-            if ( Attack.IsAttacking && Detection.IsDetection )
+            if (Attack.IsAttacking)
             {
                 Type = EnemyMovimentType.ATACK;
             }
+
+            if (Detection.IsDetection)
+            {
+                DisablesAllMonos();
+                chase.Target = Detection.target;
+                Attack.target = Detection.target;
+                chase.enabled = true;
+                Attack.enabled = true;
+            }
+
             Animation.SetType ( Type );
         }
-        private void ChasePlayer ( )
+        public void DisablesAllMonos()
         {
-            agent.stoppingDistance = 1.5f;
-            agent.speed = 3;
-            agent.SetDestination ( Target.position );
+            foreach (var item in listMono)
+            {
+                item.enabled = false;
+            }
         }
-   
+
         private void FaceTarget ( )
         {
             // Vector3 direction = (target.position - transform.position).normalized;

@@ -17,11 +17,8 @@ public struct ConnectMessage : NetworkMessage
 }
 public class SpawObjects : NetworkBehaviour
 {
-    
-  
     private void Start ( )
     {
-        
         foreach ( Transform item in transform )
         {
             PointItem point = item.gameObject.GetComponent<PointItem> ( );
@@ -29,20 +26,19 @@ public class SpawObjects : NetworkBehaviour
             Timer.Instance.Add ( ( ) => {
 
                 Spawn ( point.GetPrefab ( ) , point.transform.position );
-                Destroy ( point.gameObject);           
-            } , Random.Range(1,20));
+                Destroy ( point.gameObject);
+            } , Random.Range(50,150));
         }
+
     }
     public static void Spawn( GameObject prefab , Vector3 pointSpawn)
     {
-        if ( prefab ==null)
-        {
+        if ( prefab == null)
             return;
-        }
-            GameObject treeGo = Instantiate(prefab,pointSpawn , Quaternion.identity);
-            
-             treeGo.GetComponent<Item> ( ).IsServerSpaw = true;
-            NetworkServer.Spawn ( treeGo );
+
+        GameObject treeGo = Instantiate(prefab,pointSpawn , Quaternion.identity);    
+        treeGo.GetComponent<Item> ( ).IsServerSpaw = true;
+        NetworkServer.Spawn ( treeGo );
                
     }
 

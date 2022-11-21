@@ -8,43 +8,50 @@ public class EnemyAttack : MonoBehaviour
     public bool IsAttacking;
     public float timeBetweenAttacks;
     public float distanceAttack;
-    Transform target;
+    public Transform target;
 
-    public void Attack (ref Transform Target )
+    public void Attack()
     {
-        target = Target;
-        if (Target!= null)
+        if (target)
         {
-            if ( !IsAttacking && Vector3.Distance ( transform.position , Target.position ) < distanceAttack )
+            if (Vector3.Distance(transform.position, target.position) > distanceAttack)
             {
+                IsAttacking = false;
+                return;
+            }
+            if (!IsAttacking)
+            {
+                StartCoroutine("ResetAtack");
                 IsAttacking = true;
-                StartCoroutine ( "ResetAtack");
             }
         }
     }
-
-   IEnumerator ResetAtack ( )
+    void Update()
     {
-        yield return new WaitForSecondsRealtime ( 1.5f );
-        DamageTarget ( );
-        yield return new WaitForSecondsRealtime ( timeBetweenAttacks );
+        Attack();
+    }
+    IEnumerator ResetAtack()
+    {
+        yield return new WaitForSecondsRealtime(1.5f);
+        DamageTarget();
+        yield return new WaitForSecondsRealtime(timeBetweenAttacks);
         IsAttacking = false;
         yield break;
     }
-    public void FightHit ( )
+    public void FightHit()
     {
-       
+
     }
-    public void DamageTarget ( )
+    public void DamageTarget()
     {
-        if ( target == null )
+        if (target == null)
         {
             return;
         }
-        float distanceFromTarget = Vector3.Distance(transform.position , target.position);
-        if ( distanceFromTarget <= distanceAttack )
+        float distanceFromTarget = Vector3.Distance(transform.position, target.position);
+        if (distanceFromTarget <= distanceAttack)
         {
-            target.GetComponent<IStats> ( ).TakeDamage ( ( int ) GetComponent<IStats> ( ).GetDamage ( ) );
+            target.GetComponent<IStats>().TakeDamage((int)GetComponent<IStats>().GetDamage());
         }
     }
 }

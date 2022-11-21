@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ApocalipseZ
 {
@@ -132,7 +133,7 @@ namespace ApocalipseZ
                     Timer.Instance.Add ( ( ) => {
                        
                         SpawObjects.Spawn ( ScriptableManager.Instance.GetPrefab ( scriptableitem.sitem.Type ) , point );
-                    } , 4 );
+                    } , Random.Range(50, 420));
                 }
                 NetworkBehaviour.Destroy ( gameObject );
             }

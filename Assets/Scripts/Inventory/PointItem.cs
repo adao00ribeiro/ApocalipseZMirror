@@ -6,8 +6,9 @@ namespace ApocalipseZ
 {
     public class PointItem : MonoBehaviour
     {
+        [SerializeField] private bool haveItem;
         public  ItemType type;
-
+       [SerializeField] private float currentTimer;
         private void Start ( )
         {
             if ( type == ItemType.none)
@@ -37,6 +38,5 @@ namespace ApocalipseZ
             }
             return objeto;
         }
-
     }
 }
