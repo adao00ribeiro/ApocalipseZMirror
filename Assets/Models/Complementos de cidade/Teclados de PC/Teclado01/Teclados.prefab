@@ -1,0 +1,930 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!205 &7402372140024688500
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093079204416187909}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0.00805933, z: -0.011468202}
+  m_Size: 0.71500474
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.52792567
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2224286680249376414}
+  - screenRelativeHeight: 0.059054054
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2822644188820873667}
+  - screenRelativeHeight: 0.013060523
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3106708547021235008}
+  m_Enabled: 1
+--- !u!65 &2556771388392064531
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073747169750202655}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.007150046, y: 0.00022912538, z: 0.0024785968}
+  m_Center: {x: 0, y: 0.00011456229, z: 0.00008060438}
+--- !u!65 &4207494942144257708
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8659726083691343973}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00022939575, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.00011468202, z: 0.00008059169}
+--- !u!65 &8363569363172381641
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4191765399701290165}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00013273444, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.000066351364, z: 0.0000805917}
+--- !u!1 &7438774021890414579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7438774021890414580}
+  m_Layer: 0
+  m_Name: Teclados
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7438774021890414580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774021890414579}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 722.974, y: 487.52872, z: 1708.172}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7438774022904441957}
+  - {fileID: 7438774023883758164}
+  - {fileID: 315451063369446591}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7438774022904441958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8448726124593495039}
+  - component: {fileID: 3327362624778069178}
+  - component: {fileID: 7438774022904441959}
+  - component: {fileID: 7438774022904441981}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01Lod2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8448726124593495039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441958}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774022904441957}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3327362624778069178
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441958}
+  m_Mesh: {fileID: 6952995394742298164, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774022904441959
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441958}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -904788124244128060, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774022904441981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441958}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00013273444, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.000066351364, z: 0.0000805917}
+--- !u!1 &7438774022904441976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6800510212212423076}
+  - component: {fileID: 6533050818791468764}
+  - component: {fileID: 7438774022904441977}
+  - component: {fileID: 7438774022904441982}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01Lod1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6800510212212423076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441976}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774022904441957}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6533050818791468764
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441976}
+  m_Mesh: {fileID: 6853379383049521711, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774022904441977
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441976}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -904788124244128060, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774022904441982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441976}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00022939575, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.00011468202, z: 0.00008059169}
+--- !u!1 &7438774022904441978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3691064243083805765}
+  - component: {fileID: 3455095287414685698}
+  - component: {fileID: 7438774022904441979}
+  - component: {fileID: 7438774022904441983}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3691064243083805765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441978}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774022904441957}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3455095287414685698
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441978}
+  m_Mesh: {fileID: -3987105683357810259, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774022904441979
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441978}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 7015760602385839192, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774022904441983
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.007150046, y: 0.00022912538, z: 0.0024785968}
+  m_Center: {x: 0, y: 0.00011456229, z: 0.00008060438}
+--- !u!1 &7438774022904441980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7438774022904441957}
+  - component: {fileID: 7438774022904441968}
+  m_Layer: 0
+  m_Name: Teclado de PC 01 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7438774022904441957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441980}
+  m_LocalRotation: {x: 0.39233425, y: -0.58828044, z: 0.39233425, w: 0.58828044}
+  m_LocalPosition: {x: 0.01177, y: -0.015935779, z: -0.012114763}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3691064243083805765}
+  - {fileID: 6800510212212423076}
+  - {fileID: 8448726124593495039}
+  m_Father: {fileID: 7438774021890414580}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 67.4, y: -90, z: 0}
+--- !u!205 &7438774022904441968
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774022904441980}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0.00805933, z: -0.011468202}
+  m_Size: 0.71500474
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.52792567
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774022904441979}
+  - screenRelativeHeight: 0.059054054
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774022904441977}
+  - screenRelativeHeight: 0.013060523
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774022904441959}
+  m_Enabled: 1
+--- !u!1 &7438774023883758165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1299840005887722421}
+  - component: {fileID: 2101613705363066353}
+  - component: {fileID: 7438774023883758166}
+  - component: {fileID: 7438774023883758188}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01Lod2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1299840005887722421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758165}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774023883758164}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2101613705363066353
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758165}
+  m_Mesh: {fileID: 6952995394742298164, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774023883758166
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758165}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -904788124244128060, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774023883758188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758165}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00013273444, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.000066351364, z: 0.0000805917}
+--- !u!1 &7438774023883758167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506815176971915250}
+  - component: {fileID: 3035457924307437181}
+  - component: {fileID: 7438774023883758184}
+  - component: {fileID: 7438774023883758189}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01Lod1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1506815176971915250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758167}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774023883758164}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3035457924307437181
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758167}
+  m_Mesh: {fileID: 6853379383049521711, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774023883758184
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758167}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -904788124244128060, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774023883758189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758167}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0071500475, y: 0.00022939575, z: 0.0024786154}
+  m_Center: {x: 0, y: 0.00011468202, z: 0.00008059169}
+--- !u!1 &7438774023883758185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1352833375716622765}
+  - component: {fileID: 6367782828966034491}
+  - component: {fileID: 7438774023883758186}
+  - component: {fileID: 7438774023883758190}
+  m_Layer: 0
+  m_Name: Teclado_de_PC01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1352833375716622765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758185}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_Children: []
+  m_Father: {fileID: 7438774023883758164}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6367782828966034491
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758185}
+  m_Mesh: {fileID: -3987105683357810259, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!23 &7438774023883758186
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758185}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 7015760602385839192, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7438774023883758190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758185}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.007150046, y: 0.00022912538, z: 0.0024785968}
+  m_Center: {x: 0, y: 0.00011456229, z: 0.00008060438}
+--- !u!1 &7438774023883758187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7438774023883758164}
+  - component: {fileID: 7438774023883758191}
+  m_Layer: 0
+  m_Name: Teclado de PC 01 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7438774023883758164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758187}
+  m_LocalRotation: {x: 0.39233425, y: -0.58828044, z: 0.39233425, w: 0.58828044}
+  m_LocalPosition: {x: -2.94633, y: -0.015935779, z: -0.012114763}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1352833375716622765}
+  - {fileID: 1506815176971915250}
+  - {fileID: 1299840005887722421}
+  m_Father: {fileID: 7438774021890414580}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 67.4, y: -90, z: 0}
+--- !u!205 &7438774023883758191
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7438774023883758187}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0.00805933, z: -0.011468202}
+  m_Size: 0.71500474
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.52792567
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774023883758186}
+  - screenRelativeHeight: 0.059054054
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774023883758184}
+  - screenRelativeHeight: 0.013060523
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7438774023883758166}
+  m_Enabled: 1
+--- !u!1001 &282051599132185428
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7438774021890414580}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.969727
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.015935779
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.012114763
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.58828044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.39233425
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.58828044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.39233425
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 67.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5060313136604827679, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -304122087201463503, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_Name
+      value: Teclado de PC 01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2972983426049141323, guid: 654cc8e935a30e543b375c9a14ba48f4,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 654cc8e935a30e543b375c9a14ba48f4, type: 3}
+--- !u!4 &315451063369446591 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3073747169750202655 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2972983426049141323, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2224286680249376414 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7118980877253653046, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1093079204416187909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2822644188820873667 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6573558359370763625, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4191765399701290165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5060313136604827679, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3106708547021235008 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2951883717691584532, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8659726083691343973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -304122087201463503, guid: 654cc8e935a30e543b375c9a14ba48f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 282051599132185428}
+  m_PrefabAsset: {fileID: 0}
