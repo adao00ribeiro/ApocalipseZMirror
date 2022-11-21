@@ -1949,9 +1949,10 @@ GameObject:
   - component: {fileID: 7102642984716848639}
   - component: {fileID: 638912827114646421}
   - component: {fileID: 3000738272055192433}
+  - component: {fileID: 7313605663849843484}
   m_Layer: 0
   m_Name: ShirtlessZombie_BodyParts_V1
-  m_TagString: Untagged
+  m_TagString: Flesh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2088,6 +2089,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Type: 0
+  listMono: []
   Target: {fileID: 0}
   TargetPosition: {x: 0, y: 0, z: 0}
   zombieRoar: {fileID: 8300000, guid: 0c71b4258473c424c9959fdd25a7a214, type: 3}
@@ -2177,6 +2179,7 @@ MonoBehaviour:
     m_Bits: 512
   isProvoked: 0
   IsDetection: 0
+  target: {fileID: 0}
 --- !u!114 &7734006619849332087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2204,7 +2207,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454720695577290}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eead42968b8d99d4bbc2a61a257359b8, type: 3}
   m_Name: 
@@ -2212,6 +2215,7 @@ MonoBehaviour:
   IsAttacking: 0
   timeBetweenAttacks: 2
   distanceAttack: 1.5
+  target: {fileID: 0}
 --- !u!114 &638912827114646421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2241,6 +2245,20 @@ CapsuleCollider:
   m_Height: 2.03
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7313605663849843484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454720695577290}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33060315921d6764bbe5075ede319265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  Target: {fileID: 0}
 --- !u!1 &1461477825609742
 GameObject:
   m_ObjectHideFlags: 0

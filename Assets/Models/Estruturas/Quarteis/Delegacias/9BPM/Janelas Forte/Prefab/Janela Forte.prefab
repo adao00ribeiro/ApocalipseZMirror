@@ -1,0 +1,185 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8773661403511058176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8773661403511058177}
+  m_Layer: 0
+  m_Name: Janela Forte
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8773661403511058177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773661403511058176}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1000, y: 1, z: 1990}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9099795668793798263}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8773661403676068244
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431626212948309197}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8756013803921247220, guid: 1a538389ea21e0b449f4fb9630c7247d, type: 3}
+--- !u!205 &8773661403676068247
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8431626212948309197}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.00015860505, y: 0, z: -0.0000009536743}
+  m_Size: 0.028077738
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.13344444
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7927420759768061208}
+    - renderer: {fileID: 8446041445509120216}
+  m_Enabled: 1
+--- !u!64 &8773661403676068246
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7393343055835246177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3345413791014700143, guid: 1a538389ea21e0b449f4fb9630c7247d, type: 3}
+--- !u!1001 &8773661403676068252
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8773661403511058177}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 381.08398
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 456.111
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 251.18604
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 98658b297c448e2489aefba115ec7e84, type: 2}
+    - target: {fileID: 919132149155446097, guid: 1a538389ea21e0b449f4fb9630c7247d,
+        type: 3}
+      propertyPath: m_Name
+      value: Janela Forte01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1a538389ea21e0b449f4fb9630c7247d, type: 3}
+--- !u!1 &8431626212948309197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1a538389ea21e0b449f4fb9630c7247d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8773661403676068252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9099795668793798263 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1a538389ea21e0b449f4fb9630c7247d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8773661403676068252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7927420759768061208 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1a538389ea21e0b449f4fb9630c7247d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8773661403676068252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7393343055835246177 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2258591332190906365, guid: 1a538389ea21e0b449f4fb9630c7247d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8773661403676068252}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8446041445509120216 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 933392453659429188, guid: 1a538389ea21e0b449f4fb9630c7247d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8773661403676068252}
+  m_PrefabAsset: {fileID: 0}

@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 114509739304436119}
   - component: {fileID: 3327457586849887029}
   - component: {fileID: 5609012387896702326}
+  - component: {fileID: 623752682422010898}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Flesh
@@ -192,16 +193,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   Type: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 0
-  Patrol: {fileID: 0}
-  Detection: {fileID: 0}
-  Attack: {fileID: 0}
-  Animation: {fileID: 0}
+  listMono: []
   Target: {fileID: 0}
   TargetPosition: {x: 0, y: 0, z: 0}
   zombieRoar: {fileID: 8300000, guid: 0c71b4258473c424c9959fdd25a7a214, type: 3}
@@ -364,6 +356,7 @@ MonoBehaviour:
     m_Bits: 512
   isProvoked: 0
   IsDetection: 0
+  target: {fileID: 0}
 --- !u!114 &114509739304436119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +384,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2503183505322570377}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eead42968b8d99d4bbc2a61a257359b8, type: 3}
   m_Name: 
@@ -399,6 +392,7 @@ MonoBehaviour:
   IsAttacking: 0
   timeBetweenAttacks: 2
   distanceAttack: 1.5
+  target: {fileID: 0}
 --- !u!114 &5609012387896702326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +405,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42634f7380f43e043bf7acceb2ede071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  type: 0
+--- !u!114 &623752682422010898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503183505322570377}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33060315921d6764bbe5075ede319265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  Target: {fileID: 0}
 --- !u!1 &2503183505322570401
 GameObject:
   m_ObjectHideFlags: 0

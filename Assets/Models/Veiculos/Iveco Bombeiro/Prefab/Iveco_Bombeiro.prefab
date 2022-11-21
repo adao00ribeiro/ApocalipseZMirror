@@ -1462,6 +1462,7 @@ GameObject:
   - component: {fileID: 2811443516527304733}
   - component: {fileID: 5360865192634166399}
   - component: {fileID: 87449384218518163}
+  - component: {fileID: 8986974438758279753}
   m_Layer: 0
   m_Name: Camihao_Bombeiro_P2_1
   m_TagString: Untagged
@@ -1534,6 +1535,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8986974438758279753
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772707824500528144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3903358594385330745, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!1 &4851168567021209550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,8 +1560,8 @@ GameObject:
   - component: {fileID: 8636109836954962525}
   - component: {fileID: 8062467759976356918}
   - component: {fileID: 4387762840298137192}
-  - component: {fileID: 3060463532563511715}
   - component: {fileID: 3060463532563511712}
+  - component: {fileID: 7433461684432046398}
   m_Layer: 0
   m_Name: Camihao_Bombeiro_Porta_D
   m_TagString: Untagged
@@ -1621,20 +1636,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3060463532563511715
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4851168567021209550}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1903164883186606987, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!205 &3060463532563511712
 LODGroup:
   m_ObjectHideFlags: 0
@@ -1654,6 +1655,20 @@ LODGroup:
     renderers:
     - renderer: {fileID: 4387762840298137192}
   m_Enabled: 1
+--- !u!64 &7433461684432046398
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851168567021209550}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1903164883186606987, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!1 &6667309614756328281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,8 +2000,8 @@ GameObject:
   - component: {fileID: 3441736472717111688}
   - component: {fileID: 8362199388764417840}
   - component: {fileID: 4721578823027282569}
-  - component: {fileID: 3060463533787320024}
   - component: {fileID: 3060463533787320026}
+  - component: {fileID: 3686725694652316296}
   m_Layer: 0
   m_Name: Camihao_Bombeiro_Porta_E
   m_TagString: Untagged
@@ -2061,20 +2076,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3060463533787320024
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8167720020489465759}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2468655490449746696, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!205 &3060463533787320026
 LODGroup:
   m_ObjectHideFlags: 0
@@ -2094,6 +2095,20 @@ LODGroup:
     renderers:
     - renderer: {fileID: 4721578823027282569}
   m_Enabled: 1
+--- !u!64 &3686725694652316296
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167720020489465759}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2468655490449746696, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!1 &8307522298971221377
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,6 +2239,7 @@ GameObject:
   - component: {fileID: 8379757158664733220}
   - component: {fileID: 4491179797171728189}
   - component: {fileID: 3321756316635022579}
+  - component: {fileID: 4477727706906624367}
   m_Layer: 0
   m_Name: Camihao_Bombeiro_P2_3
   m_TagString: Untagged
@@ -2296,6 +2312,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4477727706906624367
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8707376668412331430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8538028229772932858, guid: 456c6445ffa77ad43bb6b6e994cf0773, type: 3}
 --- !u!1 &8915542415373439729
 GameObject:
   m_ObjectHideFlags: 0

@@ -620,10 +620,10 @@ MonoBehaviour:
   syncInterval: 0.1
   health: 100
   hydratation: 100
-  hydratationSubstractionRate: 3
+  hydratationSubstractionRate: 8
   thirstDamage: 1
   satiety: 100
-  satietySubstractionRate: 5
+  satietySubstractionRate: 8
   hungerDamage: 1
   Disable: 0
 --- !u!114 &507102876023551437
@@ -642,7 +642,7 @@ MonoBehaviour:
   syncInterval: 0.1
   type: 0
   ListInspector: []
-  maxSlot: 6
+  maxSlot: 10
 --- !u!114 &3862991412696875211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10022,6 +10022,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -13047,7 +13049,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 400
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -15729,6 +15731,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -17062,6 +17066,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -17365,6 +17371,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -17576,6 +17584,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -18800,6 +18810,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -20341,6 +20353,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
@@ -21169,6 +21183,8 @@ MonoBehaviour:
   autoReload: 1
   currentAmmo: 0
   maxAmmo: 30
+  currentClip: 120
+  MaxClip: 120
   fireMode: 0
   sway: {fileID: 0}
   recoilComponent: {fileID: 0}
