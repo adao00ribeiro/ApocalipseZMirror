@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &494119455116140714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6068970845730419171}
+  - component: {fileID: 1029248283122382159}
+  - component: {fileID: 2527079924008630757}
+  - component: {fileID: 1149254595609935499}
+  - component: {fileID: 1946630538285973949}
+  m_Layer: 0
+  m_Name: Mercado Pequeno 01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6068970845730419171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494119455116140714}
+  m_LocalRotation: {x: 0.000000081460335, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 727.814, y: 485.9539, z: 1704.943}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1029248283122382159
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494119455116140714}
+  m_Mesh: {fileID: 6555534979556364534, guid: dd39c295365f1eb479de8c51f83a5aed, type: 3}
+--- !u!23 &2527079924008630757
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494119455116140714}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9b91965658847b14b8a8c9dd0c3cafc6, type: 2}
+  - {fileID: 2100000, guid: 09e7cc585d9851e4eb9d317dcb25286b, type: 2}
+  - {fileID: 2100000, guid: 4e17873898800b3488704979a8ea30a5, type: 2}
+  - {fileID: 2100000, guid: dd4b20d0a5ec27845a58eb0645cd0b91, type: 2}
+  - {fileID: 2100000, guid: 34e04399ef1d75b4ca55a1413708e9e8, type: 2}
+  - {fileID: 2100000, guid: 115fe2647050f8a4d8561778f2b06756, type: 2}
+  - {fileID: 2100000, guid: 7261a6179d5e8f54aab8cdd900f732ba, type: 2}
+  - {fileID: 2100000, guid: 14538d85fc52e1c4285ec66fb6638674, type: 2}
+  - {fileID: 2100000, guid: 6876ec499da743e44b8c75ddbfbae1f9, type: 2}
+  - {fileID: 2100000, guid: 8fd33f2991cc40e43b5982bdda7aec3f, type: 2}
+  - {fileID: 2100000, guid: b7cceb191d29c7847831de07a2f27c05, type: 2}
+  - {fileID: 2100000, guid: e2bb24d5f6859e946b61224191619399, type: 2}
+  - {fileID: 2100000, guid: 115fe2647050f8a4d8561778f2b06756, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1149254595609935499
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494119455116140714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6555534979556364534, guid: dd39c295365f1eb479de8c51f83a5aed, type: 3}
+--- !u!205 &1946630538285973949
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494119455116140714}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.0000047683716, y: 0.035960294, z: 0.004147947}
+  m_Size: 0.2270702
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.044156253
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2527079924008630757}
+  m_Enabled: 1
