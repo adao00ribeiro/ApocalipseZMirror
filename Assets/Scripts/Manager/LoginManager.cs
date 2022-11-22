@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
+
 
 public class LoginManager : MonoBehaviour
 {
@@ -47,12 +47,13 @@ public class LoginManager : MonoBehaviour
             param.Add("user");
             param.Add(EmailInputField.text);
             param.Add(SenhaInputField.text);
-            StartCoroutine(GameObject.FindObjectOfType<RequestApi>().Request<StructUser>(param.ToArray(), structuser => {
+            StartCoroutine(GameObject.FindObjectOfType<RequestApi>().Request<StructUser>(param.ToArray(), structuser =>
+            {
 
                 if (!string.IsNullOrEmpty(structuser.username))
                 {
                     GameObject.FindObjectOfType<InformacaoClient>().userdata = new User(structuser);
-                    GameObject.FindObjectOfType<SceneController>().CarregarCenaAsync("Lobby");
+                    // GameObject.FindObjectOfType<SceneController>().CarregarCenaAsync("Lobby");
                 }
             }));
 
@@ -61,7 +62,7 @@ public class LoginManager : MonoBehaviour
 
     public void CenaServidor()
     {
-        GameObject.FindObjectOfType<NetworkManager>().StartServer();
+        //GameObject.FindObjectOfType<NetworkManager>().StartServer();
     }
 
     public void Sair()

@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+
 using ApocalipseZ;
+using FishNet.Object;
+using FishNet.Broadcast;
 public struct SpawObjectTransform
 {
     public string guidid;
     public Vector3 position;
     public Quaternion rotation;
 }
-public struct ConnectMessage : NetworkMessage
+public struct ConnectMessage : IBroadcast
 {
     public int score;
     public Vector3 scorePos;
@@ -17,45 +19,34 @@ public struct ConnectMessage : NetworkMessage
 }
 public class SpawObjects : NetworkBehaviour
 {
-    private void Start ( )
+    private void Start()
     {
-        foreach ( Transform item in transform )
+
+        foreach (Transform item in transform)
         {
-            PointItem point = item.gameObject.GetComponent<PointItem> ( );
+            PointItem point = item.gameObject.GetComponent<PointItem>();
 
-            Timer.Instance.Add ( ( ) => {
-
-                Spawn ( point.GetPrefab ( ) , point.transform.position );
-                Destroy ( point.gameObject);
-            } , Random.Range(50,150));
-        }
-
-    }
-    public static void Spawn( GameObject prefab , Vector3 pointSpawn)
-    {
-        if ( prefab == null)
-            return;
-
-        GameObject treeGo = Instantiate(prefab,pointSpawn , Quaternion.identity);    
-        treeGo.GetComponent<Item> ( ).IsServerSpaw = true;
-        NetworkServer.Spawn ( treeGo );
-               
-    }
-
-    private static int MaxWeapons ( )
-    {
-
-        int cont = 0;
-
-        foreach ( var item in NetworkServer.spawned.Values )
-        {
-            Item weapon = item.GetComponent<Item>();
-            if ( weapon )
+            GameController.Instance.TimerManager.Add(() =>
             {
-                cont++;
-            }
+
+                Spawn(point.GetPrefab(), point.transform.position);
+                Destroy(point.gameObject);
+            }, Random.Range(1, 20));
         }
-        return cont;
     }
+    public void Spawn(GameObject prefab, Vector3 pointSpawn)
+    {
+        if (prefab == null)
+        {
+            return;
+        }
+        GameObject treeGo = Instantiate(prefab, pointSpawn, Quaternion.identity);
+
+        treeGo.GetComponent<Item>().IsServerSpaw = true;
+        base.Spawn(treeGo);
+
+    }
+
+
 
 }

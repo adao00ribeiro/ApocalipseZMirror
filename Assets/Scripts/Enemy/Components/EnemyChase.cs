@@ -12,6 +12,7 @@ public class EnemyChase : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -21,6 +22,7 @@ public class EnemyChase : MonoBehaviour
         }
 
     }
+
     private void ChasePlayer()
     {
         agent.stoppingDistance = 1.5f;

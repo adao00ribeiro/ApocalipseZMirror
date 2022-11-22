@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,61 +8,69 @@ namespace ApocalipseZ
     public class UiInventory : MonoBehaviour
     {
         public UISlotItem PrefabSlot;
-        [SerializeField]private List<UISlotItem> UIItems = new List<UISlotItem>();
+        [SerializeField] private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
-        IFpsPlayer player;
-       
-        private void OnEnable ( )
+        Inventory inventory;
+        WeaponManager weaponManager;
+        void Awake()
         {
-            if ( player == null )
-            {
-                return;
-            }
-            player.GetInventory ().CmdGetContainer( TypeContainer.INVENTORY );
-        }
-       
-        public void SetFpsPlayer ( IFpsPlayer _player )
-        {
-            player = _player;
-          
-            slotPanel = transform.Find ( "SlotPanel" ).transform;
-            AddSlots ( );
-            player.GetInventory ( ).OnContainerAltered += UpdateSlots; ;
-            UpdateSlots ( );
+            slotPanel = transform.Find("SlotPanel").transform;
 
         }
-        private void OnDestroy ( )
+        public void SetInventory(Inventory _inventory)
         {
-            player.GetInventory ( ).OnContainerAltered -= UpdateSlots; ;
+            inventory = _inventory;
         }
-        public void UpdateSlots ( )
+        public void SetWeaponManager(WeaponManager _weaponmanager)
         {
-            if ( player == null )
-            {
-                return;
-            }
-            for ( int i = 0 ; i < UIItems.Count ; i++ )
-            {
-                UIItems[i].UpdateSlot ( );
-            }
-            
+            weaponManager = _weaponmanager;
         }
+        public void AddSlots()
+        {
+            foreach (UISlotItem item in UIItems)
+            {
+                Destroy(item.gameObject);
+            }
+            UIItems.Clear();
+            for (int i = 0; i < inventory.GetMaxSlots(); i++)
+            {
+                UISlotItem instance = Instantiate(PrefabSlot, slotPanel);
+                instance.HUD = transform.parent;
+                instance.SetSlotIndex(i);
+                instance.SetInventory(inventory);
+                instance.SetWeaponManager(weaponManager);
+                UIItems.Add(instance);
+            }
+        }
+        public void ClearSlot(int index)
+        {
+            foreach (UISlotItem item in UIItems)
+            {
+                if (item.GetSlotIndex() == index)
+                {
+                    item.SetImage(null);
+                    item.SetTextQuantidade("");
+                }
+            }
+        }
+        internal void UpdateSlot(int index, SlotInventoryTemp newItem)
+        {
+         
+            DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
+            if (dataItem == null)
+            {
+                UIItems[index].SetIsEmpty(true);
+                UIItems[index].SetImage(null);
+                UIItems[index].SetTextQuantidade("");
+            }
+            else
+            {
+                UIItems[index].SetIsEmpty(false);
+                UIItems[index].SetImage(dataItem.Thumbnail);
+                UIItems[index].SetTextQuantidade(newItem.Quantity.ToString());
+            }
 
-        public void AddSlots ( )
-        {
-            foreach ( UISlotItem item in UIItems )
-            {
-                Destroy ( item.gameObject );
-            }
-            UIItems.Clear ( );
-            for ( int i = 0 ; i < player.GetInventory ( ).GetMaxSlots ( ) ; i++ )
-            {
-                UISlotItem instance = Instantiate(PrefabSlot,slotPanel);
-                instance.SetFpsPlayer ( player);
-                instance.SetContainer ( player.GetInventory());
-                instance.SetSlotIndex ( i );
-                UIItems.Add ( instance );
-            }
+
         }
     }
 }

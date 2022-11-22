@@ -8,38 +8,27 @@ namespace ApocalipseZ
     {
         public List<UISlotItem> FastSlot = new List<UISlotItem>();
         IFpsPlayer player;
-        private void OnEnable ( )
+        private void OnEnable()
         {
-            if ( player == null )
+            if (player == null)
             {
                 return;
             }
-            player.GetFastItems ( ).CmdGetContainer ( TypeContainer.FASTITEMS );
-            
-        }
-        public void SetFpsPlayer ( IFpsPlayer _player )
-        {
-            player = _player;
-          
-            FastSlot.ForEach ( ( item ) => {
-                item.SetFpsPlayer ( player );
-                item.SetContainer ( player.GetFastItems() );
-            } );
-            player.GetFastItems().OnContainerAltered += UpdateSlotsFastItems; ;
+            // player.GetFastItems ( ).CmdGetContainer ( TypeContainer.FASTITEMS );
 
-            UpdateSlotsFastItems ( );
         }
-        private void OnDestroy ( )
+        public void SetFpsPlayer(IFpsPlayer _player)
         {
-            player.GetFastItems ( ).OnContainerAltered -= UpdateSlotsFastItems; ;
+
         }
-        public void UpdateSlotsFastItems ( )
+        private void OnDestroy()
         {
-            for ( int i = 0 ; i < FastSlot.Count ; i++ )
-            {
-                FastSlot[i].UpdateSlot (  ); 
-            }
-          
+            // player.GetFastItems().OnContainerAltered -= UpdateSlotsFastItems; ;
+        }
+        public void UpdateSlotsFastItems()
+        {
+
+
         }
 
     }

@@ -1,14 +1,14 @@
 using ApocalipseZ;
 using System;
-using Mirror;
+
 public interface IWeaponManager
 {
 
-    public event Action<Weapon> OnActiveWeapon;
- 
-    void SetFpsPlayer ( FpsPlayer player );
-    void DesEquipWeapon ( );
-    Weapon GetActiveWeapon ( );
+    public event Action<IWeapon> OnActiveWeapon;
 
-    void TargetDesEquipWeapon ( NetworkConnection target );
+    void SetFpsPlayer(FpsPlayer player);
+    void DesEquipWeapon();
+    IWeapon GetActiveWeapon();
+
+
 }

@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using UnityEngine;
-using Mirror;
+
 namespace ApocalipseZ
 {
-    
+
     public class RocketProjectile : NetworkBehaviour
     {
         public GameObject PrefabEffectExplosion;
-      
+
         public float initialVelocity = 360;
         [HideInInspector]
         public float airResistance = 0.1f;
@@ -19,47 +20,47 @@ namespace ApocalipseZ
 
         Vector3 lastPosition;
 
-        private void OnEnable ( )
+        private void OnEnable()
         {
-            GetComponent<Rigidbody> ( ).AddForce ( transform.forward * initialVelocity );
+            GetComponent<Rigidbody>().AddForce(transform.forward * initialVelocity);
 
             lastPosition = transform.position;
         }
-      
 
-        private void Update ( )
+
+        private void Update()
         {
             time += Time.deltaTime;
 
             RaycastHit hit;
-            if ( Physics.Linecast ( lastPosition , transform.position , out hit ) )
+            if (Physics.Linecast(lastPosition, transform.position, out hit))
             {
-                HitFXManager.Instance.ApplyFX ( hit );
+                // HitFXManager.Instance.ApplyFX ( hit );
                 PlayerStats stat = hit.collider.GetComponent<PlayerStats>();
-                if ( stat )
+                if (stat)
                 {
-                    stat.CmdTakeDamage (100 );
+                    stat.CmdTakeDamage(100);
                 }
-                Explosion ex = Instantiate ( PrefabEffectExplosion , transform.position , Quaternion.identity ).GetComponent<Explosion>();
-                ex.EnableExplosion ( );
-                NetworkServer.Spawn ( ex.gameObject );
-                NetworkBehaviour.Destroy ( gameObject ,2.5f);
+                Explosion ex = Instantiate(PrefabEffectExplosion, transform.position, Quaternion.identity).GetComponent<Explosion>();
+                ex.EnableExplosion();
+                base.Spawn(ex.gameObject);
+                NetworkBehaviour.Destroy(gameObject, 2.5f);
                 enabled = false;
             }
 
             lastPosition = transform.position;
 
-            if ( time > livingTime )
+            if (time > livingTime)
             {
-                NetworkBehaviour.Destroy ( gameObject );
+                NetworkBehaviour.Destroy(gameObject);
             }
         }
 
 
-        private void OnDisable ( )
+        private void OnDisable()
         {
             time = 0;
-            GetComponent<Rigidbody> ( ).velocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = Vector3.zero;
         }
     }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Connection;
+using FishNet.Object;
 using UnityEngine;
-using Mirror;
+
 namespace ApocalipseZ
 {
     public class FastItemsManager : NetworkBehaviour, IFastItemsManager
@@ -10,41 +12,37 @@ namespace ApocalipseZ
         public int switchSlotIndex = 0;
 
         private InputManager PInputManager;
-       
+
         // Start is called before the first frame update
 
-        void Update ( )
+        void Update()
         {
-            if (!isLocalPlayer)
+            if (!IsOwner)
             {
                 return;
             }
-            if ( InputManager.GetAlpha3 ( ) )
+            if (InputManager.GetAlpha3())
             {
-                CmdSlotChange ( 0 );
+                CmdSlotChange(0);
             }
-            else if ( InputManager.GetAlpha4 ( ) )
+            else if (InputManager.GetAlpha4())
             {
-                CmdSlotChange ( 1);
+                CmdSlotChange(1);
             }
-            else if ( InputManager.GetAlpha5 ( ) )
+            else if (InputManager.GetAlpha5())
             {
-                CmdSlotChange ( 2 );
+                CmdSlotChange(2);
             }
         }
 
         #region COMMAND
 
-        [Command]
-        public void CmdSlotChange (int slotIndex, NetworkConnectionToClient sender = null )
+        [ServerRpc]
+        public void CmdSlotChange(int slotIndex, NetworkConnection sender = null)
         {
-            NetworkIdentity opponentIdentity = sender.identity.GetComponent<NetworkIdentity>();
-            IContainer container = sender.identity.GetComponent<FpsPlayer> ( ).GetContainer( TypeContainer.FASTITEMS);
-            if ( container != null)
-            {
-                container.UseItem ( slotIndex );
-            }
-         
+
+
+
         }
         #endregion
 
@@ -53,14 +51,14 @@ namespace ApocalipseZ
         {
             get
             {
-                if ( PInputManager == null )
+                if (PInputManager == null)
                 {
                     PInputManager = InputManager.Instance;
                 }
                 return PInputManager;
             }
         }
-        public void SetFpsPlayer ( IFpsPlayer _player )
+        public void SetFpsPlayer(IFpsPlayer _player)
         {
             player = _player;
         }

@@ -4,4 +4,12 @@ using UnityEngine;
 
 public interface IWeapon
 {
+    DataArmsWeapon WeaponSetting { get; }
+    int CurrentAmmo { get; set; }
+    GameObject gameObject { get; }
+    string WeaponName { get; }
+    bool Fire();
+    void ReloadBegin();
+    void Aim(bool v);
+    bool SetAim { get; }
 }

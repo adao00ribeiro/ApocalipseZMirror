@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Object;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Mirror;
+
 namespace ApocalipseZ
 {
     [System.Serializable]
@@ -20,47 +21,47 @@ namespace ApocalipseZ
         public List<Zombie> ListZombie = new List<Zombie>();
         // Start is called before the first frame update
 
-        private void FixedUpdate ( )
+        private void FixedUpdate()
         {
-            if ( isServer )
+            if (base.IsServer)
             {
-                if ( NumberOfZombie > ListZombie.Count )
+                if (NumberOfZombie > ListZombie.Count)
                 {
                     CurrentTimer += Time.fixedDeltaTime;
 
-                    if ( CurrentTimer >= TimerSpaw )
+                    if (CurrentTimer >= TimerSpaw)
                     {
-                        Spawn ( ScriptableManager.Instance.GetPrefabEnemy ( listType[Random.Range ( 0 , listType.Length )].type ) );
+                        // Spawn ( ScriptableManager.Instance.GetPrefabEnemy ( listType[Random.Range ( 0 , listType.Length )].type ) );
                         CurrentTimer = 0;
                     }
                 }
             }
-            
+
         }
 
 
-        public void Spawn ( GameObject prefab )
+        public void Spawn(GameObject prefab)
         {
-            GameObject temp = Instantiate(prefab, GetRandomPosition() , Quaternion.identity);
-            Zombie zombieTemp =    temp.GetComponent<Zombie> ( );
-            zombieTemp.OnZombieIsDead += ( ) =>
+            GameObject temp = Instantiate(prefab, GetRandomPosition(), Quaternion.identity);
+            Zombie zombieTemp = temp.GetComponent<Zombie>();
+            zombieTemp.OnZombieIsDead += () =>
             {
-                ListZombie.Remove ( zombieTemp );
+                ListZombie.Remove(zombieTemp);
             };
-            ListZombie.Add ( zombieTemp );
-            NetworkServer.Spawn ( temp );
+            ListZombie.Add(zombieTemp);
+            base.Spawn(temp);
         }
-        private Vector3 GetRandomPosition ( )
+        private Vector3 GetRandomPosition()
         {
-            float x  = Random.Range(transform.position.x - Size.x/2,transform.position.x+Size.x/2);
-            float z  = Random.Range(transform.position.z - Size.z/2,transform.position.z+Size.z/2);
-            return new Vector3 ( x , transform.position.y , z );
+            float x = Random.Range(transform.position.x - Size.x / 2, transform.position.x + Size.x / 2);
+            float z = Random.Range(transform.position.z - Size.z / 2, transform.position.z + Size.z / 2);
+            return new Vector3(x, transform.position.y, z);
         }
-        private void OnDrawGizmos ( )
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;
 
-            Gizmos.DrawWireCube ( transform.position , Size );
+            Gizmos.DrawWireCube(transform.position, Size);
         }
 
 

@@ -8,37 +8,37 @@ namespace ApocalipseZ
     {
         public int id;
         public TypeContainer AcceptedType;
-        [SerializeField]SSlotInventory slot;
-       
+        [SerializeField] SSlotInventory slot;
+
         private Image image;
 
         Vector3 positionInitial;
         // Start is called before the first frame update
-        void Awake ( )
+        void Awake()
         {
-          
+
             positionInitial = transform.position;
-            image = GetComponent<Image> ( );
+            image = GetComponent<Image>();
             enabled = false;
-            SetSlot ( new SSlotInventory ( ) );
+            SetSlot(new SSlotInventory());
         }
 
         // Update is called once per frame
-        void Update ( )
+        void Update()
         {
-            transform.position = InputManager.GetMousePosition ( );
-          
+            transform.position = InputManager.GetMousePosition();
+
         }
-    
-        private void OnDisable ( )
+
+        private void OnDisable()
         {
-            SetSlot ( new SSlotInventory ( ) );
+            SetSlot(new SSlotInventory());
             transform.position = positionInitial;
-           
+
         }
-        public void SetSlot ( SSlotInventory _slot )
+        public void SetSlot(SSlotInventory _slot)
         {
-            if ( _slot.GetSItem ( ) == null)
+            if (_slot.GetDataItem() == null)
             {
                 slot = _slot;
                 image.sprite = null;
@@ -46,15 +46,15 @@ namespace ApocalipseZ
                 return;
             }
 
-            slot.SetSItem(_slot.GetSItem());
+            slot.SetSItem(_slot.GetDataItem());
             slot.SetQuantity(_slot.GetQuantity());
 
-            image.sprite = slot.GetSItem().Thumbnail;
+            image.sprite = slot.GetDataItem().Thumbnail;
             image.preserveAspect = true;
             image.color = Color.white;
         }
 
-        public SSlotInventory GetSlot ( )
+        public SSlotInventory GetSlot()
         {
             return slot;
         }
@@ -63,9 +63,9 @@ namespace ApocalipseZ
         {
             get
             {
-                if ( PInputManager == null )
+                if (PInputManager == null)
                 {
-                    PInputManager = GameObject.Find ( "InputManager" ).GetComponent<InputManager> ( );
+                    PInputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
                 }
                 return PInputManager;
             }

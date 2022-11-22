@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
 using Random = UnityEngine.Random;
+using FishNet.Object;
+
 namespace ApocalipseZ
 {
-    [RequireComponent ( typeof ( NavMeshAgent ) )]
-    [RequireComponent(typeof(EnemyChase))]
+    [RequireComponent(typeof(NavMeshAgent))]
+
     public class Zombie : NetworkBehaviour
     {
         public event Action OnZombieIsDead;
@@ -21,63 +22,54 @@ namespace ApocalipseZ
 
         IStats stats;
         //components
-         EnemyPatrol      Patrol;
-         EnemyDetection   Detection;
-         EnemyAttack      Attack;
-         EnemyAnimation   Animation;
-         EnemyChase chase;
-
-
-        public List<MonoBehaviour> listMono = new List<MonoBehaviour>();
+        EnemyPatrol Patrol;
+        EnemyDetection Detection;
+        EnemyAttack Attack;
+        EnemyAnimation Animation;
+        EnemyChase chase;
         //target
-        public Transform Target;
+        public List<MonoBehaviour> listMono = new List<MonoBehaviour>();
         public Vector3 TargetPosition;
         public AudioClip zombieRoar;
 
-        private void Start ( )
+        private void Start()
         {
-            if (isServer)
+            if (base.IsServer)
             {
-                stats = GetComponent<IStats> ( );
-                Patrol = GetComponent<EnemyPatrol> ( );
-                Detection = GetComponent<EnemyDetection> ( );
-                Attack = GetComponent<EnemyAttack> ( );
-                Animation = GetComponent<EnemyAnimation> ( );
-                agent = GetComponent<NavMeshAgent> ( );
+                stats = GetComponent<IStats>();
+                Patrol = GetComponent<EnemyPatrol>();
+                Detection = GetComponent<EnemyDetection>();
+                Attack = GetComponent<EnemyAttack>();
+                Animation = GetComponent<EnemyAnimation>();
                 chase = GetComponent<EnemyChase>();
                 listMono.Add(Patrol);
                 listMono.Add(Detection);
                 listMono.Add(Attack);
+                listMono.Add(Animation);
                 listMono.Add(chase);
-                path = new NavMeshPath ( );
-                animator = GetComponent<Animator> ( );
+                agent = GetComponent<NavMeshAgent>();
+                path = new NavMeshPath();
+                animator = GetComponent<Animator>();
                 agent.angularSpeed = 999;
             }
-            else
-            {
-                Destroy ( GetComponent<EnemyPatrol> ( ) );
-                Destroy ( GetComponent<EnemyDetection> ( ) );
-               
-            }
-            
-          
+
         }
-    
-        private void FixedUpdate ( )
+
+        private void FixedUpdate()
         {
-            if (!isServer)
+            if (!base.IsServer)
             {
                 return;
             }
-            if ( stats.IsDead())
+            if (stats.IsDead())
             {
-                OnZombieIsDead?.Invoke ( );
-                Timer.Instance.Add ( ( ) =>
+                OnZombieIsDead?.Invoke();
+                GameController.Instance.TimerManager.Add(() =>
                 {
-                    NetworkBehaviour.Destroy ( gameObject );
-                } , 10 );
+                    base.Despawn();
+                }, 10);
                 DisablesAllMonos();
-                Animation.SetType ( Type = EnemyMovimentType.DIE );
+                Animation.SetType(Type = EnemyMovimentType.DIE);
                 agent.speed = 0;
                 enabled = false;
                 return;
@@ -94,13 +86,14 @@ namespace ApocalipseZ
                     chase.Target = null;
                 }
             }
+
             if (agent.velocity.x == 0 && agent.velocity.z == 0 && !Attack.IsAttacking)
             {
                 Type = EnemyMovimentType.IDLE;
             }
             if (agent.velocity.x != 0 || agent.velocity.z != 0 && !Attack.IsAttacking)
             {
-                Type = EnemyMovimentType.RUN;
+                Type = EnemyMovimentType.WALK;
             }
             if (Attack.IsAttacking)
             {
@@ -115,8 +108,7 @@ namespace ApocalipseZ
                 chase.enabled = true;
                 Attack.enabled = true;
             }
-
-            Animation.SetType ( Type );
+            Animation.SetType(Type);
         }
         public void DisablesAllMonos()
         {
@@ -125,8 +117,7 @@ namespace ApocalipseZ
                 item.enabled = false;
             }
         }
-
-        private void FaceTarget ( )
+        private void FaceTarget()
         {
             // Vector3 direction = (target.position - transform.position).normalized;
             // Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));

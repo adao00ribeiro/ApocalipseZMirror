@@ -247,6 +247,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Print",
+                    "type": "Button",
+                    "id": "b81a99bc-dbf9-4db3-b264-11c90e0092f5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -698,6 +707,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a65392d2-42d8-4978-be72-1463b441faba",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Print",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

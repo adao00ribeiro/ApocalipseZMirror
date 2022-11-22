@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Managing;
 using UnityEngine;
-using Mirror;
+
 namespace ApocalipseZ
 {
     public class RegistrarPrefabSpaws : MonoBehaviour
     {
         public NetworkManager manager;
         // Start is called before the first frame update
-        void Start ( )
+        void Start()
         {
+            /*
             ScriptableItem[] weapons =  ScriptableManager.Instance.GetItemsWeapons ( );
             for ( int i = 0 ; i < weapons.Length ; i++ )
             {
@@ -28,7 +30,8 @@ namespace ApocalipseZ
                 manager.spawnPrefabs.Add ( Zombies.Enemys[i].Prefab);
                 print ( "REGISTRADO Zombies" );
             }
-            Destroy ( gameObject);
+            */
+            Destroy(gameObject);
         }
 
     }

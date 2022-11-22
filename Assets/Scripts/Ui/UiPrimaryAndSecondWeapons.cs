@@ -2,55 +2,65 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ApocalipseZ {
+namespace ApocalipseZ
+{
     public class UiPrimaryAndSecondWeapons : MonoBehaviour
     {
-        [SerializeField]private UISlotItem UiPrimaryWeapon;
-        [SerializeField]private UISlotItem UiSecondWeapon;
+        [SerializeField] private UISlotItem UiPrimaryWeapon;
+        [SerializeField] private UISlotItem UiSecondWeapon;
 
-         IFpsPlayer player;
-       
-        private void Awake ( )
+        IFpsPlayer player;
+
+        private void Awake()
         {
-            UiPrimaryWeapon = transform.Find ( "Container/Primary Weapon Slot" ).GetComponent<UISlotItem>();
-            UiSecondWeapon = transform.Find ( "Container/Second Weapon Slot" ).GetComponent<UISlotItem> ( );
+            UiPrimaryWeapon = transform.Find("Container/Primary Weapon Slot").GetComponent<UISlotItem>();
+            UiSecondWeapon = transform.Find("Container/Second Weapon Slot").GetComponent<UISlotItem>();
+            UiPrimaryWeapon.HUD = transform.parent;
+            UiSecondWeapon.HUD = transform.parent;
+            UpdatePrimaryWeapon(new SlotInventoryTemp());
         }
-        private void OnEnable ( )
+
+        public void UpdatePrimaryWeapon( SlotInventoryTemp newItem)
         {
-            if ( player == null )
+           
+            DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
+             
+            if (dataItem == null)
             {
-                return;
+                UiPrimaryWeapon.SetIsEmpty(true);
+                UiPrimaryWeapon.SetImage(null);
+                UiPrimaryWeapon.SetTextQuantidade("");
             }
-            player.GetWeaponsSlots ( ).CmdGetContainer ( TypeContainer.WEAPONS );
+            else
+            {
             
+                UiPrimaryWeapon.SetIsEmpty(false);
+                UiPrimaryWeapon.SetImage(dataItem.Thumbnail);
+                UiPrimaryWeapon.SetTextQuantidade("1");
+            }
         }
-
-        public void UpdateSlots ( )
+        public void UpdateSecundaryWeapon(SlotInventoryTemp newItem)
         {
-            if ( player == null )
-            {
+            if(newItem.Compare(new SlotInventoryTemp())){
+                UiSecondWeapon.SetIsEmpty(true);
+                UiSecondWeapon.SetImage(null);
+                UiSecondWeapon.SetTextQuantidade("");
                 return;
             }
-            UiPrimaryWeapon.UpdateSlot ( );
-            UiSecondWeapon.UpdateSlot ( );
+            DataItem dataItem = GameController.Instance.DataManager.GetDataItem(newItem.guidid);
+            if (dataItem == null)
+            {
+                UiSecondWeapon.SetIsEmpty(true);
+                UiSecondWeapon.SetImage(null);
+                UiSecondWeapon.SetTextQuantidade("");
+            }
+            else
+            {
+                UiSecondWeapon.SetIsEmpty(false);
+                UiSecondWeapon.SetImage(dataItem.Thumbnail);
+                UiSecondWeapon.SetTextQuantidade("1");
+            }
         }
 
-        internal void SetFpsPlayer ( IFpsPlayer _player )
-        {
-            player = _player;
-            UiPrimaryWeapon.SetFpsPlayer ( _player );
-            UiPrimaryWeapon.SetContainer ( _player.GetWeaponsSlots ( ) );
-
-            UiSecondWeapon.SetFpsPlayer ( _player );
-            UiSecondWeapon.SetContainer ( _player.GetWeaponsSlots ( ) );
-
-            player.GetWeaponsSlots ( ).OnContainerAltered += UpdateSlots; ;
-            UpdateSlots ( );
-        }
-
-        private void OnDestroy ( )
-        {
-            player.GetWeaponsSlots ( ).OnContainerAltered -= UpdateSlots; ;
-        }
     }
 }

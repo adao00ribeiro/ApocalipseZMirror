@@ -1,168 +1,108 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mirror;
+using FishNet.Component.Transforming;
+using FishNet.Connection;
+using FishNet.Object;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace ApocalipseZ
 {
-    public enum ItemType : byte { none, weapon, ammo, consumable }
-    [System.Serializable]
-    public class SItem
+
+    [RequireComponent(typeof(NetworkTransform))]
+    public class Item : NetworkBehaviour, IInteract
     {
-        [SerializeField] public string GuidId =  System.Guid.NewGuid().ToString ();
-
-        [SerializeField]public ItemType Type;
-
-        [SerializeField]public string name ;
-               
-
-        [SerializeField]public bool isStackable;
-
-
-        [SerializeField]public Sprite Thumbnail;
-
-
-        [SerializeField]public string Description;
-
-        [SerializeField]public int maxStacksize ;
-
-        [SerializeField]public int Ammo ;
-
-        [SerializeField] public int addHealth;
-        [SerializeField] public int addSatiety;
-        [SerializeField] public int  addHydratation;
-
-        [SerializeField]public float Durability ;
-
-
-        [SerializeField]public GameObject Prefab;
-
-
-        public SItem ()
-        {
-            this.Type = ItemType.none;
-            this.name = "NONE";
-            this.isStackable = true;
-            this.Thumbnail = null;
-            this.Description = "NONE";
-            this.maxStacksize = 4;
-            this.Ammo = 0;
-            this.Durability = 0.0f;
-            this.Prefab = null;
-        }
-
-        internal bool Compare ( SItem sItem )
-        {
-            if ( this.Type == sItem.Type&&
-                 this.name == sItem.name &&
-                 this.isStackable == sItem.isStackable &&
-                 this.Thumbnail == sItem.Thumbnail &&
-                 this.Description == sItem.Description &&
-                 this.maxStacksize == sItem.maxStacksize &&
-                 this.Ammo == sItem.Ammo &&
-                 this.Durability     == sItem .Durability        &&
-                 this.Prefab         == sItem.Prefab        )
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    [RequireComponent ( typeof ( NetworkTransform ) )]
-    public class Item : NetworkBehaviour,IInteract
-    {
-        [SerializeField]private  ScriptableItem scriptableitem;
+        [SerializeField] private DataItem dataItem;
         private int Ammo;
-        [SerializeField]private int dropQuantity;
+        [SerializeField] private int dropQuantity;
 
         public bool IsServerSpaw = false;
-        private void OnEnable ( )
+        private void OnEnable()
         {
-            transform.position += Vector3.up * 2; 
+            transform.position += Vector3.up * 2;
         }
-        private void Awake ( )
+        private void Awake()
         {
-            Ammo = scriptableitem.sitem.Ammo;
+            Ammo = dataItem.Ammo;
         }
-        [Server]
-        void Start ( )
+      
+        void Start()
         {
-            if (!IsServerSpaw )
+            if (!IsServerSpaw && base.IsServer)
             {
-                NetworkBehaviour.Destroy ( gameObject , 30 );
+                NetworkBehaviour.Destroy(gameObject, 30);
             }
-            
+
         }
-        
+
         // Update is called once per frame
-        void Update ( )
+        void Update()
         {
 
         }
-        public void SetAmmo (int _ammo )
+        public void SetAmmo(int _ammo)
         {
             Ammo = _ammo;
         }
-        public void EndFocus ( )
+        public void EndFocus()
         {
-            print ("end focus" );
+            print("end focus");
         }
 
-        public string GetTitle ( )
+        public string GetTitle()
         {
-	        return scriptableitem.sitem.name;
+            return dataItem.name;
         }
 
-        
-        public void OnInteract (IFpsPlayer player)
-        {   
-            IContainer inventory = player.GetInventory();
-            SSlotInventory slot = new SSlotInventory();
-            slot.SetSItem(scriptableitem.sitem);
-            slot.SetAmmo ( Ammo );
-            slot.SetQuantity ( dropQuantity);
+
+        public void OnInteract(IFpsPlayer player)
+        {
+            Inventory inventory = player.GetInventory();
+            SlotInventoryTemp slot = new SlotInventoryTemp();
+            slot.Name = dataItem.Name;
+            slot.guidid = dataItem.GuidId;
+            slot.Ammo = Ammo;
+            slot.Quantity = dropQuantity;
             Vector3 point = transform.position;
-            if ( inventory.AddItem ( slot) )
+            if (inventory.AddItem(slot))
             {
-                SoundManager.instance.Pickup ( );
-                if ( IsServerSpaw )
+                DataAudio audioPickup = GameController.Instance.DataManager.GetDataAudio("Pickup");
+                GameController.Instance.SoundManager.PlayOneShot(transform.position, audioPickup.Audio);
+                if (IsServerSpaw)
                 {
-                    Timer.Instance.Add ( ( ) => {
-                       
-                        SpawObjects.Spawn ( ScriptableManager.Instance.GetPrefab ( scriptableitem.sitem.Type ) , point );
-                    } , Random.Range(50, 420));
+                    GameController.Instance.TimerManager.Add(() =>
+                    {
+                        // SpawObjects.Spawn(ScriptableManager.Instance.GetPrefab(dataItem.sitem.Type), point);
+                    }, 4);
                 }
-                NetworkBehaviour.Destroy ( gameObject );
+                NetworkBehaviour.Destroy(gameObject);
             }
         }
 
-        public void StartFocus ( )
+        public void StartFocus()
         {
-            print ( "StartFocus" );
+            print("StartFocus");
         }
 
-        private void OnTriggerEnter ( Collider other )
+        private void OnTriggerEnter(Collider other)
         {
-            if ( other.CompareTag("noCollider"))
+            if (other.CompareTag("noCollider"))
             {
-                StartFocus ( );
+                StartFocus();
             }
         }
-        private void OnTriggerExit ( Collider other )
+        private void OnTriggerExit(Collider other)
         {
-            if ( other.CompareTag ( "noCollider" ) )
+            if (other.CompareTag("noCollider"))
             {
-                EndFocus ( );
+                EndFocus();
             }
         }
 
-        [Command ( requiresAuthority = false )]
-        public void CmdInteract ( NetworkConnectionToClient sender = null )
+        [ServerRpc(RequireOwnership = false)]
+        public void CmdInteract(NetworkConnection sender = null)
         {
-            OnInteract ( sender.identity.GetComponent<FpsPlayer>());
+            OnInteract(sender.FirstObject.GetComponent<FpsPlayer>());
         }
     }
 }

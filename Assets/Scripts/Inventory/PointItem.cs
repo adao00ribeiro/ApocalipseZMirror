@@ -6,23 +6,23 @@ namespace ApocalipseZ
 {
     public class PointItem : MonoBehaviour
     {
-        [SerializeField] private bool haveItem;
-        public  ItemType type;
-       [SerializeField] private float currentTimer;
-        private void Start ( )
+        public ItemType type;
+
+        private void Start()
         {
-            if ( type == ItemType.none)
+            if (type == ItemType.none)
             {
-                System.Type tipo = typeof ( ItemType );
+                System.Type tipo = typeof(ItemType);
                 System.Array values = System.Enum.GetValues(tipo);
                 //Array values = Enum.GetValues(type);
-                type = ( ItemType ) values.GetValue ( Random.Range ( 1, values.Length  ) );
+                type = (ItemType)values.GetValue(Random.Range(1, values.Length));
             }
         }
 
-        public GameObject GetPrefab ( )
+        public GameObject GetPrefab()
         {
             GameObject objeto = null;
+            /*
             ScriptableItem[]items;
 
             switch ( type )
@@ -36,7 +36,9 @@ namespace ApocalipseZ
                     objeto = items[Random.Range ( 0 , items.Length )].sitem.Prefab;
                     break;
             }
+            */
             return objeto;
         }
+
     }
 }
