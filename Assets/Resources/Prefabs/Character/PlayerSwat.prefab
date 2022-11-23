@@ -128,7 +128,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 10
+  <PrefabId>k__BackingField: 36
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 11517951196586629873
@@ -303,7 +303,7 @@ MonoBehaviour:
   GroundedOffset: -0.14
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 1
 --- !u!143 &2961391874206293327
 CharacterController:
   m_ObjectHideFlags: 0
@@ -489,11 +489,11 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 6512250886155242313}
   scriptableTextureSounds: {fileID: 0}
   GetCollisionGround: {fileID: 0}
-  DelayStep: 0
-  timeStep: 0
+  DelayStep: 1
+  timeStep: 0.3
   fatorDelay: 1
-  IsGround: 0
-  IsMoviment: 0
+  IsGround: 1
+  IsMoviment: 1
 --- !u!114 &-4238864878650737130
 MonoBehaviour:
   m_ObjectHideFlags: 0

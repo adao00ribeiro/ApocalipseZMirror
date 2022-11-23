@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
+  - {fileID: 2100000, guid: 77a69ed788b2b5e4f8a0399f7105bd19, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
+  - {fileID: 2100000, guid: 77a69ed788b2b5e4f8a0399f7105bd19, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -242,7 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9646a2b04c2a342428ff64785f6b4ff4, type: 2}
+  - {fileID: 2100000, guid: 77a69ed788b2b5e4f8a0399f7105bd19, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -331,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f318b7455b76ec4faf3d71a825cec74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 847207856145058685}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 847207856145058685}
   dataItem: {fileID: 0}
   dropQuantity: 1
   IsServerSpaw: 0
@@ -362,9 +362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 847207856145058685}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 847207856145058685}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -406,15 +406,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 6126212164474996702}
+  - {fileID: 2877267081032668691}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  _scenePathHash: 0
+  <PrefabId>k__BackingField: 63
+  _scenePathHash: 3357886922
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 18232179740027550956
-  _sceneNetworkObjects: []
+  _sceneNetworkObjects:
+  - {fileID: 847207856145058685}
+  - {fileID: 0}

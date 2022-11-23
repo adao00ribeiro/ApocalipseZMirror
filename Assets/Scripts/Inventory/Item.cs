@@ -12,6 +12,7 @@ namespace ApocalipseZ
     [RequireComponent(typeof(NetworkTransform))]
     public class Item : NetworkBehaviour, IInteract
     {
+
         [SerializeField] private DataItem dataItem;
         private int Ammo;
         [SerializeField] private int dropQuantity;
@@ -23,9 +24,10 @@ namespace ApocalipseZ
         }
         private void Awake()
         {
+
             Ammo = dataItem.Ammo;
         }
-      
+
         void Start()
         {
             if (!IsServerSpaw && base.IsServer)

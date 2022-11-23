@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 221173368710141018}
   - component: {fileID: 8551147871405540597}
   - component: {fileID: 5010649499839572318}
+  - component: {fileID: 3288861873688063623}
   m_Layer: 0
   m_Name: BARRETI
   m_TagString: Untagged
@@ -233,8 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 3288861873688063623}
+  _networkObjectCache: {fileID: 3288861873688063623}
   dataItem: {fileID: 0}
   dropQuantity: 1
   IsServerSpaw: 0
@@ -264,8 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 3288861873688063623}
+  _networkObjectCache: {fileID: 3288861873688063623}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -293,6 +294,36 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &3288861873688063623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221173368710141021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours:
+  - {fileID: 221173368710141018}
+  - {fileID: 5010649499839572318}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  _isNetworked: 1
+  _isGlobal: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 2
+  _scenePathHash: 3357886922
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 228004750247357146
+  _sceneNetworkObjects:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &221173369411793608
 GameObject:
   m_ObjectHideFlags: 0
