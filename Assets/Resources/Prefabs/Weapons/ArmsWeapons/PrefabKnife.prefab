@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 8169143523809202721}
   - component: {fileID: 969828724672417085}
   m_Layer: 6
-  m_Name: ArmsKnife
+  m_Name: Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1595,6 +1595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6936633848590275401}
   - component: {fileID: 3625838376205592697}
+  - component: {fileID: 7401049378397396815}
   m_Layer: 6
   m_Name: PrefabKnife
   m_TagString: Untagged
@@ -1714,6 +1715,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7401049378397396815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6203856247229931866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 385ff5b1715581741b0f4fbcfe74ee1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSetting: {fileID: 11400000, guid: 63659e483c20bb1428f23df89394a029, type: 2}
+  weaponName: KNIFE
+  sway: {fileID: 0}
+  shotSFX: {fileID: 0}
+  recoilComponent: {fileID: 0}
 --- !u!1 &6296798020763429507
 GameObject:
   m_ObjectHideFlags: 0

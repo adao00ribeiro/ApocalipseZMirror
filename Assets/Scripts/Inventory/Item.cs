@@ -20,7 +20,7 @@ namespace ApocalipseZ
         public bool IsServerSpaw = false;
         private void OnEnable()
         {
-            transform.position += Vector3.up * 2;
+
         }
         private void Awake()
         {
@@ -36,7 +36,6 @@ namespace ApocalipseZ
             }
 
         }
-
         // Update is called once per frame
         void Update()
         {

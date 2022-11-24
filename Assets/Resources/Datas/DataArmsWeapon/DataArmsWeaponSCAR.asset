@@ -20,8 +20,8 @@ MonoBehaviour:
   recoil: {x: 0, y: 0, z: 0}
   MuzzleFlashParticlesFX: {fileID: 0}
   shotSFX: ScarShot
-  reloadingSFX: 
-  emptySFX: 
+  reloadingSFX: ScarReload
+  emptySFX: Empty
   shell: {fileID: 0}
   shellsPoolSize: 0
   shellEjectingForce: 0
@@ -37,5 +37,6 @@ MonoBehaviour:
   meleeHitFX: 
   bulletInitialVelocity: 0
   airResistanceForce: 0
-  projectile: 
-  PrefabArmsWeapon: {fileID: 0}
+  projectile: Bullet
+  PrefabArmsWeapon: {fileID: 267371184917974139, guid: 914ede9fd0253a7428e71c9335fb6e20,
+    type: 3}

@@ -15,13 +15,13 @@ MonoBehaviour:
   GuidId: 3dcfc6c7-91c5-4bf5-b672-41541b6a11de
   Name: BARRETTI
   Type: 0
-  fireRate: 0
+  fireRate: 0.5
   spread: 0
   recoil: {x: 0, y: 0, z: 0}
   MuzzleFlashParticlesFX: {fileID: 0}
   shotSFX: ScarShot
-  reloadingSFX: 
-  emptySFX: 
+  reloadingSFX: ScarReload
+  emptySFX: Empty
   shell: {fileID: 0}
   shellsPoolSize: 0
   shellEjectingForce: 0
@@ -37,5 +37,6 @@ MonoBehaviour:
   meleeHitFX: 
   bulletInitialVelocity: 0
   airResistanceForce: 0
-  projectile: 
-  PrefabArmsWeapon: {fileID: 0}
+  projectile: Bullet
+  PrefabArmsWeapon: {fileID: 2271651885792713846, guid: 55ee6f86db00541409f0c6a0fbe6c968,
+    type: 3}
