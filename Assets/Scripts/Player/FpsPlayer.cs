@@ -185,15 +185,19 @@ namespace ApocalipseZ
                 FirstPersonCamera.tag = "MainCamera";
                 FirstPersonCamera.GetComponent<Camera>().enabled = true;
                 FirstPersonCamera.ActiveCursor(false);
+                for (int i = 0; i < mesh.Length; i++)
+                {
+                    mesh[i].layer = 7;
+                }
+
             }
             else
             {
+                FirstPersonCamera.GetComponent<Camera>().enabled = false;
                 FirstPersonCamera.RemoveAudioListener();
             }
 
-
             Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-
             CanvasFpsPlayer CanvasFpsPlayer = GameObject.FindObjectOfType<CanvasFpsPlayer>();
             CanvasFpsPlayer.SetFirtPersonCamera(FirstPersonCamera);
             CanvasFpsPlayer.SetPlayerStats(PlayerStats);
@@ -201,18 +205,18 @@ namespace ApocalipseZ
         }
         void PlayerColorChanged(Color32 _, Color32 newPlayerColor, bool asServer)
         {
-        
-        for (int i = 0; i < mesh.Length; i++)
-        {
-            Material[] mats = mesh[i].GetComponent<SkinnedMeshRenderer>().materials;
 
-            for (int j = 0; j < mats.Length; j++)
+            for (int i = 0; i < mesh.Length; i++)
             {
-                mats[j].color = newPlayerColor;
+                Material[] mats = mesh[i].GetComponent<SkinnedMeshRenderer>().materials;
+
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].color = newPlayerColor;
+                }
             }
-        }
-       
-          //  GetComponentInChildren<MeshRenderer>().material.color = newPlayerColor;
+
+            //  GetComponentInChildren<MeshRenderer>().material.color = newPlayerColor;
         }
 
         [Server]

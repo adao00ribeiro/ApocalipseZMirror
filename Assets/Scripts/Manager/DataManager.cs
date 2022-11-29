@@ -9,15 +9,17 @@ namespace ApocalipseZ
     public class DataManager : MonoBehaviour
     {
 
+        [SerializeField] private DataCharacter[] ListCharacters;
         [SerializeField] private DataArmsWeapon[] ListArmsWeapon;
         [SerializeField] private DataItem[] ListItems;
 
-         [SerializeField] private DataBullet[] ListBullets;
+        [SerializeField] private DataBullet[] ListBullets;
         [SerializeField] private DataAudio[] ListAudios;
         [SerializeField] private DataParticles[] ListParticles;
         [SerializeField] private ScriptableTextureSounds ScriptableTextureSounds;
         void Start()
         {
+            ListCharacters = Resources.LoadAll<DataCharacter>("Datas/DataCharacter");
             ListArmsWeapon = Resources.LoadAll<DataArmsWeapon>("Datas/DataArmsWeapon");
             ListItems = Resources.LoadAll<DataItem>("Datas/DataItems");
             ListBullets = Resources.LoadAll<DataBullet>("Datas/DataBullets");
@@ -32,6 +34,18 @@ namespace ApocalipseZ
                 if (arms.GuidId == guidId)
                 {
                     temp = arms;
+                }
+            }
+            return temp;
+        }
+        internal DataCharacter GetCharacterByName(string Name)
+        {
+            DataCharacter temp = null;
+            foreach (DataCharacter character in ListCharacters)
+            {
+                if (character.Name == Name)
+                {
+                    temp = character;
                 }
             }
             return temp;
@@ -61,7 +75,7 @@ namespace ApocalipseZ
             }
             return temp;
         }
-          internal DataBullet GetDataBullet(string Name)
+        internal DataBullet GetDataBullet(string Name)
         {
             DataBullet temp = null;
             foreach (DataBullet item in ListBullets)
