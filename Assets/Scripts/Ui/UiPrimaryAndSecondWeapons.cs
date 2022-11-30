@@ -9,7 +9,6 @@ namespace ApocalipseZ
         [SerializeField] private UISlotItem UiPrimaryWeapon;
         [SerializeField] private UISlotItem UiSecondWeapon;
 
-        IFpsPlayer player;
 
         private void Awake()
         {
@@ -18,13 +17,30 @@ namespace ApocalipseZ
             UiPrimaryWeapon.HUD = transform.parent;
             UiSecondWeapon.HUD = transform.parent;
             UpdatePrimaryWeapon(new SlotInventoryTemp());
+            UpdateSecundaryWeapon(new SlotInventoryTemp());
         }
-
-        public void UpdatePrimaryWeapon( SlotInventoryTemp newItem)
+        public void SetInventory(Inventory _inventory)
         {
-           
+
+            UiPrimaryWeapon.SetInventory(_inventory);
+            UiSecondWeapon.SetInventory(_inventory);
+        }
+        public void SetWeaponManager(WeaponManager _weaponmanager)
+        {
+            UiPrimaryWeapon.SetWeaponManager(_weaponmanager);
+            UiSecondWeapon.SetWeaponManager(_weaponmanager);
+        }
+        public void UpdatePrimaryWeapon(SlotInventoryTemp newItem)
+        {
+            if (newItem.Compare(new SlotInventoryTemp()))
+            {
+                UiPrimaryWeapon.SetIsEmpty(true);
+                UiPrimaryWeapon.SetImage(null);
+                UiPrimaryWeapon.SetTextQuantidade("");
+                return;
+            }
             DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
-             
+
             if (dataItem == null)
             {
                 UiPrimaryWeapon.SetIsEmpty(true);
@@ -33,21 +49,22 @@ namespace ApocalipseZ
             }
             else
             {
-            
+
                 UiPrimaryWeapon.SetIsEmpty(false);
                 UiPrimaryWeapon.SetImage(dataItem.Thumbnail);
-                UiPrimaryWeapon.SetTextQuantidade("1");
+                UiPrimaryWeapon.SetTextQuantidade("");
             }
         }
         public void UpdateSecundaryWeapon(SlotInventoryTemp newItem)
         {
-            if(newItem.Compare(new SlotInventoryTemp())){
+            if (newItem.Compare(new SlotInventoryTemp()))
+            {
                 UiSecondWeapon.SetIsEmpty(true);
                 UiSecondWeapon.SetImage(null);
                 UiSecondWeapon.SetTextQuantidade("");
                 return;
             }
-            DataItem dataItem = GameController.Instance.DataManager.GetDataItem(newItem.guidid);
+            DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
             if (dataItem == null)
             {
                 UiSecondWeapon.SetIsEmpty(true);
@@ -58,7 +75,7 @@ namespace ApocalipseZ
             {
                 UiSecondWeapon.SetIsEmpty(false);
                 UiSecondWeapon.SetImage(dataItem.Thumbnail);
-                UiSecondWeapon.SetTextQuantidade("1");
+                UiSecondWeapon.SetTextQuantidade("");
             }
         }
 

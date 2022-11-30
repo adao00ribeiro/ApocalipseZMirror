@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
-
+using TMPro;
 namespace ApocalipseZ
 {
 
@@ -14,25 +14,16 @@ namespace ApocalipseZ
         [SerializeField] private TypeContainer AcceptedType;
         [SerializeField] private int SlotIndex;
         [SerializeField] private Image Image;
-        [SerializeField] private Text TextQuantidade;
+        [SerializeField] private TextMeshProUGUI TextQuantidade;
         private Vector2 offset;
-        bool IsLocked = false;
         public Transform HUD;
         public static UISlotItem SlotSelecionado;
         public static UISlotItem SlotEnter;
 
-        Inventory inventory;
-        WeaponManager weaponManager;
+        [SerializeField] Inventory inventory;
+        [SerializeField] WeaponManager weaponManager;
         public bool isEmpty;
-
-
-        private void Awake()
-        {
-            TextQuantidade.text = "";
-
-            SetImage(null);
-        }
-
+        public bool IsLocked;
         public void SetInventory(Inventory _inventory)
         {
             inventory = _inventory;
@@ -70,32 +61,52 @@ namespace ApocalipseZ
         {
             if (SlotSelecionado != null)
             {
-                if (SlotEnter != null && SlotSelecionado != SlotEnter)
+                if (SlotEnter != null && SlotSelecionado != SlotEnter && IsLocked == false)
                 {
                     if (SlotEnter.AcceptedType == TypeContainer.INVENTORY)
                     {
 
-                        if (SlotEnter.SlotIndex != SlotSelecionado.SlotIndex)
+                        //sslotselecaosdjaosdja
+                        if (SlotSelecionado.AcceptedType == TypeContainer.INVENTORY)
                         {
                             inventory.CmdInsertItem(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
+                        else if (SlotSelecionado.AcceptedType == TypeContainer.WEAPONS)
+                        {
+                            // weaponManager.CmdMove();
+                        }
+                        else
+                        {
 
+                        }
+
+
+                        //sslotselecaosdjaosdja
                     }
                     if (SlotEnter.AcceptedType == TypeContainer.FASTITEMS)
                     {
-                        print("fastitens");
+                        //sslotselecaosdjaosdja
+
+
+
+                        //sslotselecaosdjaosdja
                     }
                     if (SlotEnter.AcceptedType == TypeContainer.WEAPONS)
                     {
+                        //sslotselecaosdjaosdja
                         if (SlotSelecionado.AcceptedType == TypeContainer.INVENTORY)
                         {
                             weaponManager.CmdAddWeaponRemoveInventory(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
                         else if (SlotSelecionado.AcceptedType == TypeContainer.WEAPONS)
                         {
-                            weaponManager.CmdMove(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
+                            weaponManager.CmdMove();
                         }
+                        else
+                        {
 
+                        }
+                        //sslotselecaosdjaosdja
                     }
                 }
                 Destroy(SlotSelecionado.gameObject);
@@ -115,7 +126,10 @@ namespace ApocalipseZ
             }
             if (eventData.button == PointerEventData.InputButton.Left)
             {
-                SlotSelecionado = Instantiate(this, HUD);
+                SlotSelecionado = Instantiate(this, GameController.Instance.CanvasFpsPlayer.HUD);
+                SlotSelecionado.GetComponent<Image>().raycastTarget = false;
+                SlotSelecionado.SetSlotIndex(SlotIndex);
+                SlotSelecionado.SetImage(Image.sprite);
                 SlotSelecionado.GetComponent<RectTransform>().sizeDelta = new Vector2(70, 70);
                 SlotSelecionado.transform.position = eventData.position;
 
@@ -128,9 +142,34 @@ namespace ApocalipseZ
             if (SlotSelecionado != null)
             {
                 SlotEnter = this;
-                SlotEnter.Image.color = Color.green;
+                SlotEnter.IsLocked = true;
+                if (SlotEnter.AcceptedType == TypeContainer.FASTITEMS)
+                {
+                    if (SlotSelecionado.GetTypeItem() == ItemType.weapon)
+                    {
+                        SlotEnter.Image.color = Color.red;
+                        return;
+                    }
+                }
+                if (SlotEnter.AcceptedType == TypeContainer.WEAPONS)
+                {
+                    if (SlotSelecionado.GetTypeItem() != ItemType.weapon)
+                    {
+                        SlotEnter.Image.color = Color.red;
+                        return;
+                    }
+                }
+                if (!isEmpty && SlotEnter.AcceptedType != SlotSelecionado.AcceptedType)
+                {
+                    SlotEnter.Image.color = Color.red;
+                    return;
+                }
+                if (SlotSelecionado != null && SlotSelecionado != SlotEnter)
+                {
+                    SlotEnter.IsLocked = false;
+                    SlotEnter.Image.color = Color.green;
+                }
             }
-
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -157,7 +196,9 @@ namespace ApocalipseZ
             if (image == null)
             {
                 Image.color = Color.clear;
+                return;
             }
+            Image.color = Color.white;
         }
         public void SetSlotIndex(int index)
         {
@@ -167,5 +208,17 @@ namespace ApocalipseZ
         {
             return SlotIndex;
         }
+        public ItemType GetTypeItem()
+        {
+            if (AcceptedType == TypeContainer.INVENTORY)
+            {
+                return inventory.GetTypeItem(SlotIndex);
+            }
+
+            return weaponManager.GetTypeItem(SlotIndex);
+        }
+
+
+
     }
 }

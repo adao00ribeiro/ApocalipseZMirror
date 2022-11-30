@@ -6,6 +6,7 @@ using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
+using System;
 
 namespace ApocalipseZ
 {
@@ -22,6 +23,8 @@ namespace ApocalipseZ
 
         [SyncVar(Channel = Channel.Unreliable, OnChange = nameof(SetPrimaryWeapon))]
         public SlotInventoryTemp PrimaryWeapon;
+
+        [SyncVar(Channel = Channel.Unreliable, OnChange = nameof(SetSecundaryWeapon))]
         public SlotInventoryTemp SecundaryWeapon;
 
         [Tooltip("Animator that contain pickup animation")]
@@ -47,12 +50,27 @@ namespace ApocalipseZ
         }
         private void Awake()
         {
+            PrimaryWeapon = new SlotInventoryTemp();
+            SecundaryWeapon = new SlotInventoryTemp();
             InputManager = GameController.Instance.InputManager;
+
+        }
+        public override void OnStartClient()
+        {
+
+            base.OnStartClient();
+            if (base.IsOwner)
+            {
+
+                UiPrimaryAndSecondWeapons = GameController.Instance.CanvasFpsPlayer.GetUiPrimaryandSecundaryWeapons();
+                UiPrimaryAndSecondWeapons.SetInventory(GetComponent<Inventory>());
+                UiPrimaryAndSecondWeapons.SetWeaponManager(this);
+            }
 
         }
         void Start()
         {
-            UiPrimaryAndSecondWeapons = GameController.Instance.CanvasFpsPlayer.GetUiPrimaryandSecundaryWeapons();
+
             swayTransform = transform.Find("Camera & Recoil/Weapon holder/Sway").transform;
             weaponHolderAnimator = transform.Find("Camera & Recoil/Weapon holder").GetComponent<Animator>();
             foreach (Weapon weapon in swayTransform.GetComponentsInChildren<Weapon>(true))
@@ -276,25 +294,53 @@ namespace ApocalipseZ
             PrimaryWeapon = newSlot;
             UiPrimaryAndSecondWeapons.UpdatePrimaryWeapon(newSlot);
         }
-
+        public void SetSecundaryWeapon(SlotInventoryTemp oldSlot, SlotInventoryTemp newSlot, bool asServer)
+        {
+            SecundaryWeapon = newSlot;
+            UiPrimaryAndSecondWeapons.UpdateSecundaryWeapon(newSlot);
+        }
         [ServerRpc]
         public void CmdAddWeaponRemoveInventory(int slotenter, int SlotSelecionado)
         {
             SlotInventoryTemp slot = fpsplayer.GetInventory().GetSlot(SlotSelecionado);
             if (slotenter == 0)
             {
+                fpsplayer.GetInventory().AddItem(SlotSelecionado, PrimaryWeapon);
                 PrimaryWeapon = slot;
+
             }
             else
             {
+                fpsplayer.GetInventory().AddItem(SlotSelecionado, SecundaryWeapon);
                 SecundaryWeapon = slot;
             }
-            fpsplayer.GetInventory().RemoveItem(slot);
+
         }
+
         [ServerRpc]
-        internal void CmdMove(int slotIndex1, int slotIndex2)
+        public void CmdMove()
+        {
+            MoveItem();
+        }
+        public void MoveItem()
+        {
+            SlotInventoryTemp auxEnter = PrimaryWeapon;
+            PrimaryWeapon = SecundaryWeapon;
+            SecundaryWeapon = auxEnter;
+        }
+        internal ItemType GetTypeItem(int slotIndex)
         {
 
+            DataItem item = null;
+            if (slotIndex == 0)
+            {
+                item = GameController.Instance.DataManager.GetDataItemById(PrimaryWeapon.guidid);
+                return item.Type;
+            }
+
+            item = GameController.Instance.DataManager.GetDataItemById(SecundaryWeapon.guidid);
+
+            return item.Type;
         }
     }
 

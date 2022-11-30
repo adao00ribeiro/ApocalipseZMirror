@@ -8,6 +8,7 @@ namespace ApocalipseZ
 {
     public class CanvasFpsPlayer : MonoBehaviour
     {
+        public Transform HUD;
         [SerializeField] Canvas CanvasInventory;
         [SerializeField] Canvas CanvasPrimaryAndSecondWeapons;
         [SerializeField] Canvas CanvasFastItems;
@@ -25,7 +26,7 @@ namespace ApocalipseZ
         PlayerStats stats;
         FirstPersonCamera FirstPersonCamera;
 
-       
+
         private void Awake()
         {
             InputManager = GameController.Instance.InputManager;
@@ -59,7 +60,7 @@ namespace ApocalipseZ
                 ActiveMotionBlur(IsInventoryOpen);
             }
         }
-  
+
         public void ActiveMotionBlur(bool active)
         {
             FirstPersonCamera.ActiveCursor(active);
@@ -85,7 +86,7 @@ namespace ApocalipseZ
 
         internal UiPrimaryAndSecondWeapons GetUiPrimaryandSecundaryWeapons()
         {
-             return UiPrimaryAndSecondWeapons;
+            return UiPrimaryAndSecondWeapons;
         }
 
         private InputManager InputManager;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121012257842986407}
   - component: {fileID: 6512250886155242313}
+  - component: {fileID: 7475271463591379558}
   - component: {fileID: 5285789462600329347}
   - component: {fileID: 1170334566517295003}
   - component: {fileID: 8644459235677992978}
@@ -21,6 +22,7 @@ GameObject:
   - component: {fileID: 5298346800785778581}
   - component: {fileID: 7113567819718704031}
   - component: {fileID: -4238864878650737130}
+  - component: {fileID: 1454892263967512698}
   m_Layer: 9
   m_Name: PlayerPedro
   m_TagString: Player
@@ -82,6 +84,27 @@ MonoBehaviour:
   _sceneNetworkObjects:
   - {fileID: 6512250886155242313}
   - {fileID: 0}
+--- !u!114 &7475271463591379558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6512250886155242313}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 3391400487296642177}
+  _smoothFloats: 1
+  _interpolation: 2
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!114 &5285789462600329347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,8 +129,8 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
+  _clientAuthoritative: 0
+  _sendToOwner: 0
   _interval: 1
   _synchronizePosition: 1
   _positionSnapping:
@@ -469,6 +492,35 @@ MonoBehaviour:
   satietySubstractionRate: 5
   hungerDamage: 1
   Disable: 0
+--- !u!114 &1454892263967512698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6512250886155242313}
+  _networkObjectCache: {fileID: 0}
+  _graphicalObject: {fileID: 8786663691507136251}
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _ownerInterpolation: 1
+  _predictionType: 0
+  _rigidbody: {fileID: 0}
+  _rigidbody2d: {fileID: 0}
+  _spectatorSmoothingDuration: 0.025
+  _spectatorInterpolation: 1
+  _overflowMultiplier: 0.1
+  _maintainedVelocity: 0
+  _resendType: 0
+  _resendInterval: 30
+  _networkTransform: {fileID: 5285789462600329347}
 --- !u!1 &190601330732830451
 GameObject:
   m_ObjectHideFlags: 0

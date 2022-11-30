@@ -63,7 +63,9 @@ GameObject:
   m_Component:
   - component: {fileID: 121012257842986407}
   - component: {fileID: 6512250886155242313}
+  - component: {fileID: 5855961313663230586}
   - component: {fileID: 5285789462600329347}
+  - component: {fileID: 1899177508498307485}
   - component: {fileID: 1170334566517295003}
   - component: {fileID: 8644459235677992978}
   - component: {fileID: 7433572165634752114}
@@ -122,6 +124,7 @@ MonoBehaviour:
   - {fileID: 286196919920158639}
   - {fileID: 7113567819718704031}
   - {fileID: -4238864878650737130}
+  - {fileID: 1899177508498307485}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
@@ -133,6 +136,27 @@ MonoBehaviour:
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 11517951196586629873
   _sceneNetworkObjects: []
+--- !u!114 &5855961313663230586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6512250886155242313}
+  _networkObjectCache: {fileID: 0}
+  IgnoredParameters: []
+  _animator: {fileID: 4776707561504350463}
+  _smoothFloats: 1
+  _interpolation: 2
+  _clientAuthoritative: 1
+  _sendToOwner: 0
 --- !u!114 &5285789462600329347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,8 +181,8 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
+  _clientAuthoritative: 0
+  _sendToOwner: 0
   _interval: 1
   _synchronizePosition: 1
   _positionSnapping:
@@ -175,6 +199,35 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &1899177508498307485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121012257842986411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 7
+  _addedNetworkObject: {fileID: 6512250886155242313}
+  _networkObjectCache: {fileID: 6512250886155242313}
+  _graphicalObject: {fileID: 1489120191095667333}
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _ownerInterpolation: 1
+  _predictionType: 0
+  _rigidbody: {fileID: 0}
+  _rigidbody2d: {fileID: 0}
+  _spectatorSmoothingDuration: 0.025
+  _spectatorInterpolation: 1
+  _overflowMultiplier: 0.1
+  _maintainedVelocity: 0
+  _resendType: 0
+  _resendInterval: 30
+  _networkTransform: {fileID: 5285789462600329347}
 --- !u!114 &1170334566517295003
 MonoBehaviour:
   m_ObjectHideFlags: 0

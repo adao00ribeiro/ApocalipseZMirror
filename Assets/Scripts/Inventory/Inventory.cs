@@ -20,12 +20,13 @@ public class Inventory : NetworkBehaviour
     {
 
     }
-    void FixedUpdate(){
-     ListInspector.Clear();
-      for (int i = 0; i < inventory.Count; i++)
-      {
-            ListInspector.Add(new ListItemsInspector(i,inventory[i].Name , inventory[i].Ammo));
-      }
+    void FixedUpdate()
+    {
+        ListInspector.Clear();
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            ListInspector.Add(new ListItemsInspector(i, inventory[i].Name, inventory[i].Ammo));
+        }
     }
     void StartInventory()
     {
@@ -37,20 +38,21 @@ public class Inventory : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-         StartInventory();
+        StartInventory();
     }
     public override void OnStartClient()
     {
 
         base.OnStartClient();
-        if(base.IsOwner){
-            
-        uiInventory = GameController.Instance.CanvasFpsPlayer.GetUiInventory();
-        uiInventory.SetInventory(this);
-        uiInventory.SetWeaponManager(GetComponent<WeaponManager>());
-        uiInventory.AddSlots();
-        inventory.OnChange += OnInventoryUpdated;
-          }
+        if (base.IsOwner)
+        {
+
+            uiInventory = GameController.Instance.CanvasFpsPlayer.GetUiInventory();
+            uiInventory.SetInventory(this);
+            uiInventory.SetWeaponManager(GetComponent<WeaponManager>());
+            uiInventory.AddSlots();
+            inventory.OnChange += OnInventoryUpdated;
+        }
 
     }
 
@@ -81,6 +83,13 @@ public class Inventory : NetworkBehaviour
             }
         }
         return false;
+    }
+    public void AddItem(int slotIndex, SlotInventoryTemp slot)
+    {
+
+        inventory[slotIndex] = slot;
+
+
     }
 
     public void InsertItem(int slotEnterIndex, int slotIndexselecionado)
@@ -138,6 +147,12 @@ public class Inventory : NetworkBehaviour
                 break;
         }
     }
+    public ItemType GetTypeItem(int slotIndex)
+    {
+
+        DataItem item = GameController.Instance.DataManager.GetDataItemById(inventory[slotIndex].guidid);
+        return item.Type;
+    }
     public void SetUiInventory(UiInventory _uiinventory)
     {
         uiInventory = _uiinventory;
@@ -149,7 +164,6 @@ public class Inventory : NetworkBehaviour
     [ServerRpc]
     public void CmdInsertItem(int slotIndex, int slotIndexselecionado)
     {
-
         InsertItem(slotIndex, slotIndexselecionado);
     }
 }
