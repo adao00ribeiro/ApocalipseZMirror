@@ -302,6 +302,7 @@ namespace ApocalipseZ
         [ServerRpc]
         public void CmdAddWeaponRemoveInventory(int slotenter, int SlotSelecionado)
         {
+            print(slotenter + "   " + SlotSelecionado);
             SlotInventoryTemp slot = fpsplayer.GetInventory().GetSlot(SlotSelecionado);
             if (slotenter == 0)
             {

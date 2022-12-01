@@ -75,6 +75,14 @@ namespace ApocalipseZ
         {
             return UiInventory;
         }
+        public UiFastItems GetUiFastItems()
+        {
+            return UiFastItems;
+        }
+        public UiPrimaryAndSecondWeapons GetUiPrimaryAndSecondWeapons()
+        {
+            return UiPrimaryAndSecondWeapons;
+        }
         internal void SetFirtPersonCamera(FirstPersonCamera camera)
         {
             FirstPersonCamera = camera;

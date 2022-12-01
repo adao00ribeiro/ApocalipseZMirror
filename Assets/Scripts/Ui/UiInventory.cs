@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,23 +8,18 @@ namespace ApocalipseZ
         public UISlotItem PrefabSlot;
         [SerializeField] private List<UISlotItem> UIItems = new List<UISlotItem>();
         private Transform slotPanel;
-        Inventory inventory;
-        WeaponManager weaponManager;
+
         void Awake()
         {
             slotPanel = transform.Find("SlotPanel").transform;
+        }
 
-        }
-        public void SetInventory(Inventory _inventory)
+        public void AddSlots(FpsPlayer FpsPlayer)
         {
-            inventory = _inventory;
-        }
-        public void SetWeaponManager(WeaponManager _weaponmanager)
-        {
-            weaponManager = _weaponmanager;
-        }
-        public void AddSlots()
-        {
+            Inventory inventory = FpsPlayer.GetInventory();
+            WeaponManager weaponManager = FpsPlayer.GetWeaponManager();
+            //IFastItemsManager fastItemsManager = FpsPlayer.();
+
             foreach (UISlotItem item in UIItems)
             {
                 Destroy(item.gameObject);
@@ -55,7 +48,7 @@ namespace ApocalipseZ
         }
         internal void UpdateSlot(int index, SlotInventoryTemp newItem)
         {
-         
+
             DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
             if (dataItem == null)
             {

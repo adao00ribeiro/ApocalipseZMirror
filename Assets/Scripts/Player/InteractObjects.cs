@@ -26,19 +26,12 @@ namespace ApocalipseZ
             }
         }
         public LayerMask layer;
-        private InputManager PInputManager;
-        public InputManager InputManager
-        {
-            get
-            {
-                if (PInputManager == null)
-                {
-                    PInputManager = InputManager.Instance;
-                }
-                return PInputManager;
-            }
-        }
+        private InputManager InputManager;
 
+        void Awake()
+        {
+            InputManager = GameController.Instance.InputManager;
+        }
 
         // Update is called once per frame
         public void UpdateInteract()

@@ -48,9 +48,7 @@ public class Inventory : NetworkBehaviour
         {
 
             uiInventory = GameController.Instance.CanvasFpsPlayer.GetUiInventory();
-            uiInventory.SetInventory(this);
-            uiInventory.SetWeaponManager(GetComponent<WeaponManager>());
-            uiInventory.AddSlots();
+            uiInventory.AddSlots(GetComponent<FpsPlayer>());
             inventory.OnChange += OnInventoryUpdated;
         }
 
@@ -162,8 +160,28 @@ public class Inventory : NetworkBehaviour
         return maxSlot;
     }
     [ServerRpc]
-    public void CmdInsertItem(int slotIndex, int slotIndexselecionado)
+    public void CmdMoveItem(int slotIndex, int slotIndexselecionado)
     {
         InsertItem(slotIndex, slotIndexselecionado);
+    }
+
+    internal void CmdMoveWeaponManager(int slotenter, int SlotSelecionado)
+    {
+        print(slotenter + "         " + SlotSelecionado);
+        SlotInventoryTemp slot;
+
+        if (SlotSelecionado == 0)
+        {
+            slot = GetComponent<WeaponManager>().PrimaryWeapon;
+            GetComponent<WeaponManager>().PrimaryWeapon = GetSlot(slotenter);
+            AddItem(slotenter, slot);
+        }
+        else
+        {
+            slot = GetComponent<WeaponManager>().SecundaryWeapon;
+            GetComponent<WeaponManager>().SecundaryWeapon = GetSlot(slotenter);
+            AddItem(slotenter, slot);
+        }
+
     }
 }

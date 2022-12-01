@@ -69,11 +69,11 @@ namespace ApocalipseZ
                         //sslotselecaosdjaosdja
                         if (SlotSelecionado.AcceptedType == TypeContainer.INVENTORY)
                         {
-                            inventory.CmdInsertItem(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
+                            inventory.CmdMoveItem(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
                         else if (SlotSelecionado.AcceptedType == TypeContainer.WEAPONS)
                         {
-                            // weaponManager.CmdMove();
+                            inventory.CmdMoveWeaponManager(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
                         else
                         {

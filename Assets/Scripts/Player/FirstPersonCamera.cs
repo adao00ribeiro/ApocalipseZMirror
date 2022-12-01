@@ -16,13 +16,17 @@ namespace ApocalipseZ
         [SerializeField] private float angleYmin = -90;
         [SerializeField] private float angleYmax = 90;
 
+        InputManager InputManager;
         bool lockCursor;
 
         [HideInInspector]
         public Vector2 targetDirection;
         Animator animator;
         public LayerMask defaultLayer;
-
+        void Awake()
+        {
+            InputManager = GameController.Instance.InputManager;
+        }
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -41,8 +45,8 @@ namespace ApocalipseZ
                 return;
             }
             Quaternion targetOrientation = Quaternion.Euler(targetDirection);
-            rotationX += InputManager.Instance.GetMouseDelta().x * sensitivity.x;
-            rotationY += InputManager.Instance.GetMouseDelta().y * sensitivity.y;
+            rotationX += InputManager.GetMouseDelta().x * sensitivity.x;
+            rotationY += InputManager.GetMouseDelta().y * sensitivity.y;
             rotationY = Mathf.Clamp(rotationY, angleYmin, angleYmax);
             //characterBody.localRotation = Quaternion.Euler(0, rotationX, 0);
             transform.localRotation = Quaternion.Euler(-rotationY, 0, 0);

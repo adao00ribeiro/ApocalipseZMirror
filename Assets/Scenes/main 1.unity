@@ -1885,6 +1885,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b75b3c5975e776408b3b894ac98dba7, type: 3}
+--- !u!114 &854291982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6155421242530152759, guid: bdf3533602f2bf644a5240d1b3cacdd7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1435113045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a1ab894abf05d4f922778f590549f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &882573050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3633,11 +3645,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6155421242530152759, guid: bdf3533602f2bf644a5240d1b3cacdd7,
+        type: 3}
+      propertyPath: PrefabSlot
+      value: 
+      objectReference: {fileID: 953581165, guid: 8c7516e0e9e6c0949aded6ceef8452fc,
+        type: 3}
     - target: {fileID: 6573370011351716639, guid: bdf3533602f2bf644a5240d1b3cacdd7,
         type: 3}
       propertyPath: HUD
       value: 
       objectReference: {fileID: 1217709421}
+    - target: {fileID: 6573370011351716639, guid: bdf3533602f2bf644a5240d1b3cacdd7,
+        type: 3}
+      propertyPath: UiFastItems
+      value: 
+      objectReference: {fileID: 854291982}
     - target: {fileID: 6934051274391391664, guid: bdf3533602f2bf644a5240d1b3cacdd7,
         type: 3}
       propertyPath: m_AnchorMax.y
