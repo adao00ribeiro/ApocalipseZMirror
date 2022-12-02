@@ -6,78 +6,54 @@ namespace ApocalipseZ
 {
     public class UiPrimaryAndSecondWeapons : MonoBehaviour
     {
-        [SerializeField] private UISlotItem UiPrimaryWeapon;
-        [SerializeField] private UISlotItem UiSecondWeapon;
-
+        public UISlotItem PrefabSlot;
+        private List<UISlotItem> WeaponSlots = new List<UISlotItem>();
+        private Transform Container;
 
         private void Awake()
         {
-            UiPrimaryWeapon = transform.Find("Container/Primary Weapon Slot").GetComponent<UISlotItem>();
-            UiSecondWeapon = transform.Find("Container/Second Weapon Slot").GetComponent<UISlotItem>();
-            UiPrimaryWeapon.HUD = transform.parent;
-            UiSecondWeapon.HUD = transform.parent;
-            UpdatePrimaryWeapon(new SlotInventoryTemp());
-            UpdateSecundaryWeapon(new SlotInventoryTemp());
+            Container = transform.Find("Container").transform;
         }
-        public void SetInventory(Inventory _inventory)
-        {
 
-            UiPrimaryWeapon.SetInventory(_inventory);
-            UiSecondWeapon.SetInventory(_inventory);
-        }
-        public void SetWeaponManager(WeaponManager _weaponmanager)
+        public void AddSlots(FpsPlayer FpsPlayer)
         {
-            UiPrimaryWeapon.SetWeaponManager(_weaponmanager);
-            UiSecondWeapon.SetWeaponManager(_weaponmanager);
-        }
-        public void UpdatePrimaryWeapon(SlotInventoryTemp newItem)
-        {
-            if (newItem.Compare(new SlotInventoryTemp()))
+            Inventory inventory = FpsPlayer.GetInventory();
+            WeaponManager weaponManager = FpsPlayer.GetWeaponManager();
+            FastItemsManager fastItemsManager = FpsPlayer.GetFastItemsManager();
+            foreach (UISlotItem item in WeaponSlots)
             {
-                UiPrimaryWeapon.SetIsEmpty(true);
-                UiPrimaryWeapon.SetImage(null);
-                UiPrimaryWeapon.SetTextQuantidade("");
-                return;
+                Destroy(item.gameObject);
             }
-            DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
+            WeaponSlots.Clear();
+            for (int i = 0; i < 2; i++)
+            {
+                UISlotItem instance = Instantiate(PrefabSlot, Container);
+                instance.HUD = transform.parent;
+                instance.SetTypeContainer(TypeContainer.WEAPONS);
+                instance.SetSlotIndex(i);
+                instance.SetInventory(inventory);
+                instance.SetWeaponManager(weaponManager);
+                instance.SetFastItemsManager(fastItemsManager);
+                WeaponSlots.Add(instance);
+            }
+        }
 
-            if (dataItem == null)
-            {
-                UiPrimaryWeapon.SetIsEmpty(true);
-                UiPrimaryWeapon.SetImage(null);
-                UiPrimaryWeapon.SetTextQuantidade("");
-            }
-            else
-            {
 
-                UiPrimaryWeapon.SetIsEmpty(false);
-                UiPrimaryWeapon.SetImage(dataItem.Thumbnail);
-                UiPrimaryWeapon.SetTextQuantidade("");
-            }
-        }
-        public void UpdateSecundaryWeapon(SlotInventoryTemp newItem)
+        internal void UpdateSlot(int index, SlotInventoryTemp newItem)
         {
-            if (newItem.Compare(new SlotInventoryTemp()))
-            {
-                UiSecondWeapon.SetIsEmpty(true);
-                UiSecondWeapon.SetImage(null);
-                UiSecondWeapon.SetTextQuantidade("");
-                return;
-            }
             DataItem dataItem = GameController.Instance.DataManager.GetDataItemById(newItem.guidid);
             if (dataItem == null)
             {
-                UiSecondWeapon.SetIsEmpty(true);
-                UiSecondWeapon.SetImage(null);
-                UiSecondWeapon.SetTextQuantidade("");
+                WeaponSlots[index].SetIsEmpty(true);
+                WeaponSlots[index].SetImage(null);
+                WeaponSlots[index].SetTextQuantidade("");
             }
             else
             {
-                UiSecondWeapon.SetIsEmpty(false);
-                UiSecondWeapon.SetImage(dataItem.Thumbnail);
-                UiSecondWeapon.SetTextQuantidade("");
+                WeaponSlots[index].SetIsEmpty(false);
+                WeaponSlots[index].SetImage(dataItem.Thumbnail);
+                WeaponSlots[index].SetTextQuantidade(newItem.Quantity.ToString());
             }
         }
-
     }
 }

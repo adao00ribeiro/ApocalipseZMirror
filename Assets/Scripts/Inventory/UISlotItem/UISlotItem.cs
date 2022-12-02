@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
 using TMPro;
 namespace ApocalipseZ
 {
@@ -19,20 +16,13 @@ namespace ApocalipseZ
         public Transform HUD;
         public static UISlotItem SlotSelecionado;
         public static UISlotItem SlotEnter;
-
         [SerializeField] Inventory inventory;
         [SerializeField] WeaponManager weaponManager;
+        [SerializeField] FastItemsManager fastItemsManager;
         public bool isEmpty;
         public bool IsLocked;
-        public void SetInventory(Inventory _inventory)
-        {
-            inventory = _inventory;
-        }
-        public void SetWeaponManager(WeaponManager _weaponmanager)
-        {
-            weaponManager = _weaponmanager;
-        }
-        // Start is called before the first frame update
+
+        #region  OnPointerEvent
         public void OnBeginDrag(PointerEventData eventData)
         {
             if (SlotSelecionado)
@@ -61,7 +51,7 @@ namespace ApocalipseZ
         {
             if (SlotSelecionado != null)
             {
-                if (SlotEnter != null && SlotSelecionado != SlotEnter && IsLocked == false)
+                if (SlotEnter != null && SlotSelecionado != SlotEnter && SlotEnter.IsLocked == false)
                 {
                     if (SlotEnter.AcceptedType == TypeContainer.INVENTORY)
                     {
@@ -77,17 +67,26 @@ namespace ApocalipseZ
                         }
                         else
                         {
-
+                            inventory.CmdMoveFastItemManager(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
-
-
                         //sslotselecaosdjaosdja
                     }
                     if (SlotEnter.AcceptedType == TypeContainer.FASTITEMS)
                     {
                         //sslotselecaosdjaosdja
 
-
+                        if (SlotSelecionado.AcceptedType == TypeContainer.INVENTORY)
+                        {
+                            fastItemsManager.CmdMoveInventory(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
+                        }
+                        else if (SlotSelecionado.AcceptedType == TypeContainer.WEAPONS)
+                        {
+                            fastItemsManager.CmdMoveWeaponManager(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
+                        }
+                        else
+                        {
+                            fastItemsManager.CmdMove(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
+                        }
 
                         //sslotselecaosdjaosdja
                     }
@@ -104,9 +103,9 @@ namespace ApocalipseZ
                         }
                         else
                         {
-
+                            weaponManager.CmdMoveFastItemManager(SlotEnter.SlotIndex, SlotSelecionado.SlotIndex);
                         }
-                        //sslotselecaosdjaosdja
+
                     }
                 }
                 Destroy(SlotSelecionado.gameObject);
@@ -132,7 +131,6 @@ namespace ApocalipseZ
                 SlotSelecionado.SetImage(Image.sprite);
                 SlotSelecionado.GetComponent<RectTransform>().sizeDelta = new Vector2(70, 70);
                 SlotSelecionado.transform.position = eventData.position;
-
             }
             offset = eventData.position - new Vector2(this.transform.position.x, this.transform.position.y);
         }
@@ -159,11 +157,6 @@ namespace ApocalipseZ
                         return;
                     }
                 }
-                if (!isEmpty && SlotEnter.AcceptedType != SlotSelecionado.AcceptedType)
-                {
-                    SlotEnter.Image.color = Color.red;
-                    return;
-                }
                 if (SlotSelecionado != null && SlotSelecionado != SlotEnter)
                 {
                     SlotEnter.IsLocked = false;
@@ -181,6 +174,25 @@ namespace ApocalipseZ
             SlotEnter = null;
 
             //   tooltip.Deactivate();
+        }
+        #endregion
+        #region  GETSET
+
+        public void SetTypeContainer(TypeContainer _AcceptedType)
+        {
+            AcceptedType = _AcceptedType;
+        }
+        public void SetInventory(Inventory _inventory)
+        {
+            inventory = _inventory;
+        }
+        public void SetWeaponManager(WeaponManager _weaponmanager)
+        {
+            weaponManager = _weaponmanager;
+        }
+        internal void SetFastItemsManager(FastItemsManager _fastItemsManager)
+        {
+            fastItemsManager = _fastItemsManager;
         }
         public void SetIsEmpty(bool empty)
         {
@@ -214,11 +226,17 @@ namespace ApocalipseZ
             {
                 return inventory.GetTypeItem(SlotIndex);
             }
+            else if (AcceptedType == TypeContainer.WEAPONS)
+            {
+                return weaponManager.GetTypeItem(SlotIndex);
+            }
+            else
+            {
+                return fastItemsManager.GetTypeItem(SlotIndex);
+            }
 
-            return weaponManager.GetTypeItem(SlotIndex);
         }
-
-
+        #endregion
 
     }
 }

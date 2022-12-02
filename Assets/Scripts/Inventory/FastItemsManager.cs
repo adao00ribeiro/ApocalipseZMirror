@@ -1,4 +1,5 @@
 
+using System;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -22,6 +23,14 @@ namespace ApocalipseZ
         void Awake()
         {
             InputManager = GameController.Instance.InputManager;
+        }
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+            for (int i = 0; i < 3; i++)
+            {
+                container.Add(new SlotInventoryTemp());
+            }
         }
         // Start is called before the first frame update
         public override void OnStartClient()
@@ -98,6 +107,36 @@ namespace ApocalipseZ
 
 
         }
+        [ServerRpc]
+        internal void CmdMoveInventory(int slotenter, int SlotSelecionado)
+        {
+            Inventory inventory = GetComponent<Inventory>();
+            SlotInventoryTemp slot = inventory.GetSlot(SlotSelecionado);
+            inventory.AddItem(SlotSelecionado, container[slotenter]);
+            container[slotenter] = slot;
+        }
+        [ServerRpc]
+        internal void CmdMoveWeaponManager(int slotenter, int SlotSelecionado)
+        {
+            WeaponManager weaponManager = GetComponent<WeaponManager>();
+            SlotInventoryTemp slot = weaponManager.container[SlotSelecionado];
+            weaponManager.container[SlotSelecionado] = container[slotenter];
+            container[slotenter] = slot;
+        }
+        [ServerRpc]
+        internal void CmdMove(int slotEnterIndex, int slotIndexselecionado)
+        {
+            SlotInventoryTemp auxEnter = container[slotEnterIndex];
+            container[slotEnterIndex] = container[slotIndexselecionado];
+            container[slotIndexselecionado] = auxEnter;
+        }
+
+        internal ItemType GetTypeItem(int slotIndex)
+        {
+            DataItem item = GameController.Instance.DataManager.GetDataItemById(container[slotIndex].guidid);
+            return item.Type;
+        }
+
         #endregion
 
     }

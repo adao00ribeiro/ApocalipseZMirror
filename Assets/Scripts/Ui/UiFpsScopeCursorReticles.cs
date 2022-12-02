@@ -50,7 +50,7 @@ namespace ApocalipseZ
         }
 
         // Update is called once per frame
-        void Update()
+        void UpdateTest()
         {
             return;
             if (weaponActive == null)

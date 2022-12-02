@@ -39,7 +39,7 @@ namespace ApocalipseZ
     {
         Moviment Moviment;
         WeaponManager WeaponManager;
-        IFastItemsManager FastItemsManager;
+        FastItemsManager FastItemsManager;
         public Inventory Inventory;
         IInteractObjects InteractObjects;
         PlayerStats PlayerStats;
@@ -337,6 +337,11 @@ namespace ApocalipseZ
         public Inventory GetInventory()
         {
             return Inventory;
+        }
+
+        internal FastItemsManager GetFastItemsManager()
+        {
+            return FastItemsManager;
         }
         #endregion
     }

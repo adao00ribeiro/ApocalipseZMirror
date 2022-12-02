@@ -20,7 +20,7 @@ namespace ApocalipseZ
             {
                 if (PUiFpsScopeCursorReticles == null)
                 {
-                    PUiFpsScopeCursorReticles = GameObject.FindObjectOfType<UiFpsScopeCursorReticles>();
+                    PUiFpsScopeCursorReticles = GameController.Instance.CanvasFpsPlayer.GetUiFpsScopeCursorReticles();
                 }
                 return PUiFpsScopeCursorReticles;
             }
@@ -47,27 +47,27 @@ namespace ApocalipseZ
                 if (interact != null)
                 {
 
-                    // UiFpsScopeCursorReticles.EnableCursor ( );
-                    // UiFpsScopeCursorReticles.SetUseText ( interact.GetTitle ( ) );
+                    UiFpsScopeCursorReticles.EnableCursor();
+                    UiFpsScopeCursorReticles.SetUseText(interact.GetTitle());
                     if (InputManager.GetUse())
                     {
                         interact.CmdInteract();
                         interact = null;
-                        //UiFpsScopeCursorReticles.SetUseText ( "" );
+                        UiFpsScopeCursorReticles.SetUseText("");
                     }
 
                 }
                 else
                 {
-                    //  UiFpsScopeCursorReticles.DisableCursor ( );
-                    // UiFpsScopeCursorReticles.SetUseText ( "" );
+                    UiFpsScopeCursorReticles.DisableCursor();
+                    UiFpsScopeCursorReticles.SetUseText("");
                 }
 
             }
             else
             {
-                //UiFpsScopeCursorReticles.DisableCursor( );
-                //UiFpsScopeCursorReticles.SetUseText ("");
+                UiFpsScopeCursorReticles.DisableCursor();
+                UiFpsScopeCursorReticles.SetUseText("");
             }
         }
 

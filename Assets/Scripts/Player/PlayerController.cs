@@ -35,7 +35,7 @@ namespace ApocalipseZ
             DataCharacter data = GameController.Instance.DataManager.GetCharacterByName(name);
             if (data)
             {
-                player = Instantiate(data.Prefab);
+                player = Instantiate(data.Prefab, transform.position, transform.rotation);
                 base.Spawn(player, sender);
             }
 

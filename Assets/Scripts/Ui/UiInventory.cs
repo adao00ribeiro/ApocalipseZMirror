@@ -18,7 +18,7 @@ namespace ApocalipseZ
         {
             Inventory inventory = FpsPlayer.GetInventory();
             WeaponManager weaponManager = FpsPlayer.GetWeaponManager();
-            //IFastItemsManager fastItemsManager = FpsPlayer.();
+            FastItemsManager fastItemsManager = FpsPlayer.GetFastItemsManager();
 
             foreach (UISlotItem item in UIItems)
             {
@@ -32,6 +32,7 @@ namespace ApocalipseZ
                 instance.SetSlotIndex(i);
                 instance.SetInventory(inventory);
                 instance.SetWeaponManager(weaponManager);
+                instance.SetFastItemsManager(fastItemsManager);
                 UIItems.Add(instance);
             }
         }

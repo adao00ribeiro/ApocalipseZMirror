@@ -167,21 +167,17 @@ public class Inventory : NetworkBehaviour
 
     internal void CmdMoveWeaponManager(int slotenter, int SlotSelecionado)
     {
-        print(slotenter + "         " + SlotSelecionado);
-        SlotInventoryTemp slot;
+        WeaponManager weaponManager = GetComponent<WeaponManager>();
+        SlotInventoryTemp slot = weaponManager.container[SlotSelecionado];
+        weaponManager.container[SlotSelecionado] = GetSlot(slotenter);
+        AddItem(slotenter, slot);
+    }
 
-        if (SlotSelecionado == 0)
-        {
-            slot = GetComponent<WeaponManager>().PrimaryWeapon;
-            GetComponent<WeaponManager>().PrimaryWeapon = GetSlot(slotenter);
-            AddItem(slotenter, slot);
-        }
-        else
-        {
-            slot = GetComponent<WeaponManager>().SecundaryWeapon;
-            GetComponent<WeaponManager>().SecundaryWeapon = GetSlot(slotenter);
-            AddItem(slotenter, slot);
-        }
-
+    internal void CmdMoveFastItemManager(int slotenter, int SlotSelecionado)
+    {
+        FastItemsManager fastitems = GetComponent<FastItemsManager>();
+        SlotInventoryTemp slot = fastitems.container[SlotSelecionado];
+        fastitems.container[SlotSelecionado] = inventory[slotenter];
+        inventory[slotenter] = slot;
     }
 }
