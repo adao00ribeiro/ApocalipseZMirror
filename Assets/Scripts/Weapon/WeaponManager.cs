@@ -198,7 +198,9 @@ namespace ApocalipseZ
             {
                 return;
             }
+
             activeSlot = Instantiate(tempArms.PrefabArmsWeapon, swayTransform).GetComponent<Weapon>();
+
             activeSlot.Cam = fpsplayer.GetFirstPersonCamera();
             activeSlot.CurrentAmmo = ammo;
             activeSlot.gameObject.SetActive(true);
@@ -211,7 +213,6 @@ namespace ApocalipseZ
         {
             if (activeSlot != null)
             {
-                weaponHolderAnimator.Play("Unhide");
                 DesEquipWeapon();
             }
             DataArmsWeapon tempArms = null;
@@ -228,7 +229,7 @@ namespace ApocalipseZ
             activeSlot.Cam = fpsplayer.GetFirstPersonCamera();
             activeSlot.CurrentAmmo = ammo;
             activeSlot.gameObject.SetActive(true);
-            weaponHolderAnimator.Play("Unhide");
+            weaponHolderAnimator.SetBool("HideWeapon", false);
         }
         private void SelecionaWeapon()
         {
@@ -291,7 +292,7 @@ namespace ApocalipseZ
         {
             if (activeSlot != null)
             {
-                weaponHolderAnimator.Play("Hide");
+                weaponHolderAnimator.SetBool("HideWeapon", true);
                 Destroy(activeSlot.gameObject);
                 activeSlot = null;
             }

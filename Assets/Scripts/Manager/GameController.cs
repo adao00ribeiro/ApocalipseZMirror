@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using FishNet;
+using FishNet.Component.Spawning;
 using UnityEngine;
 
 namespace ApocalipseZ
@@ -43,9 +45,11 @@ namespace ApocalipseZ
                 _instance = this;
             }
             InitManagers();
-        
+            PlayerSpawner spawner = InstanceFinder.NetworkManager.GetComponent<PlayerSpawner>();
+            spawner.Spawns = new Transform[1];
+            spawner.Spawns[0] = GameObject.Find("SpawPoint").transform;
         }
-            
+
         public void InitManagers()
         {
 
@@ -62,42 +66,42 @@ namespace ApocalipseZ
             }
 
         }
-/*
-        public void SpawPlayer(GameObject player = null)
-        {
-            if (Player == null)
-            {
-                return;
-            }
-
-            SpawPoint = GameObject.Find("SpawPoint");
-
-            if (SpawPoint == null)
-            {
-                if (player == null)
+        /*
+                public void SpawPlayer(GameObject player = null)
                 {
-                    Instantiate(Player).transform.position = transform.position;
-                }
-                else
-                {
-                    player.transform.position = transform.position;
-                }
+                    if (Player == null)
+                    {
+                        return;
+                    }
 
-            }
-            else
-            {
-                if (player == null)
-                {
-                    Instantiate(Player, SpawPoint.transform.position, SpawPoint.transform.rotation);
-                }
-                else
-                {
-                    player.transform.position = SpawPoint.transform.position;
-                }
+                    SpawPoint = GameObject.Find("SpawPoint");
 
-            }
-        }
-*/
+                    if (SpawPoint == null)
+                    {
+                        if (player == null)
+                        {
+                            Instantiate(Player).transform.position = transform.position;
+                        }
+                        else
+                        {
+                            player.transform.position = transform.position;
+                        }
+
+                    }
+                    else
+                    {
+                        if (player == null)
+                        {
+                            Instantiate(Player, SpawPoint.transform.position, SpawPoint.transform.rotation);
+                        }
+                        else
+                        {
+                            player.transform.position = SpawPoint.transform.position;
+                        }
+
+                    }
+                }
+        */
         private static GameController _instance;
         public static GameController Instance
         {
@@ -107,7 +111,7 @@ namespace ApocalipseZ
                 return _instance;
             }
         }
-      
+
         public CanvasFpsPlayer CanvasFpsPlayer
         {
             get

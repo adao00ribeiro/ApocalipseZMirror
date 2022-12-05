@@ -175,6 +175,9 @@ namespace ApocalipseZ
         {
             base.OnStartServer();
 
+            FirstPersonCamera.GetComponent<Camera>().enabled = false;
+            FirstPersonCamera.RemoveAudioListener();
+
         }
         public override void OnStartClient()
         {
@@ -190,18 +193,14 @@ namespace ApocalipseZ
                     mesh[i].layer = 7;
                 }
 
-            }
-            else
-            {
-                FirstPersonCamera.GetComponent<Camera>().enabled = false;
-                FirstPersonCamera.RemoveAudioListener();
-            }
 
-            Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            CanvasFpsPlayer CanvasFpsPlayer = GameObject.FindObjectOfType<CanvasFpsPlayer>();
-            CanvasFpsPlayer.SetFirtPersonCamera(FirstPersonCamera);
-            CanvasFpsPlayer.SetPlayerStats(PlayerStats);
-            CmdSetupPlayer("player", color);
+
+                Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                CanvasFpsPlayer CanvasFpsPlayer = GameObject.FindObjectOfType<CanvasFpsPlayer>();
+                CanvasFpsPlayer.SetFirtPersonCamera(FirstPersonCamera);
+                CanvasFpsPlayer.SetPlayerStats(PlayerStats);
+                CmdSetupPlayer("player", color);
+            }
         }
         void PlayerColorChanged(Color32 _, Color32 newPlayerColor, bool asServer)
         {

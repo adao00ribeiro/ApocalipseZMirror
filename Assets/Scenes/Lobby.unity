@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 40cb08475cbb4714eb0b2bf5efe0f286,
+  m_LightingDataAsset: {fileID: 112000000, guid: 26e65bd7c7044f347a164647152994de,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 59e2ae323b4333d44a33996af3fcb06f,
     type: 2}
@@ -12990,7 +12990,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 934570884, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
 --- !u!1 &2106290737 stripped
 GameObject:

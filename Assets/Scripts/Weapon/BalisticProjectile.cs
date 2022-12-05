@@ -18,6 +18,8 @@ namespace ApocalipseZ
         public int damageMinimum;
         public int damageMaximum;
 
+
+
         private void OnEnable()
         {
             GetComponent<Rigidbody>().AddForce(transform.forward * initialVelocity);
@@ -25,30 +27,30 @@ namespace ApocalipseZ
             lastPosition = transform.position;
         }
 
-     
+
         private void Update()
         {
-            if(base.IsServer){
-                
-            time += Time.deltaTime;
+            if (base.IsServer)
+            {
 
-            RaycastHit hit;
-            if (Physics.Linecast(lastPosition, transform.position, out hit))
-            {
-                //HitFXManager.Instance.ApplyFX ( hit );
-                IStats stat = hit.collider.GetComponent<IStats>();
-                if (stat != null)
+                time += Time.deltaTime;
+
+                RaycastHit hit;
+                if (Physics.Linecast(lastPosition, transform.position, out hit))
                 {
-                    stat.TakeDamage(Random.Range(damageMinimum, damageMaximum));
+                    GameController.Instance.HitFXManager.ApplyFX(hit);
+                    IStats stat = hit.collider.GetComponent<IStats>();
+                    if (stat != null)
+                    {
+                        stat.TakeDamage(Random.Range(damageMinimum, damageMaximum));
+                    }
+                    base.Despawn();
                 }
-               
-                base.Despawn();
-            }
-            lastPosition = transform.position;
-            if (time > livingTime)
-            {
-                 base.Despawn();
-            }
+                lastPosition = transform.position;
+                if (time > livingTime)
+                {
+                    base.Despawn();
+                }
             }
         }
 
