@@ -66,9 +66,9 @@ namespace ApocalipseZ
 
         }
 
-        public void Aim(bool v)
+        public bool Aim(bool v)
         {
-
+            return false;
         }
         public void MeleeHit()
         {
@@ -96,6 +96,16 @@ namespace ApocalipseZ
                     hit.rigidbody.AddForceAtPosition(weaponSetting.meleeRigidbodyHitForce * Camera.main.transform.forward, hit.point);
                 }
             }
+
+        }
+
+        bool IWeapon.ReloadBegin()
+        {
+            return false;
+        }
+
+        public void InvokeRealodEnd()
+        {
 
         }
     }

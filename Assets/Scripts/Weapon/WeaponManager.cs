@@ -112,14 +112,11 @@ namespace ApocalipseZ
             }
             if (InputManager.GetReload())
             {
-                activeSlot.ReloadBegin();
-
+                CmdRealodBegin();
             }
             if (InputManager.GetAim() && !fpsplayer.GetMoviment().CheckIsRun())
             {
-                activeSlot.Aim(true);
-                weaponHolderAnimator.SetBool("Walk", false);
-                weaponHolderAnimator.SetBool("Run", false);
+                CmdAim();
             }
             else
             {
@@ -181,6 +178,39 @@ namespace ApocalipseZ
         public void RpcFire(NetworkConnection conn)
         {
             activeSlot.PlayFX();
+        }
+        [ServerRpc]
+        public void CmdRealodBegin()
+        {
+            if (activeSlot.ReloadBegin())
+            {
+                RpcRealodBegin(base.Owner);
+            }
+            AmmoNetwork = activeSlot.CurrentAmmo;
+        }
+
+        [TargetRpc]
+        public void RpcRealodBegin(NetworkConnection conn)
+        {
+            activeSlot.InvokeRealodEnd();
+        }
+
+
+        [ServerRpc]
+        public void CmdAim()
+        {
+            if (activeSlot.Aim(true))
+            {
+                RpcAim(base.Owner);
+            }
+            weaponHolderAnimator.SetBool("Walk", false);
+            weaponHolderAnimator.SetBool("Run", false);
+        }
+        [TargetRpc]
+        public void RpcAim(NetworkConnection conn)
+        {
+            weaponHolderAnimator.SetBool("Walk", false);
+            weaponHolderAnimator.SetBool("Run", false);
         }
         [ServerRpc]
         public void CmdSlotChange(GameObject target)

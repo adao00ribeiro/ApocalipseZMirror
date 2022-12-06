@@ -102,10 +102,12 @@ namespace ApocalipseZ
 
         internal DataAudio GetDataAudio(string Name)
         {
+
             DataAudio temp = null;
             foreach (DataAudio item in ListAudios)
             {
-                if (item.Name == Name)
+
+                if (item.Name.Equals(Name))
                 {
                     temp = item;
                 }

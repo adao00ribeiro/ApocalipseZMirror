@@ -140,11 +140,11 @@ namespace ApocalipseZ
             }
             return false;
         }
-        public void ReloadBegin()
+        public bool ReloadBegin()
         {
             if (reloading)
             {
-                return;
+                return false;
             }
             if (CalculateTotalAmmo() > 0)
             {
@@ -160,10 +160,17 @@ namespace ApocalipseZ
 
                 audioSource.PlayOneShot(reloadSFX);
 
-                Invoke("ReloadEnd", reloadAnimationDuration);
+                InvokeRealodEnd();
+
+                return true;
             }
             else
-                return;
+                return false;
+        }
+
+        public void InvokeRealodEnd()
+        {
+            Invoke("ReloadEnd", reloadAnimationDuration);
         }
         public int CalculateTotalAmmo()
         {
@@ -209,16 +216,16 @@ namespace ApocalipseZ
 
         }
 
-        public void Aim(bool isAim)
+        public bool Aim(bool isAim)
         {
             setAim = isAim;
             if (Animator == null)
             {
-                return;
+                return false;
             }
             if (useAnimator)
             {
-                Animator.SetBool("Aim", isAim);
+                PlayFxAim();
             }
             if (setAim)
             {
@@ -234,12 +241,13 @@ namespace ApocalipseZ
 
             if (!reloading && useAnimator)
             {
-                Animator.SetBool("Aim", setAim);
+                PlayFxAim();
             }
             else
             {
                 setAim = false;
             }
+            return setAim;
         }
         /*
         public void ThrowGrenade()
@@ -264,6 +272,10 @@ namespace ApocalipseZ
             audioSource.Stop();
             audioSource.PlayOneShot(shotSFX);
 
+        }
+        public void PlayFxAim()
+        {
+            Animator.SetBool("Aim", setAim);
         }
         public DataArmsWeapon GetScriptableWeapon()
         {

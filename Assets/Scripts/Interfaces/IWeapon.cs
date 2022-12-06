@@ -9,7 +9,9 @@ public interface IWeapon
     GameObject gameObject { get; }
     string WeaponName { get; }
     bool Fire();
-    void ReloadBegin();
-    void Aim(bool v);
+    bool ReloadBegin();
+
+    void InvokeRealodEnd();
+    bool Aim(bool v);
     bool SetAim { get; }
 }
