@@ -46,7 +46,7 @@ namespace ApocalipseZ
         [Header("Fire mode")]
         public FireMode fireMode;
 
-        private Animator Animator;
+        [SerializeField] private Animator Animator;
         [SerializeField] private Sway sway;
         [SerializeField] private Recoil recoilComponent;
         [SerializeField] private AudioSource audioSource;
@@ -92,11 +92,7 @@ namespace ApocalipseZ
 
             temp_MuzzleFlashParticlesFX = Instantiate(DataParticles.Particles, muzzleFlashTransform);
         }
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
 
 
         public bool Fire()
